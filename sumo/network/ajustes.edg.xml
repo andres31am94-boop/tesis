@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ajustes de carriles verificados con Google Street View por los autores (2026-10-05).
+  Resultado de la verificacion: OSM COINCIDE con la realidad, no se requieren cambios por ahora.
+  - Carrera 23 SUR del cruce: calzadas separadas por un separador leve, 2 carriles por sentido
+    (en la llegada al cruce hay flechas pintadas: carril interior = giro a la izquierda,
+    carril exterior = recto). OSM: 2 carriles por calzada -> correcto.
+  - Carrera 23 NORTE (puente): una sola calzada, doble linea amarilla, 1 carril por sentido.
+    OSM: 1 carril -> correcto.
+  - Diagonal 15: calzadas separadas por un separador pequeno; sin lineas de carril, pero caben
+    2 vehiculos lado a lado por sentido. OSM: 2 carriles -> se mantiene (aproximacion).
+  Si una verificacion futura en campo encuentra diferencias, se corrigen aqui, por ejemplo:
+    <edge id="807940779" numLanes="1"/>
+-->
+<edges>
+</edges>

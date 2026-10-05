@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Tipos de via usados al importar OpenStreetMap.
+  Motivo: el mapa de tipos por defecto de SUMO asigna 100 km/h a "highway.primary"
+  (Carrera 23), lo que no es realista en un casco urbano.
+  Velocidad: 13.89 m/s = 50 km/h para todas las vias. PROVISIONAL: verificar el
+  limite urbano vigente en Colombia y citar la norma.
+  El numero de carriles real lo toma de la etiqueta "lanes" de OSM cuando existe;
+  numLanes solo aplica si OSM no la tiene.
+-->
+<types>
+    <type id="highway.primary"      priority="12" numLanes="1" speed="13.89" oneway="false"/>
+    <type id="highway.secondary"    priority="11" numLanes="1" speed="13.89" oneway="false"/>
+    <type id="highway.tertiary"     priority="10" numLanes="1" speed="13.89" oneway="false"/>
+    <type id="highway.unclassified" priority="5"  numLanes="1" speed="13.89" oneway="false"/>
+    <type id="highway.residential"  priority="4"  numLanes="1" speed="13.89" oneway="false"/>
+</types>

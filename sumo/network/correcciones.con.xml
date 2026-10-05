@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Correcciones de conexiones (movimientos permitidos en el cruce).
+  La Carrera 23 al sur del cruce esta dibujada en OSM como dos calzadas separadas,
+  por eso netconvert no reconoce como "vuelta en U" el paso de la calzada que llega
+  (807940779) a la que sale (642480899). Se prohibe explicitamente.
+-->
+<connections>
+    <delete from="807940779" to="642480899"/>
+</connections>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Configuracion de netconvert: convierte el mapa de OpenStreetMap en la red de SUMO.
+  Interseccion: Carrera 23 con Diagonal 15, Acacias (Meta).
+  PASO 1 de 2: importacion desde OSM -> acacias_osm.net.xml (red "cruda").
+  El PASO 2 (acacias_ajustes.netccfg) aplica las correcciones verificadas en campo.
+  Uso (desde tesis\sumo\network):  netconvert -c acacias.netccfg
+  Las rutas relativas se resuelven desde la ubicacion de este archivo.
+-->
+<configuration>
+    <input>
+        <!-- Mapa original descargado de openstreetmap.org (no se modifica a mano) -->
+        <osm-files value="osm/acacias_cra23_diag15.osm"/>
+        <!-- v2: tipos de via propios (velocidad urbana 50 km/h) -->
+        <type-files value="tipos_vias.typ.xml"/>
+    </input>
+
+    <output>
+        <output-file value="acacias_osm.net.xml"/>
+        <!-- Conserva los nombres reales de las calles para reconocerlas en sumo-gui -->
+        <output.street-names value="true"/>
+        <output.original-names value="true"/>
+    </output>
+
+    <edge_removal>
+        <!-- Solo vias vehiculares relevantes; descarta andenes, senderos y vias de servicio -->
+        <keep-edges.by-type value="highway.primary,highway.secondary,highway.tertiary,highway.residential,highway.unclassified"/>
+        <!-- v2: se eliminan la Carrera 24 y la Calle 16A. El modelo representa UNA interseccion
+             (igual que la maqueta); esas vias crean cruces adicionales que no se controlan. -->
+        <remove-edges.explicit value="225171016#0,225171016#1,-225171016#0,-225171016#1,1091387371#0,1091387371#1,-1091387371#0,-1091387371#1"/>
+    </edge_removal>
+
+    <processing>
+        <!-- Simplifica nodos intermedios que solo dibujan la curva de la calle -->
+        <geometry.remove value="true"/>
+        <!-- En OSM un cruce de vias con dos calzadas queda partido en varios nodos;
+             esto los une en una sola interseccion si estan a menos de 15 m -->
+        <junctions.join value="true"/>
+        <junctions.join-dist value="15"/>
+        <!-- Prohibe que los vehiculos den la vuelta en U dentro del cruce -->
+        <no-turnarounds value="true"/>
+    </processing>
+
+    <tls_building>
+        <!-- v2: en OSM las senales estan dibujadas sobre los accesos (a 6-11 m del cruce),
+             no sobre el nodo del cruce, por eso v1 NO creo el semaforo. Se declara explicitamente
+             el cruce (id generado al unir los nodos 12995046887 y 9702926134) como semaforo. -->
+        <tls.set value="cluster_12995046887_9702926134"/>
+        <tls.discard-simple value="true"/>
+        <!-- Programa de tiempos fijos (provisional; se reemplaza en la Fase 3) -->
+        <tls.default-type value="static"/>
+    </tls_building>
+</configuration>
