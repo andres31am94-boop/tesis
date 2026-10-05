@@ -1,0 +1,24 @@
+# Entorno virtual de Python
+.venv/
+__pycache__/
+*.pyc
+
+# Datos y resultados pesados (se regeneran con los scripts)
+data/raw/
+data/processed/
+*.mp4
+*.avi
+
+# Pesos de modelos YOLO descargados (se documenta la versión, no se sube el archivo)
+*.pt
+*.onnx
+
+# Salidas temporales de SUMO
+*.log
+sumo/**/output/
+
+# Sistema operativo / editores
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
