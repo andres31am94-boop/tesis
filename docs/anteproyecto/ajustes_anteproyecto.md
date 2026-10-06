@@ -154,3 +154,56 @@ se puede modificar
 **Cambio de redacción en el Resumen y el Abstract:** reemplazar "Se espera que el sistema logre reducir en al menos un 20 %…" por "Se espera que el sistema reduzca de forma estadísticamente significativa los tiempos de espera vehicular frente al esquema tradicional…" (y su equivalente en inglés: "The intelligent system is expected to significantly reduce vehicle waiting times compared to the traditional scheme…").
 
 **Por qué es mejor:** el 20 % era una cifra fijada antes de medir. Con la nueva redacción, la hipótesis se contrasta con una prueba estadística, y el porcentaje real de mejora se reporta como resultado, sea cual sea.
+
+
+---
+
+## Corrección del marco geográfico (2026-10-04)
+
+**Motivo:** la intersección de referencia elegida por los autores está en **Acacías (Meta)**, no en Villavicencio. El anteproyecto actual sitúa todo el marco geográfico en Villavicencio.
+
+**Intersección de referencia:** Carrera 23 con Diagonal 15, Acacías, Meta (coordenadas aproximadas 3.990091, -73.765749). Mapa en `docs/fases/img/interseccion_mapa.png`.
+
+### Opción 1 (recomendada): contexto regional + caso de estudio en Acacías
+Se mantiene el párrafo sobre Villavicencio como contexto regional (capital del Meta) y se agrega:
+
+> El escenario de simulación y el prototipo físico toman como referencia una intersección real del municipio de Acacías, Meta: el cruce de la Carrera 23 con la Diagonal 15. Acacías, al igual que Villavicencio, pertenece a la región de los Llanos Orientales y presenta un crecimiento urbano y vehicular que hace pertinente evaluar alternativas de semaforización. La elección de esta intersección responde a criterios de viabilidad técnica: se trata de un cruce de cuatro brazos, accesible para los investigadores y susceptible de ser modelado en el simulador y reproducido en una maqueta a escala.
+
+**Muestra — reemplazar** "una intersección vial simulada dentro del entorno SUMO, diseñada para representar condiciones reales de tráfico urbano" **por:**
+> La muestra corresponde a la intersección de la Carrera 23 con la Diagonal 15 del municipio de Acacías, Meta, modelada en el entorno SUMO a partir de datos de OpenStreetMap verificados por los investigadores, e incluye variaciones en el flujo vehicular.
+
+### Opción 2: trasladar todo el marco geográfico a Acacías
+Reescribir la sección completa centrada en Acacías. Es más coherente, pero exige buscar y citar fuentes sobre movilidad en Acacías (parque automotor, crecimiento), que pueden ser más escasas que las de Villavicencio.
+
+**Decisión de los autores (2026-10-05): Opción 2** — Acacías como único marco geográfico. Ver el borrador abajo.
+
+> Antes de redactar datos de Acacías (población, parque automotor, distancia a Villavicencio), buscar fuentes oficiales (DANE, Alcaldía de Acacías, Secretaría de Movilidad). No incluir cifras sin fuente.
+
+
+### Borrador del nuevo Marco Geográfico (Opción 2)
+
+> Los textos entre corchetes **[ ]** son datos que deben completarse con una fuente oficial **antes** de entregar. No se deben llenar con cifras sin fuente.
+
+**Marco Geográfico**
+
+> El presente proyecto se contextualiza en el municipio de Acacías, ubicado en el departamento del Meta, en la región de la Orinoquía colombiana [ubicación respecto a Villavicencio y altitud — fuente: Ficha Municipal de Acacías, Gobernación del Meta]. [Población total y de la cabecera urbana — fuente: DANE, Censo Nacional de Población y Vivienda 2018 o proyecciones de población vigentes].
+>
+> En los últimos años el municipio ha presentado un crecimiento urbano y vehicular [cifra o indicador que lo respalde — fuente: Plan de Desarrollo Municipal de Acacías, RUNT u organismo de tránsito municipal], que se refleja en la acumulación de vehículos en intersecciones del casco urbano reguladas por semáforos de tiempos fijos, que no se adaptan a las variaciones del flujo a lo largo del día.
+>
+> Como caso de estudio se seleccionó la intersección de la Carrera 23 con la Diagonal 15, un cruce semaforizado de cuatro brazos con un carril por sentido en cada vía. La elección responde a criterios de viabilidad técnica: es accesible para los investigadores, permite la observación directa de su funcionamiento actual y puede modelarse en el simulador SUMO y reproducirse en una maqueta a escala.
+>
+> Aunque el proyecto se desarrolla en un entorno de simulación y en un prototipo físico, los escenarios buscan aproximarse a las condiciones de esta intersección. Se tienen en cuenta su geometría, el número de carriles, los tiempos semafóricos observados y la variabilidad de la demanda. Así, los resultados pueden servir como referencia para intersecciones similares en el municipio y en otras ciudades intermedias de la región.
+
+**Otras secciones que mencionan Villavicencio y deben ajustarse:**
+| Sección | Texto actual | Cambio |
+|---|---|---|
+| Resumen | "…ciudades como Villavicencio…" | "…municipios como Acacías (Meta)…" |
+| Abstract | "…cities like Villavicencio…" | "…municipalities such as Acacías (Meta)…" |
+| Marco institucional | "…convenios con la Secretaría de Movilidad local, tránsito y transporte de Villavicencio y el Meta" | Reemplazar por el organismo de tránsito de Acacías [verificar el nombre oficial en acacias.gov.co] |
+| Muestra | "una intersección vial simulada…" | Usar el texto de la Opción 1 (Carrera 23 con Diagonal 15) |
+| Datos institucionales de la portada | "Extensión Villavicencio" | **No cambiar**: es la sede de la universidad, no el lugar de estudio |
+
+**Fuentes candidatas para completar los corchetes:**
+- Gobernación del Meta. *Ficha Municipal Acacías* (2020). https://devx.meta.gov.co/media/centrodocumentacion/2021/08/10/c._Ficha_Municipal_Acacias_2020.pdf
+- DANE. Censo Nacional de Población y Vivienda 2018 / proyecciones de población. https://www.dane.gov.co
+- Alcaldía de Acacías. https://acacias.gov.co/ (Plan de Desarrollo Municipal, organismo de tránsito)

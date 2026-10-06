@@ -1,0 +1,9 @@
+brazo_llegada,movimiento,vehiculos_hora
+norte,recto,240
+norte,derecha,60
+sur,recto,240
+sur,derecha,60
+este,recto,240
+este,derecha,60
+oeste,recto,240
+oeste,derecha,60

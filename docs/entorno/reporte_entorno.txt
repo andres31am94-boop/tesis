@@ -1,4 +1,4 @@
-﻿Reporte de entorno - 2026-10-03 19:20
+﻿Reporte de entorno - 2026-10-04 22:00
 
 === Sistema operativo y hardware ===
 [Sistema operativo]
@@ -10,7 +10,7 @@ Intel(R) Core(TM) i7-10510U CPU @ 1.80GHz
 [RAM total (GB)]
 7,8
 [Espacio libre en C: (GB)]
-29,5
+32,5
 
 === GPU ===
 [Tarjetas de video]
@@ -35,16 +35,25 @@ pip 25.2 from C:\Users\andre\AppData\Local\Programs\Python\Python311\Lib\site-pa
 
 === SUMO ===
 [Variable SUMO_HOME]
-NO DEFINIDA
+C:\Program Files (x86)\Eclipse\Sumo\
 [Ubicacion de sumo]
-where.exe : INFORMACIÓN: no se pudo encontrar ningún archivo para los patrones dados.
-En C:\Users\andre\Documents\tesis\scripts\check_entorno.ps1: 47 Carácter: 30
-+ Probar "Ubicacion de sumo" { where.exe sumo }
-+                              ~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (INFORMACIÓN: no...patrones dados.:String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
+C:\Program Files (x86)\Eclipse\Sumo\bin\sumo.exe
 [sumo --version]
-NO ENCONTRADO -> El término 'sumo' no se reconoce como nombre de un cmdlet, función, archivo de script o programa ejecutable. Compruebe si escribió correctamente el nombre o, si incluyó una ruta de acceso, compruebe que dicha ruta es correcta e inténtelo de nuevo.
+Eclipse SUMO sumo 1.27.1
+ Build features: Windows-10.0.17763 AMD64 MSVC 19.29.30133.0 Release FMI Proj GUI FMT SWIG Parquet Eigen
+ Copyright (C) 2001-2026 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+
+Eclipse SUMO sumo 1.27.1 is part of SUMO.
+This program and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+This program may also be made available under the following Secondary
+Licenses when the conditions for such availability set forth in the Eclipse
+Public License 2.0 are satisfied: GNU General Public License, version 2
+or later which is available at
+https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 === Git ===
 [git --version]
@@ -118,25 +127,9 @@ En C:\Users\andre\Documents\tesis\scripts\check_entorno.ps1: 56 Carácter: 31
   File "<string>", line 1, in <module>
 ModuleNotFoundError: No module named 'serial'
 [import traci]
-python : Traceback (most recent call last):
-En C:\Users\andre\Documents\tesis\scripts\check_entorno.ps1: 56 Carácter: 31
-+ ...  $modulo" { python -c "import $modulo as m; print(getattr(m, '__versi ...
-+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
-  File "<string>", line 1, in <module>
-ModuleNotFoundError: No module named 'traci'
+0.0.0
 [import sumolib]
-python : Traceback (most recent call last):
-En C:\Users\andre\Documents\tesis\scripts\check_entorno.ps1: 56 Carácter: 31
-+ ...  $modulo" { python -c "import $modulo as m; print(getattr(m, '__versi ...
-+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
-    + FullyQualifiedErrorId : NativeCommandError
- 
-  File "<string>", line 1, in <module>
-ModuleNotFoundError: No module named 'sumolib'
+1.27.1
 [PyTorch con CUDA]
 python : Traceback (most recent call last):
 En C:\Users\andre\Documents\tesis\scripts\check_entorno.ps1: 58 Carácter: 29

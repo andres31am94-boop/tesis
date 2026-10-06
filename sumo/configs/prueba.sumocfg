@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Escenario de PRUEBA (demanda inventada, NO valida para resultados).
+  Uso (desde tesis\sumo\configs):  sumo-gui -c prueba.sumocfg
+-->
+<configuration>
+    <input>
+        <net-file value="../network/acacias.net.xml"/>
+        <route-files value="../routes/prueba.rou.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+    <random_number>
+        <!-- Misma semilla = mismo trafico. Cambiarla para obtener otra repeticion del experimento. -->
+        <seed value="42"/>
+    </random_number>
+    <report>
+        <!-- No mostrar cada advertencia de vehiculos que no pudieron entrar a tiempo -->
+        <no-step-log value="true"/>
+    </report>
+</configuration>

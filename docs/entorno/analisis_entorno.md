@@ -13,7 +13,7 @@ Fuente: `docs/entorno/reporte_entorno.txt`, generado con `scripts/check_entorno.
 | GPU | Intel UHD Graphics, **sin NVIDIA** | No hay CUDA: YOLO se ejecutará en CPU |
 | Python | 3.11.5 en PATH; también 3.13 y Miniconda (3.8) | Varias versiones: usaremos un entorno virtual con 3.11 |
 | pip | 25.2 (Python 3.11) | OK |
-| SUMO / SUMO_HOME | **No instalado** | Instalar (Fase 1) |
+| SUMO / SUMO_HOME | **1.27.1** instalado; `SUMO_HOME = C:\Program Files (x86)\Eclipse\Sumo\` (verificado 2026-10-04) | `traci` y `sumolib` deben instalarse en la misma versión (1.27.1) |
 | Git | 2.53.0 | OK |
 | Librerías globales | numpy, pandas, scipy instalados; faltan matplotlib, yaml, cv2, torch, ultralytics, serial, traci, sumolib | Se instalan **dentro del entorno virtual**, no de forma global |
 | Arduino IDE | Instalado (Program Files) | OK para el ESP32 |

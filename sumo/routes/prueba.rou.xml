@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generado por scripts/generar_demanda.py: NO editar a mano. -->
+<!-- Flujos: sumo/demanda/prueba_flujos.csv | Tipos: sumo/demanda/prueba_tipos.csv | Duracion: 3600 s -->
+<routes>
+    <vTypeDistribution id="mezcla">
+        <vType id="carro" vClass="passenger" guiShape="passenger" probability="0.5"/>
+        <vType id="moto" vClass="motorcycle" guiShape="motorcycle" probability="0.4"/>
+        <vType id="bus" vClass="bus" guiShape="bus" probability="0.05"/>
+        <vType id="camion" vClass="truck" guiShape="truck" probability="0.05"/>
+    </vTypeDistribution>
+    <flow id="norte_recto" type="mezcla" begin="0" end="3600" from="-642480900" to="642480899" probability="0.066667" departLane="best" departSpeed="max"/>
+    <flow id="norte_derecha" type="mezcla" begin="0" end="3600" from="-642480900" to="1414166244" probability="0.016667" departLane="best" departSpeed="max"/>
+    <flow id="sur_recto" type="mezcla" begin="0" end="3600" from="807940779" to="1414166243" probability="0.066667" departLane="best" departSpeed="max"/>
+    <flow id="sur_derecha" type="mezcla" begin="0" end="3600" from="807940779" to="1414166246#0" probability="0.016667" departLane="best" departSpeed="max"/>
+    <flow id="este_recto" type="mezcla" begin="0" end="3600" from="816899410#0" to="1414166244" probability="0.066667" departLane="best" departSpeed="max"/>
+    <flow id="este_derecha" type="mezcla" begin="0" end="3600" from="816899410#0" to="1414166243" probability="0.016667" departLane="best" departSpeed="max"/>
+    <flow id="oeste_recto" type="mezcla" begin="0" end="3600" from="44411778#0" to="1414166246#0" probability="0.066667" departLane="best" departSpeed="max"/>
+    <flow id="oeste_derecha" type="mezcla" begin="0" end="3600" from="44411778#0" to="642480899" probability="0.016667" departLane="best" departSpeed="max"/>
+</routes>

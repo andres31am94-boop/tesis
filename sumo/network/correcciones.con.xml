@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Correcciones de conexiones (movimientos permitidos en el cruce).
-  La Carrera 23 al sur del cruce esta dibujada en OSM como dos calzadas separadas,
-  por eso netconvert no reconoce como "vuelta en U" el paso de la calzada que llega
-  (807940779) a la que sale (642480899). Se prohibe explicitamente.
+  Fuente: observacion de los autores (2026-10-05).
+
+  1) GIRO A LA IZQUIERDA PROHIBIDO en los 4 brazos: desde cualquier brazo solo se puede
+     seguir recto o girar a la derecha. OSM no tiene esa restriccion, por eso netconvert
+     habia creado los giros a la izquierda.
+  2) Vuelta en U prohibida en la Carrera 23 sur (OSM la dibuja como dos calzadas separadas
+     y netconvert no la reconoce como vuelta en U).
+  3) Carrera 23 sur, carril interior (indice 1): al quitar el giro a la izquierda quedaba sin
+     ningun movimiento. Segun las flechas pintadas en la via, ese carril es para seguir recto.
 -->
 <connections>
-    <delete from="807940779" to="642480899"/>
+    <!-- 1) Giros a la izquierda prohibidos -->
+    <delete from="-642480900"  to="1414166246#0"/>  <!-- Norte (Cra 23) -> Este (Dg 15) -->
+    <delete from="816899410#0" to="642480899"/>     <!-- Este (Dg 15)  -> Sur (Cra 23)  -->
+    <delete from="807940779"   to="1414166244"/>    <!-- Sur (Cra 23)  -> Oeste (Dg 15) -->
+    <delete from="44411778#0"  to="1414166243"/>    <!-- Oeste (Dg 15) -> Norte (Cra 23) -->
+
+    <!-- 2) Vuelta en U prohibida -->
+    <delete from="807940779" to="642480899"/>       <!-- Sur (Cra 23) -> Sur (Cra 23) -->
+
+    <!-- 3) Carril interior de la Cra 23 sur: recto hacia el norte (puente, 1 carril) -->
+    <connection from="807940779" to="1414166243" fromLane="1" toLane="0"/>
 </connections>
