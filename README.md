@@ -20,8 +20,8 @@ Este proyecto controla un semáforo con un agente de **Aprendizaje por Refuerzo 
 | Fase | Descripción | Estado |
 |---|---|---|
 | 0 | Planificación y arquitectura | VALIDADO |
-| 1 | Intersección en SUMO (Cra 23 × Dg 15, Acacías) | EN DESARROLLO — red validada; falta demanda |
-| 2 | Python + TraCI | PLANIFICADO |
+| 1 | Intersección en SUMO (Cra 23 × Dg 15, Acacías) | VALIDADO (demanda de prueba; pendiente aforo real) |
+| 2 | Python + TraCI | EN DESARROLLO |
 | 3 | Baseline de tiempos fijos + capa de seguridad | PLANIFICADO |
 | 4–6 | Entorno RL, entrenamiento y control adaptativo | PLANIFICADO |
 | 7–9 | Visión artificial (YOLO + tracking) | PLANIFICADO |

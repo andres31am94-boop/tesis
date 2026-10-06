@@ -1,0 +1,26 @@
+# Interseccion Carrera 23 con Diagonal 15, Acacias (Meta).
+# Datos de la red sumo/network/acacias.net.xml (verificados el 2026-10-06).
+# Este es el UNICO lugar donde se escriben estos IDs: el codigo los lee de aqui.
+
+semaforo_id: "cluster_12995046887_9702926134"
+
+# Espacio que ocupa un vehiculo en cola (m): largo 5 m + separacion 2.5 m,
+# valores por defecto de SUMO para un automovil (vClass passenger).
+# Se usa para calcular la capacidad de cada brazo y la "cola relativa".
+espacio_por_vehiculo_m: 7.5
+
+# Brazos de llegada: edge de SUMO y eje al que pertenecen.
+brazos:
+  norte: {edge: "-642480900",  eje: "cra23"}
+  sur:   {edge: "807940779",   eje: "cra23"}
+  este:  {edge: "816899410#0", eje: "dg15"}
+  oeste: {edge: "44411778#0",  eje: "dg15"}
+
+# Luces de cada fase. 12 letras = 3 por brazo, en el orden: norte, este, sur, oeste.
+# G = verde con prioridad, g = verde cediendo el paso, y = amarillo, r = rojo.
+luces:
+  verde_dg15:     "rrrGGGrrrGGG"
+  amarillo_dg15:  "rrryyyrrryyy"
+  verde_cra23:    "GGGrrrGgGrrr"
+  amarillo_cra23: "yyyrrryyyrrr"
+  todo_rojo:      "rrrrrrrrrrrr"
