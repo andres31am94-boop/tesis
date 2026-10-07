@@ -1,0 +1,5 @@
+# Parametros de cada corrida de simulacion (PROVISIONALES, 2026-10-06).
+calentamiento_s: 300       # la red empieza vacia: se excluyen de las metricas los vehiculos que
+                           # debian entrar antes de este tiempo (evita medir un cruce "irrealmente vacio")
+duracion_demanda_s: 3600   # tiempo durante el cual entran vehiculos (debe coincidir con el .rou.xml)
+margen_vaciado_s: 1800     # tiempo maximo extra para que salgan los vehiculos que quedan en la red

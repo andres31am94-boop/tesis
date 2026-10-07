@@ -85,3 +85,24 @@ Registro de lo que se hizo, qué funcionó, qué falló y qué se decidió.
 - `src/simulation/sesion_sumo.py`, `sumo_source.py` (lee), `sumo_actuator.py` (aplica y verifica luces).
 - Prueba de regresión `src/simulation/paso3_modulos.py`: misma secuencia del paso 2; con la misma semilla sus líneas "t = …" deben ser idénticas. Pendiente de ejecución.
 - `requirements.txt` creado (traci/sumolib 1.27.1, pyyaml).
+- Paso 3 **VALIDADO**: las 41 líneas "t = …" de `paso3_modulos` son idénticas a las del paso 2 (misma semilla) → el reordenamiento no cambió el comportamiento. Capacidades calculadas: norte 14,6 · sur 50,1 · este 88,3 · oeste 61,7 vehículos (largo de carriles ÷ 7,5 m). **Fase 2 VALIDADA.**
+- **Hallazgo metodológico:** con la demanda de prueba el brazo norte (puente, 1 carril, 110 m) llega a cola relativa 0,96. Si un brazo se llena, los vehículos esperan fuera de la red y esa espera no aparece en las métricas internas → en la Fase 3 la espera de cada vehículo incluirá el **retraso de entrada** (`departDelay` de SUMO).
+
+## 2026-10-06 — Observación cualitativa de los autores
+- Según la observación de los autores, el cruce presenta congestión recurrente en **horas pico entre semana** y durante **festivales o fiestas**. Implicaciones: (1) el aforo debe incluir un día entre semana en hora pico; (2) candidato a escenario adicional: **evento/festival** (aumento temporal de demanda). Es una observación, no una medición: debe respaldarse con el aforo.
+
+## 2026-10-06 — Fase 3, paso 1: capa de seguridad y controlador de tiempos fijos
+- `config/controlador.yaml` (valores **provisionales**): verde mín. 10 s, máx. 60 s, amarillo 3 s, todo-rojo 2 s; tiempos fijos 42 s por eje (los del programa de SUMO, hasta medir el semáforo real).
+- `src/controller/safety_guard.py`: máquina de fases segura (verde → amarillo → todo-rojo → verde del otro eje); registra verdes, cambios rechazados y forzados. Sin TraCI.
+- `src/controller/tiempos_fijos.py`: baseline; usa el mismo SafetyGuard que usará el agente.
+- `tests/test_safety_guard.py`: 9 pruebas automáticas — **9/9 OK** al ejecutarlas en el entorno de Claude (Python 3.10). Pendiente de ejecución en el PC de los autores.
+- Paso 1 **VALIDADO** en el PC de los autores: 9/9 pruebas OK.
+
+## 2026-10-06 — Fase 3, paso 2: corrida completa del baseline con métricas
+- `config/experimento.yaml` (provisional): calentamiento 300 s, demanda 3600 s, margen de vaciado 1800 s.
+- `src/metrics/metricas.py`: métricas desde `tripinfo` de SUMO. Ventana de medición por **hora programada de entrada** (salida real − `departDelay`), y espera total = espera en la red + retraso de entrada. Pruebas `tests/test_metricas.py` (4) → 13/13 OK en el entorno de Claude.
+- `src/simulation/sesion_sumo.py`: nuevo parámetro `argumentos_extra` (para pedir salidas de SUMO como tripinfo). El comportamiento anterior no cambia.
+- `src/simulation/ejecutar_escenario.py`: SUMO + SafetyGuard + controlador → `results/<escenario>/<controlador>/semilla_<n>/` (`resumen.json`, `series.csv`, `tripinfo.xml`). Pendiente de ejecución.
+- Paso 2 **VALIDADO** (2026-10-06): 13/13 pruebas OK en el PC de los autores. Corrida `prueba` + `tiempos_fijos` + semilla 42 (DEMANDA DE PRUEBA, no es resultado de la tesis): verdes de 42,00 s en ambos ejes, 35 verdes por eje en la ventana 300–3600 s, 0 cambios rechazados/forzados, 0 vehículos sin terminar, 1127 vehículos medidos, retraso de entrada ≈ 0. Coherencia verificada (ciclo 94 s; tiempo perdido ≥ espera).
+- **Reproducibilidad VALIDADA**: la segunda corrida con la misma semilla dio métricas idénticas.
+- Estado Fase 3: funcional. Pendiente: reemplazar en `config/controlador.yaml` los tiempos provisionales por los medidos en campo y justificar los límites con la norma.

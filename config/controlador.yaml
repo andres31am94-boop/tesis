@@ -1,0 +1,18 @@
+# Parametros del control semaforico.
+# TODOS LOS VALORES SON PROVISIONALES (2026-10-06):
+#   - "seguridad": revisar contra el Manual de Senalizacion Vial (Resolucion 1885 de 2015)
+#     y contra lo medido en campo; citar la fuente al fijarlos.
+#   - "tiempos_fijos": deben COPIAR el semaforo real del cruce cuando se mida con cronometro.
+#     Mientras tanto se usan los verdes del programa que genero SUMO (42 s por eje).
+
+seguridad:
+  verde_min_s: 10      # ningun verde puede durar menos (ni por decision del agente)
+  verde_max_s: 60      # ningun verde puede durar mas (evita que un eje espere indefinidamente)
+  amarillo_s: 3        # siempre completo
+  todo_rojo_s: 2       # siempre completo, despeja el cruce antes del siguiente verde
+  eje_inicial: "dg15"  # eje que arranca en verde
+
+tiempos_fijos:
+  verde_s:
+    cra23: 42
+    dg15: 42

@@ -27,3 +27,6 @@ desktop.ini
 # Se reemplazaran por fotos propias tomadas en campo.
 docs/fases/img/streetview_*.png
 docs/fases/img/interseccion_mapa.png
+
+# Salidas crudas de SUMO (se regeneran con la misma semilla)
+results/**/tripinfo.xml

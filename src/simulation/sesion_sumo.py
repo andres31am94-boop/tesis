@@ -11,7 +11,7 @@ import traci    # noqa: E402
 
 
 @contextmanager
-def sesion_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100):
+def sesion_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100, argumentos_extra=None):
     """
     Uso:
         with sesion_sumo("sumo/configs/prueba.sumocfg"):
@@ -29,6 +29,8 @@ def sesion_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100
         comando += ["--seed", str(semilla)]  # reemplaza la semilla del .sumocfg
     if usar_gui:
         comando += ["--start", "--quit-on-end", "--delay", str(retraso_gui_ms)]
+    if argumentos_extra:
+        comando += [str(argumento) for argumento in argumentos_extra]  # p. ej. salidas de SUMO
 
     traci.start(comando)
     try:
