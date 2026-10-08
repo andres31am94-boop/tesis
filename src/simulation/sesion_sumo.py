@@ -10,15 +10,8 @@ import sumolib  # noqa: E402
 import traci    # noqa: E402
 
 
-@contextmanager
-def sesion_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100, argumentos_extra=None):
-    """
-    Uso:
-        with sesion_sumo("sumo/configs/prueba.sumocfg"):
-            ... traci.simulationStep() ...
-    La conexion se cierra siempre al salir del bloque, incluso si hay un error
-    (el error no se oculta: se sigue mostrando).
-    """
+def iniciar_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100, argumentos_extra=None):
+    """Arranca SUMO controlado por TraCI. Quien lo llama debe cerrarlo con traci.close()."""
     archivo_config = Path(archivo_config)
     if not archivo_config.exists():
         raise FileNotFoundError(f"No se encuentra la configuracion de SUMO: {archivo_config}")
@@ -31,8 +24,19 @@ def sesion_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100
         comando += ["--start", "--quit-on-end", "--delay", str(retraso_gui_ms)]
     if argumentos_extra:
         comando += [str(argumento) for argumento in argumentos_extra]  # p. ej. salidas de SUMO
-
     traci.start(comando)
+
+
+@contextmanager
+def sesion_sumo(archivo_config, usar_gui=False, semilla=None, retraso_gui_ms=100, argumentos_extra=None):
+    """
+    Uso:
+        with sesion_sumo("sumo/configs/prueba.sumocfg"):
+            ... traci.simulationStep() ...
+    La conexion se cierra siempre al salir del bloque, incluso si hay un error
+    (el error no se oculta: se sigue mostrando).
+    """
+    iniciar_sumo(archivo_config, usar_gui, semilla, retraso_gui_ms, argumentos_extra)
     try:
         yield
     finally:

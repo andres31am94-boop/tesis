@@ -21,7 +21,10 @@ from pathlib import Path
 import traci
 import yaml
 
+from src.agent.codificador_estado import CodificadorEstado
+from src.agent.qlearning import TablaQ
 from src.common.configuracion import CARPETA_TESIS, cargar_interseccion
+from src.controller.qlearning_controlador import ControladorQLearning
 from src.controller.safety_guard import SafetyGuard
 from src.controller.tiempos_fijos import ControladorTiemposFijos
 from src.metrics.metricas import leer_tripinfo, resumir_colas, resumir_verdes, resumir_viajes
@@ -32,7 +35,8 @@ from src.simulation.sumo_source import SumoSource
 CARPETA_CONFIG = CARPETA_TESIS / "config"
 CARPETA_ESCENARIOS = CARPETA_TESIS / "sumo" / "configs"
 CARPETA_RESULTADOS = CARPETA_TESIS / "results"
-CONTROLADORES = ["tiempos_fijos"]  # el agente se agregara en la Fase 6
+CARPETA_MODELOS = CARPETA_TESIS / "models"
+CONTROLADORES = ["tiempos_fijos", "qlearning"]
 
 
 def leer_yaml(nombre):
@@ -40,13 +44,21 @@ def leer_yaml(nombre):
         return yaml.safe_load(archivo)
 
 
-def crear_controlador(nombre, config_controlador, guard):
+def crear_controlador(nombre, config_controlador, guard, config_interseccion=None, modelo=None):
     if nombre == "tiempos_fijos":
         return ControladorTiemposFijos.desde_config(config_controlador, guard)
+    if nombre == "qlearning":
+        if modelo is None:
+            raise ValueError("El controlador qlearning necesita --modelo (carpeta en models/).")
+        config_agente = leer_yaml("agente.yaml")
+        tabla = TablaQ.cargar(CARPETA_MODELOS / modelo / "tabla_q.json")
+        codificador = CodificadorEstado(config_interseccion, config_agente)
+        return ControladorQLearning(tabla, codificador, guard, config_agente["intervalo_decision_s"],
+                                    config_controlador["tiempos_fijos"]["verde_s"])
     raise ValueError(f"Controlador desconocido: {nombre}. Disponibles: {CONTROLADORES}")
 
 
-def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, ruta_tripinfo):
+def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, ruta_tripinfo, modelo=None):
     """Corre la simulacion y devuelve (filas por segundo, guard, info de cierre)."""
     config_interseccion, config_controlador, config_experimento = configs
     limite = config_experimento["duracion_demanda_s"] + config_experimento["margen_vaciado_s"]
@@ -57,7 +69,8 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
         fuente = SumoSource(config_interseccion)
         actuador = SumoActuator(config_interseccion)
         guard = SafetyGuard.desde_config(config_controlador)
-        controlador = crear_controlador(nombre_controlador, config_controlador, guard)
+        controlador = crear_controlador(nombre_controlador, config_controlador, guard,
+                                        config_interseccion, modelo)
 
         tiempo = traci.simulation.getTime()
         fase = guard.iniciar(tiempo)
@@ -83,7 +96,7 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
             "vehiculos_sin_terminar": traci.simulation.getMinExpectedNumber(),
             "version_sumo": traci.getVersion()[1],
         }
-    return filas, guard, cierre
+    return filas, guard, controlador, cierre
 
 
 def main():
@@ -91,19 +104,22 @@ def main():
     parser.add_argument("--escenario", required=True, help="nombre del .sumocfg en sumo/configs (sin extension)")
     parser.add_argument("--controlador", default="tiempos_fijos", choices=CONTROLADORES)
     parser.add_argument("--semilla", type=int, required=True)
+    parser.add_argument("--modelo", help="solo para qlearning: carpeta del modelo en models/")
     parser.add_argument("--gui", action="store_true")
     args = parser.parse_args()
+    nombre_resultado = args.controlador if args.controlador != "qlearning" else f"qlearning_{args.modelo}"
 
     archivo_escenario = CARPETA_ESCENARIOS / f"{args.escenario}.sumocfg"
     configs = (cargar_interseccion(), leer_yaml("controlador.yaml"), leer_yaml("experimento.yaml"))
     config_interseccion, config_controlador, config_experimento = configs
 
-    carpeta_salida = CARPETA_RESULTADOS / args.escenario / args.controlador / f"semilla_{args.semilla}"
+    carpeta_salida = CARPETA_RESULTADOS / args.escenario / nombre_resultado / f"semilla_{args.semilla}"
     carpeta_salida.mkdir(parents=True, exist_ok=True)
     ruta_tripinfo = carpeta_salida / "tripinfo.xml"
 
     print(f"Escenario: {args.escenario} | controlador: {args.controlador} | semilla: {args.semilla}")
-    filas, guard, cierre = simular(archivo_escenario, args.semilla, args.gui, args.controlador, configs, ruta_tripinfo)
+    filas, guard, controlador, cierre = simular(archivo_escenario, args.semilla, args.gui, args.controlador,
+                                                configs, ruta_tripinfo, args.modelo)
 
     inicio = config_experimento["calentamiento_s"]
     fin = config_experimento["duracion_demanda_s"]
@@ -114,6 +130,10 @@ def main():
     metricas.update(resumir_verdes(guard.historial_verdes, inicio, fin))
     metricas["cambios_rechazados"] = guard.cambios_rechazados
     metricas["cambios_forzados"] = guard.cambios_forzados
+    if args.controlador == "qlearning":
+        metricas["decisiones_agente"] = controlador.decisiones
+        metricas["decisiones_respaldo"] = controlador.decisiones_respaldo
+        metricas["pedidos_de_cambio"] = controlador.pedidos_de_cambio
 
     with open(carpeta_salida / "series.csv", "w", newline="", encoding="utf-8") as archivo:
         escritor = csv.DictWriter(archivo, fieldnames=list(filas[0]))
@@ -122,7 +142,7 @@ def main():
 
     resumen = {
         "escenario": args.escenario,
-        "controlador": args.controlador,
+        "controlador": nombre_resultado,
         "semilla": args.semilla,
         "ventana_medicion_s": [inicio, fin],
         "metricas": metricas,

@@ -1,0 +1,68 @@
+{
+  "escenario": "prueba",
+  "controlador": "qlearning_prueba_200",
+  "semilla": 1,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 1084,
+    "espera_total_promedio_s": 7.4031365313653135,
+    "espera_en_red_promedio_s": 7.391143911439114,
+    "retraso_entrada_promedio_s": 0.011992619926199263,
+    "tiempo_viaje_promedio_s": 45.42527675276753,
+    "tiempo_perdido_promedio_s": 13.854640221402214,
+    "velocidad_promedio_kmh": 35.20103484454026,
+    "throughput_veh_h": 1183.6363636363637,
+    "cola_promedio_norte": 0.4390909090909091,
+    "cola_maxima_norte": 4,
+    "cola_promedio_sur": 0.63,
+    "cola_maxima_sur": 6,
+    "cola_promedio_este": 0.6784848484848485,
+    "cola_maxima_este": 6,
+    "cola_promedio_oeste": 0.6978787878787879,
+    "cola_maxima_oeste": 6,
+    "detenidos_promedio_total": 2.4454545454545453,
+    "verde_promedio_cra23_s": 20.0,
+    "verdes_cra23": 71,
+    "verde_promedio_dg15_s": 16.180555555555557,
+    "verdes_dg15": 72,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 0,
+    "decisiones_agente": 414,
+    "decisiones_respaldo": 0,
+    "pedidos_de_cambio": 159
+  },
+  "cierre": {
+    "tiempo_final_s": 3666.0,
+    "vehiculos_sin_terminar": 0,
+    "version_sumo": "SUMO 1.27.1"
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": 10,
+        "verde_max_s": 60,
+        "amarillo_s": 3,
+        "todo_rojo_s": 2,
+        "eje_inicial": "dg15"
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 42,
+          "dg15": 42
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-10-07T19:51:59"
+  }
+}

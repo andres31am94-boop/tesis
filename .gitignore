@@ -30,3 +30,5 @@ docs/fases/img/interseccion_mapa.png
 
 # Salidas crudas de SUMO (se regeneran con la misma semilla)
 results/**/tripinfo.xml
+
+# Modelos entrenados: se versiona la tabla (pequena) y la curva; nada que excluir por ahora.

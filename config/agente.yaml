@@ -1,0 +1,22 @@
+# Agente Q-Learning (Fase 4). Valores INICIALES/PROVISIONALES (2026-10-07):
+# se ajustaran con experimentos documentados en la bitacora.
+
+intervalo_decision_s: 5        # cada cuanto decide el agente (solo durante el verde y tras el verde minimo)
+
+estado:
+  # Cola relativa del brazo MAS cargado de cada eje -> 4 niveles: [0,0.1) [0.1,0.3) [0.3,0.6) [0.6,...)
+  cortes_cola_relativa: [0.1, 0.3, 0.6]
+  # Tiempo que lleva el verde actual -> 3 niveles: [min,20) [20,40) [40,max]
+  cortes_tiempo_verde_s: [20, 40]
+
+aprendizaje:
+  alfa: 0.1                    # tasa de aprendizaje
+  gamma: 0.9                   # importancia del futuro
+  epsilon_inicial: 1.0         # al principio explora al azar
+  epsilon_final: 0.05          # al final casi siempre usa lo aprendido
+  episodios_decaimiento: 150   # episodios en que epsilon baja linealmente
+
+semillas:
+  entrenamiento_desde: 1000    # episodio k usa la semilla 1000 + k
+  evaluacion: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
+               16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
