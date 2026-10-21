@@ -174,3 +174,137 @@ Registro de lo que se hizo, qué funcionó, qué falló y qué se decidió.
 - **Estado al pausar:** Fases 0–2 validadas; Fase 3 implementada y probada (tiempos provisionales); Fase 4 con entorno, entrenamiento, gráfica y controlador Q-Learning funcionando (29/29 pruebas).
 - **Próximos pasos al retomar:** (1) comparación automática con las 30 semillas de evaluación + prueba estadística; (2) cargar aforo → escenarios bajo/medio/alto y variable (hora pico/festival); (3) cargar tiempos reales del semáforo en `config/controlador.yaml`; (4) recalibrar los niveles del estado con datos reales; (5) reentrenar y evaluar.
 - **Pendientes de los autores:** aforo y medición del semáforo; compra de hardware; revisión del anteproyecto con la directora; verificar referencias; `git push` de los avances.
+
+## 2026-10-20 — Medición en campo del semáforo real (autores, cronómetro del celular, varias repeticiones)
+| Vía | Sentidos | Verde | Amarillo | Rojo | Ciclo (suma) |
+|---|---|---|---|---|---|
+| Carrera 23 | Acacías→Villavicencio y Villavicencio→Acacías (iguales) | 55 s | 3 s | 45 s | 103 s |
+| Diagonal 15 | hacia el hospital y hacia el centro (iguales) | 20 s | 3 s | 77 s (1 min 17 s) | 100 s |
+
+- Plan **muy desbalanceado** a favor de la Cra 23 (55 s vs 20 s de verde), coherente con que es la vía principal.
+- **Inconsistencia a aclarar:** si solo hubiera 2 fases, el rojo de una vía ≈ verde + amarillo de la otra (+ todo-rojo). Cra 23: rojo 45 s vs 20 + 3 = 23 s de la Dg 15 → sobran ~22 s. Dg 15: rojo 77 s vs 55 + 3 = 58 s → sobran ~19 s. Es decir, hay **~20 s por ciclo en que ambas vías están en rojo** (≈10 s por transición, o un solo bloque). Posibles causas: fase peatonal exclusiva, todo-rojo largo, una fase adicional no registrada, o error de medición. Los ciclos difieren en 3 s (103 vs 100), dentro de lo esperable por reacción al cronometrar.
+- Pendiente: observar un ciclo completo mirando ambos semáforos a la vez (o en video) para ubicar esos ~20 s; anotar día y hora (pico/valle) de la medición.
+- `config/controlador.yaml` actualizado: tiempos fijos **55 s (Cra 23) y 20 s (Dg 15)** medidos; amarillo 3 s medido; **todo-rojo 10 s por transición como supuesto provisional** (reproduce un ciclo de 101 s, consistente con los 100–103 s medidos). Pendiente de verificación en campo: si resulta ser una fase peatonal única o un reparto distinto, se ajusta la capa de seguridad.
+- Consecuencia: todos los resultados anteriores con 42/42 y todo-rojo 2 s quedan obsoletos; el agente debe reentrenarse con estos parámetros (usa las mismas transiciones del SafetyGuard).
+- Planilla de aforo corregida (2026-10-20): la lista desplegable de brazos partía "Norte (Cra 23, desde el puente)" en dos opciones porque Excel usa la coma como separador. Nuevos nombres sin comas y con el sentido de viaje: Norte – Cra 23 (de Villavicencio hacia Acacías); Sur – Cra 23 (de Acacías hacia Villavicencio); Este – Dg 15 (hacia el hospital); Oeste – Dg 15 (hacia el centro). La correspondencia Este/Oeste con hospital/centro se dedujo del mapa: **pendiente de confirmar por los autores**. El archivo no tenía datos aún.
+
+## 2026-10-20 — Aforo real cargado y verificado
+- Copia intacta de lo que llenaron los autores: `docs/aforo/planilla_aforo_original_2026-10-20.xlsx`.
+- Correcciones en `planilla_aforo.xlsx` (sin tocar los conteos): (1) los datos se habían llenado en la versión anterior de la planilla y el brazo norte quedó como "Norte (Cra 23" → la hoja Resumen no lo contaba; se pasaron a los nombres nuevos; (2) la columna Día tenía el número del día del mes o estaba vacía → se llenó con el día de la semana a partir de la fecha. Resumen recalculado sin errores.
+- Sesiones de conteo (15 min por brazo; veh/h = conteo × 4):
+
+  | Sesión | Tipo | Norte | Sur | Este | Oeste | Total | Simultáneo |
+  |---|---|---|---|---|---|---|---|
+  | Viernes 16-oct 18:00–19:00 | Pico | 1436 | 1512 | 460 | 680 | 4088 | No (brazo por brazo) |
+  | Martes 20-oct 12:15–12:30 | Pico | 1336 | 1020 | 696 | 404 | 3456 | Sí |
+  | Martes 20-oct 10:25–10:40 | Valle | 996 | 916 | 472 | 368 | 2752 | Sí |
+  | Lunes 19-oct 20:15–21:15 | Valle | 716 | 696 | 280 | 152 | 1844 | No |
+
+- Hallazgos: motos = 48–70 % de los vehículos según brazo; la Cra 23 lleva ~2–3 veces más tráfico que la Dg 15; giros a la derecha 4–18 %; buses y camiones relevantes en la Cra 23 (ruta 65). Observaciones de los autores: "muchas infracciones" (tipo no especificado).
+- **Riesgo de modelado:** el brazo norte (1 carril) recibe ~1400 veh/h en pico, la mayoría motos. En SUMO las motos ocupan el carril como un vehículo más (no adelantan entre carros) → la simulación podría sobreestimar las colas en ese brazo. Evaluar modelo de subcarriles (sublane) para motos o declarar limitación.
+- **Correspondencia de brazos CONFIRMADA por los autores** (2026-10-20): Norte = vehículos que bajan del puente (de Villavicencio hacia Acacías); Oeste = vehículos que vienen del lado del hospital hacia el cruce (van hacia el centro). Coincide con la planilla corregida: no hay que invertir conteos.
+- **Infracciones:** se observaron al menos 3 por cada conteo de 15 min (giros a la izquierda prohibidos y paso en rojo), pero **no se contaron**. Decisión: no se simulan; el modelo asume cumplimiento de la norma y se declara como limitación (observación cualitativa).
+
+## 2026-10-20 — Escenarios de demanda REAL generados
+- `config/escenarios_aforo.yaml` define qué sesión del aforo usa cada escenario; `scripts/generar_escenarios_aforo.py` lee la planilla y genera `sumo/demanda/<esc>_flujos.csv`, `sumo/routes/<esc>.rou.xml` y `sumo/configs/<esc>.sumocfg`. Cada brazo conserva su propia mezcla de tipos y giros (un flujo por brazo × movimiento × tipo). Supuesto: 15 min de conteo extrapolados a 1 h de demanda constante.
+- Totales generados (coinciden con la planilla): bajo 1844 · valle mañana 2752 · medio 3456 · alto 4088 veh/h.
+- Se agrega `openpyxl` a `requirements.txt`. Pendiente: corrida del baseline real en cada escenario para verificar saturación (especialmente el brazo norte).
+
+## 2026-10-20 — Semáforo real (55/20 s, todo-rojo 10 s provisional) con demanda real — semilla 1
+| Escenario | Demanda (veh/h) | Throughput simulado (veh/h) | Espera total (s) | Retraso de entrada (s) | Cola máx. N / S / E / O | Sin terminar | Teleports |
+|---|---|---|---|---|---|---|---|
+| aforo_bajo | 1844 | 1886 | 20,6 | 0,3 | 17 / 14 / 10 / 9 | 0 | 0 |
+| aforo_medio | 3456 | 2939 | 421,7 | 345,9 | 20 / 55 / 67 / 18 | 5 | 2 (buses, sur) |
+| aforo_alto | 4088 | 2948 | 758,0 | 699,1 | 20 / 55 / 18 / 33 | 260 | 5 (buses/camión, sur) |
+
+- **Hallazgo clave (calibración):** el aforo cuenta vehículos que **cruzaron** la línea de pare, es decir, lo que el cruce real **sí atendió** con su semáforo real. En la simulación, con el mismo semáforo, el cruce atiende mucho menos en medio y alto (p. ej. alto: 2948 vs 4088 veh/h) y los brazos sur (Cra 23) y este (Dg 15) colapsan. → **El modelo subestima la capacidad del cruce: no está calibrado.**
+- Causas probables (a verificar una por una):
+  1. **Motos** (48–70 % del tráfico) modeladas como un vehículo más dentro del carril; en la realidad van lado a lado y se filtran entre carros.
+  2. **Unión de 2 carriles a 1 en el puente** (Cra 23 sur → norte): el carril exterior cede el paso al interior; los teleports de buses ("waited too long (yield)") ocurren justo ahí.
+  3. Parámetros de conducción por defecto de SUMO (separación, tiempo de reacción) más conservadores que el comportamiento local.
+  4. El todo-rojo supuesto (10 s por cambio) aún no verificado.
+- Los teleports (SUMO saca de la red a vehículos atascados > 300 s) distorsionan las métricas: deben eliminarse con la calibración.
+- **Decisión propuesta:** calibrar el modelo ANTES de entrenar al agente. Criterio: flujo atendido por brazo en la simulación ≈ conteo del aforo (estadístico GEH < 5, criterio usual de calibración de modelos de tráfico). Un agente entrenado en un modelo no calibrado aprendería un cruce que no existe.
+
+## 2026-10-21 — Respuestas de campo y primer paso de calibración
+- **Colas observadas por los autores:** viernes 6 p. m., brazo sur: ~10 vehículos en cola (carros, camiones y busetas, sin contar motos). Brazo este al mediodía y 6 p. m.: a veces no todos alcanzan a pasar en un verde (20 s). → La simulación sin calibrar exagera mucho (sur: cola promedio 29, máx. 55). Confirma la necesidad de calibrar.
+- **Los ~20 s "perdidos" del ciclo, encontrados:** al terminar el verde de la Dg 15 hay **~22 s con todo en rojo** antes de que la Cra 23 pase a verde (para que despejen los vehículos de la Diagonal). Al terminar la Cra 23, la Dg 15 pasa a verde de inmediato. Cuadra con las mediciones: rojo Cra 23 (45) = 20 + 3 + TR; rojo Dg 15 (77) = 55 + 3 + TR → TR ≈ 19–22 s solo en el cambio Dg 15 → Cra 23.
+- `SafetyGuard` admite ahora **todo-rojo distinto por eje** (`todo_rojo_s: {cra23: 0, dg15: 20}` en `config/controlador.yaml`); ciclo 55+3+0+20+3+20 = 101 s. Prueba nueva → **30/30 OK** (entorno de Claude).
+- `scripts/validar_calibracion.py`: compara flujo atendido por brazo (simulado) vs. aforo, con el indicador **GEH** (criterio < 5).
+
+## 2026-10-21 — Calibración, medición "antes" (v0: sin subcarriles; todo-rojo real 0/20 s)
+| Escenario | Brazo | Aforo (veh/h) | Simulado (veh/h) | Dif. | GEH | |
+|---|---|---|---|---|---|---|
+| aforo_bajo | norte | 716 | 687 | −4 % | 1,1 | OK |
+| | sur | 696 | 745 | +7 % | 1,8 | OK |
+| | este | 280 | 283 | +1 % | 0,2 | OK |
+| | oeste | 152 | 163 | +7 % | 0,8 | OK |
+| aforo_alto | norte | 1436 | 878 | −39 % | 16,4 | NO CUMPLE |
+| | sur | 1512 | 919 | −39 % | 17,0 | NO CUMPLE |
+| | este | 460 | 492 | +7 % | 1,5 | OK |
+| | oeste | 680 | 661 | −3 % | 0,7 | OK |
+
+- Con tráfico bajo el modelo reproduce el aforo (4/4). Con tráfico alto **la Cra 23 atiende ~40 % menos de lo contado** en ambos sentidos (~900 veh/h cada uno). En el brazo norte el cruce real atendió 1436 veh/h por **un solo carril** con 55 s de verde por ciclo de 101 s: eso solo es posible si las motos circulan lado a lado / entre carros. El sur también termina en el carril único del puente. Alto: 269 vehículos sin terminar, 3 teleports (buses, unión de carriles del sur).
+- Resultados "antes" guardados en `results/calibracion/v0_sin_subcarriles/`.
+- **Paso de calibración 1:** modelo de subcarriles para motos (`config/calibracion.yaml`: resolución lateral 0,8 m; motos con `minGapLat` 0,3 m y `latAlignment` arbitrary). Escenarios regenerados con `scripts/generar_escenarios_aforo.py` (lee esa configuración). Un solo cambio respecto a v0.
+- Incidente: `docs/aforo/planilla_aforo.xlsx` no estaba en la carpeta (eliminado o movido); se restauró la versión corregida del 2026-10-20 (idéntica a la entregada).
+- **Paso 1 medido (con subcarriles):** aforo_alto norte 884 (GEH 16,2), sur 905 (GEH 17,4), este/oeste OK; aforo_bajo 4/4 OK. **Efecto casi nulo.** Captura de sumo-gui (autores): motos centradas, una detrás de otra.
+- Diagnóstico (con `tripinfo` de v0): brazo norte → espera dentro de la red 25,6 s pero **retraso de entrada 944 s**; sur → 102,6 s y 927 s. El brazo norte descarga en fila india (~1 vehículo cada 2,2 s de verde ≈ 900 veh/h) y, como el tramo solo mide 110 m, la cola se represa fuera de la red.
+- **Paso de calibración 2:** las motos entran en una posición lateral aleatoria (`departPosLat="random"` en sus flujos; `config/calibracion.yaml` → `moto_flujo`). Un solo cambio respecto al paso 1.
+- Nota: la corrida con `--gui` cerrada antes de terminar dejó un `tripinfo.xml` incompleto en `results/aforo_alto/tiempos_fijos/semilla_1/`; se sobrescribe en la siguiente corrida.
+
+### 2026-10-21 — Calibración, resultado del paso 2 y paso 3 (tramos de acceso)
+
+**Resultado del paso 2 (motos entran en posición lateral al azar), semilla 1, ejecutado por los autores:**
+
+| Escenario | Brazo | Aforo (veh/h) | Simulado | GEH paso 1 | GEH paso 2 |
+|---|---|---|---|---|---|
+| aforo_alto | norte | 1436 | 982 | 16.2 | 13.1 |
+| aforo_alto | sur | 1512 | 968 | 17.4 | 15.5 |
+| aforo_alto | este | 460 | 493 | — | 1.5 |
+| aforo_alto | oeste | 680 | 652 | — | 1.1 |
+| aforo_bajo | 4 brazos | — | — | 4/4 OK | 4/4 OK (máx. 1.9) |
+
+aforo_alto: 68 vehículos sin terminar (antes 269), retraso de entrada promedio 632 s, espera en red 46 s.
+
+**Diagnóstico** (series.csv, ciclo t = 1500–1610 s): durante el rojo la cola del norte llega a 16 detenidos
+(el brazo de 110 m se llena); con el verde se vacía en ~15 s y queda en 0 detenidos los ~40 s restantes.
+La línea de pare se queda sin vehículos mientras cientos esperan fuera de la red. El sur muestra lo mismo
+(de 48 a 3 detenidos a mitad del verde). El cuello de botella es la **inserción** de vehículos en brazos
+cortos, no la descarga en el cruce. En la realidad la cola sigue por el puente y descarga todo el verde.
+
+**Paso 3 (un solo cambio):** tramo recto de 500 m antes de cada brazo (`acceso_norte`, `acceso_sur`,
+`acceso_este`, `acceso_oeste`), con el mismo número de carriles que el brazo, para que la cola se forme
+dentro de la red. Los brazos originales no cambian y el estado del agente se sigue midiendo solo en ellos.
+Archivos: `scripts/generar_accesos.py` (nuevo), `config/calibracion.yaml` (sección `accesos`),
+`sumo/network/acacias_ajustes.netccfg` (node-files, edge-files, offset.disable-normalization,
+no-turnarounds), `scripts/generar_escenarios_aforo.py` (los flujos salen de `acceso_<brazo>`).
+Criterio de práctica: la red simulada debe extenderse lo suficiente para contener las colas
+(FHWA, *Traffic Analysis Toolbox Vol. III*). **Efecto: debe medirse.**
+Consecuencia: el tiempo de viaje ahora incluye los 500 m del acceso y la espera en la cola del acceso
+aparece como espera en la red (antes quedaba oculta como retraso de entrada). Afecta por igual a ambos controladores.
+
+### 2026-10-21 — Resultado del paso 3 y corrección del diagnóstico
+
+**Resultado del paso 3 (accesos de 500 m), semilla 1:** aforo_alto norte 981 veh/h (GEH 13.1), sur 983 (15.0),
+este 1.2, oeste 1.0 → **sin mejora en el flujo atendido**. aforo_bajo 4/4 OK. La red reconstruida conserva
+los 12 movimientos del semáforo en el mismo orden (verificado comparando las conexiones antes y después);
+los brazos se acortaron ~1.5 m por la nueva unión con el acceso.
+
+**Corrección:** el diagnóstico del paso 3 era incompleto. `series.csv` registra vehículos *detenidos*
+(velocidad < 0.1 m/s), no vehículos presentes: 0 detenidos durante el verde no significa línea de pare vacía,
+sino cola en movimiento. El paso 3 se mantiene porque representa mejor la cola real (ahora se ve como espera
+en la red: 106 s en norte), pero no era la causa del déficit.
+
+**Evidencia nueva** (tripinfo, vehículos que terminaron en la ventana): en el norte la moto espera en la red
+106 s y el carro 105 s; en el sur 194 s y 204 s. **Las motos no se están filtrando entre los carros.**
+Descarga del norte: 981 veh/h ≈ 27.5 vehículos por verde de 55 s (~2.1 s por vehículo); el aforo implica ~40 por verde (~1.45 s).
+Causa probable: SUMO centra los carros por defecto (`latAlignment="center"`; documentación de SUMO).
+Un carro de 1.8 m en un carril de 3.2 m deja 0.7 m a cada lado y no cabe una moto de 0.9 m más su separación lateral.
+
+**Paso 4: barrido sistemático** (`scripts/barrido_calibracion.py`, `config/barrido_calibracion.yaml`).
+Se prueban 2 × 2 × 2 = 8 combinaciones: alineación lateral del carro (center/right), ancho de la moto (0.9/0.8 m)
+y separación lateral mínima de la moto (0.3/0.1 m), en aforo_alto y aforo_bajo, con la semilla 1.
+No modifica los escenarios oficiales. Resultados en `results/calibracion/barrido/`. La combinación elegida
+se valida después con varias semillas y con aforo_medio y aforo_valle_manana. **Efecto: debe medirse.**
+Pendiente de campo: qué se contó como "bus" (bus grande de 12 m, buseta o microbús).

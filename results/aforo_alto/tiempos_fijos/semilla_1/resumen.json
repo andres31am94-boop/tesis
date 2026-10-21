@@ -1,0 +1,68 @@
+{
+  "escenario": "aforo_alto",
+  "controlador": "tiempos_fijos",
+  "semilla": 1,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 3711,
+    "espera_total_promedio_s": 509.49474535165723,
+    "espera_en_red_promedio_s": 126.62651576394502,
+    "retraso_entrada_promedio_s": 382.8682295877122,
+    "tiempo_viaje_promedio_s": 345.86418755052546,
+    "tiempo_perdido_promedio_s": 282.4339477229857,
+    "velocidad_promedio_kmh": 14.35731606820967,
+    "throughput_veh_h": 3103.636363636364,
+    "cola_promedio_norte": 7.800606060606061,
+    "cola_maxima_norte": 29,
+    "cola_promedio_sur": 26.9,
+    "cola_maxima_sur": 67,
+    "cola_promedio_este": 4.551515151515152,
+    "cola_maxima_este": 18,
+    "cola_promedio_oeste": 6.193333333333333,
+    "cola_maxima_oeste": 23,
+    "detenidos_promedio_total": 45.445454545454545,
+    "verde_promedio_cra23_s": 55.0,
+    "verdes_cra23": 33,
+    "verde_promedio_dg15_s": 20.0,
+    "verdes_dg15": 33,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 0
+  },
+  "cierre": {
+    "tiempo_final_s": 5400.0,
+    "vehiculos_sin_terminar": 58,
+    "version_sumo": "SUMO 1.27.1"
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": 10,
+        "verde_max_s": 60,
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-10-20T22:09:27"
+  }
+}

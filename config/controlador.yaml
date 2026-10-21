@@ -1,5 +1,7 @@
 # Parametros del control semaforico.
-# TODOS LOS VALORES SON PROVISIONALES (2026-10-06):
+# Actualizado 2026-10-20 con la medicion en campo del semaforo real (ver docs/bitacora.md).
+# Verdes y amarillo: MEDIDOS. Todo-rojo: OBSERVADO en campo (asimetrico, ver abajo).
+# Notas originales (2026-10-06):
 #   - "seguridad": revisar contra el Manual de Senalizacion Vial (Resolucion 1885 de 2015)
 #     y contra lo medido en campo; citar la fuente al fijarlos.
 #   - "tiempos_fijos": deben COPIAR el semaforo real del cruce cuando se mida con cronometro.
@@ -9,10 +11,13 @@ seguridad:
   verde_min_s: 10      # ningun verde puede durar menos (ni por decision del agente)
   verde_max_s: 60      # ningun verde puede durar mas (evita que un eje espere indefinidamente)
   amarillo_s: 3        # siempre completo
-  todo_rojo_s: 2       # siempre completo, despeja el cruce antes del siguiente verde
+  todo_rojo_s:          # todo-rojo que sigue al verde de cada eje (OBSERVADO en campo, 2026-10-20)
+    cra23: 0           # Cra 23 -> Dg 15: la Diagonal pasa a verde de inmediato
+    dg15: 20           # Dg 15 -> Cra 23: ~22 s observados (19-22 s segun las sumas de rojo);
+                       # se usa 20 s -> ciclo 55+3+0+20+3+20 = 101 s (medido: 100-103 s)
   eje_inicial: "dg15"  # eje que arranca en verde
 
 tiempos_fijos:
   verde_s:
-    cra23: 42
-    dg15: 42
+    cra23: 55   # MEDIDO en campo (2026-10-20)
+    dg15: 20    # MEDIDO en campo (2026-10-20)

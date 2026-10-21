@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generado por scripts/generar_accesos.py: NO editar a mano. -->
+<nodes>
+    <node id="inicio_acceso_norte" x="405.51" y="789.72" type="priority"/>
+    <node id="inicio_acceso_sur" x="141.77" y="-498.61" type="priority"/>
+    <node id="inicio_acceso_este" x="813.03" y="-368.15" type="priority"/>
+    <node id="inicio_acceso_oeste" x="-393.43" y="624.93" type="priority"/>
+</nodes>

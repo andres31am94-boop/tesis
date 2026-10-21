@@ -32,3 +32,7 @@ docs/fases/img/interseccion_mapa.png
 results/**/tripinfo.xml
 
 # Modelos entrenados: se versiona la tabla (pequena) y la curva; nada que excluir por ahora.
+results/**/*_tripinfo.xml
+# Copias de rutas/configs que genera el barrido de calibracion (se regeneran con el script)
+results/calibracion/barrido/*/*.rou.xml
+results/calibracion/barrido/*/*.sumocfg

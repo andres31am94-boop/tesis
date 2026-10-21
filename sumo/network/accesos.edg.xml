@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generado por scripts/generar_accesos.py: NO editar a mano. -->
+<edges>
+    <edge id="acceso_norte" from="inicio_acceso_norte" to="6048329437" numLanes="1" speed="13.89" priority="10"/>
+    <edge id="acceso_sur" from="inicio_acceso_sur" to="2495699840" numLanes="2" speed="13.89" priority="10"/>
+    <edge id="acceso_este" from="inicio_acceso_este" to="2339803338" numLanes="2" speed="13.89" priority="10"/>
+    <edge id="acceso_oeste" from="inicio_acceso_oeste" to="7629603514" numLanes="2" speed="13.89" priority="10"/>
+</edges>

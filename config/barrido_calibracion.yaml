@@ -1,0 +1,16 @@
+# Barrido de calibracion (paso 4): prueba TODAS las combinaciones de los niveles de abajo con el
+# semaforo real (tiempos fijos) y calcula el GEH por brazo. Lo usa scripts/barrido_calibracion.py.
+#
+# Por que estos factores: en aforo_alto las motos del norte esperan lo mismo que los carros
+# (106 s vs 105 s), o sea NO se filtran entre los carros como en la realidad. Un carro centrado
+# (1.8 m) en un carril de 3.2 m deja 0.7 m a cada lado: no cabe una moto (0.9 m + separacion).
+escenarios: [aforo_alto, aforo_bajo]
+semilla: 1
+factores:
+  # SUMO por defecto centra los carros en el carril. "right": el carro va pegado a la derecha y
+  # deja ~1.4 m libres a la izquierda (por donde pasan las motos).
+  - {tipo: carro, atributo: latAlignment, niveles: [center, right]}
+  # Ancho de la moto (m). 0.9 = valor por defecto de SUMO; 0.8 = moto pequena (verificar midiendo).
+  - {tipo: moto, atributo: width, niveles: [0.9, 0.8]}
+  # Separacion lateral minima de la moto (m) con otros vehiculos.
+  - {tipo: moto, atributo: minGapLat, niveles: [0.3, 0.1]}

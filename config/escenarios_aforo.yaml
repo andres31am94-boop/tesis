@@ -1,0 +1,20 @@
+# Escenarios de demanda REAL construidos a partir del aforo (docs/aforo/planilla_aforo.xlsx).
+# Cada escenario toma los 4 brazos de una misma sesion de conteo (fecha + periodo).
+# Supuesto: el conteo de 15 min por brazo se extrapola a 1 hora de demanda constante.
+escenarios:
+  aforo_bajo:
+    fecha: 2026-10-19
+    periodo: Valle
+    descripcion: "Lunes 19-oct, 20:15-21:15 (brazo por brazo, no simultaneo)"
+  aforo_medio:
+    fecha: 2026-10-20
+    periodo: Pico
+    descripcion: "Martes 20-oct, 12:15-12:30 (los 4 brazos simultaneos)"
+  aforo_alto:
+    fecha: 2026-10-16
+    periodo: Pico
+    descripcion: "Viernes 16-oct, 18:00-19:00 (brazo por brazo, no simultaneo)"
+  aforo_valle_manana:
+    fecha: 2026-10-20
+    periodo: Valle
+    descripcion: "Martes 20-oct, 10:25-10:40 (los 4 brazos simultaneos) - escenario adicional"

@@ -1,0 +1,37 @@
+# Calibracion del modelo de SUMO (cada cambio se documenta y se valida con scripts/validar_calibracion.py).
+#
+# Paso 1 (2026-10-21): modelo de SUBCARRILES para las motos.
+#   En la realidad las motos (48-70 % del trafico) van lado a lado y se filtran entre carros.
+#   Sin este modelo, SUMO pone una moto detras de otra como si fueran carros, y el cruce
+#   atiende ~40 % menos vehiculos de los contados en la Cra 23 (GEH 16-17 en aforo_alto).
+#   El modelo de subcarriles divide cada carril (3,2 m) en franjas de "resolucion_lateral_m"
+#   para que los vehiculos angostos puedan ocupar posiciones laterales distintas.
+subcarriles:
+  activo: true
+  resolucion_lateral_m: 0.8
+
+# Atributos extra del tipo de vehiculo "moto" (nombres de atributos de vType en SUMO)
+moto:
+  minGapLat: 0.3          # separacion lateral minima (m); por defecto 0.6
+  latAlignment: arbitrary # la moto puede circular en cualquier posicion lateral del carril
+
+# Paso 2 (2026-10-21): POSICION LATERAL DE ENTRADA de las motos.
+#   Diagnostico del paso 1: en aforo_alto el brazo norte tenia espera DENTRO de la red de solo
+#   ~26 s pero un retraso de ENTRADA de ~944 s, y en sumo-gui las motos aparecian centradas,
+#   una detras de otra. Es decir, el cruce descarga en "fila india" (~1 vehiculo cada 2,2 s de verde).
+#   Por defecto SUMO hace entrar a todos los vehiculos por el centro del carril; con "random"
+#   cada moto entra en una posicion lateral al azar y puede quedar al lado de otro vehiculo.
+moto_flujo:
+  departPosLat: random
+
+# Paso 3 (2026-10-21): TRAMOS DE ACCESO aguas arriba de cada brazo.
+#   Resultado del paso 2: norte 982 veh/h (GEH 13.1), sur 968 (GEH 15.5); mejoro poco.
+#   Diagnostico con results/aforo_alto/tiempos_fijos/semilla_1/series.csv: en cada ciclo la cola
+#   del norte se vacia a los ~15 s de verde y la linea de pare queda VACIA los ~40 s restantes,
+#   mientras cientos de vehiculos esperan FUERA de la red (retraso de entrada ~800 s).
+#   El limite no es la descarga en el cruce sino la INSERCION de vehiculos en un brazo corto.
+#   Solucion: prolongar cada brazo con un tramo recto para que la cola se forme dentro de la red.
+#   Lo generan scripts/generar_accesos.py y netconvert (sumo/network/acacias_ajustes.netccfg).
+accesos:
+  activo: true
+  longitud_m: 500

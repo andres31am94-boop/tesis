@@ -81,6 +81,21 @@ class TestSafetyGuard(unittest.TestCase):
         with self.assertRaises(ValueError):
             SafetyGuard(verde_min_s=10, verde_max_s=60, amarillo_s=3, todo_rojo_s=2, eje_inicial="x")
 
+    def test_todo_rojo_distinto_segun_el_eje(self):
+        # Como el cruce real: tras el verde de la Cra 23 casi no hay todo-rojo; tras la Dg 15, ~20 s
+        guard = SafetyGuard(10, 60, 3, {"cra23": 0, "dg15": 20}, eje_inicial="cra23")
+        control = ControladorTiemposFijos({"cra23": 55, "dg15": 20}, guard)
+        fases = simular(guard, 2 * 101, decidir=lambda t: control.pedir_cambio(t))
+        self.assertEqual(
+            duraciones(fases)[:5],
+            [("verde_cra23", 55), ("amarillo_cra23", 3), ("verde_dg15", 20),
+             ("amarillo_dg15", 3), ("todo_rojo", 20)],
+        )
+        with self.assertRaises(ValueError):
+            SafetyGuard(10, 60, 3, {"cra23": 0})          # falta un eje
+        with self.assertRaises(ValueError):
+            SafetyGuard(10, 60, 3, {"cra23": -1, "dg15": 20})
+
     def test_paso_sin_iniciar_da_error(self):
         with self.assertRaises(RuntimeError):
             nuevo_guard().paso(1, False)

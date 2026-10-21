@@ -9,7 +9,8 @@ o agente) solo PIDEN "cambiar" o "mantener"; el SafetyGuard decide si se puede:
 Reglas que nunca se rompen:
   1. Un verde no termina antes de verde_min (se ignora la peticion de cambio).
   2. Un verde termina obligatoriamente al llegar a verde_max.
-  3. Amarillo y todo-rojo se cumplen completos, siempre.
+  3. Amarillo y todo-rojo se cumplen completos, siempre (el todo-rojo puede ser distinto
+     segun que eje termina su verde).
   4. Nunca hay dos ejes en verde: el orden de etapas es fijo.
 
 No usa TraCI: es logica pura, por eso se puede probar sin SUMO (tests/test_safety_guard.py)
@@ -22,11 +23,20 @@ VERDE, AMARILLO, TODO_ROJO = "verde", "amarillo", "todo_rojo"
 
 class SafetyGuard:
     def __init__(self, verde_min_s, verde_max_s, amarillo_s, todo_rojo_s, eje_inicial="dg15"):
+        """
+        todo_rojo_s: un numero (igual para ambos cambios) o un diccionario
+        {eje: segundos} con el todo-rojo que sigue al verde de ESE eje
+        (en el cruce real no es igual en los dos cambios).
+        """
+        if not isinstance(todo_rojo_s, dict):
+            todo_rojo_s = {eje: todo_rojo_s for eje in EJES}
         if not (0 < verde_min_s <= verde_max_s):
             raise ValueError(f"Se requiere 0 < verde_min ({verde_min_s}) <= verde_max ({verde_max_s})")
         if amarillo_s <= 0:
             raise ValueError(f"El amarillo debe ser mayor que 0 (recibido {amarillo_s})")
-        if todo_rojo_s < 0:
+        if set(todo_rojo_s) != set(EJES):
+            raise ValueError(f"El todo-rojo debe definirse para los ejes {EJES} (recibido {todo_rojo_s})")
+        if any(valor < 0 for valor in todo_rojo_s.values()):
             raise ValueError(f"El todo-rojo no puede ser negativo (recibido {todo_rojo_s})")
         if eje_inicial not in EJES:
             raise ValueError(f"Eje inicial desconocido: {eje_inicial}. Validos: {EJES}")
@@ -34,7 +44,7 @@ class SafetyGuard:
         self.verde_min_s = verde_min_s
         self.verde_max_s = verde_max_s
         self.amarillo_s = amarillo_s
-        self.todo_rojo_s = todo_rojo_s
+        self.todo_rojo_s = dict(todo_rojo_s)   # todo-rojo despues del verde de cada eje
 
         self._eje = eje_inicial          # eje en verde, o el que acaba de tenerlo (en amarillo/todo-rojo)
         self._etapa = VERDE
@@ -94,12 +104,12 @@ class SafetyGuard:
                     self.cambios_rechazados += 1
         elif self._etapa == AMARILLO:
             if duracion >= self.amarillo_s:
-                if self.todo_rojo_s > 0:
+                if self.todo_rojo_s[self._eje] > 0:
                     self._pasar_a(TODO_ROJO, tiempo)
                 else:
                     self._iniciar_verde_siguiente(tiempo)
         elif self._etapa == TODO_ROJO:
-            if duracion >= self.todo_rojo_s:
+            if duracion >= self.todo_rojo_s[self._eje]:
                 self._iniciar_verde_siguiente(tiempo)
 
         return self.fase_actual()

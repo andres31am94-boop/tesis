@@ -8,8 +8,10 @@
 <configuration>
     <input>
         <sumo-net-file value="acacias_osm.net.xml"/>
-        <!-- Numero de carriles real (Street View) -->
-        <edge-files value="ajustes.edg.xml"/>
+        <!-- Calibracion paso 3: nodos de inicio de los tramos de acceso (scripts/generar_accesos.py) -->
+        <node-files value="accesos.nod.xml"/>
+        <!-- Numero de carriles real (Street View) + tramos de acceso de 500 m antes de cada brazo -->
+        <edge-files value="ajustes.edg.xml,accesos.edg.xml"/>
         <!-- Prohibe la vuelta en U de la Carrera 23 sur -->
         <connection-files value="correcciones.con.xml"/>
     </input>
@@ -17,6 +19,13 @@
     <output>
         <output-file value="acacias.net.xml"/>
     </output>
+
+    <processing>
+        <!-- Conserva las coordenadas de la red aunque los accesos queden en coordenadas negativas -->
+        <offset.disable-normalization value="true"/>
+        <!-- Sin vueltas en U donde los accesos se unen a los brazos (tampoco las hay en el cruce) -->
+        <no-turnarounds value="true"/>
+    </processing>
 
     <tls_building>
         <!-- Al cambiar carriles cambian los movimientos del cruce: se recalcula el programa
