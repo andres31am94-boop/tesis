@@ -13,4 +13,33 @@
     <edge id="807940779" numLanes="1"/>
 -->
 <edges>
+    <!-- Calibracion paso 4a (2026-10-21): ANCHO DE CARRIL de la Carrera 23 = 3.5 m.
+         Dato de los autores: calzada de ~7 m con 2 carriles (puente: 1 por sentido; Cra 23 sur: 2 por calzada).
+         SUMO usa 3.2 m por defecto. En un carril de 3.5 m caben 3-4 motos lado a lado, como se observa en el puente.
+         Se aplica tambien a los tramos de acceso de la Cra 23 (por eso accesos.edg.xml se carga ANTES que este archivo). -->
+    <!-- Calibracion paso 5 (2026-10-21), medidas de los autores en Google Maps (vista satelital):
+           - a 0 m del cruce (borde de la Dg 15): calzada total 15.6 m
+           - a 22.6 m del cruce: calzada total 13.1 m; sentido hacia el sur (llegada norte) 6.9 m; sentido hacia el norte 7.7 m
+           - sobre el puente: calzada total 7.5 m (1 carril por sentido)
+         La Cra 23 se va ensanchando del puente al cruce: cerca del semaforo caben 2 filas por sentido.
+         SUMO no representa un carril que se angosta poco a poco; se usa un cambio de 1 a 2 carriles en un punto.
+         38.2 m = punto medio entre donde ya hay 2 carriles completos (22.6 m) y donde empieza el puente (53.8 m, OSM).
+         Supuesto: probar sensibilidad con 22.6 y 53.8 m. -->
+    <!-- Llegada norte (desde el puente): 1 carril en el puente, 2 carriles en los ultimos 38.2 m.
+         El tramo del puente se llama ahora "puente_desde_villavicencio"; "-642480900" queda como el tramo de 2 carriles. -->
+    <edge id="-642480900" numLanes="2" width="3.5">
+        <split pos="0" lanes="0"/>
+        <split pos="-38.2" lanes="0 1" id="fin_puente_sur" idBefore="puente_desde_villavicencio" idAfter="-642480900"/>
+    </edge>
+    <!-- Calibracion paso 5 (2026-10-21): la salida hacia el puente tiene 2 carriles cerca del cruce y se va angostando
+         hasta 1 carril en el puente (respuesta de campo 5 y medidas de arriba). Reduccion en un punto: 38.2 m.
+         Antes los 2 carriles del sur se juntaban DENTRO del cruce: el carril derecho debia ceder el paso (luz 'g') y
+         habia frenadas de emergencia en el cruce. Ahora se juntan en el puente, alternandose (nodo tipo "zipper"). -->
+    <edge id="1414166243" numLanes="2" width="3.5">   <!-- salida hacia el puente -->
+        <split pos="38.2" lanes="0" type="zipper" id="inicio_puente" idAfter="puente_hacia_villavicencio"/>
+    </edge>
+    <edge id="807940779" width="3.5"/>    <!-- llegada sur -->
+    <edge id="642480899" width="3.5"/>    <!-- salida hacia el sur -->
+    <edge id="acceso_norte" width="3.5"/>
+    <edge id="acceso_sur" width="3.5"/>
 </edges>

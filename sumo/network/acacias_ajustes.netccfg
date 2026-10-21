@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  PASO 2 de 2: aplica a la red importada de OSM las correcciones verificadas en campo.
+  PASO 2 de 3: GEOMETRIA. Aplica a la red importada de OSM los carriles, anchos y tramos medidos en campo.
   Entrada: acacias_osm.net.xml (generada por acacias.netccfg)
-  Salida:  acacias.net.xml (red FINAL que usan las simulaciones)
-  Uso (desde tesis\sumo\network):  netconvert -c acacias_ajustes.netccfg
+  Salida:  acacias_geometria.net.xml (la usa acacias_conexiones.netccfg, paso 3)
+  Uso (desde tesis):  netconvert -c sumo\network\acacias_ajustes.netccfg
+  Por que en dos pasos: al dividir o cambiar carriles de un tramo, netconvert recalcula sus conexiones y se perdian
+  las correcciones de giros (reaparecian los giros a la izquierda). Las conexiones se corrigen en el paso 3.
 -->
 <configuration>
     <input>
         <sumo-net-file value="acacias_osm.net.xml"/>
         <!-- Calibracion paso 3: nodos de inicio de los tramos de acceso (scripts/generar_accesos.py) -->
         <node-files value="accesos.nod.xml"/>
-        <!-- Numero de carriles real (Street View) + tramos de acceso de 500 m antes de cada brazo -->
-        <edge-files value="ajustes.edg.xml,accesos.edg.xml"/>
-        <!-- Prohibe la vuelta en U de la Carrera 23 sur -->
-        <connection-files value="correcciones.con.xml"/>
+        <!-- Tramos de acceso de 500 m (primero) + ajustes medidos en campo (despues: pueden modificar los accesos) -->
+        <edge-files value="accesos.edg.xml,ajustes.edg.xml"/>
     </input>
 
     <output>
-        <output-file value="acacias.net.xml"/>
+        <output-file value="acacias_geometria.net.xml"/>
     </output>
 
     <processing>
@@ -27,9 +27,4 @@
         <no-turnarounds value="true"/>
     </processing>
 
-    <tls_building>
-        <!-- Al cambiar carriles cambian los movimientos del cruce: se recalcula el programa
-             del semaforo para que coincida (sigue siendo provisional hasta la Fase 3) -->
-        <tls.rebuild value="true"/>
-    </tls_building>
 </configuration>

@@ -1,0 +1,45 @@
+{
+  "semilla": 1,
+  "combinaciones": {
+    "c01": {
+      "carro.latAlignment": "center",
+      "moto.minGapLat": 0.3,
+      "bus.length": 12
+    },
+    "c02": {
+      "carro.latAlignment": "center",
+      "moto.minGapLat": 0.3,
+      "bus.length": 9
+    },
+    "c03": {
+      "carro.latAlignment": "center",
+      "moto.minGapLat": 0.1,
+      "bus.length": 12
+    },
+    "c04": {
+      "carro.latAlignment": "center",
+      "moto.minGapLat": 0.1,
+      "bus.length": 9
+    },
+    "c05": {
+      "carro.latAlignment": "right",
+      "moto.minGapLat": 0.3,
+      "bus.length": 12
+    },
+    "c06": {
+      "carro.latAlignment": "right",
+      "moto.minGapLat": 0.3,
+      "bus.length": 9
+    },
+    "c07": {
+      "carro.latAlignment": "right",
+      "moto.minGapLat": 0.1,
+      "bus.length": 12
+    },
+    "c08": {
+      "carro.latAlignment": "right",
+      "moto.minGapLat": 0.1,
+      "bus.length": 9
+    }
+  }
+}

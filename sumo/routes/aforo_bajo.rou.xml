@@ -3,15 +3,15 @@
 <!-- Escenario aforo_bajo: Lunes 19-oct, 20:15-21:15 (brazo por brazo, no simultaneo). Fuente: docs/aforo/planilla_aforo.xlsx -->
 <routes>
     <vType id="carro" vClass="passenger" guiShape="passenger"/>
-    <vType id="moto" vClass="motorcycle" guiShape="motorcycle" minGapLat="0.3" latAlignment="arbitrary"/>
+    <vType id="moto" vClass="motorcycle" guiShape="motorcycle" width="0.75" length="2.0" minGapLat="0.3" latAlignment="arbitrary"/>
     <vType id="bus" vClass="bus" guiShape="bus"/>
     <vType id="camion" vClass="truck" guiShape="truck"/>
-    <flow id="sur_recto_carro" type="carro" begin="0" end="3600" from="acceso_sur" to="1414166243" probability="0.048889" departLane="best" departSpeed="max"/>
+    <flow id="sur_recto_carro" type="carro" begin="0" end="3600" from="acceso_sur" to="puente_hacia_villavicencio" probability="0.048889" departLane="best" departSpeed="max"/>
     <flow id="sur_derecha_carro" type="carro" begin="0" end="3600" from="acceso_sur" to="1414166246#0" probability="0.005556" departLane="best" departSpeed="max"/>
-    <flow id="sur_recto_moto" type="moto" begin="0" end="3600" from="acceso_sur" to="1414166243" probability="0.101111" departLane="best" departSpeed="max" departPosLat="random"/>
+    <flow id="sur_recto_moto" type="moto" begin="0" end="3600" from="acceso_sur" to="puente_hacia_villavicencio" probability="0.101111" departLane="best" departSpeed="max" departPosLat="random"/>
     <flow id="sur_derecha_moto" type="moto" begin="0" end="3600" from="acceso_sur" to="1414166246#0" probability="0.004444" departLane="best" departSpeed="max" departPosLat="random"/>
-    <flow id="sur_recto_bus" type="bus" begin="0" end="3600" from="acceso_sur" to="1414166243" probability="0.005556" departLane="best" departSpeed="max"/>
-    <flow id="sur_recto_camion" type="camion" begin="0" end="3600" from="acceso_sur" to="1414166243" probability="0.027778" departLane="best" departSpeed="max"/>
+    <flow id="sur_recto_bus" type="bus" begin="0" end="3600" from="acceso_sur" to="puente_hacia_villavicencio" probability="0.005556" departLane="best" departSpeed="max"/>
+    <flow id="sur_recto_camion" type="camion" begin="0" end="3600" from="acceso_sur" to="puente_hacia_villavicencio" probability="0.027778" departLane="best" departSpeed="max"/>
     <flow id="norte_recto_carro" type="carro" begin="0" end="3600" from="acceso_norte" to="642480899" probability="0.058889" departLane="best" departSpeed="max"/>
     <flow id="norte_derecha_carro" type="carro" begin="0" end="3600" from="acceso_norte" to="1414166244" probability="0.005556" departLane="best" departSpeed="max"/>
     <flow id="norte_recto_moto" type="moto" begin="0" end="3600" from="acceso_norte" to="642480899" probability="0.084444" departLane="best" departSpeed="max" departPosLat="random"/>
@@ -19,9 +19,9 @@
     <flow id="norte_recto_bus" type="bus" begin="0" end="3600" from="acceso_norte" to="642480899" probability="0.003333" departLane="best" departSpeed="max"/>
     <flow id="norte_recto_camion" type="camion" begin="0" end="3600" from="acceso_norte" to="642480899" probability="0.007778" departLane="best" departSpeed="max"/>
     <flow id="este_recto_carro" type="carro" begin="0" end="3600" from="acceso_este" to="1414166244" probability="0.016667" departLane="best" departSpeed="max"/>
-    <flow id="este_derecha_carro" type="carro" begin="0" end="3600" from="acceso_este" to="1414166243" probability="0.005556" departLane="best" departSpeed="max"/>
+    <flow id="este_derecha_carro" type="carro" begin="0" end="3600" from="acceso_este" to="puente_hacia_villavicencio" probability="0.005556" departLane="best" departSpeed="max"/>
     <flow id="este_recto_moto" type="moto" begin="0" end="3600" from="acceso_este" to="1414166244" probability="0.038889" departLane="best" departSpeed="max" departPosLat="random"/>
-    <flow id="este_derecha_moto" type="moto" begin="0" end="3600" from="acceso_este" to="1414166243" probability="0.015556" departLane="best" departSpeed="max" departPosLat="random"/>
+    <flow id="este_derecha_moto" type="moto" begin="0" end="3600" from="acceso_este" to="puente_hacia_villavicencio" probability="0.015556" departLane="best" departSpeed="max" departPosLat="random"/>
     <flow id="este_recto_bus" type="bus" begin="0" end="3600" from="acceso_este" to="1414166244" probability="0.001111" departLane="best" departSpeed="max"/>
     <flow id="oeste_recto_carro" type="carro" begin="0" end="3600" from="acceso_oeste" to="1414166246#0" probability="0.008889" departLane="best" departSpeed="max"/>
     <flow id="oeste_derecha_carro" type="carro" begin="0" end="3600" from="acceso_oeste" to="642480899" probability="0.002222" departLane="best" departSpeed="max"/>

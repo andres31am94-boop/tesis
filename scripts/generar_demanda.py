@@ -21,10 +21,10 @@ from pathlib import Path
 MOVIMIENTOS = {
     ("norte", "recto"):   ("-642480900",  "642480899"),
     ("norte", "derecha"): ("-642480900",  "1414166244"),
-    ("sur", "recto"):     ("807940779",   "1414166243"),
+    ("sur", "recto"):     ("807940779",   "puente_hacia_villavicencio"),
     ("sur", "derecha"):   ("807940779",   "1414166246#0"),
     ("este", "recto"):    ("816899410#0", "1414166244"),
-    ("este", "derecha"):  ("816899410#0", "1414166243"),
+    ("este", "derecha"):  ("816899410#0", "puente_hacia_villavicencio"),
     ("oeste", "recto"):   ("44411778#0",  "1414166246#0"),
     ("oeste", "derecha"): ("44411778#0",  "642480899"),
 }

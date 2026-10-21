@@ -8,10 +8,14 @@
 #   para que los vehiculos angostos puedan ocupar posiciones laterales distintas.
 subcarriles:
   activo: true
-  resolucion_lateral_m: 0.8
+  resolucion_lateral_m: 0.7   # paso 4a: <= ancho de la moto (0.75 m) y divide exacto el carril de 3.5 m
 
 # Atributos extra del tipo de vehiculo "moto" (nombres de atributos de vType en SUMO)
 moto:
+  # Paso 4a: dimensiones de una moto de trabajo comun en Colombia (Bajaj Boxer CT100: 1965 x 752 mm,
+  # ficha tecnica del fabricante). SUMO usa 2.2 x 0.9 m por defecto.
+  width: 0.75
+  length: 2.0
   minGapLat: 0.3          # separacion lateral minima (m); por defecto 0.6
   latAlignment: arbitrary # la moto puede circular en cualquier posicion lateral del carril
 

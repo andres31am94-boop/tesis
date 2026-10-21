@@ -21,6 +21,16 @@
     <!-- 2) Vuelta en U prohibida -->
     <delete from="807940779" to="642480899"/>       <!-- Sur (Cra 23) -> Sur (Cra 23) -->
 
-    <!-- 3) Carril interior de la Cra 23 sur: recto hacia el norte (puente, 1 carril) -->
-    <connection from="807940779" to="1414166243" fromLane="1" toLane="0"/>
+    <!-- 3) Cra 23 sur, recto hacia el puente. Paso 5 de calibracion: la salida tiene 2 carriles hasta el puente,
+            asi que cada carril sigue por el suyo (antes: el carril 1 se juntaba con el 0 dentro del cruce). -->
+    <connection from="807940779" to="1414166243" fromLane="0" toLane="0"/>
+    <connection from="807940779" to="1414166243" fromLane="1" toLane="1"/>
+
+    <!-- 4) Paso 5 de calibracion: la llegada norte tiene 2 carriles junto al cruce (medido). Derecho: giro a la derecha
+            y recto; izquierdo: recto. Se mantienen 3 movimientos para este brazo (mismo orden del semaforo). -->
+    <connection from="-642480900" to="1414166244" fromLane="0" toLane="0"/>
+    <connection from="-642480900" to="642480899" fromLane="0" toLane="0"/>
+    <connection from="-642480900" to="642480899" fromLane="1" toLane="1"/>
+    <!-- netconvert agrega por su cuenta carril 0 -> carril 1 de la salida; se elimina para que cada carril siga por el suyo -->
+    <delete from="-642480900" to="642480899" fromLane="0" toLane="1"/>
 </connections>

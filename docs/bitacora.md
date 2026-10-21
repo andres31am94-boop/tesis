@@ -308,3 +308,116 @@ y separación lateral mínima de la moto (0.3/0.1 m), en aforo_alto y aforo_bajo
 No modifica los escenarios oficiales. Resultados en `results/calibracion/barrido/`. La combinación elegida
 se valida después con varias semillas y con aforo_medio y aforo_valle_manana. **Efecto: debe medirse.**
 Pendiente de campo: qué se contó como "bus" (bus grande de 12 m, buseta o microbús).
+
+### 2026-10-21 — Respuestas de campo y paso 4a (datos físicos)
+
+Respuestas completas en `docs/campo/preguntas_campo_2026-10-21.md`. Lo que cambia el modelo:
+
+- **Trancón:** más frecuente en el brazo **sur** (hacia Villavicencio). A veces la fila se frena **en pleno verde**
+  porque el puente (1 carril por sentido) se congestiona; a veces la cola llenó el brazo sur "de semáforo a semáforo".
+- **Semáforo vecino:** Calle 18, a ~260 m al norte (corrección de los autores: no son 700 m), coordenadas
+  3°59'32.9"N 73°45'54.6"W. Queda **después** del cruce para quien va hacia Villavicencio y **antes** para quien llega
+  por el norte. No está en la red; sus tiempos no se han medido.
+- **Puente:** la intersección es de doble carril; la reducción a 1 carril ocurre al salir del cruce hacia el puente.
+- **Motos:** adelantan por ambos lados, la mayoría se ubica adelante en la línea de pare, arrancan primero;
+  en el carril del puente caben 3 lado a lado ("bien pegadas, 4"). Motocarros contados como motos.
+- **"Bus"** = buses intermunicipales grandes + busetas + microbuses. **"Camión"** = tractomulas, furgones grandes, camiones.
+- Sin paraderos ni carros estacionados cerca. Peatones cruzan en rojo (usan el todo-rojo de 20 s).
+- **Tiempos del semáforo iguales en todos los horarios medidos** → el baseline es un solo plan fijo.
+- Aforo contado en la línea de pare (consistente con el GEH). Cola sobrante al final del verde: sobre todo en el
+  **este**; en la Cra 23 ~4 vehículos en los momentos más cargados.
+- Calzada de la Cra 23 ≈ 7 m (2 carriles).
+
+**Marco legal relevante (Ley 769 de 2002, en el proyecto):** Art. 118 permite el giro a la derecha en rojo
+respetando al peatón, salvo señal que lo prohíba (los autores no lo observan en el cruce; no se modela por ahora).
+Art. 94 prohíbe a las motos adelantar por la derecha o entre vehículos. El filtrado observado es, en rigor, una
+infracción, pero está incluido en los conteos del aforo. Decisión pendiente de los autores (ver abajo).
+
+**Paso 4a (datos físicos, no ajuste libre):**
+- Ancho de carril de la Cra 23 = 3.5 m (antes 3.2 m por defecto) en llegadas, salidas y accesos (`ajustes.edg.xml`;
+  `accesos.edg.xml` ahora se carga primero).
+- Moto 2.0 × 0.75 m (Bajaj Boxer CT100: 1965 × 752 mm, ficha del fabricante; SUMO usa 2.2 × 0.9 m).
+- Resolución lateral 0.7 m: no mayor que el ancho de la moto y divide exacto el carril de 3.5 m (recomendación de SUMO).
+
+**Paso 4b (barrido):** alineación del carro (center/right) × separación lateral de la moto (0.3/0.1) × largo del bus
+(12/9 m) = 8 combinaciones, sobre la red del paso 4a. **Efecto: debe medirse.**
+
+**Pendiente (después de calibrar):** modelar el semáforo de la Calle 18 como semáforo fijo aguas abajo
+(requiere medir sus tiempos) para representar el bloqueo del puente.
+
+### 2026-10-21 — ¿Es legal que las motos se filtren con el tráfico detenido? (consulta)
+
+- Ley 769/2002, art. 94: las motos "no deben adelantar ... por la derecha o entre vehículos que transiten por sus
+  respectivos carriles"; art. 96: deben "transitar ocupando un carril". **No hay una excepción expresa para tráfico detenido.**
+- Art. 73: no se adelanta en intersecciones ni donde hay línea central continua (el puente tiene doble línea amarilla).
+- Conceptos del MinTransporte (2025, no vinculantes): un obstáculo o un vehículo detenido "no habilita automáticamente
+  a adelantar"; el comportamiento esperado es el mismo para motos y carros. No se encontró concepto que permita el filtrado.
+- Manual de Señalización Vial 2024 (Res. 20243040045005): crea la señal SIM-03 "zona de espera adelantada para motos en
+  intersección", que solo existe donde la autoridad la demarca tras un estudio técnico.
+- Conclusión: el filtrado es, como mínimo, zona gris y más probablemente infracción. **No es una opinión jurídica.**
+- Implicación metodológica: el modelo representa el comportamiento **observado** porque los conteos lo incluyen;
+  no lo avala. Se excluyen las infracciones que **no** se contaron (pasarse el rojo). Decisión de los autores pendiente.
+- **Decisión de los autores (2026-10-21):** se adopta la interpretación literal del art. 94 ("entre vehículos que
+  *transiten*"). Avanzar de forma controlada entre vehículos **completamente detenidos** en rojo, hacia la línea de pare
+  o una zona de espera, sin invadir el paso peatonal, no es "adelantar en movimiento". Es una interpretación de los
+  autores, no un concepto oficial; se declara como supuesto en la tesis. Con ella el modelo sigue sin simular infracciones.
+  Limitación: el modelo de subcarriles de SUMO también deja a las motos avanzar entre filas que se mueven despacio;
+  el efecto debe estimarse.
+- **Verificación de zona de espera para motos (2026-10-21):** en una imagen de Street View (2023) de la llegada de la
+  Cra 23 sur aportada por los autores se ven la flecha de carril, una sola línea de pare y luego la cebra. **No hay
+  zona de espera adelantada (SIM-03):** no hay segunda línea transversal ni pictograma de moto. El supuesto queda
+  así: las motos avanzan entre vehículos detenidos **hasta la línea de pare**, sin invadir la cebra. La imagen es de
+  Google y no se publica en el repositorio; confirmar en la próxima visita con foto propia.
+
+### 2026-10-21 — Resultado del paso 4 (4a + barrido 4b) y paso 5 (reducción de carril en el puente)
+
+**Paso 4a** (carril de 3.5 m en la Cra 23, moto 2.0 × 0.75 m, resolución lateral 0.7 m). Comparando c01, que conserva
+los valores del paso 3, con el paso 3: norte de 981 a 1101 veh/h (GEH de 13.1 a 9.4); sur de 983 a 1067 (de 15.0 a 12.4).
+**Barrido 4b** (semilla 1, aforo_alto; aforo_bajo cumple 4/4 en las 8 combinaciones):
+
+| Comb. | carro latAlignment | moto minGapLat | bus length | norte (GEH) | sur (GEH) |
+|---|---|---|---|---|---|
+| c01 | center | 0.3 | 12 | 1101 (9.4) | 1067 (12.4) |
+| c02 | center | 0.3 | 9 | 1082 (10.0) | 1056 (12.7) |
+| c03 | center | 0.1 | 12 | 1093 (9.6) | 1016 (14.0) |
+| c04 | center | 0.1 | 9 | 1108 (9.2) | 1018 (13.9) |
+| c05 | right | 0.3 | 12 | 1138 (8.3) | 1068 (12.4) |
+| c06 | right | 0.3 | 9 | 1179 (7.1) | 1116 (10.9) |
+| c07 | right | 0.1 | 12 | 1106 (9.3) | 1082 (11.9) |
+| c08 | right | 0.1 | 9 | 1108 (9.2) | 1116 (10.9) |
+
+Lectura: los parámetros de comportamiento mueven poco el resultado (±~60 veh/h, parecido a la variación entre semillas
+que todavía no se ha medido). Ninguna combinación llega a GEH < 5 en norte y sur.
+**Avisos de SUMO:** frenadas de emergencia repetidas en `:cluster..._7_1` y `_7_0`, el carril interno donde los 2 carriles
+del sur se juntaban **dentro del cruce**. El carril 0 tenía luz 'g' (ceder el paso) frente al carril 1 en pleno verde.
+Unos pocos teletransportes de `sur_derecha_moto` en el carril 0 (atrapadas detrás de la cola del recto).
+
+**Paso 5 (dato de campo + OSM):** la salida hacia el puente (`1414166243`) tiene ahora 2 carriles hasta el inicio del puente
+(53.8 m, nodo `inicio_puente`, tipo zipper) y luego 1 carril (`puente_hacia_villavicencio`). Cada carril del sur sigue por
+el suyo dentro del cruce. Cambiaron `ajustes.edg.xml`, `correcciones.con.xml` y los destinos en `scripts/generar_demanda.py`
+(sur recto y este derecha terminan en `puente_hacia_villavicencio`). **Efecto: debe medirse.**
+
+**Paso 5, ajuste con medidas de los autores (Google Maps, vista satelital):** calzada total de 15.6 m en el cruce;
+a 22.6 m del cruce mide 13.1 m (6.9 m hacia el sur y 7.7 m hacia el norte); sobre el puente mide 7.5 m.
+La vía **se va angostando** del cruce al puente, y **la llegada norte también tiene ~2 filas junto al semáforo**
+(en el modelo tenía 1 carril). Cambios:
+- La llegada norte `-642480900` tiene 2 carriles en sus últimos 38.2 m. El tramo del puente pasa a llamarse
+  `puente_desde_villavicencio`. Conexiones explícitas: carril 0 → derecha y recto; carril 1 → recto (siguen siendo 3 movimientos).
+- La reducción de la salida hacia el puente pasa de 53.8 m a 38.2 m.
+- 38.2 m = punto medio entre 22.6 m (2 carriles completos) y 53.8 m (inicio del puente en OSM). Supuesto; sensibilidad pendiente.
+- Consecuencia para el agente: la zona que mide en el brazo norte (`-642480900`) ahora son 38 m con 2 carriles.
+  Pendiente: permitir que un brazo se mida sobre varios edges antes de reentrenar.
+- **Incertidumbre de las medidas (aclaración de los autores):** las distancias y anchos salen de una foto satelital
+  medida a mano y tienen error humano; las dos mitades a 22.6 m suman 14.6 m frente a 13.1 m de total, una diferencia
+  de ~1.5 m. Se tratan como aproximadas: (1) la conclusión cualitativa (2 filas por sentido junto al cruce, 1 en el puente)
+  no cambia con ±1 m; (2) los valores que dependen de la medida (punto de cambio de carriles, ancho de carril) se prueban
+  con sensibilidad; (3) verificación en campo pendiente: observar cuántas filas se forman en rojo en el norte y en el sur
+  (foto propia desde el andén), sin medir dentro de la vía.
+
+**Paso 5, construcción de la red en 3 pasos:** al dividir tramos, netconvert recalculaba conexiones y reaparecían los giros a la
+izquierda (15 movimientos). Ahora: `acacias.netccfg` (OSM) → `acacias_ajustes.netccfg` (geometría →
+`acacias_geometria.net.xml`) → `acacias_conexiones.netccfg` (conexiones → `acacias.net.xml`). La advertencia
+"Lane '1414166243_1' is not connected" del paso de geometría es esperada: se corrige en el de conexiones.
+Verificado en la red final: 12 movimientos en el mismo orden; solo cambian los dos previstos (norte carril 1 → recto;
+sur carril 1 → carril 1 de la salida). Ningún movimiento de la Cra 23 cede el paso, así que `verde_cra23` pasa de
+"GGGrrrGgGrrr" a "GGGrrrGGGrrr" en `config/interseccion.yaml`.

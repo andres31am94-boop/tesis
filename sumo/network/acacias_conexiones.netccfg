@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PASO 3 de 3: CONEXIONES. Aplica los movimientos permitidos en el cruce (sin giros a la izquierda, sin vuelta en U,
+  carriles de la llegada norte y del sur) sobre la red con la geometria ya corregida.
+  Entrada: acacias_geometria.net.xml (paso 2)
+  Salida:  acacias.net.xml (red FINAL que usan las simulaciones)
+  Uso (desde tesis):  netconvert -c sumo\network\acacias_conexiones.netccfg
+-->
+<configuration>
+    <input>
+        <sumo-net-file value="acacias_geometria.net.xml"/>
+        <connection-files value="correcciones.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="acacias.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <no-turnarounds value="true"/>
+    </processing>
+
+    <tls_building>
+        <!-- Al cambiar los movimientos se recalcula el programa por defecto del semaforo. No se usa en los
+             experimentos (las luces las pone Python desde config/interseccion.yaml), pero debe ser coherente. -->
+        <tls.rebuild value="true"/>
+    </tls_building>
+</configuration>

@@ -21,6 +21,6 @@ brazos:
 luces:
   verde_dg15:     "rrrGGGrrrGGG"
   amarillo_dg15:  "rrryyyrrryyy"
-  verde_cra23:    "GGGrrrGgGrrr"
+  verde_cra23:    "GGGrrrGGGrrr"   # paso 5: el sur ya no cede el paso (cada carril sigue por el suyo)
   amarillo_cra23: "yyyrrryyyrrr"
   todo_rojo:      "rrrrrrrrrrrr"
