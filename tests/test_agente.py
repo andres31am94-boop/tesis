@@ -12,11 +12,12 @@ CONFIG_INTERSECCION = {"brazos": {
     "norte": {"edges": ["n"], "eje": "cra23"}, "sur": {"edges": ["s"], "eje": "cra23"},
     "este": {"edges": ["e"], "eje": "dg15"}, "oeste": {"edges": ["o"], "eje": "dg15"},
 }}
-CONFIG_AGENTE = {"estado": {"cortes_cola_relativa": [0.1, 0.3, 0.6], "cortes_tiempo_verde_s": [20, 40]}}
+CONFIG_AGENTE = {"estado": {"cortes_detenidos_zona": [2, 6, 12], "cortes_tiempo_verde_s": [20, 40]}}
 
 
 def estado_con_colas(norte, sur, este, oeste):
-    brazos = {n: EstadoBrazo(vehiculos=0, detenidos=0, cola_relativa=c)
+    """Estado con esos vehiculos detenidos en la zona de camara de cada brazo."""
+    brazos = {n: EstadoBrazo(vehiculos=c, detenidos=c, cola_relativa=0.0, vehiculos_zona=c, detenidos_zona=c)
               for n, c in zip(["norte", "sur", "este", "oeste"], [norte, sur, este, oeste])}
     return EstadoTrafico(tiempo=0, brazos=brazos)
 
@@ -34,8 +35,8 @@ class TestCodificador(unittest.TestCase):
         self.assertEqual(self.cod.numero_estados, 4 * 4 * 2 * 3)
 
     def test_usa_el_brazo_mas_cargado(self):
-        # norte casi lleno (0.9) y sur vacio: el eje Cra 23 debe verse "alto" (nivel 3)
-        componentes = self.cod.componentes(estado_con_colas(0.9, 0.0, 0.05, 0.2), "dg15", 12)
+        # norte con 15 detenidos y sur vacio: el eje Cra 23 debe verse "alto" (nivel 3); Dg 15 max(1, 4) = 4 -> "baja"
+        componentes = self.cod.componentes(estado_con_colas(15, 0, 1, 4), "dg15", 12)
         self.assertEqual(componentes, (3, 1, 1, 0))
 
     def test_indices_unicos_y_en_rango(self):
@@ -48,7 +49,7 @@ class TestCodificador(unittest.TestCase):
                          "cola Cra23=alta, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 2")
 
     def test_cortes_desordenados_dan_error(self):
-        malo = {"estado": {"cortes_cola_relativa": [0.6, 0.1], "cortes_tiempo_verde_s": [20, 40]}}
+        malo = {"estado": {"cortes_detenidos_zona": [6, 2], "cortes_tiempo_verde_s": [20, 40]}}
         with self.assertRaises(ValueError):
             CodificadorEstado(CONFIG_INTERSECCION, malo)
 

@@ -84,6 +84,7 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
             estado = fuente.leer_estado()
             fila = {"tiempo": tiempo, "fase": fase}
             fila.update({f"detenidos_{n}": b.detenidos for n, b in estado.brazos.items()})
+            fila.update({f"detenidos_zona_{n}": b.detenidos_zona for n, b in estado.brazos.items()})
             filas.append(fila)
 
             nueva_fase = guard.paso(tiempo, controlador.pedir_cambio(tiempo, estado))

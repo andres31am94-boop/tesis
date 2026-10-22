@@ -1,0 +1,68 @@
+{
+  "escenario": "aforo_valle_manana",
+  "controlador": "tiempos_fijos",
+  "semilla": 1,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 2546,
+    "espera_total_promedio_s": 16.859387274155537,
+    "espera_en_red_promedio_s": 16.656323644933227,
+    "retraso_entrada_promedio_s": 0.2030636292223095,
+    "tiempo_viaje_promedio_s": 90.40494893951296,
+    "tiempo_perdido_promedio_s": 26.792038491751768,
+    "velocidad_promedio_kmh": 36.443170729458046,
+    "throughput_veh_h": 2751.2727272727275,
+    "cola_promedio_norte": 3.27,
+    "cola_maxima_norte": 20,
+    "cola_promedio_sur": 2.846060606060606,
+    "cola_maxima_sur": 23,
+    "cola_promedio_este": 3.728181818181818,
+    "cola_maxima_este": 16,
+    "cola_promedio_oeste": 2.9515151515151516,
+    "cola_maxima_oeste": 13,
+    "detenidos_promedio_total": 12.795757575757575,
+    "verde_promedio_cra23_s": 55.0,
+    "verdes_cra23": 33,
+    "verde_promedio_dg15_s": 20.0,
+    "verdes_dg15": 33,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 0
+  },
+  "cierre": {
+    "tiempo_final_s": 3750.0,
+    "vehiculos_sin_terminar": 0,
+    "version_sumo": "SUMO 1.27.1"
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": 10,
+        "verde_max_s": 60,
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-10-21T21:45:04"
+  }
+}

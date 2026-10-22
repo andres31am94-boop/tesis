@@ -10,9 +10,15 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class EstadoBrazo:
-    vehiculos: int        # vehiculos presentes en el tramo de llegada
-    detenidos: int        # vehiculos detenidos en el tramo de llegada
-    cola_relativa: float  # detenidos / capacidad del tramo (0 = vacio, 1 = lleno)
+    # Brazo COMPLETO (todos los tramos de la zona de medicion). Lo usan la recompensa y las metricas.
+    vehiculos: int        # vehiculos presentes en el brazo
+    detenidos: int        # vehiculos detenidos en el brazo
+    cola_relativa: float  # detenidos / capacidad del brazo (0 = vacio, 1 = lleno; informativo)
+    # ZONA DE CAMARA: los ultimos "zona_camara_m" metros antes de la linea de pare, igual para todos los brazos.
+    # Es lo que ve el agente para decidir (y lo que podra medir la camara en la maqueta).
+    # None = no se midio en este segundo (el entrenamiento solo la mide cuando el agente decide, para ir mas rapido).
+    vehiculos_zona: int | None
+    detenidos_zona: int | None
 
 
 @dataclass(frozen=True)

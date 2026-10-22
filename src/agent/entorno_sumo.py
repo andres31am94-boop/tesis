@@ -37,8 +37,11 @@ class EntornoSumo:
         self._abierto = False
 
     # --- interfaz del entorno ----------------------------------------------------
-    def reset(self, semilla):
+    def reset(self, semilla, archivo_escenario=None):
+        """Empieza un episodio. archivo_escenario permite cambiar de escenario entre episodios."""
         self.close()
+        if archivo_escenario is not None:
+            self._archivo = archivo_escenario
         iniciar_sumo(self._archivo, usar_gui=self._usar_gui, semilla=semilla)
         self._abierto = True
         self._fuente = SumoSource(self._config_interseccion)
@@ -77,7 +80,8 @@ class EntornoSumo:
         traci.simulationStep()
         self._tiempo = traci.simulation.getTime()
         self._actuador.verificar()
-        self._estado_trafico = self._fuente.leer_estado()
+        # Cada segundo solo se necesitan los detenidos de los brazos (recompensa); la zona de camara se mide al decidir.
+        self._estado_trafico = self._fuente.leer_estado(incluir_zona=False)
         nueva_fase = self.guard.paso(self._tiempo, pedir_cambio)
         if nueva_fase != self._fase:
             self._actuador.aplicar(nueva_fase)
@@ -93,6 +97,7 @@ class EntornoSumo:
             segundos += 1
             if segundos >= self._intervalo and self._en_punto_de_decision():
                 break
+        self._estado_trafico = self._fuente.leer_estado(incluir_zona=True)  # lo que ve el agente para decidir
         return detenidos, segundos
 
     def _estado_actual(self):

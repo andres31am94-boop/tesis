@@ -4,8 +4,12 @@
 intervalo_decision_s: 5        # cada cuanto decide el agente (solo durante el verde y tras el verde minimo)
 
 estado:
-  # Cola relativa del brazo MAS cargado de cada eje -> 4 niveles: [0,0.1) [0.1,0.3) [0.3,0.6) [0.6,...)
-  cortes_cola_relativa: [0.1, 0.3, 0.6]
+  # Vehiculos DETENIDOS en la zona de camara (config/interseccion.yaml: zona_camara_m) del brazo MAS cargado
+  # de cada eje -> 4 niveles (vacia, baja, media, alta).
+  # Calculados el 2026-10-21 con scripts/calcular_cortes_estado.py (semaforo real, 4 escenarios del aforo, semilla 1):
+  # vacia = 0 | baja = 1-3 | media = 4-8 | alta = 9 o mas detenidos.
+  # Frecuencia con el semaforo real: Cra 23 42/16/16/25 %, Dg 15 22/25/31/22 %.
+  cortes_detenidos_zona: [1, 4, 9]
   # Tiempo que lleva el verde actual -> 3 niveles: [min,20) [20,40) [40,max]
   cortes_tiempo_verde_s: [20, 40]
 

@@ -87,7 +87,8 @@ def main():
     ruta_tabla = carpeta / "tabla_q.json"
     if ruta_tabla.exists():
         with open(ruta_tabla, encoding="utf-8") as archivo:
-            escenario = json.load(archivo).get("metadatos", {}).get("escenario", "desconocido")
+            metadatos = json.load(archivo).get("metadatos", {})
+            escenario = ", ".join(metadatos.get("escenarios", [])) or metadatos.get("escenario", "desconocido")
     figura.suptitle(f"Curva de aprendizaje — modelo {args.nombre} | escenario: {escenario}",
                     fontsize=12, color=COLOR_TEXTO, x=0.02, ha="left")
     figura.tight_layout()

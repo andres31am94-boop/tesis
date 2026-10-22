@@ -24,7 +24,7 @@ Este proyecto controla un semáforo con un agente de **Aprendizaje por Refuerzo 
 | 1b | Calibración con el aforo (GEH < 5 por brazo) | VALIDADO: 4 escenarios × 4 brazos × 5 semillas = 80/80 con GEH < 5 (máx. 3.9). Ver `docs/bitacora.md` y `config/calibracion.yaml` |
 | 2 | Python + TraCI | VALIDADO |
 | 3 | Baseline de tiempos fijos + capa de seguridad | VALIDADO con los tiempos medidos del semáforo real (Cra 23: 55 s verde; Dg 15: 20 s verde; ciclo 101 s) |
-| 4–6 | Entorno RL, entrenamiento y control adaptativo | IMPLEMENTADO con demanda de prueba (Q-Learning tabular); pendiente reentrenar con escenarios calibrados |
+| 4–6 | Entorno RL, entrenamiento y control adaptativo | LISTO PARA ENTRENAR con los escenarios reales: estado = detenidos en zona de cámara de 100 m, cortes [1, 4, 9] calculados con colas reales; entrenamiento rotando los 4 escenarios (prueba de 4 episodios OK). Pendiente: 200 episodios tras los datos de campo |
 | 7–9 | Visión artificial (YOLO + tracking) | PLANIFICADO |
 | 10–12 | ESP32, maqueta e integración | PLANIFICADO |
 | 13–14 | Experimentos y documentación | PLANIFICADO |

@@ -519,3 +519,97 @@ o sea que el pipeline oficial reproduce la validación. 0 vehículos sin termina
 la zona equivale a lo que vería una cámara en el cruce. `SumoSource` suma vehículos, detenidos y capacidad de los
 tramos. `generar_accesos.py` usa el primer tramo de la lista. Prueba nueva: `tests/test_sumo_source.py`, con un traci
 falso, sin abrir SUMO.
+
+### 2026-10-21 — Zona de varios tramos validada y análisis del estado del agente
+
+32/32 pruebas OK. Semáforo real, semilla 1, zona de medición nueva (cola promedio / máxima en vehículos detenidos):
+bajo N 2.1/15, S 2.1/14, E 2.3/11, O 1.2/8 · valle N 3.3/20, S 2.9/23, E 3.7/16, O 3.0/13 ·
+medio N 4.1/23, S 3.1/19, E 6.5/23, O 3.4/17 · alto N 4.9/28, S 25.4/86, E 4.6/19, O 6.1/23.
+
+**Problema encontrado en el estado actual (cola relativa = detenidos / capacidad del tramo):** la capacidad depende del
+largo del tramo que trae OSM, no del tráfico. Norte 18.8 veh (110 m), sur 50.0, este 87.8 (331 m × 2 carriles), oeste 60.4.
+Con los cortes [0.1, 0.3, 0.6], en los 4 escenarios juntos el eje Dg 15 está 73 % del tiempo en "vacía", 26 % en "baja"
+y **0 % en "media" y "alta"**, aunque el este llegue a 23 detenidos y en campo deje cola sobrante. El agente no puede ver
+la congestión de la Dg 15. Cra 23: 52/16/16/15 %.
+Propuesta: medir el estado en vehículos detenidos dentro de una zona de igual largo para todos los brazos (la que vería
+una cámara) y fijar los cortes con los cuantiles observados. La recompensa y las métricas siguen usando la cola completa.
+Pendiente de aprobación de los autores.
+**Decisión de los autores:** se aprueba la zona de cámara. En campo las colas llegan a ~150 m como máximo; con
+**100 m** una cola más larga se ve igual como "alta". Implementado: `zona_camara_m: 100` en `interseccion.yaml`;
+`EstadoBrazo` tiene ahora `vehiculos_zona` y `detenidos_zona`. SumoSource cuenta los vehículos a ≤ 100 m de la línea
+de pare (posición de cada vehículo; detenido = velocidad < 0.1 m/s, el mismo umbral de SUMO). El codificador usa
+`cortes_detenidos_zona` (vehículos), por ahora provisionales [2, 6, 12]. `series.csv` guarda `detenidos_zona_<brazo>`.
+Los cortes definitivos se calculan con `scripts/calcular_cortes_estado.py`: "vacía" = 0 y luego los percentiles 33 y
+67 de los segundos con cola, juntando ambos ejes y los 4 escenarios. La recompensa y las métricas siguen usando el brazo completo.
+Pruebas nuevas: zona de cámara en `test_sumo_source.py`.
+
+### 2026-10-21 — ¿Los carriles del modelo cumplen la norma colombiana? (consulta)
+
+- Decreto 1077 de 2015, art. 2.2.3.5.2.4 (estándares que los municipios pueden adoptar): carril urbano mínimo de 3.00 m
+  sin transporte público colectivo y de 3.20 m con transporte público colectivo o de uso mixto.
+  Modelo: Cra 23 = 3.5 m (medido; pasan buses intermunicipales) → por encima del mínimo. Dg 15 = 3.2 m, el valor por defecto
+  de SUMO, **no medido** → igual al mínimo. Pendiente: medir la Dg 15 en la foto satelital (la vía no tiene líneas de carril).
+- Ley 2251 de 2022: velocidad máxima urbana 50 km/h → modelo 13.89 m/s = 50 km/h en todas las vías.
+- Criterio del modelo: representa la vía **como existe** (medida u observada), no como debería ser. Si algo no cumpliera
+  la norma, se modelaría igual y se señalaría en la tesis.
+
+### 2026-10-21 — Objetivo de los autores: simulación lo más realista posible
+
+Pendientes de realismo, ordenados por impacto (visita de campo única propuesta para 1–3):
+1. Semáforo de la Calle 18 (~260 m al norte): medir verde/amarillo/rojo y modelarlo como semáforo fijo aguas abajo
+   (bloqueo del puente). Requiere recalibrar y reentrenar; el proceso ya está automatizado.
+2. Conteo de vehículos por verde en norte y sur (pregunta 27): valida directamente la capacidad del modelo.
+3. Fotos propias de cada llegada: demarcación, señales de prohibido girar, filas en rojo.
+4. Ancho de las calzadas de la Dg 15 (foto satelital), para que ningún ancho sea el valor por defecto de SUMO.
+5. Proporción aproximada de tractomulas dentro de "camión" (SUMO usa un camión de 7.1 m).
+Limitaciones que se declaran (no se pueden corregir sin datos nuevos): conteos de 15 min por brazo, no simultáneos;
+demanda constante dentro de la hora; peatones no modelados (cruzan en el todo-rojo).
+
+### 2026-10-21 — Cortes del estado con colas reales y preparación del reentrenamiento
+
+33/33 pruebas OK. Las métricas de las 4 corridas salen idénticas a las anteriores: la zona de cámara no cambia la
+simulación, solo agrega columnas. Detenidos en la zona de cámara (100 m) del brazo más cargado de cada eje:
+
+| Escenario | Cra 23: cero / p50 / p90 / máx | Dg 15: cero / p50 / p90 / máx |
+|---|---|---|
+| bajo | 52 % / 0 / 8 / 15 | 30 % / 2 / 6 / 11 |
+| valle mañana | 45 % / 1 / 11 / 23 | 22 % / 4 / 9 / 16 |
+| medio | 41 % / 2 / 13 / 23 | 18 % / 6 / 15 / 23 |
+| alto | 32 % / 7 / 43 / 53 | 19 % / 6 / 13 / 23 |
+
+**Cortes adoptados: [1, 4, 9]** → vacía 0 · baja 1–3 · media 4–8 · alta 9 o más. Frecuencia de cada nivel con el semáforo
+real: Cra 23 42/16/16/25 %; Dg 15 22/25/31/22 %. Antes la Dg 15 tenía 0 % en media y alta; ahora el agente la ve.
+**Entrenamiento con varios escenarios:** `entrenar.py` recibe `--escenarios` (uno o varios) y los rota (episodio k →
+escenarios[k % n]). `curva_aprendizaje.csv` tiene ahora la columna `escenario`.
+
+### 2026-10-21 — Corrección: qué conteos fueron simultáneos
+
+Aclaración de los autores: solo los conteos del **viernes 16 (aforo_alto)** y del **lunes 19 (aforo_bajo)** se hicieron
+brazo por brazo, a horas distintas. Los del **martes 20 (aforo_medio y aforo_valle_manana)** fueron **simultáneos**:
+se grabó el cruce en video y se contó después. `config/escenarios_aforo.yaml` ya lo decía; la limitación anotada antes
+("conteos no simultáneos") aplica solo a alto y bajo.
+Consecuencia para la tesis: la calibración se ajustó con alto y bajo (no simultáneos) y se validó con medio y valle
+(simultáneos, en video, no usados para ajustar), que cumplen GEH < 5 en todos los brazos y semillas. Es un respaldo fuerte.
+Próximo conteo (jueves, 6:15 pm, en video): hora pico simultánea, para complementar o reemplazar aforo_alto.
+Los videos existentes del martes 20 pueden servir para probar YOLO (fase 7). No se publican (privacidad, Ley 1581).
+
+### 2026-10-21 — Lista de componentes de la parte física
+
+Hardware disponible: ESP32, Arduino UNO (de respaldo, no necesario) e iPhone 14 como cámara de prueba (DroidCam por USB;
+requiere iTunes en Windows). La lista completa está en `hardware/lista_componentes.md`. Comprar ya la electrónica barata;
+los carritos a control remoto y la webcam se compran después de probar YOLO con carritos que ya tengan (riesgo R3).
+
+### 2026-10-22 — Prueba corta de entrenamiento con los escenarios reales
+
+33/33 OK. Cuatro episodios (uno por escenario, ε ≈ 1, es decir, decisiones casi al azar):
+bajo 74 s (detenidos prom. 19.9) · valle 159 s (49.0) · medio 224 s (65.2) · alto 345 s (78.0). Tabla guardada; 33 de 96
+estados visitados. Con decisiones al azar las colas son mucho mayores que con el semáforo real (medio: 65 contra 17),
+por eso los primeros episodios tardan más. Estimación sin optimizar: ~200 s por episodio, unas 11 h para 200 episodios.
+**Optimización:** la zona de cámara (la parte costosa, porque consulta la posición de cada vehículo) se mide solo en los
+instantes de decisión, no cada segundo. La recompensa sigue usando los detenidos del brazo completo cada segundo.
+`leer_estado(incluir_zona=False)` deja la zona en None; si algo la usara sin medirla, fallaría de forma visible.
+`ejecutar_escenario` la sigue midiendo cada segundo (series.csv). Prueba nueva en `test_sumo_source.py`.
+**Resultado de la optimización** (mismas semillas): las recompensas salen **idénticas** (−71531, −175942, −233942,
+−280082), así que el comportamiento no cambió. Tiempos: 24.5 / 48.4 / 90.3 / 203.8 s (antes 74.4 / 158.7 / 224.0 /
+344.7 s): 367 s en total contra 802 s, unas 2.2 veces más rápido. Estimación para 200 episodios: ~5 h o menos (los
+episodios se acortan a medida que el agente explora menos y genera menos congestión). 34/34 pruebas OK.

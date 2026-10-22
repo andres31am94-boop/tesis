@@ -4,8 +4,8 @@ en un NUMERO de estado para la tabla Q.
 
 Estado = (nivel de cola Cra 23, nivel de cola Dg 15, eje en verde, nivel de tiempo en verde)
 
-Para cada eje se usa la cola relativa del brazo MAS cargado: el brazo norte (puente)
-tiene poca capacidad y un promedio con el sur escondería que se esta llenando.
+Cola de un eje = vehiculos DETENIDOS en la zona de camara (ultimos zona_camara_m metros antes de la linea
+de pare) del brazo MAS cargado del eje: un promedio con el otro brazo escondería que uno se esta llenando.
 Funciona igual con datos de SUMO o de la camara: solo necesita EstadoTrafico.
 """
 from bisect import bisect_right
@@ -14,7 +14,7 @@ from src.controller.safety_guard import EJES
 
 
 def nivel(valor, cortes):
-    """Indice del intervalo: cortes [0.1, 0.3, 0.6] -> 0.05->0, 0.1->1, 0.45->2, 0.9->3."""
+    """Indice del intervalo: cortes [2, 6, 12] -> 0->0, 2->1, 7->2, 20->3."""
     return bisect_right(cortes, valor)
 
 
@@ -27,7 +27,7 @@ class CodificadorEstado:
             if not brazos:
                 raise ValueError(f"El eje '{eje}' no tiene brazos en la configuracion.")
 
-        self._cortes_cola = list(config_agente["estado"]["cortes_cola_relativa"])
+        self._cortes_cola = list(config_agente["estado"]["cortes_detenidos_zona"])
         self._cortes_tiempo = list(config_agente["estado"]["cortes_tiempo_verde_s"])
         for cortes in (self._cortes_cola, self._cortes_tiempo):
             if cortes != sorted(cortes):
@@ -38,7 +38,7 @@ class CodificadorEstado:
         self.numero_estados = self.niveles_cola * self.niveles_cola * len(EJES) * self.niveles_tiempo
 
     def cola_eje(self, estado_trafico, eje):
-        return max(estado_trafico.brazos[b].cola_relativa for b in self._brazos_por_eje[eje])
+        return max(estado_trafico.brazos[b].detenidos_zona for b in self._brazos_por_eje[eje])
 
     def componentes(self, estado_trafico, eje_en_verde, tiempo_en_verde):
         return (

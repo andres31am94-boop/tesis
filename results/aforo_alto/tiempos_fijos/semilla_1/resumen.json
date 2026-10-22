@@ -15,15 +15,15 @@
     "tiempo_perdido_promedio_s": 96.62554258423985,
     "velocidad_promedio_kmh": 26.529872132939254,
     "throughput_veh_h": 3956.727272727273,
-    "cola_promedio_norte": 4.335454545454546,
-    "cola_maxima_norte": 23,
+    "cola_promedio_norte": 4.8548484848484845,
+    "cola_maxima_norte": 28,
     "cola_promedio_sur": 25.354848484848485,
     "cola_maxima_sur": 86,
     "cola_promedio_este": 4.5645454545454545,
     "cola_maxima_este": 19,
     "cola_promedio_oeste": 6.082727272727273,
     "cola_maxima_oeste": 23,
-    "detenidos_promedio_total": 40.337575757575756,
+    "detenidos_promedio_total": 40.8569696969697,
     "verde_promedio_cra23_s": 55.0,
     "verdes_cra23": 33,
     "verde_promedio_dg15_s": 20.0,
@@ -63,6 +63,6 @@
   },
   "entorno": {
     "python": "3.11.5",
-    "fecha": "2026-10-21T21:22:57"
+    "fecha": "2026-10-21T21:49:42"
   }
 }

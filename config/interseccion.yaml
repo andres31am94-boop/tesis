@@ -9,6 +9,11 @@ semaforo_id: "cluster_12995046887_9702926134"
 # Se usa para calcular la capacidad de cada brazo y la "cola relativa".
 espacio_por_vehiculo_m: 7.5
 
+# ZONA DE CAMARA (2026-10-21): metros antes de la linea de pare en los que el agente cuenta vehiculos detenidos.
+# Igual para todos los brazos: es lo que veria una camara en el cruce (y lo que medira la camara en la maqueta).
+# En campo las colas observadas llegan a ~150 m como maximo; una cola mas larga que la zona se ve como "alta".
+zona_camara_m: 100
+
 # Brazos de llegada: tramos (edges) de SUMO que forman la ZONA DE MEDICION del brazo y eje al que pertenece.
 # La lista va desde la linea de pare hacia atras. El primero es el tramo de llegada original de OSM
 # (scripts/generar_accesos.py lo usa para ubicar el acceso). Los tramos de acceso de 500 m NO se miden:

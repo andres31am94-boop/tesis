@@ -2,10 +2,11 @@
 Entrena el agente Q-Learning en SUMO.
 
 Uso (desde la carpeta tesis):
-  .\\.venv\\Scripts\\python.exe -m src.agent.entrenar --escenario prueba --episodios 3 --nombre prueba_corta
+  .\\.venv\\Scripts\\python.exe -m src.agent.entrenar --escenarios aforo_bajo aforo_alto --episodios 4 --nombre prueba
 
 Cada episodio = una hora simulada con una semilla distinta (semillas de ENTRENAMIENTO, nunca
-las de evaluacion). Al terminar cada episodio se guardan:
+las de evaluacion). Con varios escenarios se ROTAN: el episodio k usa escenarios[k % n], asi el agente
+practica con todas las demandas del dia y no se especializa en una sola. Al terminar cada episodio se guardan:
   models/<nombre>/tabla_q.json             la tabla aprendida (con sus parametros)
   models/<nombre>/curva_aprendizaje.csv    una fila por episodio
 """
@@ -30,7 +31,7 @@ def leer_yaml(nombre):
 
 def main():
     parser = argparse.ArgumentParser(description="Entrena el agente Q-Learning.")
-    parser.add_argument("--escenario", required=True)
+    parser.add_argument("--escenarios", nargs="+", required=True, help="uno o varios .sumocfg de sumo/configs (se rotan)")
     parser.add_argument("--episodios", type=int, required=True)
     parser.add_argument("--nombre", required=True, help="nombre de la carpeta en models/")
     parser.add_argument("--gui", action="store_true", help="ver el entrenamiento (muy lento)")
@@ -45,7 +46,11 @@ def main():
     if set(range(semilla_base, semilla_base + args.episodios)) & set(config_agente["semillas"]["evaluacion"]):
         raise ValueError("Las semillas de entrenamiento se cruzan con las de evaluacion.")
 
-    entorno = EntornoSumo(CARPETA_TESIS / "sumo" / "configs" / f"{args.escenario}.sumocfg",
+    archivos = [CARPETA_TESIS / "sumo" / "configs" / f"{nombre}.sumocfg" for nombre in args.escenarios]
+    for archivo in archivos:
+        if not archivo.exists():
+            raise FileNotFoundError(f"No existe el escenario {archivo}")
+    entorno = EntornoSumo(archivos[0],
                           config_interseccion, config_controlador, config_agente, config_experimento,
                           usar_gui=args.gui)
     tabla = TablaQ(entorno.codificador.numero_estados, aprendizaje["alfa"], aprendizaje["gamma"],
@@ -54,9 +59,9 @@ def main():
     carpeta = CARPETA_MODELOS / args.nombre
     carpeta.mkdir(parents=True, exist_ok=True)
     ruta_curva = carpeta / "curva_aprendizaje.csv"
-    columnas = ["episodio", "semilla", "epsilon", "recompensa_total", "detenidos_promedio",
+    columnas = ["episodio", "escenario", "semilla", "epsilon", "recompensa_total", "detenidos_promedio",
                 "decisiones", "pedidos_de_cambio", "verdes_cra23", "verdes_dg15", "segundos_reloj"]
-    metadatos = {"escenario": args.escenario, "config_agente": config_agente,
+    metadatos = {"escenarios": args.escenarios, "config_agente": config_agente,
                  "config_controlador": config_controlador, "config_experimento": config_experimento}
 
     try:
@@ -69,7 +74,8 @@ def main():
                                          aprendizaje["epsilon_final"], aprendizaje["episodios_decaimiento"])
                 inicio_reloj = time.perf_counter()
 
-                estado = entorno.reset(semilla)
+                escenario = args.escenarios[episodio % len(args.escenarios)]
+                estado = entorno.reset(semilla, archivos[episodio % len(archivos)])
                 recompensa_total, decisiones, pedidos = 0.0, 0, 0
                 terminado = False
                 while not terminado:
@@ -83,7 +89,7 @@ def main():
 
                 verdes = [eje for eje, _, _ in entorno.guard.historial_verdes]
                 fila = {
-                    "episodio": episodio, "semilla": semilla, "epsilon": round(epsilon, 4),
+                    "episodio": episodio, "escenario": escenario, "semilla": semilla, "epsilon": round(epsilon, 4),
                     "recompensa_total": recompensa_total,
                     "detenidos_promedio": round(entorno.detenidos_episodio / max(entorno.segundos_episodio, 1), 3),
                     "decisiones": decisiones, "pedidos_de_cambio": pedidos,
@@ -93,7 +99,7 @@ def main():
                 escritor.writerow(fila)
                 archivo.flush()
                 tabla.guardar(carpeta / "tabla_q.json", {**metadatos, "episodios_entrenados": episodio + 1})
-                print(f"ep {episodio:4d} | semilla {semilla} | eps {epsilon:.3f} | "
+                print(f"ep {episodio:4d} | {escenario:<18} | semilla {semilla} | eps {epsilon:.3f} | "
                       f"recompensa {recompensa_total:10.0f} | detenidos prom. {fila['detenidos_promedio']:6.2f} | "
                       f"decisiones {decisiones:4d} | {fila['segundos_reloj']:5.1f} s")
     finally:
