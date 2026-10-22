@@ -2,10 +2,10 @@
 <!-- Generado por scripts/generar_escenarios_aforo.py: NO editar a mano. -->
 <!-- Escenario aforo_valle_manana: Martes 20-oct, 10:25-10:40 (los 4 brazos simultaneos) - escenario adicional. Fuente: docs/aforo/planilla_aforo.xlsx -->
 <routes>
-    <vType id="carro" vClass="passenger" guiShape="passenger"/>
-    <vType id="moto" vClass="motorcycle" guiShape="motorcycle" width="0.75" length="2.0" minGapLat="0.3" latAlignment="arbitrary"/>
-    <vType id="bus" vClass="bus" guiShape="bus"/>
-    <vType id="camion" vClass="truck" guiShape="truck"/>
+    <vType id="carro" vClass="passenger" guiShape="passenger" sigma="0.25" latAlignment="right"/>
+    <vType id="moto" vClass="motorcycle" guiShape="motorcycle" sigma="0.25" width="0.75" length="2.0" minGapLat="0.3" latAlignment="arbitrary"/>
+    <vType id="bus" vClass="bus" guiShape="bus" sigma="0.25"/>
+    <vType id="camion" vClass="truck" guiShape="truck" sigma="0.25"/>
     <flow id="sur_recto_carro" type="carro" begin="0" end="3600" from="acceso_sur" to="puente_hacia_villavicencio" probability="0.091111" departLane="best" departSpeed="max"/>
     <flow id="sur_derecha_carro" type="carro" begin="0" end="3600" from="acceso_sur" to="1414166246#0" probability="0.006667" departLane="best" departSpeed="max"/>
     <flow id="sur_recto_moto" type="moto" begin="0" end="3600" from="acceso_sur" to="puente_hacia_villavicencio" probability="0.097778" departLane="best" departSpeed="max" departPosLat="random"/>

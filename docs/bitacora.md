@@ -421,3 +421,101 @@ izquierda (15 movimientos). Ahora: `acacias.netccfg` (OSM) → `acacias_ajustes.
 Verificado en la red final: 12 movimientos en el mismo orden; solo cambian los dos previstos (norte carril 1 → recto;
 sur carril 1 → carril 1 de la salida). Ningún movimiento de la Cra 23 cede el paso, así que `verde_cra23` pasa de
 "GGGrrrGgGrrr" a "GGGrrrGGGrrr" en `config/interseccion.yaml`.
+
+### 2026-10-21 — Barrido sobre la red del paso 5 y paso 6 (sensibilidad de la red)
+
+**Barrido 4b repetido sobre la red del paso 5** (semilla 1; aforo_bajo 4/4 en las 8 combinaciones). aforo_alto:
+- **Norte: de ~1100 a 1337–1412 veh/h, GEH de 0.6 a 2.6 → CUMPLE.** La llegada norte de 2 carriles era la causa principal.
+- Sur: 1184–1216 veh/h (GEH 8.0–8.9), no cumple. Este y oeste siguen OK.
+- Con `carro.latAlignment=right` el norte queda en 1401–1412 en las 4 combinaciones, contra 1337–1344 con `center`:
+  el efecto es consistente. minGapLat y el largo del bus no muestran efecto claro.
+  **Se adopta c05:** solo `carro: latAlignment: right`; lo demás queda en sus valores previos.
+- Ya no hay frenadas de emergencia dentro del cruce. Aparecen algunas en la unión hacia el puente
+  (`:inicio_puente`, `1414166243_1`) y una en `:fin_puente_sur`.
+
+**Diagnóstico del sur** (c06): 1476 de 1512 veh/h siguen recto hacia el puente de 1 carril; 17 % son buses y camiones.
+Atendidos: 1181 recto. Espera en la red ~140 s, contra ~21 s en el norte. El cuello de botella es la unión de 2 a 1 carril.
+
+**Paso 6:** barrido de sensibilidad de la red (`scripts/barrido_red.py`, `config/barrido_red.yaml`):
+posición del cambio de carriles {22.6, 38.2, 53.8 m} × forma de unión {zipper, carril_termina} = 6 redes,
+cada una construida con netconvert y verificada (12 movimientos). No modifica la red oficial. **Efecto: debe medirse.**
+`generar_escenarios_aforo.py` ahora acepta atributos para cualquier tipo de vehículo (secciones carro/moto/bus/camion).
+
+### 2026-10-21 — Resultado del paso 6 (sensibilidad de la red) y paso 7 (conductor)
+
+Barrido de red (semilla 1, aforo_alto; aforo_bajo 4/4 en las 6 redes; carros a la derecha):
+
+| Red | Posición | Unión | norte (GEH) | sur (GEH) |
+|---|---|---|---|---|
+| r01 | 22.6 m | zipper | 1295 (3.8) | 1177 (9.1) |
+| r02 | 38.2 m | zipper | 1408 (0.7) | 1191 (8.7) |
+| r03 | 53.8 m | zipper | 1432 (0.1) | 1203 (8.4) |
+| r04 | 22.6 m | carril_termina | 1299 (3.7) | 1181 (9.0) |
+| r05 | 38.2 m | carril_termina | 1411 (0.7) | 1124 (10.7) |
+| r06 | 53.8 m | carril_termina | 1437 (0.0) | 1120 (10.8) |
+
+- El **norte es sensible** a la posición del cambio de carriles: hasta 140 veh/h dentro del rango medido.
+  Se declara como sensibilidad del modelo a una medida satelital.
+- El **sur no depende** de la geometría de la unión (1120–1203): su límite está en otro lado.
+- **Se adopta r03** (53.8 m, zipper): está dentro del rango medido y tiene el mejor ajuste.
+  La advertencia "1414166243_1 is not connected" sale en el paso de geometría y es esperada.
+
+**Paso 7:** barrido del comportamiento del conductor para todos los tipos de vehículo: sigma (imperfección del modelo
+Krauss) {0.5, 0.25, 0.0} × minGap {2.5, 1.5 m}. Se espera que mueva solo al sur, porque los demás brazos no se saturan.
+**Debe medirse.** El barrido anterior quedó en `results/calibracion/barrido_4b/` y cada barrido tiene ahora su carpeta.
+
+### 2026-10-21 — Resultado del paso 7 (conductor) y paso 8 (validación)
+
+Red r03 reconstruida (53.8 m, zipper). Barrido del conductor (semilla 1, aforo_alto; aforo_bajo 4/4 en todas):
+
+| Comb. | sigma | minGap | norte (GEH) | sur (GEH) | cumplen |
+|---|---|---|---|---|---|
+| c01 | 0.5 | 2.5 | 1432 (0.1) | 1203 (8.4) | 3/4 |
+| c02 | 0.5 | 1.5 | 1433 (0.1) | 1222 (7.8) | 3/4 |
+| c03 | 0.25 | 2.5 | 1438 (0.0) | 1377 (3.6) | **4/4** |
+| c04 | 0.25 | 1.5 | 1440 (0.1) | 1430 (2.1) | **4/4** |
+| c05 | 0.0 | 2.5 | 1440 (0.1) | 1501 (0.3) | 4/4 |
+| c06 | 0.0 | 1.5 | 1440 (0.1) | 1503 (0.2) | 4/4 |
+
+- Como se esperaba, **sigma es lo que mueve el sur**; norte, este y oeste prácticamente no cambian, porque no se saturan.
+- Se descarta sigma = 0 (conductor perfecto): no es realista, quita la variabilidad y produjo una colisión (c05).
+- **Paso 8:** validación de c03 y c04 con 5 semillas en los 4 escenarios del aforo. `barrido_calibracion.py` admite
+  ahora `semillas: [...]` y al final imprime un resumen por brazo (medio, mínimo, máximo, GEH y semillas que cumplen).
+  **Debe medirse.**
+
+### 2026-10-21 — Resultado del paso 8: CALIBRACIÓN VALIDADA
+
+Validación con 5 semillas × 4 escenarios del aforo (`results/calibracion/validacion_conductor/`):
+
+| Escenario | Brazo | Aforo | Simulado medio (mín–máx), sigma 0.25 / minGap 2.5 | GEH máx. |
+|---|---|---|---|---|
+| bajo | norte / sur / este / oeste | 716 / 696 / 280 / 152 | 711 / 704 / 286 / 146 | 2.6 |
+| valle mañana | norte / sur / este / oeste | 996 / 916 / 472 / 368 | 994 / 899 / 475 / 374 | 1.4 |
+| medio | norte / sur / este / oeste | 1336 / 1020 / 696 / 404 | 1342 / 998 / 721 / 409 | 2.5 |
+| alto | norte / sur / este / oeste | 1436 / 1512 / 460 / 680 | 1429 / 1378 (1364–1397) / 469 / 681 | 3.9 |
+
+- **Las 80 comparaciones cumplen GEH < 5, en las dos candidatas.** aforo_medio y aforo_valle_manana no se usaron
+  para ajustar nada: cumplir en ellos es evidencia de que el modelo generaliza.
+- **Elegida: sigma 0.25 y minGap 2.5.** Cambia un solo parámetro del conductor respecto a SUMO. La otra candidata
+  (minGap 1.5) acerca más el sur en el aforo alto (1439), pero no hay medición que la justifique; queda como sensibilidad.
+- **Sesgo conocido:** en el aforo alto el sur queda ~9 % por debajo en todas las semillas (1364–1397 de 1512).
+  El modelo es algo conservador en la capacidad del puente en hora pico.
+- **Limitación:** en 2 de 40 corridas hubo una colisión con teletransporte en la unión hacia el puente (con camiones),
+  más frenadas de emergencia aisladas en esa unión. Es un artefacto del modelo de subcarriles con vehículos pesados
+  en un estrechamiento. Su efecto sobre los flujos es despreciable (1 vehículo por corrida).
+- **No modelado:** el semáforo de la Calle 18 (~260 m al norte) y el bloqueo del puente que causa a veces.
+  Se declara como limitación y trabajo futuro (requiere medir sus tiempos).
+- `generar_escenarios_aforo.py` aplica ahora una sección `todos` de `calibracion.yaml` a los 4 tipos de vehículo.
+
+### 2026-10-21 — Cierre de la calibración y zona de medición de varios tramos
+
+**Prueba de cierre** con los escenarios oficiales regenerados (sigma 0.25 en los 4 tipos), aforo_alto, semilla 1:
+norte 1438, sur 1377, este 488, oeste 655 → 4/4. Coincide exactamente con c01 de `validacion_conductor`,
+o sea que el pipeline oficial reproduce la validación. 0 vehículos sin terminar.
+
+**Zona de medición por brazo (antes del reentrenamiento):** `config/interseccion.yaml` cambia `edge` por `edges`
+(lista de tramos desde la línea de pare hacia atrás). El norte se mide en `-642480900` (2 carriles, ~54 m) más
+`puente_desde_villavicencio` (1 carril, ~56 m), unos 110 m como antes del paso 5. Los accesos de 500 m no se miden:
+la zona equivale a lo que vería una cámara en el cruce. `SumoSource` suma vehículos, detenidos y capacidad de los
+tramos. `generar_accesos.py` usa el primer tramo de la lista. Prueba nueva: `tests/test_sumo_source.py`, con un traci
+falso, sin abrir SUMO.

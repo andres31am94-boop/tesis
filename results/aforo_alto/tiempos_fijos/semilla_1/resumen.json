@@ -7,23 +7,23 @@
     3600
   ],
   "metricas": {
-    "vehiculos_medidos": 3711,
-    "espera_total_promedio_s": 509.49474535165723,
-    "espera_en_red_promedio_s": 126.62651576394502,
-    "retraso_entrada_promedio_s": 382.8682295877122,
-    "tiempo_viaje_promedio_s": 345.86418755052546,
-    "tiempo_perdido_promedio_s": 282.4339477229857,
-    "velocidad_promedio_kmh": 14.35731606820967,
-    "throughput_veh_h": 3103.636363636364,
-    "cola_promedio_norte": 7.800606060606061,
-    "cola_maxima_norte": 29,
-    "cola_promedio_sur": 26.9,
-    "cola_maxima_sur": 67,
-    "cola_promedio_este": 4.551515151515152,
-    "cola_maxima_este": 18,
-    "cola_promedio_oeste": 6.193333333333333,
+    "vehiculos_medidos": 3769,
+    "espera_total_promedio_s": 50.67100026532237,
+    "espera_en_red_promedio_s": 50.28654815600955,
+    "retraso_entrada_promedio_s": 0.3844521093128151,
+    "tiempo_viaje_promedio_s": 160.03953303263467,
+    "tiempo_perdido_promedio_s": 96.62554258423985,
+    "velocidad_promedio_kmh": 26.529872132939254,
+    "throughput_veh_h": 3956.727272727273,
+    "cola_promedio_norte": 4.335454545454546,
+    "cola_maxima_norte": 23,
+    "cola_promedio_sur": 25.354848484848485,
+    "cola_maxima_sur": 86,
+    "cola_promedio_este": 4.5645454545454545,
+    "cola_maxima_este": 19,
+    "cola_promedio_oeste": 6.082727272727273,
     "cola_maxima_oeste": 23,
-    "detenidos_promedio_total": 45.445454545454545,
+    "detenidos_promedio_total": 40.337575757575756,
     "verde_promedio_cra23_s": 55.0,
     "verdes_cra23": 33,
     "verde_promedio_dg15_s": 20.0,
@@ -32,8 +32,8 @@
     "cambios_forzados": 0
   },
   "cierre": {
-    "tiempo_final_s": 5400.0,
-    "vehiculos_sin_terminar": 58,
+    "tiempo_final_s": 4011.0,
+    "vehiculos_sin_terminar": 0,
     "version_sumo": "SUMO 1.27.1"
   },
   "parametros": {
@@ -63,6 +63,6 @@
   },
   "entorno": {
     "python": "3.11.5",
-    "fecha": "2026-10-20T22:09:27"
+    "fecha": "2026-10-21T21:22:57"
   }
 }

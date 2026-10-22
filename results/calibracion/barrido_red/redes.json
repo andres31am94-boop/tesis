@@ -1,0 +1,29 @@
+{
+  "semilla": 1,
+  "redes": {
+    "r01": {
+      "posicion_cambio_m": 22.6,
+      "tipo_union": "zipper"
+    },
+    "r02": {
+      "posicion_cambio_m": 38.2,
+      "tipo_union": "zipper"
+    },
+    "r03": {
+      "posicion_cambio_m": 53.8,
+      "tipo_union": "zipper"
+    },
+    "r04": {
+      "posicion_cambio_m": 22.6,
+      "tipo_union": "carril_termina"
+    },
+    "r05": {
+      "posicion_cambio_m": 38.2,
+      "tipo_union": "carril_termina"
+    },
+    "r06": {
+      "posicion_cambio_m": 53.8,
+      "tipo_union": "carril_termina"
+    }
+  }
+}

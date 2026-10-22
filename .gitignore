@@ -34,5 +34,7 @@ results/**/tripinfo.xml
 # Modelos entrenados: se versiona la tabla (pequena) y la curva; nada que excluir por ahora.
 results/**/*_tripinfo.xml
 # Copias de rutas/configs que genera el barrido de calibracion (se regeneran con el script)
-results/calibracion/barrido/*/*.rou.xml
-results/calibracion/barrido/*/*.sumocfg
+results/calibracion/*/*/*.rou.xml
+results/calibracion/*/*/*.sumocfg
+results/calibracion/barrido_red/*/*.net.xml
+results/calibracion/barrido_red/*/*.sumocfg

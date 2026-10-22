@@ -1,18 +1,16 @@
-# Barrido de calibracion (paso 4): prueba TODAS las combinaciones de los niveles de abajo con el
-# semaforo real (tiempos fijos) y calcula el GEH por brazo. Lo usa scripts/barrido_calibracion.py.
+# Barrido de calibracion: prueba TODAS las combinaciones de los niveles de abajo con el semaforo real
+# (tiempos fijos) y calcula el GEH por brazo. Lo usa scripts/barrido_calibracion.py.
+# Resultados en results/calibracion/<nombre>/ (cada barrido en su carpeta).
+# Barridos anteriores: barrido_4b (carro/moto/bus), barrido_conductor (sigma x minGap, semilla 1).
 #
-# (Paso 4b; el ancho de carril 3.5 m y las dimensiones de la moto ya son datos fijos, paso 4a.)
-# Por que estos factores: en aforo_alto las motos del norte esperan lo mismo que los carros
-# (106 s vs 105 s), o sea NO se filtran entre los carros como en la realidad. Un carro centrado
-# (1.8 m) en un carril de 3.2 m deja 0.7 m a cada lado: no cabe una moto (0.9 m + separacion).
-escenarios: [aforo_alto, aforo_bajo]
-semilla: 1
+# Paso 8 (2026-10-21): VALIDACION de las dos candidatas del barrido_conductor que cumplen 4/4 sin usar sigma = 0:
+#   c03: sigma 0.25, minGap 2.5 (solo cambia sigma)    c04: sigma 0.25, minGap 1.5
+#   Se descarta sigma = 0 (conductor perfecto): no es realista, quita la variabilidad entre conductores y
+#   produjo una colision en la union del puente.
+#   Validacion: 5 semillas y los 4 escenarios del aforo (medio y valle_manana nunca se habian comparado).
+nombre: validacion_conductor
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto]
+semillas: [1, 2, 3, 4, 5]
 factores:
-  # SUMO por defecto centra los carros en el carril. "right": el carro va pegado a la derecha y
-  # deja ~1.7 m libres a la izquierda en un carril de 3.5 m (por donde pasan las motos).
-  - {tipo: carro, atributo: latAlignment, niveles: [center, right]}
-  # Separacion lateral minima de la moto (m) con otros vehiculos.
-  - {tipo: moto, atributo: minGapLat, niveles: [0.3, 0.1]}
-  # Largo del "bus" (m). En el aforo "bus" incluye buses intermunicipales grandes, busetas y microbuses
-  # (respuesta de campo 13). 12 = bus de SUMO; 9 = buseta. La proporcion real no se conoce.
-  - {tipo: bus, atributo: length, niveles: [12, 9]}
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}
+  - {tipo: todos, atributo: minGap, niveles: [2.5, 1.5]}

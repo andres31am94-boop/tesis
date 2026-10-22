@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 2026-10-21T18:32:39.934967-05:00 by Eclipse SUMO netconvert 1.27.1
+<!-- generated on 2026-10-21T20:49:49.704970-05:00 by Eclipse SUMO netconvert 1.27.1
 <netconvertConfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -82,29 +82,29 @@
         <lane id=":cluster_12995046887_9702926134_10_1" index="1" speed="13.89" length="25.20" shape="197.40,204.44 219.29,191.80"/>
     </edge>
     <edge id=":fin_puente_sur_0" function="internal">
-        <lane id=":fin_puente_sur_0_0" index="0" speed="13.89" length="8.41" width="3.50" shape="219.16,245.57 216.33,238.08"/>
-        <lane id=":fin_puente_sur_0_1" index="1" speed="13.89" length="8.41" width="3.50" shape="219.16,245.57 218.85,243.08 219.40,241.27 219.95,239.46 219.64,236.97"/>
+        <lane id=":fin_puente_sur_0_0" index="0" speed="13.89" length="8.41" width="3.50" shape="224.12,260.34 221.30,252.86"/>
+        <lane id=":fin_puente_sur_0_1" index="1" speed="13.89" length="8.41" width="3.50" shape="224.12,260.34 223.82,257.85 224.38,256.04 224.93,254.23 224.62,251.74"/>
     </edge>
     <edge id=":inicio_puente_0" function="internal">
-        <lane id=":inicio_puente_0_0" index="0" speed="13.89" length="8.41" width="3.50" shape="226.28,234.73 228.54,242.41"/>
-        <lane id=":inicio_puente_0_1" index="1" speed="13.89" length="8.41" width="3.50" shape="222.96,235.85 224.22,238.02 225.75,239.13 227.29,240.24 228.54,242.41"/>
+        <lane id=":inicio_puente_0_0" index="0" speed="13.89" length="8.40" width="3.50" shape="231.26,249.52 233.51,257.21"/>
+        <lane id=":inicio_puente_0_1" index="1" speed="13.89" length="8.40" width="3.50" shape="227.94,250.64 229.20,252.81 230.73,253.92 232.26,255.03 233.51,257.21"/>
     </edge>
 
-    <edge id="-642480900" from="fin_puente_sur" to="cluster_12995046887_9702926134" name="Carrera 23" priority="12" type="highway.primary" shape="222.58,240.20 210.38,204.00">
-        <lane id="-642480900_0" index="0" speed="13.89" length="25.77" width="3.50" shape="216.33,238.08 208.10,213.67">
+    <edge id="-642480900" from="fin_puente_sur" to="cluster_12995046887_9702926134" name="Carrera 23" priority="12" type="highway.primary" shape="227.56,254.98 210.38,204.00">
+        <lane id="-642480900_0" index="0" speed="13.89" length="41.36" width="3.50" shape="221.30,252.86 208.10,213.67">
             <param key="origId" value="642480900 1414166243"/>
         </lane>
-        <lane id="-642480900_1" index="1" speed="13.89" length="25.77" width="3.50" shape="219.64,236.97 211.41,212.55">
+        <lane id="-642480900_1" index="1" speed="13.89" length="41.36" width="3.50" shape="224.62,251.74 211.41,212.55">
             <param key="origId" value="642480900 1414166243"/>
         </lane>
         <param key="origTo" value="12995046887"/>
         <param key="ref" value="65"/>
     </edge>
-    <edge id="1414166243" from="cluster_12995046887_9702926134" to="inicio_puente" name="Carrera 23" priority="12" type="highway.primary" shape="210.38,204.00 222.58,240.20">
-        <lane id="1414166243_0" index="0" speed="13.89" length="25.77" width="3.50" shape="218.05,210.31 226.28,234.73">
+    <edge id="1414166243" from="cluster_12995046887_9702926134" to="inicio_puente" name="Carrera 23" priority="12" type="highway.primary" shape="210.38,204.00 227.56,254.98">
+        <lane id="1414166243_0" index="0" speed="13.89" length="41.37" width="3.50" shape="218.05,210.31 231.26,249.52">
             <param key="origId" value="1414166243 642480900"/>
         </lane>
-        <lane id="1414166243_1" index="1" speed="13.89" length="25.77" width="3.50" shape="214.73,211.43 222.96,235.85">
+        <lane id="1414166243_1" index="1" speed="13.89" length="41.37" width="3.50" shape="214.73,211.43 227.94,250.64">
             <param key="origId" value="1414166243 642480900"/>
         </lane>
         <param key="origFrom" value="12995046887"/>
@@ -183,15 +183,15 @@
         <lane id="acceso_sur_0" index="0" speed="13.89" length="499.85" width="3.50" shape="147.01,-499.00 184.21,-0.54"/>
         <lane id="acceso_sur_1" index="1" speed="13.89" length="499.85" width="3.50" shape="143.52,-498.74 180.72,-0.28"/>
     </edge>
-    <edge id="puente_desde_villavicencio" from="6048329437" to="fin_puente_sur" name="Carrera 23" priority="12" type="highway.primary" shape="244.59,316.31 224.52,256.00 219.54,241.22">
-        <lane id="puente_desde_villavicencio_0" index="0" speed="13.89" length="73.65" width="3.50" shape="242.46,315.44 222.86,256.55 219.16,245.57">
+    <edge id="puente_desde_villavicencio" from="6048329437" to="fin_puente_sur" name="Carrera 23" priority="12" type="highway.primary" shape="244.59,316.31 224.52,255.99">
+        <lane id="puente_desde_villavicencio_0" index="0" speed="13.89" length="58.06" width="3.50" shape="242.46,315.44 224.12,260.34">
             <param key="origId" value="642480900 1414166243"/>
         </lane>
         <param key="origTo" value="12995046887"/>
         <param key="ref" value="65"/>
     </edge>
-    <edge id="puente_hacia_villavicencio" from="inicio_puente" to="6048329437" name="Carrera 23" priority="12" type="highway.primary" shape="225.61,239.18 230.59,253.97 250.67,314.29">
-        <lane id="puente_hacia_villavicencio_0" index="0" speed="13.89" length="73.68" width="3.50" shape="228.54,242.41 232.25,253.41 251.86,312.31">
+    <edge id="puente_hacia_villavicencio" from="inicio_puente" to="6048329437" name="Carrera 23" priority="12" type="highway.primary" shape="230.59,253.97 250.67,314.29">
+        <lane id="puente_hacia_villavicencio_0" index="0" speed="13.89" length="58.08" width="3.50" shape="233.51,257.21 251.86,312.31">
             <param key="origId" value="1414166243 642480900"/>
         </lane>
         <param key="origFrom" value="12995046887"/>
@@ -221,7 +221,7 @@
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="cluster_12995046887_9702926134" type="traffic_light" x="209.15" y="200.37" incLanes="-642480900_0 -642480900_1 816899410#0_0 816899410#0_1 807940779_0 807940779_1 44411778#0_0 44411778#0_1" intLanes=":cluster_12995046887_9702926134_0_0 :cluster_12995046887_9702926134_1_0 :cluster_12995046887_9702926134_1_1 :cluster_12995046887_9702926134_3_0 :cluster_12995046887_9702926134_4_0 :cluster_12995046887_9702926134_4_1 :cluster_12995046887_9702926134_6_0 :cluster_12995046887_9702926134_7_0 :cluster_12995046887_9702926134_7_1 :cluster_12995046887_9702926134_9_0 :cluster_12995046887_9702926134_10_0 :cluster_12995046887_9702926134_10_1" shape="206.44,214.23 219.71,209.75 219.26,207.78 219.29,205.95 219.80,204.25 220.78,202.69 222.25,201.27 224.19,199.99 216.83,187.68 215.21,188.21 214.56,188.04 214.01,187.60 213.56,186.87 213.22,185.86 205.56,184.07 205.43,186.21 205.04,187.13 204.55,187.73 204.07,187.82 203.69,187.24 198.49,194.21 198.60,196.44 198.19,197.47 197.47,198.44 196.46,199.35 195.13,200.21 201.64,212.33 203.74,211.70 204.60,211.86 205.34,212.33 205.95,213.12">
+    <junction id="cluster_12995046887_9702926134" type="traffic_light" x="209.15" y="200.37" incLanes="-642480900_0 -642480900_1 816899410#0_0 816899410#0_1 807940779_0 807940779_1 44411778#0_0 44411778#0_1" intLanes=":cluster_12995046887_9702926134_0_0 :cluster_12995046887_9702926134_1_0 :cluster_12995046887_9702926134_1_1 :cluster_12995046887_9702926134_3_0 :cluster_12995046887_9702926134_4_0 :cluster_12995046887_9702926134_4_1 :cluster_12995046887_9702926134_6_0 :cluster_12995046887_9702926134_7_0 :cluster_12995046887_9702926134_7_1 :cluster_12995046887_9702926134_9_0 :cluster_12995046887_9702926134_10_0 :cluster_12995046887_9702926134_10_1" shape="206.44,214.23 219.71,209.75 219.26,207.78 219.29,205.95 219.80,204.25 220.78,202.69 222.25,201.27 224.19,199.99 216.83,187.68 215.21,188.21 214.56,188.04 214.01,187.60 213.56,186.87 213.22,185.86 205.56,184.07 205.43,186.21 205.04,187.13 204.55,187.73 204.07,187.82 203.69,187.24 198.49,194.21 198.60,196.44 198.19,197.47 197.47,198.44 196.45,199.35 195.13,200.21 201.64,212.33 203.74,211.70 204.60,211.86 205.34,212.33 205.95,213.12">
         <request index="0"  response="000000000000" foes="000000110000" cont="0"/>
         <request index="1"  response="000000000000" foes="111000110000" cont="0"/>
         <request index="2"  response="000000000000" foes="111000110000" cont="0"/>
@@ -237,7 +237,7 @@
         <param key="origEdgeIds" value="-1055970607 1055970607"/>
         <param key="origId" value="12995046887 9702926134"/>
     </junction>
-    <junction id="fin_puente_sur" type="priority" x="222.58" y="240.20" incLanes="puente_desde_villavicencio_0" intLanes=":fin_puente_sur_0_0 :fin_puente_sur_0_1" shape="217.50,246.13 220.82,245.01 220.64,241.87 221.48,239.55 221.65,238.18 221.30,236.41 214.67,238.64">
+    <junction id="fin_puente_sur" type="priority" x="227.56" y="254.98" incLanes="puente_desde_villavicencio_0" intLanes=":fin_puente_sur_0_0 :fin_puente_sur_0_1" shape="222.46,260.90 225.79,259.79 225.61,256.65 226.46,254.32 226.63,252.95 226.28,251.18 219.65,253.42">
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
@@ -245,7 +245,7 @@
     <junction id="inicio_acceso_norte" type="dead_end" x="405.51" y="789.72" incLanes="" intLanes="" shape="405.51,789.72 402.19,790.83"/>
     <junction id="inicio_acceso_oeste" type="dead_end" x="-393.43" y="624.93" incLanes="" intLanes="" shape="-393.43,624.93 -397.38,619.89"/>
     <junction id="inicio_acceso_sur" type="dead_end" x="141.77" y="-498.61" incLanes="" intLanes="" shape="141.77,-498.61 148.75,-499.13"/>
-    <junction id="inicio_puente" type="zipper" x="222.58" y="240.20" incLanes="1414166243_0 1414166243_1" intLanes=":inicio_puente_0_0 :inicio_puente_0_1" shape="226.89,242.97 230.20,241.85 227.94,234.17 221.30,236.41 223.06,239.02 225.13,240.36 226.09,241.35">
+    <junction id="inicio_puente" type="zipper" x="227.56" y="254.98" incLanes="1414166243_0 1414166243_1" intLanes=":inicio_puente_0_0 :inicio_puente_0_1" shape="231.85,257.76 235.17,256.65 232.92,248.96 226.29,251.20 228.04,253.80 230.11,255.15 231.06,256.14">
         <request index="0" response="10" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>

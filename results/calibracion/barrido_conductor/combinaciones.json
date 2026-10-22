@@ -1,0 +1,29 @@
+{
+  "semilla": 1,
+  "combinaciones": {
+    "c01": {
+      "todos.sigma": 0.5,
+      "todos.minGap": 2.5
+    },
+    "c02": {
+      "todos.sigma": 0.5,
+      "todos.minGap": 1.5
+    },
+    "c03": {
+      "todos.sigma": 0.25,
+      "todos.minGap": 2.5
+    },
+    "c04": {
+      "todos.sigma": 0.25,
+      "todos.minGap": 1.5
+    },
+    "c05": {
+      "todos.sigma": 0.0,
+      "todos.minGap": 2.5
+    },
+    "c06": {
+      "todos.sigma": 0.0,
+      "todos.minGap": 1.5
+    }
+  }
+}

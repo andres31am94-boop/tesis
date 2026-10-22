@@ -1,0 +1,19 @@
+{
+  "semillas": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "combinaciones": {
+    "c01": {
+      "todos.sigma": 0.25,
+      "todos.minGap": 2.5
+    },
+    "c02": {
+      "todos.sigma": 0.25,
+      "todos.minGap": 1.5
+    }
+  }
+}

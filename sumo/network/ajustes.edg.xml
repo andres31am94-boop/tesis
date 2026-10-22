@@ -23,20 +23,21 @@
            - sobre el puente: calzada total 7.5 m (1 carril por sentido)
          La Cra 23 se va ensanchando del puente al cruce: cerca del semaforo caben 2 filas por sentido.
          SUMO no representa un carril que se angosta poco a poco; se usa un cambio de 1 a 2 carriles en un punto.
-         38.2 m = punto medio entre donde ya hay 2 carriles completos (22.6 m) y donde empieza el puente (53.8 m, OSM).
-         Supuesto: probar sensibilidad con 22.6 y 53.8 m. -->
-    <!-- Llegada norte (desde el puente): 1 carril en el puente, 2 carriles en los ultimos 38.2 m.
+         Posicion elegida: 53.8 m (inicio del puente en OSM), dentro del rango medido 22.6-53.8 m.
+         Paso 6 (results/calibracion/barrido_red): el norte es sensible a esta posicion (1295 veh/h a 22.6 m,
+         1408 a 38.2 m, 1432 a 53.8 m; aforo 1436); el sur casi no cambia (1120-1203). Union "zipper" > "carril_termina" en el sur. -->
+    <!-- Llegada norte (desde el puente): 1 carril en el puente, 2 carriles en los ultimos 53.8 m.
          El tramo del puente se llama ahora "puente_desde_villavicencio"; "-642480900" queda como el tramo de 2 carriles. -->
     <edge id="-642480900" numLanes="2" width="3.5">
         <split pos="0" lanes="0"/>
-        <split pos="-38.2" lanes="0 1" id="fin_puente_sur" idBefore="puente_desde_villavicencio" idAfter="-642480900"/>
+        <split pos="-53.8" lanes="0 1" id="fin_puente_sur" idBefore="puente_desde_villavicencio" idAfter="-642480900"/>
     </edge>
     <!-- Calibracion paso 5 (2026-10-21): la salida hacia el puente tiene 2 carriles cerca del cruce y se va angostando
-         hasta 1 carril en el puente (respuesta de campo 5 y medidas de arriba). Reduccion en un punto: 38.2 m.
+         hasta 1 carril en el puente (respuesta de campo 5 y medidas de arriba). Reduccion en un punto: 53.8 m.
          Antes los 2 carriles del sur se juntaban DENTRO del cruce: el carril derecho debia ceder el paso (luz 'g') y
          habia frenadas de emergencia en el cruce. Ahora se juntan en el puente, alternandose (nodo tipo "zipper"). -->
     <edge id="1414166243" numLanes="2" width="3.5">   <!-- salida hacia el puente -->
-        <split pos="38.2" lanes="0" type="zipper" id="inicio_puente" idAfter="puente_hacia_villavicencio"/>
+        <split pos="53.8" lanes="0" type="zipper" id="inicio_puente" idAfter="puente_hacia_villavicencio"/>
     </edge>
     <edge id="807940779" width="3.5"/>    <!-- llegada sur -->
     <edge id="642480899" width="3.5"/>    <!-- salida hacia el sur -->

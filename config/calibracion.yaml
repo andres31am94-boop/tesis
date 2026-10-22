@@ -39,3 +39,22 @@ moto_flujo:
 accesos:
   activo: true
   longitud_m: 500
+
+# Paso 4b (2026-10-21): resultado del barrido sobre la red del paso 5 (results/calibracion/barrido/).
+#   La UNICA variable con efecto consistente fue la posicion lateral del carro: con "right" el norte sube
+#   ~+65 veh/h en las 4 combinaciones (GEH 2.5 -> 0.7). La separacion lateral de la moto (0.3/0.1) y el largo
+#   del bus (12/9 m) no mostraron efecto claro (diferencias de ~20 veh/h, del orden del azar) -> se dejan en
+#   0.3 m y en el valor de SUMO (12 m). Criterio: cambiar solo lo que tiene evidencia (combinacion c05).
+#   Interpretacion: con el carro a la derecha queda un espacio continuo a la izquierda por donde las motos avanzan
+#   hasta la linea de pare. En campo las motos pasan por ambos lados: es una simplificacion del modelo.
+carro:
+  latAlignment: right
+
+# Pasos 7 y 8 (2026-10-21): COMPORTAMIENTO DEL CONDUCTOR. Resultado final de la calibracion.
+#   Barrido (results/calibracion/barrido_conductor): sigma era lo que limitaba al sur (0.5 -> 1203 veh/h; 0.25 -> 1377).
+#   Validacion (results/calibracion/validacion_conductor): 5 semillas x 4 escenarios del aforo x 4 brazos.
+#   Con sigma 0.25 cumplen GEH < 5 las 80 comparaciones (GEH maximo 3.9, en el sur del aforo alto).
+#   Se elige cambiar SOLO sigma (minGap queda en 2.5 m, valor de SUMO): con minGap 1.5 tambien cumple, pero
+#   no hay medicion que lo justifique. Se descarta sigma 0 (conductor perfecto, poco realista; produjo una colision).
+todos:
+  sigma: 0.25   # imperfeccion del conductor (modelo Krauss); valor de SUMO por defecto: 0.5

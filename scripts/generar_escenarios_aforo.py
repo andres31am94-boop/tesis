@@ -91,14 +91,14 @@ def flujos_de_escenario(filas, fecha, periodo):
     return flujos
 
 
-def escribir_rutas(nombre, flujos, descripcion, atributos_moto, atributos_flujo_moto, usar_accesos):
+def escribir_rutas(nombre, flujos, descripcion, atributos_tipo, atributos_flujo_moto, usar_accesos):
     lineas = ['<?xml version="1.0" encoding="UTF-8"?>',
               "<!-- Generado por scripts/generar_escenarios_aforo.py: NO editar a mano. -->",
               f"<!-- Escenario {nombre}: {descripcion}. Fuente: docs/aforo/planilla_aforo.xlsx -->",
               "<routes>"]
     for tipo in TIPOS:
         atributos = TIPOS_SUMO[tipo]
-        extra = "".join(f' {clave}="{valor}"' for clave, valor in atributos_moto.items()) if tipo == "moto" else ""
+        extra = "".join(f' {clave}="{valor}"' for clave, valor in atributos_tipo.get(tipo, {}).items())
         lineas.append(f'    <vType id="{tipo}" vClass="{atributos["vClass"]}" guiShape="{atributos["guiShape"]}"{extra}/>')
     for brazo, mov, tipo, vehiculos_hora in flujos:
         if vehiculos_hora == 0:
@@ -125,10 +125,13 @@ def main():
     subcarriles = calibracion["subcarriles"]
     procesamiento = (PLANTILLA_SUBCARRILES.format(resolucion=subcarriles["resolucion_lateral_m"])
                      if subcarriles["activo"] else "")
-    atributos_moto = calibracion.get("moto", {}) if subcarriles["activo"] else {}
+    # Atributos extra de cada tipo de vehiculo (secciones "carro", "moto", "bus", "camion" de calibracion.yaml)
+    # La seccion "todos" se aplica a los 4 tipos; la seccion propia de cada tipo la complementa o reemplaza.
+    atributos_tipo = ({tipo: {**calibracion.get("todos", {}), **calibracion.get(tipo, {})} for tipo in TIPOS}
+                      if subcarriles["activo"] else {})
     atributos_flujo_moto = calibracion.get("moto_flujo", {}) if subcarriles["activo"] else {}
     usar_accesos = calibracion.get("accesos", {}).get("activo", False)
-    print(f"Subcarriles: {'SI' if subcarriles['activo'] else 'NO'} | atributos moto: {atributos_moto} | "
+    print(f"Subcarriles: {'SI' if subcarriles['activo'] else 'NO'} | tipos: {atributos_tipo} | "
           f"flujos de motos: {atributos_flujo_moto} | accesos: {'SI' if usar_accesos else 'NO'}")
     filas = leer_filas_aforo()
     for nombre, datos in escenarios.items():
@@ -137,7 +140,7 @@ def main():
             escritor = csv.writer(archivo)
             escritor.writerow(["brazo_llegada", "movimiento", "tipo", "vehiculos_hora"])
             escritor.writerows(flujos)
-        escribir_rutas(nombre, flujos, datos["descripcion"], atributos_moto, atributos_flujo_moto, usar_accesos)
+        escribir_rutas(nombre, flujos, datos["descripcion"], atributos_tipo, atributos_flujo_moto, usar_accesos)
         (CARPETA_TESIS / "sumo" / "configs" / f"{nombre}.sumocfg").write_text(
             PLANTILLA_SUMOCFG.format(nombre=nombre, descripcion=datos["descripcion"], duracion=DURACION_DEMANDA_S,
                                      procesamiento=procesamiento),

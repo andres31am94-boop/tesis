@@ -9,8 +9,8 @@ from src.agent.qlearning import CAMBIAR, MANTENER, TablaQ, epsilon_lineal
 from src.common.estado import EstadoBrazo, EstadoTrafico
 
 CONFIG_INTERSECCION = {"brazos": {
-    "norte": {"edge": "n", "eje": "cra23"}, "sur": {"edge": "s", "eje": "cra23"},
-    "este": {"edge": "e", "eje": "dg15"}, "oeste": {"edge": "o", "eje": "dg15"},
+    "norte": {"edges": ["n"], "eje": "cra23"}, "sur": {"edges": ["s"], "eje": "cra23"},
+    "este": {"edges": ["e"], "eje": "dg15"}, "oeste": {"edges": ["o"], "eje": "dg15"},
 }}
 CONFIG_AGENTE = {"estado": {"cortes_cola_relativa": [0.1, 0.3, 0.6], "cortes_tiempo_verde_s": [20, 40]}}
 

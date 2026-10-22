@@ -1,0 +1,15 @@
+# Barrido de SENSIBILIDAD DE LA RED (paso 6). Lo usa scripts/barrido_red.py.
+#
+# Motivo: con la red del paso 5 el norte ya cumple (GEH < 1 con carros a la derecha), pero el sur atiende ~1200 de
+# 1512 veh/h (GEH ~8). Casi todo el sur (1476 veh/h, 17 % buses y camiones) sigue recto y debe pasar al puente de
+# 1 carril. Dos supuestos del paso 5 afectan justo ese punto y no estan medidos con precision:
+#   1) DONDE se reduce de 2 a 1 carril (foto satelital con error de ~1 m; la via se angosta poco a poco).
+#   2) COMO se juntan los carriles:
+#        zipper          -> alternandose uno y uno en un punto (lo que se uso en el paso 5)
+#        carril_termina  -> el carril izquierdo se acaba y sus vehiculos se cambian al derecho antes del final
+#                           (con subcarriles, las motos pueden ponerse al lado de otros vehiculos)
+# La misma posicion se usa para la llegada norte (donde pasa de 1 a 2 carriles).
+escenarios: [aforo_alto, aforo_bajo]
+semilla: 1
+posiciones_cambio_m: [22.6, 38.2, 53.8]
+tipos_union: [zipper, carril_termina]

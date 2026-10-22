@@ -52,9 +52,10 @@ def main():
     if accesos["activo"]:
         longitud = float(accesos["longitud_m"])
         for brazo, datos in brazos.items():
-            edge = edges.get(datos["edge"])
+            id_llegada = datos["edges"][0]  # tramo de llegada original de OSM (ver config/interseccion.yaml)
+            edge = edges.get(id_llegada)
             if edge is None:
-                sys.exit(f"ERROR: el edge {datos['edge']} del brazo {brazo} no existe en {RED_OSM.name}")
+                sys.exit(f"ERROR: el edge {id_llegada} del brazo {brazo} no existe en {RED_OSM.name}")
             nodo_inicio = nodos[edge.get("from")]
             if nodo_inicio.get("type") != "dead_end":
                 sys.exit(f"ERROR: el brazo {brazo} ya tiene algo antes ({nodo_inicio.get('type')}); revisar")
@@ -70,7 +71,7 @@ def main():
             lineas_nodos.append(f'    <node id="inicio_acceso_{brazo}" x="{xn:.2f}" y="{yn:.2f}" type="priority"/>')
             lineas_edges.append(f'    <edge id="acceso_{brazo}" from="inicio_acceso_{brazo}" to="{edge.get("from")}" '
                                 f'numLanes="{numero_carriles}" speed="{velocidad}" priority="10"/>')
-            print(f"acceso_{brazo:<6} {longitud:.0f} m, {numero_carriles} carril(es) -> antes de {datos['edge']}")
+            print(f"acceso_{brazo:<6} {longitud:.0f} m, {numero_carriles} carril(es) -> antes de {id_llegada}")
     else:
         print("Accesos desactivados en config/calibracion.yaml: se escriben archivos vacios.")
     lineas_nodos.append("</nodes>")
