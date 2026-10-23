@@ -76,6 +76,15 @@ class TestTablaQ(unittest.TestCase):
         tabla.q[0] = [-3.0, -1.0]
         self.assertEqual({tabla.elegir_accion(0, epsilon=1.0) for _ in range(200)}, {MANTENER, CAMBIAR})
 
+    def test_reiniciar_azar_repite_las_mismas_decisiones(self):
+        # Base de entrenar por paquetes: con la misma semilla del episodio, las decisiones al azar se repiten.
+        tabla = TablaQ(numero_estados=1, alfa=0.1, gamma=0.9)
+        tabla.reiniciar_azar(1005)
+        primera = [tabla.elegir_accion(0, epsilon=0.5) for _ in range(100)]
+        tabla.reiniciar_azar(1005)
+        segunda = [tabla.elegir_accion(0, epsilon=0.5) for _ in range(100)]
+        self.assertEqual(primera, segunda)
+
     def test_guardar_y_cargar(self):
         tabla = TablaQ(numero_estados=2, alfa=0.2, gamma=0.8)
         tabla.q[1] = [-1.5, -0.5]

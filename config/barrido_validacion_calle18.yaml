@@ -1,0 +1,9 @@
+# Paso 10 (2026-10-22): modelo calibrado + SEMAFORO DE LA CALLE 18 (config/semaforo_calle18.yaml, activo: true).
+# Mismas 5 semillas y los 5 escenarios del aforo, sin cambiar ningun parametro: se compara contra
+# validacion_conductor y validacion_jueves (sin la Calle 18) para medir su efecto.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_calle18.yaml
+nombre: validacion_calle18
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

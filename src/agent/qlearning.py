@@ -7,6 +7,7 @@ Acciones: 0 = MANTENER el verde actual, 1 = CAMBIAR (pedirlo al SafetyGuard).
 Sin dependencias externas: la tabla es pequena (estados x 2) y se guarda en JSON.
 """
 import json
+import os
 import random
 
 MANTENER, CAMBIAR = 0, 1
@@ -32,6 +33,11 @@ class TablaQ:
         self.visitas = [[0 for _ in ACCIONES] for _ in range(numero_estados)]
         self._azar = random.Random(semilla)
 
+    def reiniciar_azar(self, semilla):
+        """Fija el generador de azar (exploracion y desempates). El entrenamiento lo llama al inicio de cada
+        episodio con una semilla propia del episodio: asi entrenar de seguido o por paquetes da lo mismo."""
+        self._azar = random.Random(semilla)
+
     def mejor_accion(self, estado):
         valores = self.q[estado]
         mejor = max(valores)
@@ -52,8 +58,12 @@ class TablaQ:
     def guardar(self, ruta, metadatos=None):
         datos = {"alfa": self.alfa, "gamma": self.gamma, "q": self.q,
                  "visitas": self.visitas, "metadatos": metadatos or {}}
-        with open(ruta, "w", encoding="utf-8") as archivo:
+        # Se escribe primero en un archivo temporal y luego se reemplaza: si el programa se corta a mitad de la
+        # escritura, la tabla anterior queda intacta (nunca un archivo a medio escribir).
+        ruta_temporal = f"{ruta}.tmp"
+        with open(ruta_temporal, "w", encoding="utf-8") as archivo:
             json.dump(datos, archivo, indent=1)
+        os.replace(ruta_temporal, ruta)
 
     @classmethod
     def cargar(cls, ruta):

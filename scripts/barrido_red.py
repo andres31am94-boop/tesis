@@ -75,6 +75,7 @@ def construir_red(carpeta, posicion, tipo_union):
 def preparar_config(escenario, ruta_red, carpeta):
     texto = (CARPETA_TESIS / "sumo" / "configs" / f"{escenario}.sumocfg").read_text(encoding="utf-8")
     texto = texto.replace("../network/acacias.net.xml", ruta_red.as_posix())
+    texto = texto.replace("../network/calle18.tll.xml", (CARPETA_RED / "calle18.tll.xml").as_posix())
     texto = texto.replace(f"../routes/{escenario}.rou.xml",
                           (CARPETA_TESIS / "sumo" / "routes" / f"{escenario}.rou.xml").as_posix())
     ruta = carpeta / f"{escenario}.sumocfg"

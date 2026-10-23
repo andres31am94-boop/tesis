@@ -41,7 +41,7 @@ PLANTILLA_SUMOCFG = """<?xml version="1.0" encoding="UTF-8"?>
     <input>
         <net-file value="../network/acacias.net.xml"/>
         <route-files value="../routes/{nombre}.rou.xml"/>
-    </input>
+    </input>{adicionales}
     <time>
         <begin value="0"/>
         <end value="{duracion}"/>
@@ -91,7 +91,7 @@ def flujos_de_escenario(filas, fecha, periodo):
     return flujos
 
 
-def escribir_rutas(nombre, flujos, descripcion, atributos_tipo, atributos_flujo_moto, usar_accesos):
+def escribir_rutas(nombre, flujos, descripcion, atributos_tipo, atributos_flujo_moto, usar_accesos, usar_calle18):
     lineas = ['<?xml version="1.0" encoding="UTF-8"?>',
               "<!-- Generado por scripts/generar_escenarios_aforo.py: NO editar a mano. -->",
               f"<!-- Escenario {nombre}: {descripcion}. Fuente: docs/aforo/planilla_aforo.xlsx -->",
@@ -109,6 +109,8 @@ def escribir_rutas(nombre, flujos, descripcion, atributos_tipo, atributos_flujo_
         llegada, salida = MOVIMIENTOS[(brazo, mov)]
         if usar_accesos:
             llegada = f"acceso_{brazo}"  # tramo creado por scripts/generar_accesos.py
+        if usar_calle18 and salida == "puente_hacia_villavicencio":
+            salida = "despues_calle18"  # hacia Villavicencio: pasan por el semaforo de la Calle 18
         extra = "".join(f' {clave}="{valor}"' for clave, valor in atributos_flujo_moto.items()) if tipo == "moto" else ""
         lineas.append(f'    <flow id="{brazo}_{mov}_{tipo}" type="{tipo}" begin="0" end="{DURACION_DEMANDA_S}" '
                       f'from="{llegada}" to="{salida}" probability="{probabilidad:.6f}" '
@@ -131,8 +133,15 @@ def main():
                       if subcarriles["activo"] else {})
     atributos_flujo_moto = calibracion.get("moto_flujo", {}) if subcarriles["activo"] else {}
     usar_accesos = calibracion.get("accesos", {}).get("activo", False)
+    with open(CARPETA_TESIS / "config" / "semaforo_calle18.yaml", encoding="utf-8") as archivo:
+        usar_calle18 = yaml.safe_load(archivo)["activo"]
+    if usar_calle18 and not usar_accesos:
+        sys.exit("ERROR: el semaforo de la Calle 18 va sobre el acceso norte: requiere accesos activos.")
+    adicionales = ('\n        <!-- Programa medido del semaforo de la Calle 18 (config/semaforo_calle18.yaml) -->'
+                   '\n        <additional-files value="../network/calle18.tll.xml"/>') if usar_calle18 else ""
     print(f"Subcarriles: {'SI' if subcarriles['activo'] else 'NO'} | tipos: {atributos_tipo} | "
-          f"flujos de motos: {atributos_flujo_moto} | accesos: {'SI' if usar_accesos else 'NO'}")
+          f"flujos de motos: {atributos_flujo_moto} | accesos: {'SI' if usar_accesos else 'NO'} | "
+          f"Calle 18: {'SI' if usar_calle18 else 'NO'}")
     filas = leer_filas_aforo()
     for nombre, datos in escenarios.items():
         flujos = flujos_de_escenario(filas, datos["fecha"], datos["periodo"])
@@ -140,10 +149,10 @@ def main():
             escritor = csv.writer(archivo)
             escritor.writerow(["brazo_llegada", "movimiento", "tipo", "vehiculos_hora"])
             escritor.writerows(flujos)
-        escribir_rutas(nombre, flujos, datos["descripcion"], atributos_tipo, atributos_flujo_moto, usar_accesos)
+        escribir_rutas(nombre, flujos, datos["descripcion"], atributos_tipo, atributos_flujo_moto, usar_accesos, usar_calle18)
         (CARPETA_TESIS / "sumo" / "configs" / f"{nombre}.sumocfg").write_text(
             PLANTILLA_SUMOCFG.format(nombre=nombre, descripcion=datos["descripcion"], duracion=DURACION_DEMANDA_S,
-                                     procesamiento=procesamiento),
+                                     procesamiento=procesamiento, adicionales=adicionales),
             encoding="utf-8")
         por_brazo = {b: sum(v for br, _, _, v in flujos if br == b) for b in BRAZOS}
         print(f"{nombre:<20} total {sum(por_brazo.values()):6.0f} veh/h | " +

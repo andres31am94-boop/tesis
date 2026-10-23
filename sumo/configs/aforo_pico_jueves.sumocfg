@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Escenario REAL generado por scripts/generar_escenarios_aforo.py: Jueves 22-oct, 18:15-18:30 (los 4 brazos simultaneos, contados desde video) -->
+<configuration>
+    <input>
+        <net-file value="../network/acacias.net.xml"/>
+        <route-files value="../routes/aforo_pico_jueves.rou.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+    <report>
+        <no-step-log value="true"/>
+    </report>
+    <processing>
+        <!-- Modelo de subcarriles (config/calibracion.yaml): permite a las motos ir lado a lado -->
+        <lateral-resolution value="0.7"/>
+    </processing>
+</configuration>

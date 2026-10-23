@@ -69,6 +69,7 @@ def preparar_escenario(escenario, parametros, carpeta):
 
     texto = (CARPETA_TESIS / "sumo" / "configs" / f"{escenario}.sumocfg").read_text(encoding="utf-8")
     texto = texto.replace("../network/acacias.net.xml", (CARPETA_TESIS / "sumo" / "network" / "acacias.net.xml").as_posix())
+    texto = texto.replace("../network/calle18.tll.xml", (CARPETA_TESIS / "sumo" / "network" / "calle18.tll.xml").as_posix())
     texto = texto.replace(f"../routes/{escenario}.rou.xml", ruta_rutas.as_posix())
     ruta_config = carpeta / f"{escenario}.sumocfg"
     ruta_config.write_text(texto, encoding="utf-8")
@@ -76,7 +77,10 @@ def preparar_escenario(escenario, parametros, carpeta):
 
 
 def main():
-    barrido = leer_yaml("barrido_calibracion.yaml")
+    import argparse
+    parser = argparse.ArgumentParser(description="Barrido de calibracion con el semaforo real.")
+    parser.add_argument("--config", default="barrido_calibracion.yaml", help="archivo en config/ que define el barrido")
+    barrido = leer_yaml(parser.parse_args().config)
     carpeta_barrido = CARPETA_CALIBRACION / barrido["nombre"]  # cada barrido en su carpeta (no se sobrescriben)
     configs = (cargar_interseccion(), leer_yaml("controlador.yaml"), leer_yaml("experimento.yaml"))
     inicio, fin = configs[2]["calentamiento_s"], configs[2]["duracion_demanda_s"]

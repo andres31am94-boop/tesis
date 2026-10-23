@@ -1,0 +1,19 @@
+# Semaforo de la Carrera 23 con Calle 18 (Acacias), ~260 m al norte del cruce estudiado.
+# NO lo controla el agente: es parte del entorno (semaforo fijo aguas abajo / aguas arriba en la Cra 23).
+# activo: true -> scripts/generar_accesos.py lo agrega a la red y generar_escenarios_aforo.py a los escenarios.
+activo: false
+distancia_desde_cruce_m: 260   # desde la linea de pare del brazo norte de nuestro cruce (estimacion de los autores)
+largo_salida_m: 100            # tramo despues de la Calle 18 para que los vehiculos salgan de la red
+# Medido por los autores el 2026-10-22 (jueves, hora pico), varias veces, siempre con los mismos tiempos.
+# Coordenadas (Google Maps): 3°59'32.9"N 73°45'54.6"W
+tiempos_cra23_s:
+  verde: 58
+  amarillo: 3
+  rojo: 41          # ciclo = 102 s (el cruce estudiado: ~101 s)
+# Desfase entre este semaforo y el de la Cra 23 x Dg 15: NO MEDIDO.
+#   Como los ciclos son casi iguales (102 s vs ~101 s, dentro del error de medicion con cronometro), el desfase real
+#   puede ser fijo o ir corriendose. Opcion para el modelo: desfase al azar por semilla (se promedia sobre desfases).
+desfase_s: null
+# Confirmado por los autores (2026-10-22): despues del puente la Cra 23 tiene 1 carril por sentido hasta la Calle 18;
+# hay un semaforo para cada sentido de la Cra 23 (ida y vuelta) con los mismos tiempos.
+carriles_por_sentido: 1

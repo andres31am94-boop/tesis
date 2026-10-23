@@ -19,6 +19,7 @@ import traci
 from src.agent.codificador_estado import CodificadorEstado
 from src.agent.qlearning import CAMBIAR
 from src.controller.safety_guard import VERDE, SafetyGuard
+from src.simulation import semaforo_calle18
 from src.simulation.sesion_sumo import iniciar_sumo
 from src.simulation.sumo_actuator import SumoActuator
 from src.simulation.sumo_source import SumoSource
@@ -34,6 +35,7 @@ class EntornoSumo:
         self._fin_episodio = float(config_experimento["duracion_demanda_s"])
         self._usar_gui = usar_gui
         self.codificador = CodificadorEstado(config_interseccion, config_agente)
+        self._config_calle18 = semaforo_calle18.cargar_config()
         self._abierto = False
 
     # --- interfaz del entorno ----------------------------------------------------
@@ -44,6 +46,7 @@ class EntornoSumo:
             self._archivo = archivo_escenario
         iniciar_sumo(self._archivo, usar_gui=self._usar_gui, semilla=semilla)
         self._abierto = True
+        self.desfase_calle18 = semaforo_calle18.configurar(semilla, self._config_calle18)
         self._fuente = SumoSource(self._config_interseccion)
         self._actuador = SumoActuator(self._config_interseccion)
         self.guard = SafetyGuard.desde_config(self._config_controlador)

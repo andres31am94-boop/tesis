@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generado por scripts/generar_accesos.py desde config/semaforo_calle18.yaml: NO editar a mano. -->
+<additional>
+    <tlLogic id="calle18" type="static" programID="medido" offset="0">
+        <phase duration="58" state="GG"/>
+        <phase duration="3" state="yy"/>
+        <phase duration="41" state="rr"/>
+    </tlLogic>
+</additional>

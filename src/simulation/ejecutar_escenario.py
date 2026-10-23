@@ -28,6 +28,7 @@ from src.controller.qlearning_controlador import ControladorQLearning
 from src.controller.safety_guard import SafetyGuard
 from src.controller.tiempos_fijos import ControladorTiemposFijos
 from src.metrics.metricas import leer_tripinfo, resumir_colas, resumir_verdes, resumir_viajes
+from src.simulation import semaforo_calle18
 from src.simulation.sesion_sumo import sesion_sumo
 from src.simulation.sumo_actuator import SumoActuator
 from src.simulation.sumo_source import SumoSource
@@ -66,6 +67,7 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
 
     with sesion_sumo(archivo_escenario, usar_gui=usar_gui, semilla=semilla,
                      argumentos_extra=["--tripinfo-output", ruta_tripinfo]):
+        desfase_calle18 = semaforo_calle18.configurar(semilla)
         fuente = SumoSource(config_interseccion)
         actuador = SumoActuator(config_interseccion)
         guard = SafetyGuard.desde_config(config_controlador)
@@ -96,6 +98,7 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
             "tiempo_final_s": tiempo,
             "vehiculos_sin_terminar": traci.simulation.getMinExpectedNumber(),
             "version_sumo": traci.getVersion()[1],
+            "desfase_calle18_s": desfase_calle18,
         }
     return filas, guard, controlador, cierre
 

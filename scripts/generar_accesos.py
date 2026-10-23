@@ -31,6 +31,8 @@ CARPETA_TESIS = Path(__file__).resolve().parents[1]
 RED_OSM = CARPETA_TESIS / "sumo" / "network" / "acacias_osm.net.xml"
 SALIDA_NODOS = CARPETA_TESIS / "sumo" / "network" / "accesos.nod.xml"
 SALIDA_EDGES = CARPETA_TESIS / "sumo" / "network" / "accesos.edg.xml"
+SALIDA_PROGRAMA_CALLE18 = CARPETA_TESIS / "sumo" / "network" / "calle18.tll.xml"
+ANCHO_CARRIL_CRA23_M = 3.5  # mismo ancho medido de la Cra 23 (ajustes.edg.xml)
 
 
 def cargar_yaml(nombre):
@@ -38,8 +40,25 @@ def cargar_yaml(nombre):
         return yaml.safe_load(archivo)
 
 
+def escribir_programa_calle18(calle18):
+    """Programa fijo medido del semaforo de la Calle 18 (archivo adicional que carga SUMO).
+    Los 2 movimientos (un sentido y el otro de la Cra 23) tienen siempre la misma luz."""
+    t = calle18["tiempos_cra23_s"]
+    SALIDA_PROGRAMA_CALLE18.write_text(
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        "<!-- Generado por scripts/generar_accesos.py desde config/semaforo_calle18.yaml: NO editar a mano. -->\n"
+        "<additional>\n"
+        '    <tlLogic id="calle18" type="static" programID="medido" offset="0">\n'
+        f'        <phase duration="{t["verde"]}" state="GG"/>\n'
+        f'        <phase duration="{t["amarillo"]}" state="yy"/>\n'
+        f'        <phase duration="{t["rojo"]}" state="rr"/>\n'
+        "    </tlLogic>\n"
+        "</additional>\n", encoding="utf-8")
+
+
 def main():
     accesos = cargar_yaml("calibracion.yaml").get("accesos", {"activo": False})
+    calle18 = cargar_yaml("semaforo_calle18.yaml")
     brazos = cargar_yaml("interseccion.yaml")["brazos"]
     raiz = ET.parse(RED_OSM).getroot()
     edges = {e.get("id"): e for e in raiz.findall("edge")}
@@ -69,6 +88,29 @@ def main():
             numero_carriles = len(edge.findall("lane"))
             velocidad = carril.get("speed")
             lineas_nodos.append(f'    <node id="inicio_acceso_{brazo}" x="{xn:.2f}" y="{yn:.2f}" type="priority"/>')
+            if brazo == "norte" and calle18["activo"]:
+                # Semaforo de la Calle 18 sobre el acceso norte, a distancia_desde_cruce_m de nuestra linea de pare.
+                largo_brazo = float(carril.get("length"))
+                d = float(calle18["distancia_desde_cruce_m"]) - largo_brazo  # desde el inicio del brazo norte
+                if not 0 < d < longitud:
+                    sys.exit(f"ERROR: la Calle 18 quedaria a {d:.0f} m del brazo norte (debe estar entre 0 y {longitud:.0f})")
+                d_fin = d + float(calle18["largo_salida_m"])
+                xc, yc = x0 + d * dx / norma, y0 + d * dy / norma
+                xf, yf = x0 + d_fin * dx / norma, y0 + d_fin * dy / norma
+                nodo_puente = edge.get("from")
+                carriles = int(calle18["carriles_por_sentido"])
+                comunes = f'numLanes="{carriles}" speed="{velocidad}" priority="10" width="{ANCHO_CARRIL_CRA23_M}"'
+                lineas_nodos.append(f'    <node id="calle18" x="{xc:.2f}" y="{yc:.2f}" type="traffic_light" tl="calle18"/>')
+                lineas_nodos.append(f'    <node id="fin_norte" x="{xf:.2f}" y="{yf:.2f}" type="priority"/>')
+                lineas_edges.append(f'    <edge id="acceso_norte" from="inicio_acceso_norte" to="calle18" '
+                                    f'numLanes="{numero_carriles}" speed="{velocidad}" priority="10"/>')
+                lineas_edges.append(f'    <edge id="desde_calle18" from="calle18" to="{nodo_puente}" {comunes}/>')
+                lineas_edges.append(f'    <edge id="hacia_calle18" from="{nodo_puente}" to="calle18" {comunes}/>')
+                lineas_edges.append(f'    <edge id="despues_calle18" from="calle18" to="fin_norte" {comunes}/>')
+                escribir_programa_calle18(calle18)
+                print(f"acceso_norte {longitud:.0f} m con el semaforo de la Calle 18 a {d:.0f} m antes del brazo norte "
+                      f"({calle18['distancia_desde_cruce_m']} m de la linea de pare); salida de {calle18['largo_salida_m']} m")
+                continue
             lineas_edges.append(f'    <edge id="acceso_{brazo}" from="inicio_acceso_{brazo}" to="{edge.get("from")}" '
                                 f'numLanes="{numero_carriles}" speed="{velocidad}" priority="10"/>')
             print(f"acceso_{brazo:<6} {longitud:.0f} m, {numero_carriles} carril(es) -> antes de {id_llegada}")

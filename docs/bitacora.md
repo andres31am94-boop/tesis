@@ -613,3 +613,73 @@ instantes de decisión, no cada segundo. La recompensa sigue usando los detenido
 −280082), así que el comportamiento no cambió. Tiempos: 24.5 / 48.4 / 90.3 / 203.8 s (antes 74.4 / 158.7 / 224.0 /
 344.7 s): 367 s en total contra 802 s, unas 2.2 veces más rápido. Estimación para 200 episodios: ~5 h o menos (los
 episodios se acortan a medida que el agente explora menos y genera menos congestión). 34/34 pruebas OK.
+
+### 2026-10-22 — Entrenamiento por paquetes (para no perder progreso)
+
+`entrenar.py`: `--episodios` es ahora el **total**; `--paquete N` corre N episodios en esta ejecución; `--continuar`
+carga la tabla guardada y sigue desde el último episodio completo. Garantías:
+- Todo lo del episodio k (semilla de SUMO, escenario, ε y el azar de la exploración, con `TablaQ.reiniciar_azar(semilla)`)
+  depende solo de k: entrenar de seguido o por paquetes debe dar exactamente la misma tabla. Se verifica comparando ambos modos.
+- La tabla se guarda de forma segura (archivo temporal + reemplazo): un corte durante la escritura no la corrompe.
+- `--continuar` exige la misma configuración (escenarios, total, agente, controlador, experimento) y que la curva tenga
+  tantas filas como episodios la tabla. Sin `--continuar`, no se sobrescribe un entrenamiento existente.
+- Si el programa se corta, solo se pierde el episodio en curso.
+Nota: con el azar reiniciado por episodio, las recompensas no son comparables con las pruebas anteriores (prueba_aforo*).
+Prueba nueva: `test_reiniciar_azar_repite_las_mismas_decisiones`.
+
+### 2026-10-22 — Aforo del jueves 22-oct (hora pico, simultáneo, en video)
+
+Datos ingresados por los autores en `docs/aforo/planilla_aforo.xlsx`: jueves, 18:15–18:30, los 4 brazos. Totales verificados
+(suma de columnas = total de la fila). En veh/h:
+
+| Brazo | Jueves 22 (simultáneo) | Viernes 16 (brazo por brazo) |
+|---|---|---|
+| Norte | 1320 | 1436 |
+| Sur | 1364 | 1512 |
+| Este | **948** | 460 |
+| Oeste | 552 | 680 |
+| Total | 4184 | 4088 |
+
+El total es parecido, pero **el este casi duplica** el del viernes. Coincide con la observación de campo: en hora pico el este
+queda con cola sobrante. Diferencias así son esperables entre días y entre conteos no simultáneos.
+Nuevo escenario `aforo_pico_jueves` en `config/escenarios_aforo.yaml`.
+**Paso 9:** validación externa del modelo calibrado con este conteo, que no se usó para ajustar (5 semillas).
+`config/barrido_calibracion.yaml` → `validacion_jueves`. **Debe medirse.**
+
+**Semáforo de la Calle 18** (medido el jueves 22 en hora pico, varias veces, siempre igual): verde 58 s, amarillo 3 s,
+rojo 41 s, ciclo de 102 s. Queda en `config/semaforo_calle18.yaml`. Todavía no está en la red. Faltan: el desfase
+respecto a nuestro semáforo (no medido), los carriles entre el puente y la Calle 18, y si la luz controla ambos sentidos.
+
+**Respuestas de los autores sobre la Calle 18:** después del puente, la Cra 23 tiene 1 carril por sentido hasta la Calle 18;
+el semáforo medido es el de los vehículos que van hacia Villavicencio; hay un semáforo por sentido, con los mismos tiempos.
+
+**Paso 10 (preparado, se activa con `activo: true` en `config/semaforo_calle18.yaml`):**
+- `generar_accesos.py` divide el acceso norte. A 260 m de nuestra línea de pare (150 m antes del brazo norte) queda el nodo
+  semaforizado `calle18`. Tramos nuevos: `desde_calle18` (hacia el sur), `hacia_calle18` y `despues_calle18` (hacia el
+  norte, 100 m para salir de la red); 1 carril de 3.5 m por sentido. Escribe `calle18.tll.xml` con el programa medido
+  (verde 58, amarillo 3, rojo 41; los 2 sentidos con la misma luz).
+- `generar_escenarios_aforo.py`: los que van hacia Villavicencio (sur recto, este derecha) terminan en `despues_calle18`;
+  el `.sumocfg` carga `calle18.tll.xml`.
+- `src/simulation/semaforo_calle18.py`: activa el programa medido y aplica el **desfase**. Como no está medido, se elige al
+  azar con la semilla de la corrida (reproducible), así que el conjunto de semillas cubre desfases distintos.
+  Se llama en `ejecutar_escenario` (que guarda el desfase en `resumen.json`) y en el entorno de entrenamiento.
+  Prueba: `tests/test_semaforo_calle18.py`.
+- Con `activo: false` la red y los escenarios quedan exactamente como antes (verificado).
+- `barrido_calibracion.py --config <archivo>` permite elegir la definición del barrido;
+  nueva `config/barrido_validacion_calle18.yaml` (5 escenarios × 5 semillas).
+
+### 2026-10-22 — Resultado del paso 9: VALIDACIÓN EXTERNA con el jueves 22 (sin Calle 18)
+
+Modelo calibrado sin cambios, 5 semillas, `aforo_pico_jueves` (`results/calibracion/validacion_jueves/`):
+
+| Brazo | Aforo | Simulado medio (mín–máx) | GEH medio | GEH máx | Semillas OK |
+|---|---|---|---|---|---|
+| norte | 1320 | 1319 (1296–1337) | 0.4 | 0.7 | 5/5 |
+| sur | 1364 | 1371 (1320–1426) | 1.0 | 1.7 | 5/5 |
+| este | 948 | 938 (913–986) | 0.8 | 1.2 | 5/5 |
+| oeste | 552 | 564 (539–593) | 0.8 | 1.7 | 5/5 |
+
+**20/20 cumplen GEH < 5 (máx. 1.7)** con un conteo de otro día, simultáneo, que no se usó para ajustar y cuya demanda del
+este duplica la del viernes. Es la evidencia más fuerte de que el modelo generaliza. Total acumulado: 100/100 comparaciones
+con GEH < 5 en 5 escenarios. Hubo una colisión con teletransporte (s4, bus en la unión del puente): la limitación conocida.
+Pendiente: paso B (activar la Calle 18 y validar los 5 escenarios).

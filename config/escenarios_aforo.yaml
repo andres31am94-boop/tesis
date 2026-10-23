@@ -18,3 +18,7 @@ escenarios:
     fecha: 2026-10-20
     periodo: Valle
     descripcion: "Martes 20-oct, 10:25-10:40 (los 4 brazos simultaneos) - escenario adicional"
+  aforo_pico_jueves:
+    fecha: 2026-10-22
+    periodo: Pico
+    descripcion: "Jueves 22-oct, 18:15-18:30 (los 4 brazos simultaneos, contados desde video)"
