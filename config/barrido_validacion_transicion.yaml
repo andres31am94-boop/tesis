@@ -1,0 +1,9 @@
+# Paso 13 (2026-10-25): revalidacion tras la transicion gradual de 2 carriles a 1 antes del puente
+# (puente_transicion.nod.xml + puente_transicion.con.xml). Corrige el bloqueo de validacion_dg15 (valle, semilla 4).
+# Mismas 5 semillas y 5 escenarios, sin cambiar parametros. Carpeta nueva: validacion_dg15 se conserva como evidencia.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_transicion.yaml
+nombre: validacion_transicion
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

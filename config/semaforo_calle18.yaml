@@ -1,6 +1,10 @@
 # Semaforo de la Carrera 23 con Calle 18 (Acacias), ~260 m al norte del cruce estudiado.
 # NO lo controla el agente: es parte del entorno (semaforo fijo aguas abajo / aguas arriba en la Cra 23).
 # activo: true -> scripts/generar_accesos.py lo agrega a la red y generar_escenarios_aforo.py a los escenarios.
+# 2026-10-28 (decision de los autores): DESACTIVADO. En su cruce, el simulador producia bloqueos artificiales recurrentes
+# (en casi cada ciclo un vehiculo con verde y via libre no entraba; 5 intentos de correccion, ver docs/bitacora.md).
+# Observacion de campo de los autores: con el verde de la Calle 18 pasan todos los vehiculos. Sin el semaforo, el
+# puente termina en una salida libre hacia Villavicencio. Los tiempos medidos se conservan abajo por si se reactiva.
 activo: false
 distancia_desde_cruce_m: 260   # desde la linea de pare del brazo norte de nuestro cruce (estimacion de los autores)
 largo_salida_m: 100            # tramo despues de la Calle 18 para que los vehiculos salgan de la red

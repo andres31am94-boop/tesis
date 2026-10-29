@@ -1,0 +1,88 @@
+{
+  "escenario": "aforo_pico_jueves",
+  "controlador": "tiempos_fijos",
+  "semilla": 110,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 3804,
+    "espera_total_promedio_s": 35.66745531019979,
+    "espera_en_red_promedio_s": 35.44374342797056,
+    "retraso_entrada_promedio_s": 0.22371188222923238,
+    "tiempo_viaje_promedio_s": 127.0549421661409,
+    "tiempo_perdido_promedio_s": 55.837791798107254,
+    "velocidad_promedio_kmh": 28.84855703170828,
+    "throughput_veh_h": 4152.0,
+    "cola_promedio_norte": 8.705454545454545,
+    "cola_maxima_norte": 41,
+    "cola_promedio_sur": 7.594545454545455,
+    "cola_maxima_sur": 45,
+    "cola_promedio_este": 11.492424242424242,
+    "cola_maxima_este": 35,
+    "cola_promedio_oeste": 4.903636363636363,
+    "cola_maxima_oeste": 19,
+    "detenidos_promedio_total": 32.696060606060605,
+    "verde_promedio_cra23_s": 55.0,
+    "verdes_cra23": 33,
+    "verde_promedio_dg15_s": 20.0,
+    "verdes_dg15": 33,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 0
+  },
+  "cierre": {
+    "tiempo_final_s": 3765.0,
+    "vehiculos_sin_terminar": 0,
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": 49,
+    "teletransportes": 0,
+    "desatascos_calle18": 1,
+    "eventos_desatasco": [
+      [
+        1628.0,
+        "sur_recto_carro.180",
+        ":6048329437_1_0",
+        "despues_calle18_0"
+      ]
+    ]
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": 15,
+        "verde_max_s": {
+          "cra23": 70,
+          "dg15": 25
+        },
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-10-27T22:05:52"
+  }
+}

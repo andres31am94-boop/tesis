@@ -1,0 +1,9 @@
+# Paso 15 (2026-10-27): revalidacion con lcMaxSpeedLatStanding = 0 (carro, bus, camion: un vehiculo detenido no se
+# corre de lado) + puente continuo hasta la Calle 18. Corrige la causa de fondo de los atascos (ver docs/bitacora.md).
+# Mismas 5 semillas y 5 escenarios, sin cambiar parametros. validacion_calle18_continua se conserva como evidencia.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_sin_empuje.yaml
+nombre: validacion_sin_empuje
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

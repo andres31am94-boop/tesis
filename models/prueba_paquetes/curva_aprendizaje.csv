@@ -1,0 +1,5 @@
+episodio,escenario,semilla,epsilon,recompensa_total,detenidos_promedio,decisiones,pedidos_de_cambio,verdes_cra23,verdes_dg15,segundos_reloj
+0,aforo_bajo,1000,1.0,-62773.0,17.486,249,123,61,62,30.4
+1,aforo_valle_manana,1001,0.9937,-179625.0,50.035,247,124,62,62,69.6
+2,aforo_medio,1002,0.9873,-226450.0,63.078,257,122,61,61,83.2
+3,aforo_alto,1003,0.981,-273645.0,76.224,232,128,64,64,199.5

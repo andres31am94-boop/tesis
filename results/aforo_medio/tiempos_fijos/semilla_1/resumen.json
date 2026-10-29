@@ -8,22 +8,22 @@
   ],
   "metricas": {
     "vehiculos_medidos": 3170,
-    "espera_total_promedio_s": 18.03280757097792,
-    "espera_en_red_promedio_s": 17.721135646687696,
-    "retraso_entrada_promedio_s": 0.31167192429022084,
-    "tiempo_viaje_promedio_s": 92.95678233438485,
-    "tiempo_perdido_promedio_s": 28.598539432176654,
-    "velocidad_promedio_kmh": 35.816171784747745,
-    "throughput_veh_h": 3460.3636363636365,
-    "cola_promedio_norte": 4.056060606060606,
-    "cola_maxima_norte": 23,
-    "cola_promedio_sur": 3.0521212121212122,
-    "cola_maxima_sur": 19,
-    "cola_promedio_este": 6.486363636363636,
-    "cola_maxima_este": 23,
-    "cola_promedio_oeste": 3.4060606060606062,
-    "cola_maxima_oeste": 17,
-    "detenidos_promedio_total": 17.00060606060606,
+    "espera_total_promedio_s": 39.09558359621451,
+    "espera_en_red_promedio_s": 38.76687697160883,
+    "retraso_entrada_promedio_s": 0.32870662460567823,
+    "tiempo_viaje_promedio_s": 129.5807570977918,
+    "tiempo_perdido_promedio_s": 59.648356466876976,
+    "velocidad_promedio_kmh": 29.909441798440785,
+    "throughput_veh_h": 3478.909090909091,
+    "cola_promedio_norte": 2.4584848484848485,
+    "cola_maxima_norte": 28,
+    "cola_promedio_sur": 9.08090909090909,
+    "cola_maxima_sur": 80,
+    "cola_promedio_este": 7.388181818181818,
+    "cola_maxima_este": 28,
+    "cola_promedio_oeste": 3.4163636363636365,
+    "cola_maxima_oeste": 18,
+    "detenidos_promedio_total": 22.343939393939394,
     "verde_promedio_cra23_s": 55.0,
     "verdes_cra23": 33,
     "verde_promedio_dg15_s": 20.0,
@@ -32,21 +32,32 @@
     "cambios_forzados": 0
   },
   "cierre": {
-    "tiempo_final_s": 3760.0,
+    "tiempo_final_s": 3770.0,
     "vehiculos_sin_terminar": 0,
-    "version_sumo": "SUMO 1.27.1"
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": 17,
+    "teletransportes": 2
   },
   "parametros": {
     "controlador": {
       "seguridad": {
-        "verde_min_s": 10,
-        "verde_max_s": 60,
+        "verde_min_s": 15,
+        "verde_max_s": {
+          "cra23": 70,
+          "dg15": 25
+        },
         "amarillo_s": 3,
         "todo_rojo_s": {
           "cra23": 0,
           "dg15": 20
         },
         "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
       },
       "tiempos_fijos": {
         "verde_s": {
@@ -63,6 +74,6 @@
   },
   "entorno": {
     "python": "3.11.5",
-    "fecha": "2026-10-21T21:46:32"
+    "fecha": "2026-10-27T21:24:42"
   }
 }

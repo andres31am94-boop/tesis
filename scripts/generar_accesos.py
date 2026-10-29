@@ -42,7 +42,8 @@ def cargar_yaml(nombre):
 
 def escribir_programa_calle18(calle18):
     """Programa fijo medido del semaforo de la Calle 18 (archivo adicional que carga SUMO).
-    Los 2 movimientos (un sentido y el otro de la Cra 23) tienen siempre la misma luz."""
+    Los 2 movimientos (un sentido y el otro de la Cra 23) tienen siempre la misma luz.
+    El semaforo (tl="calle18") esta en el nodo donde termina el puente, trasladado a la Calle 18."""
     t = calle18["tiempos_cra23_s"]
     SALIDA_PROGRAMA_CALLE18.write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
@@ -100,13 +101,16 @@ def main():
                 nodo_puente = edge.get("from")
                 carriles = int(calle18["carriles_por_sentido"])
                 comunes = f'numLanes="{carriles}" speed="{velocidad}" priority="10" width="{ANCHO_CARRIL_CRA23_M}"'
-                lineas_nodos.append(f'    <node id="calle18" x="{xc:.2f}" y="{yc:.2f}" type="traffic_light" tl="calle18"/>')
+                # 2026-10-27: el semaforo de la Calle 18 es el MISMO nodo donde termina el puente en OSM ({nodo_puente}),
+                # trasladado a la posicion de la Calle 18. Antes habia un nodo aparte y dos tramos de 150 m
+                # (desde_calle18 / hacia_calle18) unidos al puente por un cruce interno de 0.1 m: un vehiculo
+                # desplazado de lado por las motos quedaba trabado ahi (atascos de validacion_dg15 s4 y aforo_v5).
+                # Ahora el puente llega de forma continua hasta la Calle 18 (forma en puente_forma.edg.xml).
+                lineas_nodos.append(f'    <node id="{nodo_puente}" x="{xc:.2f}" y="{yc:.2f}" type="traffic_light" tl="calle18"/>')
                 lineas_nodos.append(f'    <node id="fin_norte" x="{xf:.2f}" y="{yf:.2f}" type="priority"/>')
-                lineas_edges.append(f'    <edge id="acceso_norte" from="inicio_acceso_norte" to="calle18" '
+                lineas_edges.append(f'    <edge id="acceso_norte" from="inicio_acceso_norte" to="{nodo_puente}" '
                                     f'numLanes="{numero_carriles}" speed="{velocidad}" priority="10"/>')
-                lineas_edges.append(f'    <edge id="desde_calle18" from="calle18" to="{nodo_puente}" {comunes}/>')
-                lineas_edges.append(f'    <edge id="hacia_calle18" from="{nodo_puente}" to="calle18" {comunes}/>')
-                lineas_edges.append(f'    <edge id="despues_calle18" from="calle18" to="fin_norte" {comunes}/>')
+                lineas_edges.append(f'    <edge id="despues_calle18" from="{nodo_puente}" to="fin_norte" {comunes}/>')
                 escribir_programa_calle18(calle18)
                 print(f"acceso_norte {longitud:.0f} m con el semaforo de la Calle 18 a {d:.0f} m antes del brazo norte "
                       f"({calle18['distancia_desde_cruce_m']} m de la linea de pare); salida de {calle18['largo_salida_m']} m")

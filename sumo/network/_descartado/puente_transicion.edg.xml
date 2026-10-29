@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Transicion GRADUAL de 2 carriles a 1 antes del puente (2026-10-25).
+  Problema encontrado (validacion_dg15, aforo_valle_manana, semilla 4): la union de 2 carriles a 1 (nodo inicio_puente,
+  tipo zipper) era un "escalon": el carril derecho se corria 3.5 m hacia la izquierda en solo 8 m. En sumo-gui un camion
+  quedo 0.90 m por fuera de la via (lateral offset -1.45 m), no pudo volver a su carril ("blocked") y bloqueo el puente
+  durante toda la hora (756 vehiculos sin terminar).
+  Dato de campo (medidas de los autores en la vista satelital): la via tiene 2 carriles completos hasta 22.6 m del cruce
+  y se va angostando hasta el inicio del puente (53.8 m). Se reproduce con endOffset: el tramo de 2 carriles termina
+  31.2 m antes (53.8 - 22.6) y la union ocupa esos 31.2 m, con lo que el carril derecho se corre 3.5 m en ~39 m.
+  Se aplica en el paso 3 (acacias_conexiones.netccfg).
+-->
+<edges>
+    <edge id="1414166243" endOffset="31.2"/>
+</edges>

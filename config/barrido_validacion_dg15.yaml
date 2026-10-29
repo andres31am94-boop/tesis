@@ -1,0 +1,9 @@
+# Paso 12 (2026-10-25): revalidacion tras poner los carriles de la Dg 15 en 3.5 m (respuesta de los autores).
+# Mismas 5 semillas y los 5 escenarios del aforo, sin cambiar ningun parametro: se compara contra
+# validacion_conductor y validacion_jueves (sin la Calle 18) para medir su efecto.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_dg15.yaml
+nombre: validacion_dg15
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

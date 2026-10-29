@@ -19,11 +19,15 @@ zona_camara_m: 100
 # (scripts/generar_accesos.py lo usa para ubicar el acceso). Los tramos de acceso de 500 m NO se miden:
 # la zona de medicion es la que veria una camara en el cruce (~110-330 m).
 # Desde la calibracion (paso 5) el norte tiene 2 tramos: llegada de 2 carriles + puente de 1 carril.
+# edges_aguas_arriba (iteracion 3, 2026-10-25): tramos ANTES de la zona de medicion por donde puede seguir creciendo la
+# cola (accesos de 500 m; en el norte, tambien el tramo de la Calle 18). No los ve el agente (no los veria una camara):
+# solo entran en la RECOMPENSA del entrenamiento, para que la cola que se sale del brazo tambien cueste.
 brazos:
-  norte: {edges: ["-642480900", "puente_desde_villavicencio"], eje: "cra23"}
-  sur:   {edges: ["807940779"],   eje: "cra23"}
-  este:  {edges: ["816899410#0"], eje: "dg15"}
-  oeste: {edges: ["44411778#0"],  eje: "dg15"}
+  norte: {edges: ["-642480900", "puente_desde_villavicencio"], eje: "cra23",
+          edges_aguas_arriba: ["acceso_norte"]}  # 2026-10-27: desde_calle18 ya no existe (el puente llega a la Calle 18)
+  sur:   {edges: ["807940779"],   eje: "cra23", edges_aguas_arriba: ["acceso_sur"]}
+  este:  {edges: ["816899410#0"], eje: "dg15",  edges_aguas_arriba: ["acceso_este"]}
+  oeste: {edges: ["44411778#0"],  eje: "dg15",  edges_aguas_arriba: ["acceso_oeste"]}
 
 # Luces de cada fase. 12 letras = 3 por brazo, en el orden: norte, este, sur, oeste.
 # G = verde con prioridad, g = verde cediendo el paso, y = amarillo, r = rojo.

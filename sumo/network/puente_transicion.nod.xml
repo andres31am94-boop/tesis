@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Contorno del nodo inicio_puente para que la transicion de 2 carriles a 1 se dibuje como una sola calzada que se angosta
+  (sin el contorno, sumo-gui dejaba huecos blancos entre los carriles internos). Solo afecta el dibujo y el area del cruce.
+  Esquinas: borde derecho e izquierdo del tramo de 2 carriles (22.6 m del cruce) y del carril del puente (53.8 m).
+-->
+<nodes>
+    <node id="inicio_puente" x="227.56" y="254.98" shape="222.96,219.39 232.14,257.66 228.82,258.78 216.32,221.63"/>
+</nodes>

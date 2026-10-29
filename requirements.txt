@@ -6,3 +6,4 @@ sumolib==1.27.1
 pyyaml
 matplotlib
 openpyxl
+scipy        # prueba de Wilcoxon (scripts/analizar_comparacion.py)

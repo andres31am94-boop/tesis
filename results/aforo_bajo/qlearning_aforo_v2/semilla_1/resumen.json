@@ -1,0 +1,79 @@
+{
+  "escenario": "aforo_bajo",
+  "controlador": "qlearning_aforo_v2",
+  "semilla": 1,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 1737,
+    "espera_total_promedio_s": 23.241796200345423,
+    "espera_en_red_promedio_s": 23.203799654576855,
+    "retraso_entrada_promedio_s": 0.037996545768566495,
+    "tiempo_viaje_promedio_s": 104.36557282671272,
+    "tiempo_perdido_promedio_s": 34.02773172135866,
+    "velocidad_promedio_kmh": 34.908487276530956,
+    "throughput_veh_h": 1890.5454545454547,
+    "cola_promedio_norte": 1.4896969696969697,
+    "cola_maxima_norte": 26,
+    "cola_promedio_sur": 1.9054545454545455,
+    "cola_maxima_sur": 15,
+    "cola_promedio_este": 2.706969696969697,
+    "cola_maxima_este": 11,
+    "cola_promedio_oeste": 1.6581818181818182,
+    "cola_maxima_oeste": 9,
+    "detenidos_promedio_total": 7.760303030303031,
+    "verde_promedio_cra23_s": 60.0,
+    "verdes_cra23": 32,
+    "verde_promedio_dg15_s": 16.40625,
+    "verdes_dg15": 32,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 35,
+    "decisiones_agente": 398,
+    "decisiones_respaldo": 0,
+    "pedidos_de_cambio": 36
+  },
+  "cierre": {
+    "tiempo_final_s": 3713.0,
+    "vehiculos_sin_terminar": 0,
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": 17,
+    "teletransportes": 0
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": 15,
+        "verde_max_s": 60,
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-10-23T21:38:31"
+  }
+}

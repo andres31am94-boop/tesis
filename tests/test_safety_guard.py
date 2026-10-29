@@ -35,6 +35,33 @@ def duraciones(fases):
 
 
 class TestSafetyGuard(unittest.TestCase):
+    def test_verde_minimo_por_eje(self):
+        # 2026-10-28: Cra 23 no puede terminar antes de 20 s; Dg 15 si a los 15 s -> ciclo minimo 20+3+0+15+3+20 = 61 s
+        guard = SafetyGuard({"cra23": 20, "dg15": 15}, {"cra23": 70, "dg15": 25}, 3, {"cra23": 0, "dg15": 20},
+                            eje_inicial="cra23")
+        bloques = duraciones(simular(guard, 120, decidir=lambda t: True))   # pide cambiar siempre
+        self.assertEqual(bloques[:6], [("verde_cra23", 20), ("amarillo_cra23", 3), ("verde_dg15", 15),
+                                       ("amarillo_dg15", 3), ("todo_rojo", 20), ("verde_cra23", 20)])
+
+    def test_verde_maximo_por_eje(self):
+        # Iteracion 4b: Cra 23 hasta 70 s, Dg 15 hasta 25 s; nadie pide cambiar -> cada verde dura su maximo
+        guard = SafetyGuard(15, {"cra23": 70, "dg15": 25}, 3, {"cra23": 0, "dg15": 20}, eje_inicial="dg15")
+        bloques = duraciones(simular(guard, 200, decidir=lambda t: False))
+        self.assertEqual(bloques[:4], [("verde_dg15", 25), ("amarillo_dg15", 3), ("todo_rojo", 20), ("verde_cra23", 70)])
+        self.assertEqual(guard.verde_max("cra23"), 70)
+
+    def test_verde_maximo_por_eje_incompleto_da_error(self):
+        with self.assertRaises(ValueError):
+            SafetyGuard(15, {"cra23": 70}, 3, 0)
+        with self.assertRaises(ValueError):
+            SafetyGuard(30, {"cra23": 70, "dg15": 25}, 3, 0)   # verde minimo mayor que un maximo
+
+    def test_tiempos_fijos_validan_contra_el_maximo_de_su_eje(self):
+        guard = SafetyGuard(15, {"cra23": 70, "dg15": 25}, 3, 0)
+        ControladorTiemposFijos({"cra23": 55, "dg15": 20}, guard)          # el plan real cabe
+        with self.assertRaises(ValueError):
+            ControladorTiemposFijos({"cra23": 55, "dg15": 30}, guard)      # 30 s > 25 s de la Dg 15
+
     def test_no_cambia_antes_del_verde_minimo(self):
         guard = nuevo_guard()
         fases = simular(guard, 30, decidir=lambda t: True)  # el "controlador" pide cambiar SIEMPRE
@@ -99,6 +126,33 @@ class TestSafetyGuard(unittest.TestCase):
     def test_paso_sin_iniciar_da_error(self):
         with self.assertRaises(RuntimeError):
             nuevo_guard().paso(1, False)
+
+
+class TestPerfilesDeSeguridad(unittest.TestCase):
+    CONFIG = {"seguridad": {"verde_min_s": 15, "verde_max_s": 60, "amarillo_s": 3,
+                            "todo_rojo_s": {"cra23": 0, "dg15": 20}, "eje_inicial": "cra23"},
+              "seguridad_norma": {"todo_rojo_s": {"cra23": 2, "dg15": 20}}}
+
+    def todo_rojo_tras_cra23(self, guard):
+        # Arranca en verde Cra 23 y pide cambiar siempre: verde minimo (15 s), amarillo (3 s) y luego el todo-rojo.
+        bloques = duraciones(simular(guard, 25, lambda t: True))
+        siguiente = bloques[2]  # (fase despues del amarillo, segundos)
+        return siguiente[1] if siguiente[0] == "todo_rojo" else 0
+
+    def test_perfil_real_usa_el_todo_rojo_medido(self):
+        guard = SafetyGuard.desde_config(self.CONFIG, "real")
+        self.assertEqual(guard.verde_min("cra23"), 15)
+        self.assertEqual(self.todo_rojo_tras_cra23(guard), 0)
+
+    def test_perfil_norma_cambia_solo_el_todo_rojo(self):
+        real = SafetyGuard.desde_config(self.CONFIG, "real")
+        norma = SafetyGuard.desde_config(self.CONFIG, "norma")
+        self.assertEqual((norma.verde_min_por_eje, norma.verde_max_por_eje), (real.verde_min_por_eje, real.verde_max_por_eje))
+        self.assertEqual(self.todo_rojo_tras_cra23(norma), 2)
+
+    def test_perfil_desconocido_da_error(self):
+        with self.assertRaises(ValueError):
+            SafetyGuard.desde_config(self.CONFIG, "otro")
 
 
 class TestTiemposFijos(unittest.TestCase):

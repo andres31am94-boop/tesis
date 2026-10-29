@@ -683,3 +683,710 @@ Modelo calibrado sin cambios, 5 semillas, `aforo_pico_jueves` (`results/calibrac
 este duplica la del viernes. Es la evidencia más fuerte de que el modelo generaliza. Total acumulado: 100/100 comparaciones
 con GEH < 5 en 5 escenarios. Hubo una colisión con teletransporte (s4, bus en la unión del puente): la limitación conocida.
 Pendiente: paso B (activar la Calle 18 y validar los 5 escenarios).
+
+### 2026-10-23 — Resultado del paso 10: modelo con el semáforo de la Calle 18
+
+Paso B (`results/calibracion/validacion_calle18/`, 5 escenarios × 5 semillas): **100/100 con GEH < 5** (máx. 3.1).
+Comparado con el modelo sin la Calle 18:
+- aforo_alto, sur: 1397 (1392–1402), GEH medio 3.0, contra 1378 y 3.5 sin la Calle 18. Mejora un poco.
+- Los demás brazos y escenarios cambian poco (±10 veh/h en promedio), como se esperaba: el GEH mide flujo atendido, y la
+  Calle 18 afecta sobre todo **cómo** se forman las colas (bloqueo del puente), no cuánto pasa en una hora.
+- Red verificada: el nodo `calle18` tiene 2 movimientos, sin conflictos (`GG/yy/rr`); el nodo del puente, también sin conflictos.
+- Teletransportes por atasco (>300 s quieto) en `:6048329437_1_0`, la entrada al tramo hacia la Calle 18: 3 en 25
+  corridas (valle s3, jueves s5 con 3 vehículos). Es la cola de la Calle 18 subiendo hasta el puente. Raros; se reportan
+  como limitación. Desde ahora `ejecutar_escenario` guarda el número de teletransportes en `resumen.json`.
+**Decisión: la Calle 18 queda en el modelo definitivo** (`activo: true`). Es más realista, sigue validado 100/100 y el
+agente enfrentará el bloqueo del puente que se observa en campo.
+Nota: la prueba de paquetes del 23-oct no es válida, porque la red cambió a mitad de la prueba. Se repite.
+
+**Prueba de paquetes repetida (con la Calle 18 y sin cambios durante la prueba):** `prueba_seguido2` (4 episodios de
+seguido) y `prueba_paquetes2` (2 + 2 con `--continuar`) dan recompensas idénticas en los 4 episodios (−62773, −179625,
+−226450, −273645). Las tablas Q y los conteos de visitas guardados también son idénticos. **Entrenar por paquetes es equivalente a entrenar de seguido.**
+
+### 2026-10-23 — Diseño del entrenamiento definitivo: escenarios de entrenamiento y de prueba
+
+Propuesta de los autores: entrenar solo con bajo, medio y alto. Se adopta, con este diseño:
+- **Entrenamiento:** aforo_bajo (1844 veh/h), aforo_medio (3456) y aforo_alto (4088): cubren todo el rango de demanda.
+- **Prueba de generalización (el agente nunca los ve al entrenar):** aforo_valle_manana (2752, demanda intermedia)
+  y aforo_pico_jueves (4184, hora pico de otro día, con el este casi al doble). Permite responder si el agente sirve en
+  situaciones que no practicó, lo que es más exigente y más defendible que evaluar solo en escenarios conocidos.
+- **150 episodios** (50 por escenario, semillas 1000–1149). ε baja de 1.0 a 0.05 en los primeros **100** episodios
+  (antes 150) y los últimos 50 son casi sin exploración. Si la curva sigue mejorando al final, se evalúa ampliar.
+- Por qué 150 y no menos: la tabla tiene 96 estados × 2 acciones; cada par necesita muchas visitas para que su valor Q se
+  estabilice (con α = 0.1 cada actualización mueve el valor solo un 10 %). Con 4 episodios se visitaron 36 de 96 estados.
+`graficar_curva.py`: ahora dibuja una línea por escenario (detenidos promedio, con media móvil de 5 episodios del mismo
+escenario) y la exploración ε. Imprime por escenario los detenidos de los primeros y de los últimos 5 episodios.
+Mezclar escenarios en una sola línea escondería el aprendizaje, porque cada escenario tiene su propio nivel de tráfico.
+
+### 2026-10-23 — Capa de seguridad frente a la norma colombiana (consulta)
+
+- Ley 769/2002, art. 118: rojo = detenerse; amarillo = desalojar el cruce y no entrar; verde = vía libre. Parágrafo 1:
+  intermitencia amarilla para la vía con prelación y roja para las demás (se usará como modo seguro del ESP32).
+  La secuencia de la capa de seguridad (verde → amarillo → todo-rojo → verde del otro eje) es coherente con eso.
+- Amarillo (3 s) y todo-rojo (0 s tras la Cra 23, 20 s tras la Dg 15) **copian el semáforo real** que opera la autoridad;
+  el agente no puede cambiarlos, solo la duración del verde (10–60 s).
+- Referencia técnica internacional (ITE, fórmula cinemática, no es norma colombiana): amarillo ≈ 1 + v/(2a) =
+  1 + 13.89/(2 × 3.05) ≈ 3.3 s a 50 km/h. El amarillo real (3 s) está ligeramente por debajo. Observación, no conclusión.
+- **Pendiente:** verificar valores (amarillo, despeje, verde mínimo, ciclo) en el Manual de Señalización Vial
+  (capítulo 4, Semáforos; Res. 20223040045295 de 2022, modificada por la Res. 20243040045005 de 2024). El PDF del
+  MinTransporte no se pudo descargar desde la sesión de Claude: lo descargan los autores a `docs/normativa/`.
+
+### 2026-10-23 — Lectura del Manual de Señalización Vial, capítulo 7 (Semáforos)
+
+Documentos en `docs/normativa/` (aportados por los autores). El capítulo 7 es de la **edición de mayo de 2004**. Hay
+ediciones posteriores (2015 y la vigente, adoptada con la Res. 20223040045295 de 2022 y modificada por la Res.
+20243040045005 de 2024); hay que confirmar si estos puntos cambiaron. Hallazgos relevantes para la capa de seguridad:
+- 7.2.1.3 b: "En ningún caso se cambiará de luz verde a luz roja ... sin que antes aparezca el amarillo" → se cumple
+  (secuencia obligatoria del SafetyGuard).
+- 7.2.1.3 c: "Es recomendable que ... siempre se incluya un período de todo rojo" → el semáforo real tiene 0 s de
+  todo-rojo después de la Cra 23 (y 20 s después de la Dg 15). Es una recomendación, no una obligación.
+- 7.2.1.3 c: nunca combinaciones simultáneas de colores (salvo flechas o rojo+amarillo) → se cumple (2 fases sin conflicto).
+- 7.2.2.3: el verde no debe ser menor que el tiempo de cruce de peatones, "excepto cuando se dispone de un intervalo
+  especial para peatones"; con alta demanda se logra buena eficacia "con lapsos de luz verde tan breves como de 15 s".
+  Ejemplo del Manual: verde mínimo = 5 + tiempo de cruce − amarillo. El verde mínimo actual del agente (10 s) está por
+  debajo de esos 15 s.
+- 7.2.2.4: los semáforos de tiempo fijo a menos de 1000 m que controlan el mismo tránsito deben operar coordinados y con
+  ciclos iguales. La Calle 18 (ciclo de 102 s) y nuestro cruce (~101 s) parecen coordinados. Un control adaptativo
+  aislado rompería esa coordinación: es una limitación que hay que declarar.
+- 7.2.3: el Manual contempla los semáforos accionados por el tránsito y el "control adaptable al tránsito" donde los
+  volúmenes fluctúan y donde varían mucho entre las calles → respaldo normativo del enfoque de la tesis.
+- 7.4.1.3: en operación intermitente, amarillo intermitente en la vía preferencial y rojo intermitente en las demás; el
+  paso a intermitencia se hace durante el verde de la calle principal → modo seguro del ESP32.
+
+### 2026-10-23 — Manual de Señalización Vial 2024 (vigente), capítulo 4 (Semaforización)
+
+Archivo: `docs/normativa/Manual-Sen-alizacio-n-Vial-2024.pdf` (1425 páginas). Hallazgos:
+- **4.4 (figura 4-9): amarillo de 3 s para 50 km/h.** El semáforo real y la capa de seguridad cumplen.
+- **4.4.3:** nunca de verde a rojo sin amarillo; sin combinaciones verde-amarillo ni verde-rojo; intermitencia amarilla en
+  la vía principal y roja en la secundaria → se cumple (y define el modo seguro del ESP32).
+- **4.4.4 Tiempo de seguridad (tiempo intermedio):** Ti = (Dd + Lv)/Vd − De/Ve + Tp, con Vd = 10 m/s (vehículo recto),
+  Ve = 7 m/s y Tp = 2 o 3 s. Tiempos intermedios típicos entre 4 y 9 s.
+  Estimación propia con la geometría de la red (recorrido recto de la Cra 23 por el cruce: 24–27 m; carro Lv = 5 m;
+  De entre 0 y 5 m; Tp = 2 s): **Ti ≈ 4.4–5.2 s** (con bus de 12 m, ≈ 5.9 s). Hoy, después del verde de la Cra 23,
+  el tiempo intermedio es solo el amarillo (3 s + 0 s de todo-rojo): **queda por debajo**. Después de la Dg 15
+  (3 + 20 = 23 s) cumple con holgura.
+  Es una estimación con supuestos conservadores; el valor oficial lo debe calcular un profesional idóneo.
+- **4.8.2 Tráfico actuado:** la duración de los intervalos se modifica con un algoritmo y sensores, "enmarcada dentro de
+  valores máximos, mínimos". **Es la categoría del Manual que corresponde a este sistema** (control local con detección
+  en los accesos). En el Manual, "adaptativo" (4.8.4) se refiere a control centralizado de corredor o red, con detectores
+  en los tramos. Hay que cuidar la terminología en la tesis.
+- **4.8 (monitoreo):** el controlador debe detectar conflictos verde-verde o módulos apagados y pasar a intermitencia
+  general → en simulación, `SumoActuator.verificar()` detiene la corrida; en la maqueta, el ESP32 pasará a intermitencia.
+- **4.8.6:** ciclos recomendados entre 60 y 120 s; por encima de 120 s, solo en circunstancias particulares; no se
+  recomiendan ciclos de más de 150 s. Con la capa actual, el ciclo máximo posible del agente es 60+3+0+60+3+20 = 146 s.
+  Se reportará la distribución de ciclos del agente en la evaluación.
+- **4.8.6:** los planes deben definirlos un profesional idóneo y ponerlos en marcha la autoridad → el prototipo es académico.
+- El Manual 2024 no fija un verde mínimo numérico en los apartados revisados (el de 2004 menciona 15 s como lapso eficaz).
+**Decisiones pendientes de los autores** (el entrenamiento aforo_v1 está en curso con la capa anterior):
+(1) verde mínimo de 15 s; (2) todo-rojo después de la Cra 23 para el agente, para cumplir el tiempo de seguridad.
+**Decisión de los autores (2026-10-23): verde mínimo de 15 s y opción B.** Implementado:
+- `config/controlador.yaml`: `seguridad.verde_min_s` = 15 (antes 10). Nuevo perfil `seguridad_norma` con todo-rojo
+  después de la Cra 23 = 2 s (tiempo intermedio de 5 s, Manual 2024, 4.4.4).
+- `SafetyGuard.desde_config(config, perfil)`: "real" (semáforo medido) o "norma". El agente usa siempre "norma", tanto
+  al entrenar como al evaluar. El baseline `tiempos_fijos` usa "real". Nueva referencia `tiempos_fijos_norma`: el semáforo
+  real con el todo-rojo de la norma (opción C, para mostrar el efecto de esos 2 s).
+- Pruebas nuevas de los perfiles en `tests/test_safety_guard.py`.
+- El entrenamiento `aforo_v1`, iniciado con la capa anterior, se descarta y se reinicia.
+- La calibración no cambia: con el semáforo real, el verde mínimo de 15 s no interviene (verdes de 55 y 20 s).
+**Entrenamiento definitivo iniciado:** `aforo_v2` (bajo, medio, alto; 150 episodios en paquetes de 50; verde mínimo de 15 s;
+el agente con el perfil de seguridad "norma"). `aforo_v1` se descarta (capa de seguridad anterior).
+
+### 2026-10-23 — Revisión del aforo original (`planilla_aforo_original_2026-10-20.xlsx`)
+
+- **Conteos:** las 16 filas originales (vie 16, lun 19, mar 20 ×2) son **idénticas** a las de la planilla en uso, y en las
+  20 filas actuales el total coincide con la suma de las columnas. La migración no alteró ningún dato.
+- **Ya corregido en la planilla en uso:** el brazo "Norte (Cra 23" estaba truncado (por eso el Resumen original no mostraba
+  el norte); la columna Día tenía números (16, 19) o estaba vacía (martes).
+- **Hoja Semaforo, inconsistencias:**
+  1. Un mismo semáforo debe tener un solo ciclo, pero con los rojos medidos sale Cra 23: 55+3+45 = 103 s y Dg 15:
+     20+3+77 = 100 s. La diferencia de 3 s es error de cronómetro. Implica un todo-rojo total de 19–22 s por ciclo; el modelo
+     usa 20 s (ciclo de 101 s), dentro de ese rango.
+  2. Los ciclos 5–8 de la Dg 15 están fechados el 20-oct a las 20:15, 21:15, 22:15 y 23:15. El conteo de la noche fue el
+     lunes 19 de 20:15 a 21:15, y la separación de una hora entre ciclos es rara. Probablemente la fecha o las horas están mal
+     digitadas. **Por confirmar con los autores.**
+  3. La columna Todo-rojo está vacía (se observó después: ~22 s después de la Dg 15). La Calle 18 (jueves 22) no está
+     en la hoja (está en `config/semaforo_calle18.yaml`).
+- **No es inconsistencia, pero conviene explicarlo:** en el aforo del viernes cada brazo se contó en un cuarto de hora distinto
+  (sur 18:00, norte 18:15, este 18:30, oeste 18:45). Puede explicar en parte por qué el este del viernes (460 veh/h, de 18:30
+  a 18:45) es mucho menor que el del jueves (948 veh/h, de 18:15 a 18:30).
+**aforo_v2, paquete 1 (episodios 0–49, ε de 1.00 a 0.53, 34 min):** detenidos promedio (primeros 5 → últimos 5 episodios
+del escenario): bajo 11.2 → 9.8; medio 63.0 → 37.9; alto 75.4 → 69.2. 52 de 96 estados visitados. El aprendizaje es
+claro en medio, moderado en alto y pequeño en bajo. Todavía no es comparable con el semáforo real (exploración alta,
+otra ventana de medición).
+**Análisis de la curva de aforo_v2 tras el paquete 1** (`models/aforo_v2/curva_aprendizaje.png`): medio baja con claridad
+desde el episodio ~20 (media móvil de ~62 a ~38), aunque con mucha dispersión entre episodios (28–55) por la exploración.
+Alto baja poco y tiende a estabilizarse cerca de 69–70. Bajo se mantiene en ~10, con menos dispersión.
+Comportamiento aprendido (primeros 5 → últimos 5 episodios de cada escenario): pide "cambiar" en menos decisiones
+(bajo 51 → 36 %, medio 47 → 38 %, alto 45 → 32 %) y arma ciclos más largos (unos 71–72 s → 77–82 s, estimado como
+3600 / verdes de la Cra 23). Interpretación (hipótesis): cada cambio cuesta amarillo + todo-rojo (5 s o 23 s), así que
+cambiar muy seguido desperdicia tiempo; el agente aprende a sostener los verdes. Sus ciclos siguen siendo más cortos
+que los 101 s del semáforo real.
+**aforo_v2, paquete 2 (episodios 50–99, ε de 0.53 a 0.06, 25 min):** detenidos promedio (últimos 5 episodios del paquete 1
+→ últimos 5 del paquete 2): bajo 9.8 → 9.3; **medio 37.9 → 22.7**; **alto 67.7 → 61.2** (un episodio atípico de 82).
+61 de 96 estados visitados. Comportamiento en los últimos 5 episodios: pide "cambiar" en 14–20 % de las decisiones y
+arma ciclos de ~96–107 s (estimado), del orden del ciclo real (101 s). Hay que medir si el reparto del verde es distinto
+al del plan fijo; eso lo dirá la evaluación.
+**aforo_v2, paquete 3 (episodios 100–149, ε = 0.05, 19 min).** Detenidos promedio, media del paquete (desviación estándar):
+bajo 8.2 (0.7), **estable**; medio 20.7 (6.3) con dos atípicos al inicio, segunda mitad 18.9, **estable**; alto 48.6 (8.0),
+primera mitad 50.8 y segunda mitad 46.7, **todavía bajando y con mucha variación** (38–62).
+63 de 96 estados visitados; 47 con 20 visitas o más. Ciclos aproximados: bajo 102 s, medio 107 s, alto 111 s
+(menos de 120 s, el límite recomendado por el Manual 2024); pide "cambiar" en 11–14 % de las decisiones.
+**Decisión:** bajo y medio convergieron; alto no del todo. Se amplía el entrenamiento a 240 episodios (80 por escenario).
+`entrenar.py --continuar --ampliar` permite subir el total; es equivalente a haber pedido 240 desde el inicio, porque la
+semilla, el escenario, ε y el azar del episodio k no dependen del total. Respaldo de aforo_v2 con 150 episodios
+(fuera del repositorio) por si hace falta comparar.
+Copia del modelo con 150 episodios: `models/aforo_v2_150/` (sin cambios después de esta fecha).
+
+### 2026-10-23 — Scripts de la comparación final
+
+- `scripts/comparar_controladores.py --modelo <m>`: corre `tiempos_fijos` (semáforo real), `tiempos_fijos_norma` (real con
+  todo-rojo de 2 s) y `qlearning`, con las 30 semillas de evaluación, en los 5 escenarios. Las corridas quedan pareadas por
+  semilla (mismos vehículos). Guarda una fila por corrida en `results/comparacion/<m>/corridas.csv`, con métricas de viaje,
+  cola, verdes, ciclos (promedio, máximo, % de ciclos de más de 120 s), teletransportes, desfase de la Calle 18 y
+  decisiones de respaldo. Se puede retomar: no repite lo ya guardado. El tripinfo se borra al terminar cada corrida.
+- `simular(..., zona="al_decidir")`: mide la zona de cámara solo cuando el agente va a decidir
+  (`ControladorQLearning.va_a_decidir`). Debe dar el mismo resultado que medirla cada segundo; se verifica.
+- `scripts/analizar_comparacion.py --modelo <m>`: medianas, diferencia %, Wilcoxon pareado bilateral (α = 0.05),
+  correlación biserial de rangos como tamaño del efecto. Métrica principal: tiempo de espera promedio. Secundarias:
+  cola, tiempo de viaje, tiempo perdido, velocidad y throughput, con corrección de Holm. Salidas: `resultados.csv`,
+  `resultados.md` y diagramas de cajas `espera_<escenario>.png`. Se verificaron Holm y la biserial con ejemplos a mano.
+- `requirements.txt`: se agrega scipy.
+
+### 2026-10-24 — Ampliación de aforo_v2 a 240 episodios (142 min)
+
+Detenidos promedio por bloque (media, desviación estándar):
+- bajo: 100–149 → 8.2 (0.7); 150–194 → 8.3 (0.6); 195–239 → 8.8 (0.9)
+- medio: 100–149 → 20.7 (6.3); 150–194 → 18.0 (1.6); 195–239 → 20.0 (2.7)
+- alto: 100–149 → 48.6 (8.0); 150–194 → 47.7 (8.2); 195–239 → 52.7 (6.9)
+66 de 96 estados visitados (51 con 20 visitas o más). Ciclos aproximados: 100 / 105 / 111 s.
+**Lectura:** la ampliación no siguió mejorando. Las diferencias entre bloques son del tamaño de la variación entre episodios.
+En alto, la variación (de ~7 a 8) refleja la demanda aleatoria y el desfase de la Calle 18, que cambia con cada semilla.
+**Se da el entrenamiento por convergido.**
+**Modelo para la evaluación (decidido ANTES de ver resultados de evaluación):** `aforo_v2` con 240 episodios, el último
+del procedimiento. `aforo_v2_150` queda solo como análisis de sensibilidad opcional. No se elige el modelo según los
+resultados de las semillas de evaluación, para no sesgar la comparación.
+
+### 2026-10-24 — Prueba de los scripts de comparación (6 semillas, aforo_bajo; solo prueba de funcionamiento)
+
+- **Verificación de exactitud:** `ejecutar_escenario` (zona medida cada segundo) y `comparar_controladores` (zona solo al
+  decidir) dan la misma espera para qlearning con la semilla 1: 23.241796200345423 s en ambos. La versión rápida es exacta.
+- 18 corridas en ~8 min. Análisis, tablas y gráfica generados sin errores. Con 6 semillas nada es significativo; **no son
+  resultados de la tesis**. Se movieron a `results/comparacion/prueba_6semillas_aforo_v2/`.
+- Observación: con la Calle 18 activa, la espera total del semáforo real en aforo_bajo es ~25 s (antes ~15 s), porque
+  incluye el rojo de la Calle 18. Ese tiempo es igual para todos los controladores y diluye las diferencias. Se agrega,
+  **antes de la corrida completa**, la métrica secundaria `espera_cruce_promedio_s`: vehículo-segundos detenidos en los
+  4 brazos dentro de la ventana, dividido por los vehículos medidos. La métrica principal NO cambia (espera total
+  promedio): es la que experimenta el usuario y la más conservadora.
+- Comportamiento del agente en bajo, semilla 1: verde de la Cra 23 casi siempre hasta el máximo (60 s, 35 cambios forzados),
+  verde de la Dg 15 de ~16 s; ciclo de ~104 s. Se analizará en la corrida completa si cambia según el escenario.
+
+### 2026-10-24 — RESULTADOS de la comparación final, iteración 1 (aforo_v2, 240 episodios; 450 corridas; 30 semillas)
+
+Métrica principal: espera total promedio, mediana de 30 semillas, Wilcoxon pareado (α = 0.05), r = biserial de rangos.
+
+| Escenario | Real | Real + norma | Agente | Agente vs real | Agente vs real + norma |
+|---|---|---|---|---|---|
+| bajo | 24.09 | 24.87 | 24.14 | +0.2 %, p = 0.61 (ns) | **−2.9 %, p = 0.026** |
+| valle (no visto) | 25.91 | 27.12 | 26.65 | +2.9 %, p = 0.061 (ns) | **−1.7 %, p = 0.006** |
+| medio | 27.62 | 29.47 | 29.03 | **+5.1 %, p < 0.001 (peor)** | −1.5 %, p = 0.82 (ns) |
+| alto | 59.40 | 73.03 | 55.85 | **−6.0 %, p = 0.013 (mejor)** | **−23.5 %, p < 0.001** |
+| jueves (no visto) | 31.96 | 34.79 | 35.43 | **+10.8 %, p = 0.002 (peor)** | +1.8 %, p = 0.11 (ns) |
+
+- Con las mismas reglas de seguridad (frente a real + norma), el agente es mejor en 3 escenarios y no es peor en ninguno.
+  Frente al semáforo real (con 2 s menos de todo-rojo), solo mejora en alto; empata en bajo y valle; es peor en medio y jueves.
+- Los 2 s de todo-rojo de la norma cuestan entre +3 % (bajo) y +23 % (alto) de espera con el plan fijo.
+- 0 teletransportes y 0 vehículos sin terminar en las 450 corridas; ningún ciclo de más de 120 s.
+- **Hipótesis (diferencia significativa frente al semáforo real): se cumple solo en el escenario alto.**
+
+**Diagnóstico con la tabla Q (interpretabilidad):** la política aprendida es casi un plan fijo: Cra 23 en verde hasta el
+máximo (60 s en todos los escenarios) y Dg 15 con ~17–20 s. Con verde en la Cra 23 el agente elige "mantener" incluso con
+la Cra 23 "vacía" y la Dg 15 "alta" (por ejemplo, 8696 visitas en el estado vacía/alta con 40 s o más).
+**Causa probable:** el estado mide vehículos DETENIDOS. Durante su verde, el eje que tiene el paso casi no tiene detenidos
+(los vehículos se mueven), así que se ve "vacío" tanto si la vía está desocupada como si pasa un flujo grande. El agente no
+puede saber si el verde se está aprovechando. Además, volver a la Cra 23 cuesta 23 s de transición, lo que favorece ciclos
+largos. Esto explica el jueves: el este se carga (cola de 13.7 frente a 9.8 del real) y el agente no le alarga el verde
+porque nunca lo "ve" ocupado.
+**Propuesta de iteración 2 (pendiente de aprobación):** que el eje en verde se describa con los vehículos PRESENTES en su
+zona de cámara (en movimiento o detenidos), como la detección de brechas de un control actuado (Manual 2024, 4.8.2). Un
+solo cambio de diseño; la cámara puede medirlo.
+**Iteración 2 aprobada por los autores. Implementación:**
+- `CodificadorEstado`: `estado.modo` = "detenidos" (iteración 1) o "presentes_en_verde" (iteración 2). En el modo nuevo, el
+  eje en verde se mide por los vehículos presentes en su zona de cámara y el eje en rojo por sus detenidos. Las 96
+  situaciones y los cortes de tiempo no cambian. Los cortes de detenidos [1, 4, 9] se mantienen.
+- `cortes_presentes_zona_verde`: provisional [1, 5, 10]. Se calculan con
+  `calcular_cortes_estado.py --modo presentes`, usando solo los escenarios de entrenamiento (bajo, medio, alto)
+  para no usar información de los escenarios no vistos.
+- **Reproducibilidad:** al evaluar, el controlador Q-Learning usa la configuración del agente guardada en el modelo,
+  no la de `config/agente.yaml`. aforo_v2 se sigue evaluando con su estado original.
+- `series.csv` guarda ahora `vehiculos_zona_<brazo>`. Pruebas nuevas: `TestCodificadorPresentesEnVerde`.
+**Cortes de presentes** (`calcular_cortes_estado.py --modo presentes`, semáforo real, bajo/medio/alto, semilla 1):
+**[1, 3, 14]**, es decir, vacía 0 · baja 1–2 · media 3–13 · alta 14 o más vehículos presentes del eje en verde.
+Frecuencia: Cra 23 4/19/36/40 %; Dg 15 12/39/41/7 %. Vehículos presentes durante el verde (p50 / p90): Cra 23 bajo 2/9,
+medio 7/17, alto 29/40; Dg 15 bajo 1/3, medio 4/14, alto 4/13.
+**Entrenamiento de la iteración 2:** `aforo_v3`, todo igual que aforo_v2 (bajo, medio, alto; 240 episodios; ε baja en 100;
+semillas 1000–1239; perfil de seguridad "norma") salvo el estado. Un solo cambio respecto de la iteración 1.
+
+### 2026-10-25 — RESULTADOS de la iteración 2 (aforo_v3, estado con "presentes en verde"; 450 corridas)
+
+Espera total promedio (mediana de 30 semillas) frente al semáforo real (24.09 / 25.91 / 27.62 / 59.40 / 31.96 s):
+| Escenario | Agente v3 | vs real | vs real + norma | v3 frente a v2 (mismas semillas) |
+|---|---|---|---|---|
+| bajo | 22.72 | −5.7 %, p = 0.19 (ns) | −8.6 %, p = 0.007 | mejor en 24/30 semillas (−1.3 s) |
+| valle | 25.97 | +0.3 % (ns) | −4.2 %, p < 0.001 | mejor en 21/30 (−0.5 s) |
+| medio | 28.65 | +3.7 %, p < 0.001 (peor) | −2.8 % (ns) | mejor en 17/30 (−0.3 s) |
+| **alto** | **149.81** | **+152 % (mucho peor)** | +105 % | peor en 30/30 (+95 s) |
+| **jueves** | **75.75** | **+137 % (mucho peor)** | +118 % | peor en 29/30 (+40 s) |
+
+En alto y jueves, el agente v3 da a la Dg 15 verdes de ~42–44 s (el semáforo real, 20 s) y ciclos de ~130 s (100 % de
+los ciclos de más de 120 s). La cola del sur se dispara (alto: 37.1 frente a 26.1; jueves: 35.4 frente a 6.7) y hay muchos
+teletransportes por atasco (alto 217, jueves 108, en total en las 90 corridas de cada escenario). Los semáforos de referencia
+son idénticos en las dos comparaciones (verificado).
+
+**Diagnóstico: la recompensa "no ve" parte del costo.** La recompensa suma los detenidos en los brazos (zona de medición, 110–330 m),
+pero en hora pico la cola del sur sale del brazo y sigue por el tramo de acceso de 500 m, que no se mide. Una vez lleno el brazo,
+su castigo deja de crecer: el agente puede alargar el verde de la Dg 15 (que sí reduce detenidos medidos) mientras la cola del sur
+crece sin castigo fuera de la zona. Además, los vehículos teletransportados por atasco desaparecen y "alivian" la recompensa.
+Con la iteración 1 el problema existía, pero su política (Cra 23 siempre al máximo) lo ocultaba. En el entrenamiento, alto de v3
+parecía bien (52.8 detenidos) justamente porque el costo estaba fuera de lo medido.
+**Lección para la tesis:** la recompensa debe medir TODO el costo que el agente puede causar (*reward hacking*).
+**Propuesta de iteración 3 (pendiente de aprobación):** el estado de v3 sin cambios (lo que ve una cámara) y la recompensa con
+los detenidos de los brazos + sus tramos aguas arriba (accesos y el tramo de la Calle 18). Un solo cambio.
+Protocolo: las decisiones de diseño se validan primero con semillas de VALIDACIÓN aparte (no las 1–30); las 30 semillas de
+evaluación se usan una vez con el modelo final. Todas las iteraciones se reportan.
+
+### 2026-10-25 — Corrección de la forma del puente (detectada por los autores en sumo-gui)
+
+En la vista de sumo-gui, los dos sentidos del puente aparecían separados por un "hueco". En la red, `puente_desde_villavicencio`
+y `puente_hacia_villavicencio` tenían formas desplazadas a cada lado de la línea central (hueco de ~6 m entre carriles) y medían
+~74 m en vez de ~64 m (distancia real entre sus nodos). Probable origen: la geometría de dos vías distintas de OSM más el
+desplazamiento automático de netconvert. Corrección: `sumo/network/puente_forma.edg.xml`, cargado en el paso 3
+(`acacias_conexiones.netccfg`): los dos sentidos sobre la misma línea central, de nodo a nodo, con `spreadType="right"`.
+Efecto esperado: el recorrido por el puente se acorta unos 10 m en cada sentido; la dinámica (carriles, conexiones,
+semáforos) no cambia. **Hay que revalidar la calibración** (`config/barrido_validacion_puente.yaml`, 5 escenarios × 5 semillas).
+Las iteraciones 1 y 2 se evaluaron con la red anterior; queda registrado. La iteración 3 se entrena y evalúa con la red corregida.
+**Verificación de la red corregida (2026-10-25):** los carriles del puente quedaron pegados (separación entre sus ejes de
+~3.3 m, con carriles de 3.5 m) y cada sentido mide 59.6 m de carril (antes 73.7 m). Sin hueco en sumo-gui (captura de los
+autores). El semáforo sigue con 12 movimientos en el mismo orden; conexiones del puente, de la Calle 18 y de la unión
+alternada sin cambios. El tramo suelto al suroccidente es la salida hacia Acacías (calzada separada, correcta) que termina
+en el borde de la red.
+
+### 2026-10-25 — Revalidación con el puente corregido e implementación de la iteración 3
+
+**Revalidación** (`results/calibracion/validacion_puente/`, 5 escenarios × 5 semillas): **100/100 con GEH < 5**
+(máx. 3.56, sur del aforo alto con 1399 de 1512). Antes de la corrección: 100/100, máx. 3.15. La calibración se mantiene.
+
+**Iteración 3 (`aforo_v4`), un solo cambio respecto de la iteración 2:** la recompensa incluye los detenidos aguas arriba de
+cada brazo (`edges_aguas_arriba` en `interseccion.yaml`: accesos de 500 m; en el norte, también el tramo de la Calle 18).
+El estado no cambia (presentes en verde). `EstadoBrazo.detenidos_aguas_arriba` es un campo solo de simulación.
+`config/agente.yaml`: `recompensa.incluir_aguas_arriba: true`. Prueba nueva en `test_sumo_source.py`.
+Nota: los "detenidos promedio" de la curva de aprendizaje incluyen ahora la cola aguas arriba, así que no se comparan
+directamente con las curvas de v2 y v3.
+**Protocolo de validación:** semillas de validación 101–110 (`semillas.validacion`). `comparar_controladores.py --carpeta <nombre>`
+guarda la validación aparte. Primero se valida en bajo, alto y jueves; las 30 semillas de evaluación se usan una sola vez.
+
+### 2026-10-25 — Revisión de la vía y la señalización (pedida por los autores antes de la iteración 3)
+
+`docs/campo/revision_via_senalizacion.md`: tabla de todos los elementos del modelo con su fuente y su estado
+(✔ medido/observado, ≈ supuesto declarado, ❓ por confirmar) y 8 preguntas para los autores. Pendiente: sus respuestas.
+El entrenamiento de aforo_v4 espera a que se resuelvan los ❓ que cambien el modelo.
+**Respuestas de los autores (2026-10-25):** (1) los carriles de la Dg 15 miden lo mismo que los de la Cra 23 → **3.5 m**
+(antes 3.2 m por defecto), aplicado en `ajustes.edg.xml` a las llegadas, salidas y accesos de la Dg 15; (2) hay subida
+notoria pero no drástica de Villavicencio hacia Acacías → no se modela (SUMO plano), limitación declarada; (3) giro a la
+izquierda prohibido por señal ✔; (4) giro a la derecha en rojo prohibido ✔; (5) sin señales de velocidad ni resaltos → 50 km/h ✔;
+(6) sin restricciones aguas abajo en la Dg 15 ✔; (7) poco tráfico cruzando en la Calle 18 → sin tráfico transversal ✔;
+(8) en la llegada norte, los que giran a la derecha van por la derecha ✔.
+Único cambio: el ancho de la Dg 15. Hay que reconstruir la red y revalidar (`config/barrido_validacion_dg15.yaml`)
+antes de entrenar aforo_v4. Con 3.5 m, la resolución lateral de 0.7 m divide exacto todos los carriles de la red.
+**Forma de la Cra 23 sur (2026-10-25, observada por los autores en netedit):** en OSM, las dos calzadas separadas al sur del
+cruce terminan en el mismo punto, así que se doblaban una hacia la otra y el separador terminaba en punta antes del semáforo.
+`sumo/network/cra23_sur_forma.edg.xml` (paso 3) quita ese último tramo doblado: cada calzada llega recta al cruce.
+Ancho, carriles y conexiones no cambian. Se revalida junto con el cambio de ancho de la Dg 15.
+
+### 2026-10-25 — Bloqueo en el puente (revalidación validacion_dg15)
+- Revalidación tras el ancho de la Dg 15 (3.5 m) y la forma de la Cra 23 sur: **99/100** con GEH < 5 (GEH medio 1.20; antes 0.83).
+  Las otras 24 corridas iguales a la validación anterior. Falla: `aforo_valle_manana`, semilla 4: sur 98 veh/h (aforo 916),
+  GEH 36.3, 756 vehículos sin terminar. Desde t ≈ 400 s casi no salen vehículos por la Calle 18.
+- Diagnóstico en sumo-gui (`scripts/ver_corrida.py`, misma semilla y desfase): fila detenida en el puente **sin nada adelante**;
+  teleports "waited too long (jam)" en `:6048329437_1_0` (extremo norte del puente). `sur_recto_camion.19`: lateral offset −1.45 m,
+  0.90 m **fuera de la vía**, lcState `left|strategic|urgent|overlapping|blocked`. `sur_recto_carro.28` detenido en el zipper
+  (`1414166243_1`, `overlapping|sublane|blocked`).
+- Causa (geometría verificada en la red): en el zipper `inicio_puente` el carril derecho se corría **3.49 m en 8.0 m**
+  (el carril izquierdo ya estaba alineado con el puente). Con el modelo de subcarriles el camión quedó desplazado y no pudo volver.
+  En ~160 corridas de calibración anteriores solo ocurrió esta vez, pero en cientos de episodios de entrenamiento sí afectaría.
+- Corrección (un solo cambio): `sumo/network/puente_transicion.edg.xml` con `endOffset = 31.2 m` en `1414166243`: la unión ocupa
+  el tramo medido 22.6–53.8 m (se va angostando), en vez de 8 m. **Efecto: debe medirse** (semilla 4 en sumo-gui + revalidación).
+- Primer intento (solo `endOffset`): en sumo-gui la vía quedó con huecos blancos y, al revisar la red, los carriles internos
+  seguían rectos y conservaban el **mismo escalón de 3.5 m en 8 m** al final → no corregía nada. Se complementa con
+  `puente_transicion.con.xml` (forma recta de cada carril interno: el derecho se cierra 3.4 m en ~39 m) y
+  `puente_transicion.nod.xml` (contorno del nodo para dibujar una sola calzada que se angosta). Efecto: debe medirse.
+- Segundo intento (endOffset + forma + contorno): el recorte se aplicó dos veces (el contorno del nodo ya recorta el tramo de
+  2 carriles en los 22.6 m) y `1414166243` quedó de 0.10 m: la unión empezaba a la salida del cruce. Se retira `endOffset`
+  (archivo movido a `sumo/network/_descartado/`); quedan el contorno del nodo y la forma de los carriles internos.
+- **Corrección de lo dicho arriba ("solo ocurrió una vez"):** eso vale para las corridas de calibración (solo semáforo real).
+  En las comparaciones de las iteraciones 1 y 2 (`results/comparacion/aforo_v2` y `aforo_v3`, red anterior con el escalón)
+  hubo corridas con atasco (> 50 vehículos sin terminar):
+  - semáforo real: 0 de 150 en cada comparación;
+  - tiempos de norma: 5 de 150 (valle s13 y s14, medio s10, alto s1 y s16);
+  - Q-Learning v2: 1 (alto s8); Q-Learning v3: 2 (alto s16, jueves s5).
+  No está verificado que todos se deban a la unión del puente (debe revisarse si reaparecen con la red corregida).
+  Consecuencia: las ventajas de v2 frente a la norma (sobre todo −23.5 % en alto) están **infladas** por atascos de la
+  simulación en la norma. Esos resultados son de redes ya reemplazadas; la evaluación final se hará con la red corregida.
+- **Resultado de `validacion_transicion`** (red con transición gradual, 5 escenarios × semillas 1–5): **98/100 con GEH < 5**,
+  GEH medio 0.93, máximo 6.52; **0 corridas con vehículos sin terminar** (el atasco de valle s4 desapareció).
+  Todos los brazos quedan igual que en `validacion_puente`, salvo **alto–sur: 1325 veh/h simulados vs 1512 aforados**
+  (antes 1399; GEH medio 5.0, 2 de 5 semillas > 5). La transición larga reduce algo la capacidad de la unión en pico.
+  Lectura: cumple el criterio usual de GEH < 5 en ≥ 85 % de los conteos (aquí 98 %). El aforo alto no fue simultáneo
+  entre brazos; el pico simultáneo del jueves sí ajusta en el sur (1390 vs 1364, GEH 0.9). Se registra como limitación:
+  en aforo_alto el sur atiende ~12 % menos de lo contado. Avisos nuevos: frenadas de emergencia en `:inicio_puente_0_*`
+  (cremallera); observación de campo de los autores: algunos carros sí frenan antes de entrar al puente.
+
+### 2026-10-26 — Iteración 3 (aforo_v4): entrenamiento y validación (semillas 101–110)
+- Entrenamiento: 240 episodios (3 paquetes de 80) con la red corregida. Detenidos (últimos episodios): bajo 14.3→~10,
+  medio 108→~28, alto 185→~100 pero inestable (rebotes en ep. ~160 y al final). Curva: `models/aforo_v4/curva_aprendizaje.png`.
+- Validación, espera total promedio (s), 10 semillas pareadas, Wilcoxon:
+  | Escenario | Real | Norma | QL v4 | QL vs real |
+  |---|---|---|---|---|
+  | bajo | 23.99 | 25.11 | 22.07 | −8.0 % (p = 0.014; 8/10 semillas mejor) |
+  | valle | 25.88 | 38.33 | 27.64 | +6.8 % (p = 0.70) |
+  | medio | 28.79 | 29.16 | 30.05 | +4.4 % (p = 1.0) |
+  | alto | 62.95 | 85.78 | 140.93 | **+123.9 %** (p = 0.002; 0/10) |
+  | jueves | 32.28 | 40.91 | 50.43 | **+56.2 %** (p = 0.002; 0/10) |
+  Sin atascos (0 corridas con > 50 sin terminar en QL); teleports QL 0–4 por escenario. En alto: verde Dg 15 36 s (real 20),
+  ciclo 121 s (61 % de ciclos > 120 s), retraso de entrada 20.6 s (real 0.3). Jueves: verde Dg 15 30 s, ciclo 116 s.
+- **Mejor que la iteración 2 en pico (+152 % / +137 %), pero sigue fallando en alto y jueves.**
+- Diagnóstico (tabla Q): los estados más visitados en pico son "Cra 23 = cola alta, Dg 15 en verde con 1–2 presentes";
+  la política aprendida es **mantener** el verde de la Dg 15 (miles de visitas), hasta que el verde máximo obliga a cambiar.
+  Hipótesis: cambiar desde la Dg 15 cuesta de inmediato 3 s de amarillo + 20 s de todo-rojo medido (todos detenidos), y con
+  γ = 0.9 por decisión de 5 s (horizonte ≈ 10 decisiones ≈ 50 s, menos de un ciclo) ese costo inevitable pesa más ahora que
+  después: el agente "aplaza" el cambio. Debe verificarse.
+- **Iteración 4 (aforo_v5):** único cambio `aprendizaje.gamma` 0.9 → 0.95 en `config/agente.yaml`
+  (horizonte efectivo 1/(1−γ) = 20 decisiones de 5 s ≈ 100 s ≈ un ciclo). Red, estado, recompensa, α, ε y semillas sin cambios.
+  Predicción a verificar: en alto/jueves el verde de la Dg 15 baja de ~36/30 s hacia ~20 s y la espera se acerca a la del real.
+- **aforo_v5 con γ = 0.95 por decisión: DETENIDO** en el paquete 1 (carpeta movida a `models/_descartado/aforo_v5_gamma095_norma`).
+  Motivo: al revisar la bitácora se encontró el diagnóstico del 2026-10-07 nunca aplicado (sesgo por pasos de distinta
+  duración): cambiar desde la Dg 15 dura 38 s (3 + 20 + 15) y desde la Cra 23 18 s, frente a 5 s de mantener. Con γ por
+  decisión, ese costo se cobra completo en un paso → el agente sobrevalora "mantener", sobre todo con la Dg 15 en verde
+  (justo lo observado en la validación de v4). Subir γ solo lo suavizaba.
+
+### 2026-10-26 — Iteración 4b: descuento por segundo + intervalos del semáforo real
+- **Descuento por segundo (semi-Markov; Bradtke y Duff, 1995):** recompensa del paso = −Σ γ^t·detenidos_t y valor
+  futuro × γ^(duración del paso). `config/agente.yaml`: `descuento: por_segundo`, `gamma: 0.99` (horizonte 100 s ≈ un
+  ciclo; 0.99^5 = 0.951 por decisión de 5 s). Código: `qlearning.py` (`factor_futuro`, `suma_descontada`, guarda
+  `descuento`), `entorno_sumo.py`, `entrenar.py` (la curva sigue registrando la recompensa SIN descuento, comparable).
+  Modelos anteriores se cargan como "por_decision".
+- **Decisión de los autores: el agente usa los intervalos de cambio del semáforo real** (perfil "real": amarillo 3 s,
+  todo-rojo 0 s tras la Cra 23 y 20 s tras la Dg 15), no los +2 s del perfil "norma". Justificación: comparación en
+  igualdad de condiciones con el semáforo en operación; observación de campo de los autores: las líneas de pare de la
+  Dg 15 están retiradas del borde de la Cra 23 (aumenta De en la fórmula del Manual 4.4.4 y reduce el tiempo intermedio
+  necesario). La verificación formal del tiempo intermedio queda como limitación. `config/agente.yaml`:
+  `perfil_seguridad: real`. En la evaluación, el perfil del agente se lee del modelo (`ejecutar_escenario.perfil_seguridad`);
+  v2–v4 siguen evaluándose con "norma". Recomendación: quitar "tiempos_fijos_norma" de la evaluación final (300 corridas).
+- Son 2 cambios a la vez: el perfil es una condición del experimento (no una hipótesis); la hipótesis evaluada es el
+  descuento por segundo. Pruebas: 31/31 OK (test_agente + test_safety_guard, entorno de Claude).
+
+### 2026-10-26 — Auditoría antes de entrenar aforo_v5: 5 correcciones (iteración 4b completa)
+Auditoría de código + validación de aforo_v4. Además del descuento por segundo y del perfil "real" (arriba):
+1. **Cola de entrada invisible:** en alto, con QL v4 los vehículos esperaron 20.6 s para poder entrar a la red (real 0.3 s);
+   SUMO los deja fuera de la red y no contaban en la recompensa. → `recompensa.incluir_entrada_pendiente: true`
+   (suma `len(traci.simulation.getPendingVehicles())` cada segundo). Solo afecta el entrenamiento.
+2. **Fin del episodio como estado final:** el episodio termina por tiempo (3600 s) pero el tráfico sigue. →
+   `aprendizaje.bootstrap_al_cortar: true` (el corte por tiempo sigue valorando el estado siguiente).
+3. **Niveles de tiempo que no representaban el plan real** ([20, 40] para ambos ejes: 41 s y 55 s eran el mismo estado).
+   → cortes por eje alineados con el plan: Cra 23 [45, 55], Dg 15 [20, 30]. Siguen siendo 96 estados.
+4. **Partir del semáforo real (pedido de los autores):** 20 episodios siguiendo el plan 55/20 (aprende su valor), luego
+   `TablaQ.iniciar_desde_plan`: Q(otra acción) = Q(plan) × 1.01 → la política inicial es exactamente el plan real; el agente
+   solo se aparta si la experiencia muestra algo mejor. Exploración ε 0.3 → 0.05 en 100 episodios (antes 1.0: azar total).
+   La curva marca `politica` = plan_real / agente. Control de coherencia: los episodios plan_real deben rendir como el real.
+5. **Verde máximo por eje** (decisión de los autores, opción "recomendada"): Cra 23 70 s, Dg 15 25 s (antes 60/60);
+   ciclo máximo 70+3+0+25+3+20 = 121 s. Manual 2024 cap. 4: 60–120 s recomendado; > 120 s solo en circunstancias particulares
+   y periodos cortos; no > 150 s; **con paso peatonal exclusivo no se recomiendan > 100 s** (los peatones cruzan en el
+   todo-rojo de 20 s; el real ya opera con 101 s) → se discute como limitación. Opción descartada: ciclo ≤ 100 s (sin margen).
+- Revisado y correcto: calibración, separación de semillas, SafetyGuard, métricas (la espera total incluye el retraso de
+  entrada), Wilcoxon/Holm.
+- Pendiente (posible iteración posterior): el nivel "alta" de la Cra 23 (≥ 9 detenidos) se satura en pico.
+- Se rompe a propósito la regla de un cambio a la vez: son correcciones de errores de una auditoría, no hipótesis separadas,
+  y hacerlas una por una costaría ~4 días de entrenamiento; lo evaluado es el sistema completo contra el semáforo real.
+- Las tablas Q de v2–v4 no se reutilizan (estados y condiciones distintas); se conservan como historia del desarrollo.
+- Ojo: `ejecutar_escenario` usa la config ACTUAL de controlador.yaml; re-evaluar v2–v4 ahora usaría los verdes máximos nuevos.
+- Pruebas (entorno de Claude, sin SUMO): test_agente + test_safety_guard 39/39 OK.
+- **Segunda revisión (falla encontrada en la corrección 4):** en la fase "plan", Q-Learning valora el futuro con
+  max_a' Q(s', a'); la acción que el plan no toma nunca se prueba y vale 0, así que el máximo la elegía y el futuro
+  parecía gratis → los valores del plan quedaban sesgados. Corrección: en esa fase el futuro se valora con
+  Q(s', acción del plan) (evaluación de la política del plan, tipo SARSA). `TablaQ.actualizar(..., accion_siguiente)`.
+  Prueba nueva; 40/40 OK (sin SUMO).
+
+### 2026-10-27 — Iteración 4b (aforo_v5): entrenamiento y validación (semillas 101–110)
+- Entrenamiento 240 episodios (20 siguiendo el plan real + 220 agente). Detenidos, paquete 3 vs plan real: bajo 8.9 vs 10.1,
+  medio 21.5 vs 23.2, alto 53.7 vs 61.6 (alto muy variable, sd 13).
+- Validación, espera total promedio (s), 10 semillas pareadas, Wilcoxon (sin "norma": el agente usa el perfil real):
+  | Escenario | Real | QL v5 | Diferencia | p | QL mejor en |
+  |---|---|---|---|---|---|
+  | bajo | 23.99 | 20.85 | −13.1 % | 0.002 | 10/10 |
+  | valle (no entrenado) | 25.88 | 23.38 | −9.7 % | 0.002 | 10/10 |
+  | medio | 28.79 | 26.11 | −9.3 % | 0.002 | 10/10 |
+  | alto | 62.95 | 55.40 | −12.0 % | 0.084 | 9/10 |
+  | jueves (no entrenado) | 32.28 | 38.71 | +19.9 % | 0.002 | 0/10 |
+  Tiempo de viaje: −4 % en bajo/valle/medio, −11.4 % en alto (p = 0.010), +4.3 % en jueves. Throughput igual (±1 %).
+- **Primera iteración que mejora al semáforo real en pico (alto) y en tráfico normal.** En alto, 9 de 10 semillas mejoran
+  entre 1 % y 28 %; la semilla 101 se atascó (723 sin terminar, 72 teleports) y por eso p = 0.084.
+- Problemas: (1) **atascos con QL**: alto s101 y jueves s103 (con el real, ninguno). Causa por investigar en sumo-gui.
+  (2) **jueves peor en todas las semillas**: la cola del este crece (QL 14–29 vs real 9–17). El agente aprendió verdes cortos
+  para la Dg 15 (15–16 s en bajo/medio; ninguno de los escenarios de entrenamiento tiene una Dg 15 tan cargada como el
+  jueves: este 948 veh/h vs 460–696) → no generaliza a ese patrón; además la cola "alta" (≥ 9) se satura.
+  Decisiones de respaldo (estados no visitados): alto 27, jueves 16 por corrida (de ~410–620).
+- Ciclo: alto 116.8 s promedio (51 % de ciclos > 120 s: usa el máximo de 121 s), verde Cra 23 68.9 s.
+
+### 2026-10-27 — Atasco de aforo_v5 (alto, semilla 101): mismo empalme del fin del puente
+- sumo-gui (t ≈ 2180 s): `sur_recto_carro.202` en `:6048329437_1_0` (cruce interno de 0.1 m al final norte del puente),
+  lateral offset +1.25 m, 0.4 m FUERA del carril por la izquierda, lcState `overlapping|sublane|blocked`, 260 s quieto.
+  Causa: con la cola detenida sobre el puente (1 carril), las motos avanzan por la derecha y SUMO corre a los carros a la
+  izquierda; en un tramo normal se reacomodan, pero en un cruce interno de 0.1 m no hay espacio y el vehículo queda trabado.
+  El agente lo dispara más (verdes de hasta 70 s para la Cra 23 → más cola sobre el puente), pero es una falla de la red:
+  también le pasó al semáforo real (validacion_dg15, valle s4). Probablemente es también el atasco de jueves s103.
+- Corrección: el nodo 6048329437 (solo era el corte de OSM entre el puente y el tramo a la Calle 18) se TRASLADA a la
+  Calle 18 y es el nodo del semáforo (`scripts/generar_accesos.py`); se eliminan `desde_calle18` y `hacia_calle18`; los dos
+  sentidos del puente llegan de forma continua hasta la Calle 18 (`puente_forma.edg.xml`, misma recta).
+  `config/interseccion.yaml`: aguas arriba del norte = solo `acceso_norte` (el tramo de 150 m ahora es parte de
+  `puente_desde_villavicencio`, que pasa de ~60 a ~210 m; la zona de cámara sigue siendo de 100 m).
+  Requiere reconstruir (generar_accesos + pasos 2 y 3), revalidar la calibración y reentrenar.
+
+### 2026-10-27 — Registro del tiempo de cómputo (metodología)
+- `comparar_controladores.py` y `barrido_calibracion.py` guardan ahora `segundos_reloj` por corrida (el entrenamiento ya lo
+  hacía). Nuevo `scripts/resumen_computo.py` → `docs/resumen_computo.md` (solo datos guardados; no estima lo no medido).
+- Al 2026-10-27: **2553 horas de tráfico simuladas** (≈ 106 días continuos; sin contar la copia `aforo_v2_150`);
+  cómputo medido 14.1 h (solo entrenamiento); 1353 corridas anteriores sin registro de duración.
+- Nota: se editó `barrido_calibracion.py` mientras corría `validacion_calle18_continua`; Python ya había cargado el script,
+  así que esa corrida no cambia (y no tendrá la columna de tiempo).
+
+### 2026-10-27 — Causa de fondo de los atascos: vehículos empujados fuera del carril estando detenidos
+- Revalidación `validacion_calle18_continua` (en curso): valle s5 se atascó (espera máx. 2387 s; 35 de 43 vehículos con
+  > 300 s son sur→Villavicencio). sumo-gui: `sur_recto_bus.13` en `:6048329437_1_0`, que ahora es el cruce interno del
+  semáforo de la Calle 18 (0.1 m): lateral offset 0.90 m, left side 3.90 m > 3.5 m, `left|overlapping|sublane|blocked`.
+  → Quitar el empalme del puente movió el lugar del atasco, pero no la causa.
+- Causa de fondo: con la cola detenida en el carril único, SUMO desplaza de lado a carros/buses/camiones para dejar pasar
+  motos hasta sacarlos del carril; en un cruce interno de 0.1 m no pueden volver.
+- Corrección: `config/calibracion.yaml` → `lcMaxSpeedLatStanding: 0` para carro, bus y camión (un vehículo detenido no se
+  mueve de lado). Requiere regenerar los escenarios y revalidar (la validación en curso queda descartada).
+- **Resultado `validacion_sin_empuje`:** 99/100 GEH < 5 (media 0.87, máx. 6.46 en alto–sur: 1368 vs 1512 veh/h), 0 corridas
+  con vehículos sin terminar. Bloqueo temporal en medio s1 (~100 vehículos con > 200 s de espera hacia t ≈ 2100–2240 s;
+  todos terminan): vigilar teleports en la validación del agente. **Red cerrada.**
+
+### 2026-10-27 — Iteración 5 (aforo_v6): entrenamiento con 4 escenarios
+- Igual que aforo_v5 (5 correcciones de la auditoría) + red corregida (puente continuo hasta la Calle 18, vehículos
+  detenidos sin desplazamiento lateral) + **el pico del jueves en el entrenamiento** (v5 falló ahí: Dg 15 cargada, patrón
+  que no vio). 320 episodios (4 escenarios × 80; los 20 primeros siguen el plan real). Valle queda como escenario nunca visto
+  (prueba de generalización). Las semillas de entrenamiento (1000–1319) no se cruzan con validación ni evaluación.
+
+### 2026-10-27 — Iteración 5 (aforo_v6): entrenamiento y validación (semillas 101–110)
+- Entrenamiento: 320 episodios (4 escenarios), 3.4 h de cómputo. Paquete 2, mediana de detenidos vs plan real: bajo 8.7 vs
+  9.4, medio 21.5 vs 23.1, alto 56.0 vs 61.8, jueves 37.8 vs 41.0. Episodios extremos en alto (ep. 274: 583 detenidos).
+- Validación, espera total promedio (s), 10 semillas pareadas, Wilcoxon:
+  | Escenario | Real | QL v6 | Diferencia | p | QL mejor en |
+  |---|---|---|---|---|---|
+  | bajo | 24.16 | 20.88 | −13.5 % | 0.002 | 10/10 |
+  | valle (nunca visto) | 27.92 | 23.73 | −15.0 % | 0.002 | 10/10 |
+  | medio | 29.45 | 27.35 | −7.1 % | 0.002 | 10/10 |
+  | **alto** | 64.77 | 50.29 | **−22.4 %** | **0.037** | 8/10 |
+  | jueves | 40.41 | 57.41 | +42.1 % | 0.049 | 1/10 |
+  Alto: tiempo de viaje −17.1 % (p = 0.037), throughput +1.8 % (p = 0.004), cola sur 15.5 vs 26.6. **Primera mejora
+  significativa en pico.** Ningún atasco del agente (0 corridas con vehículos sin terminar; teleports 1–16 por escenario).
+- Jueves: peor en 9/10. Verde Dg 15 17.7 s (real 20), cola del este 35.5 vs 17.1. Hipótesis: el estado no distingue alto de
+  jueves (en ambos la Cra 23 está en "alta" y la Dg 15 "alta" = 9 o más, sea 10 o 35): el agente aplica la política de alto
+  (poco verde a la Dg 15) en jueves. Corrección candidata: más niveles de cola (saturación, pendiente desde la auditoría).
+- El semáforo REAL se atascó en jueves s110 (855 sin terminar, 81 teleports): revisar en sumo-gui (posible otra falla de red).
+- Política de v6 (`models/aforo_v6/politica.md`): con la Dg 15 en verde y menos de 20 s, si la Cra 23 está "alta" (≥ 9
+  detenidos) el agente CAMBIA aunque la Dg 15 tenga 3–13 vehículos presentes (miles de visitas). En jueves la Cra 23 siempre
+  está "alta" → la Dg 15 recibe ~15 s. Refuerza la hipótesis de saturación del estado.
+
+### 2026-10-27 — Iteración 6 (aforo_v7, decisión de los autores: una sola iteración más antes de la evaluación final)
+- Único cambio: 5 niveles de cola en vez de 4 (nivel "muy alta"), recalculados con datos: semáforo real, red actual,
+  semilla 1, 4 escenarios de entrenamiento; cortes = [1, p33, p67, p90] de los segundos con cola
+  (`calcular_cortes_estado.py --percentiles 33 67 90`). Estados: 5 × 5 × 2 × 3 = 150.
+- Riesgo declarado: es la 6.ª iteración evaluada con las mismas semillas de validación (101–110); se reportará el número de
+  iteraciones. La evaluación final (semillas 1–30) no se ha usado y se corre una sola vez.
+- `ver_tabla_q.py` generalizado (cortes de tiempo por eje y 4 o 5 niveles).
+- Cortes calculados (red actual, real, semilla 1, 4 escenarios): detenidos [1, 4, 11, 23] (Cra 23 37/17/19/14/13 %,
+  Dg 15 20/22/34/23/2 %); presentes [1, 5, 16, 30] (Cra 23 3/24/32/28/13 %, Dg 15 9/48/32/11/0 %). Con ellos la Cra 23 en
+  rojo distingue alto (p50 11, p75 36) de jueves (p50 3, p90 18). El nivel "muy alta" casi no ocurre en la Dg 15 (cortes
+  comunes a ambos ejes; esos estados usan el plan real de respaldo). 150 estados.
+- Dato de referencia (semilla 1, real): alto espera 77.6 s; jueves 30.9 s.
+
+### 2026-10-27 — Segunda auditoría antes de entrenar aforo_v7
+- Queda al menos un mecanismo de atasco: en la validación de v6 el **semáforo real** se atascó en jueves s110 (855 sin
+  terminar, 77 teleports, cola máxima del ESTE 173 vehículos); el entrenamiento de v6 tuvo episodios extremos en alto
+  (ep. 274). No es el empuje lateral (ya corregido): hay que ubicarlo.
+- Herramientas nuevas para ubicar atascos sin revisar corrida por corrida: `simular(..., ruta_log)` guarda los avisos de
+  SUMO (`--error-log`) con carril y tiempo; `comparar_controladores.py` guarda uno por corrida en `<carpeta>/avisos_sumo/`;
+  `ejecutar_escenario.py` en `avisos_sumo.log`; `scripts/resumen_avisos.py` resume teleports y frenadas por carril.
+  El entrenamiento registra `teletransportes` por episodio en la curva.
+- **Resultado (real, jueves s110, con lcMaxSpeedLatStanding = 0):** 77 teleports; el PRIMERO a t = 1907 s en
+  `:6048329437_1_0` (cruce interno del semáforo de la Calle 18): el mismo mecanismo. El resto (este 816899410#0, puente,
+  sur, 1414166243) son consecuencia de la cola que se forma detrás. → Impedir que un vehículo DETENIDO se corra no basta:
+  también se desplaza al avanzar lento en la fila. Es una limitación conocida del modelo de subcarriles de SUMO (propenso a
+  bloqueos; lista sumo-user). Se renuncia a eliminarlo por completo y se **limita su efecto**: `time-to-teleport` 300 → 120 s
+  (`config/calibracion.yaml: subcarriles.tiempo_teleport_s`, escrito en los .sumocfg por `generar_escenarios_aforo.py`).
+  Riesgo: teleportar vehículos detenidos de verdad en pico; se controla con los avisos por corrida (la calibración ahora
+  también los guarda) y se reportan los teleports de cada controlador.
+- Revalidación: `config/barrido_validacion_teleport120.yaml`.
+- **Cambio de decisión (autores, mismo día):** se descarta el teleport global a 120 s (alteraría colas reales de la
+  intersección principal); se vuelve al valor de SUMO (300 s). En su lugar, **desatasco dirigido en la Calle 18**
+  (`src/simulation/desatascador.py`, `config/calibracion.yaml: desatasco_calle18`): vehículo en la línea de pare o dentro
+  del cruce interno del semáforo, con su luz en VERDE, sin nadie adelante a menos de 15 m y quieto 20 s seguidos → se
+  traslada al inicio del tramo de salida (`traci.vehicle.moveTo`). Justificación: dato de campo (con el verde de la
+  Calle 18 pasan todos) + un vehículo real arranca en 2–3 s. Se aplica igual a todos los controladores y en el
+  entrenamiento; se cuenta por corrida (`desatascos_calle18`) y se registra cada evento.
+- Pruebas (traci falso): actúa en el artefacto; NO actúa en rojo, con alguien adelante, lejos de la línea de pare, antes
+  de 20 s, ni si el vehículo se movió; umbral < 5 s rechazado. 7/7 OK.
+- Verificación pendiente antes de seguir: (1) reproducir real jueves s110 (debe desatascarse cerca de t ≈ 1620 s, sin la
+  cola del este); (2) corridas normales sin desatascos (falsos positivos); (3) revalidación de la red.
+- **Prueba A (real, jueves s110):** desatasco en t = 1628 s (`sur_recto_carro.180`, como se predijo ~1620 s); 0 vehículos
+  sin terminar (antes 855), espera total 35.0 s (antes 106.9), cola máx. del este 36 (antes 173). Pero 1 teleport por
+  "junction collision": el carro se ubicó en la posición 0.1 del tramo de salida, con su parte trasera aún en el cruce, y
+  chocó con un camión que estaba trabado A SU LADO (latGap −0.65: dos vehículos lado a lado en un carril, como señalaron
+  los autores). Corrección: se ubica con todo su largo dentro del tramo (largo + 3 m). Repetir la prueba A.
+- **Verificación del desatasco (2026-10-28):**
+  | Corrida (semáforo real) | Antes | Con desatasco |
+  |---|---|---|
+  | jueves s110 (atasco conocido) | 855 sin terminar, 77 teleports, espera 106.9 s | 0 sin terminar, **0 teleports**, 1 desatasco (t = 1628 s), espera 35.7 s |
+  | alto s1 | espera 77.6 s | 1 desatasco (t = 3294 s, dentro del cruce), 0 teleports, espera **58.8 s** |
+  | jueves s1 (sin atasco) | espera 30.90 s | **0 desatascos, espera 30.90 s (idéntica)** |
+  → Corrige el artefacto, no actúa cuando no hay artefacto (resultado idéntico) y no deja colisiones. **Hallazgo:** alto s1
+  tenía un atasco artificial OCULTO (sin vehículos sin terminar) que subía la espera del semáforo real de 58.8 a 77.6 s:
+  las validaciones anteriores pudieron favorecer al agente en alto por estos artefactos. La evaluación final se hará con
+  el desatasco activo para todos los controladores.
+- `config/barrido_validacion_teleport120.yaml` movido a `config/_descartado/`. Nueva: `barrido_validacion_desatasco.yaml`.
+
+### 2026-10-28 — Revisión de cumplimiento normativo tras los cambios
+- Cumple: amarillo 3 s siempre completo; nunca dos ejes en verde (SafetyGuard, pruebas); verde mínimo 15 s; verde máximo
+  por eje 70/25 s; ciclo máximo 121 s (< 150 s); ciclos > 120 s solo en pico (v6: 0–2.8 % de los ciclos, jueves 22 %);
+  el desatasco solo mueve vehículos con su luz en VERDE (nunca hace pasar en rojo) y solo en la Calle 18; giros a la
+  izquierda y derecha en rojo siguen prohibidos (conexiones de la red); el agente no controla la Calle 18.
+- Limitaciones ya declaradas: todo-rojo 0 s tras la Cra 23 (igual al real, por debajo de la estimación del tiempo
+  intermedio del Manual 4.4.4); ciclos > 100 s con peatones en el todo-rojo (el real ya usa 101 s); filtrado de motos
+  (interpretación del art. 94, Ley 769).
+- Hallazgo: el ciclo MÍNIMO posible del agente es 15 + 3 + 0 + 15 + 3 + 20 = 56 s, debajo de los 60 s recomendados.
+  No se registraba: `comparar_controladores.py` guarda ahora `ciclo_minimo_s` y `ciclos_menores_60_pct`.
+  Propuesta: verde mínimo de la Cra 23 = 20 s (ciclo mínimo 61 s; mantiene las decisiones alineadas con el plan: 20, 25 … 55 s).
+- **Aplicado (decisión de los autores):** verde mínimo por eje, Cra 23 = 20 s y Dg 15 = 15 s (`config/controlador.yaml`;
+  `SafetyGuard.verde_min(eje)`; usado por el entorno, el controlador Q-Learning y la validación de tiempos fijos).
+  Ciclo posible del agente: 61–121 s. No cambia la calibración (el real 55/20 cumple) ni los aforos; v7 aún no se había
+  entrenado. Prueba nueva (ciclo mínimo 20+3+15+3+20); 41/41 OK sin SUMO.
+- **Resultado `validacion_desatasco` (red final):** **100/100 con GEH < 5** (media 0.85, máx. 3.6 en alto–sur: 1390 vs
+  1512 veh/h), 0 vehículos sin terminar, **0 teleports** en las 25 corridas. Frenadas de emergencia: 77 en total
+  (~3 por corrida), casi todas en la cremallera antes del puente (observación de campo: los conductores frenan ahí);
+  se reporta como limitación menor. **Red y reglas cerradas** para el entrenamiento de v7 y la evaluación final.
+- Error al lanzar aforo_v7 (2026-10-28): `EntornoSumo` sumaba `teletransportes_episodio` antes de crearlo (se iniciaba
+  después del primer avance en `reset`). Corregido: se inicia antes. No se había completado ningún episodio
+  (la carpeta solo tenía el encabezado de la curva); se relanza el mismo comando.
+
+### 2026-10-28 — Iteración 6 (aforo_v7): entrenamiento y validación (semillas 101–110)
+- Entrenamiento 320 episodios, 2.1 h. 2.ª mitad, mediana de detenidos vs plan real: bajo 8.9 vs 9.4, medio 21.9 vs 22.1,
+  alto 51.9 vs 55.9, jueves 32.9 vs 34.5. Teleports 108 y desatascos 69 en todo el entrenamiento (sobre todo alto).
+- Validación, espera total promedio (s) [mediana], Wilcoxon:
+  | Escenario | Real | QL v7 | Dif. (media) | p | QL mejor en |
+  |---|---|---|---|---|---|
+  | bajo | 24.16 [23.9] | 22.13 [22.0] | −8.4 % | 0.014 | 8/10 |
+  | valle | 26.60 [27.1] | 25.32 [25.3] | −4.8 % | 0.131 | 6/10 |
+  | medio | 28.68 [28.8] | 28.20 [28.3] | −1.6 % | 0.625 | 5/10 |
+  | alto | 64.77 [64.4] | 61.54 [44.4] | −5.0 % | 0.084 | 9/10 |
+  | jueves | 33.28 [33.3] | 61.88 [31.9] | +85.9 % | 0.492 | 7/10 |
+  Con el verde mínimo de 20 s el ciclo mínimo fue 61 s y el máximo 121 s (cumple). Jueves mejoró frente a v6
+  (7/10 semillas iguales o mejores; Dg 15 18.8 s). En alto, 9 de 10 semillas mejoran 10–45 %.
+- **Dos corridas del agente con bloqueo grave** (el real: ninguno): alto s110 (espera 210.7 s, 51 sin terminar, 88 teleports:
+  colisión en la cremallera a t = 2858 s y luego bloqueo DENTRO del cruce principal, carriles internos del cluster) y
+  jueves s108 (322.5 s, 1280 sin terminar, 97 teleports, 40 desatascos: desde t ≈ 630 s la Calle 18 se traba una y otra vez;
+  el desatasco mueve un vehículo cada 20 s pero no basta). Sin esas dos corridas, el agente gana o empata en todas.
+- Hipótesis (por verificar en sumo-gui): (1) en la Calle 18, un vehículo trabado del OTRO sentido (hacia el sur, con cola
+  del brazo norte adelante, por eso el desatasco no lo toca) invade el carril hacia el norte; (2) en alto, vehículos del sur
+  entran al cruce sin espacio a la salida (el tramo de 2 carriles después del cruce mide 9.9 m) y bloquean el cruce.
+- sumo-gui (v7, jueves s108): `este_derecha_carro.6` quieto 200 s en la línea de pare de la Calle 18 (pos 210.00 de
+  `puente_hacia_villavicencio_0`), BIEN ubicado en su carril (offset −0.85, lados 0.00/1.80), lcState `stay|sublane`
+  (no bloqueado de lado), luz en verde. → No es él: algo adelante lo detiene, y por eso el desatasco no actúa (exige
+  "nadie adelante"). Hipótesis: un vehículo quieto en el tramo de salida (despues_calle18).
+- Ampliación del desatasco: en las SALIDAS LIBRES (carriles de salida del semáforo que terminan la red: el tramo hacia
+  Villavicencio) nada puede detener a un vehículo; el de más adelante que lleve 20 s quieto se adelanta (largo + 3 m).
+  No aplica a salidas que siguen a otra vía (p. ej. hacia el brazo norte, donde una cola es real). 9/9 pruebas OK.
+  Verificación: repetir v7 jueves s108 y alto s110 y ver los eventos (el carril indica si fue en la salida).
+- Verificación (v7 jueves s108, desatasco ampliado): resultado IDÉNTICO (322.5 s, 40 desatascos, 97 teleports); ningún
+  evento en la salida → hipótesis "vehículo quieto en la salida" DESCARTADA. Clave: desatasco a t = 628 s y luego nada
+  hasta t = 1559 s, aunque el carro y la moto estuvieron lado a lado en la línea de pare de t ≈ 631 a 931 s (teleport).
+  Nueva hipótesis: cada uno ve al otro como "líder" con distancia negativa (está al lado) → el criterio "nadie adelante"
+  fallaba. Cambio: líder con distancia negativa = al lado, no adelante. Prueba de bloqueo mutuo; 10/10 OK.
+  Además, diagnóstico: todo vehículo quieto 60 s en la línea de pare sin desatasco queda registrado con la luz y el
+  líder que veía (se imprime en ejecutar_escenario), para confirmar o descartar la hipótesis con datos.
+- Alto s110: no hubo desatascos; el bloqueo es en el CRUCE PRINCIPAL (colisión en la cremallera a t = 2858 s y luego
+  vehículos atrapados en carriles internos del cluster desde t ≈ 3626 s). Problema distinto, pendiente.
+- Repetición con el criterio de "al lado" + diagnóstico (v7 jueves s108): 91 desatascos y AÚN 1290 sin terminar (353 s).
+  El diagnóstico muestra el patrón real: **en casi cada ciclo de la Calle 18 (~100 s), el primer vehículo de la fila queda
+  quieto en la línea de pare con la luz en VERDE ('G') y SIN NADIE ADELANTE** (líder None); solo 3 de 48 casos tenían un
+  vehículo al lado. El desatasco lo saca a los 20 s, pero al siguiente ciclo pasa lo mismo → la Calle 18 deja pasar casi nada.
+  La red no tiene conflictos en ese nodo (request foes 00, carriles internos separados 3.5 m, alineados con el puente).
+  Causa interna de SUMO no identificada (posible lógica de entrada al cruce con el modelo de subcarriles). Tras 5 intentos de
+  corrección en la zona de la Calle 18 se plantea eliminar ese semáforo (opción B).
+
+### 2026-10-28 — Se quita el semáforo de la Calle 18 (decisión de los autores, opción B)
+- Motivo: bloqueos artificiales recurrentes del simulador en ese cruce (diagnóstico arriba) tras 5 intentos de corrección.
+  Justificación: observación de campo (con su verde pasan todos) y la calibración casi no cambió al agregarlo
+  (afectaba la forma de las colas, no el volumen por hora). Riesgo/limitación: se pierde el efecto de la cola de la
+  Calle 18 sobre el puente en pico; el modelo se recalibra contra los aforos (GEH).
+- Cambios: `config/semaforo_calle18.yaml` activo: false (tiempos medidos conservados); `puente_forma.edg.xml`: el nodo
+  6048329437 vuelve a su posición de OSM (fin del puente); hacia Villavicencio el puente termina en salida libre (destino
+  `puente_hacia_villavicencio`); acceso norte de 500 m hasta el fin del puente (`generar_accesos.py`, rama general).
+  El desatasco queda en el código pero inactivo (no existe el semáforo `calle18`). Brazo norte: -642480900 (41 m) +
+  puente_desde_villavicencio (~60 m) = ~101 m ≥ zona de cámara de 100 m.
+- Revalidación: `config/barrido_validacion_sin_calle18.yaml`.
+- Red reconstruida sin Calle 18 (verificada en el archivo): semáforo principal con 12 movimientos, sin TLS `calle18`,
+  puente hacia Villavicencio de 58 m con salida libre, acceso norte 498.5 m. Brazo norte = 41 + 58 = 99 m (1 m menos que
+  la zona de cámara; sin efecto práctico).
+- **Resultado `validacion_sin_calle18`:** 100/100 con GEH < 5 (media 0.89, máx. 4.77 en alto–sur: 1361 vs 1512 veh/h),
+  0 vehículos sin terminar, **0 teleports**, 52 frenadas (cremallera). El sur de alto no subió al quitar la Calle 18 →
+  el cuello de botella es la unión de 2 a 1 carril antes del puente, no la Calle 18. **Red final.**
+
+### 2026-10-28 — Iteración 7 (aforo_v8): misma configuración que v7, red final sin Calle 18
+- Agente idéntico a v7 (5 niveles de cola, verde mínimo 20/15 s, verde máximo 70/25 s, perfil real, descuento por
+  segundo, arranque desde el plan real, 4 escenarios, 320 episodios). Única diferencia: la red.
+
+### 2026-10-29 — Iteración 7 (aforo_v8): entrenamiento y validación (semillas 101–110), red final sin Calle 18
+- Entrenamiento: 320 episodios, 1.9 h, 47 teleports en total (antes cientos), 0 desatascos (no hay Calle 18).
+  2.ª mitad, mediana de detenidos vs plan real: bajo 7.2 vs 7.9, medio 17.0 vs 17.6, alto 31.8 vs 53.5, jueves 26.0 vs 28.0.
+- Validación, espera total promedio (s), 10 semillas pareadas, Wilcoxon:
+  | Escenario | Real | QL v8 | Diferencia | p | QL mejor en |
+  |---|---|---|---|---|---|
+  | bajo | 15.50 | 13.63 | −12.1 % | 0.002 | 10/10 |
+  | valle (nunca visto) | 17.63 | 15.85 | −10.1 % | 0.002 | 10/10 |
+  | medio | 19.65 | 17.29 | −12.0 % | 0.002 | 10/10 |
+  | **alto** | 52.91 | 31.35 | **−40.8 %** | 0.002 | 10/10 |
+  | **jueves** | 22.83 | 21.38 | **−6.3 %** | 0.014 | 9/10 |
+  Alto: tiempo de viaje −26.0 %, throughput +2.3 %, cola sur 16.8 vs 26.1 (todo p = 0.002). **Primera validación en la que
+  el agente gana en los 5 escenarios, incluidos los dos picos.** Sin bloqueos: 0 vehículos sin terminar; teleports 0–3.
+  Ciclos del agente 61–121 s (cumple el Manual); verde Dg 15 ~15 s en tráfico normal, ciclos 70–99 s.
+- Nota: las esperas son menores que en v2–v7 porque ya no está el rojo de la Calle 18 (no comparables entre redes).
+- Cautela: es la 7.ª iteración evaluada con las mismas semillas de validación (101–110). El resultado de la tesis es la
+  EVALUACIÓN FINAL (semillas 1–30, nunca usadas), que se corre UNA vez con aforo_v8 sin más cambios.
+
+## 2026-10-29 — EVALUACIÓN FINAL (resultado de la tesis, parte simulada)
+- Modelo `aforo_v8` sin cambios después de su validación; semillas de evaluación 1–30 (nunca usadas antes); 5 escenarios
+  × 30 semillas × 2 controladores = 300 corridas; red final (sin Calle 18), desatasco inactivo; teleport normal (300 s).
+  Cómputo medido: 3.22 h. Archivos: `results/comparacion/evaluacion_final/` (corridas.csv, resultados.csv/.md, gráficos,
+  avisos de SUMO por corrida).
+- Métrica principal: tiempo de espera promedio por vehículo (s). Wilcoxon de rangos con signo, pareado por semilla
+  (n = 30); r biserial de rangos; Holm para las métricas secundarias.
+  | Escenario | Real (mediana) | QL v8 (mediana) | Diferencia | p | r | QL mejor en |
+  |---|---|---|---|---|---|---|
+  | bajo | 15.59 | 13.49 | −13.4 % | 1.9e−9 | −1.00 | 30/30 |
+  | valle (nunca visto en entrenamiento) | 17.76 | 16.01 | −9.8 % | 1.9e−9 | −1.00 | 30/30 |
+  | medio | 19.30 | 17.18 | −11.0 % | 1.9e−9 | −1.00 | 30/30 |
+  | **alto (pico)** | 55.85 | 31.76 | **−43.1 %** | 1.9e−9 | −1.00 | 30/30 |
+  | **jueves (pico simultáneo)** | 23.58 | 22.32 | **−5.3 %** | 1.1e−4 | −0.76 | 26/30 |
+  Alto, secundarias (Holm, todas significativas): tiempo de viaje −28.4 %, tiempo perdido −44.8 %, velocidad +12.8 %,
+  throughput +2.0 %, detenidos −20.7 %. Throughput igual o mayor en todos los escenarios (no se gana espera dejando
+  vehículos fuera).
+- Calidad de las corridas: 0 vehículos sin terminar en las 300; teleports 1–7 por escenario (30 corridas) en ambos
+  controladores. Ciclos del agente 61–121 s (Manual: 60–120 s; > 120 s en 0–6 % de los ciclos, solo en pico).
+  Estrategia aprendida: en tráfico normal ciclos más cortos (70–77 s; verde Cra 23 ~29–36 s, Dg 15 ~15 s); en alto,
+  verde Cra 23 ~57 s y Dg 15 ~15 s (ciclo 98 s); en jueves, Dg 15 ~17 s.
+- Cifras de media: bajo −12.4 %, valle −9.6 %, medio −10.9 %, alto −37.8 %, jueves −5.4 %.
+- Contexto obligatorio al reportarlo: 7 iteraciones de diseño validadas con las semillas 101–110 (documentadas arriba);
+  esta evaluación se corrió una sola vez. Limitaciones: simulación (no campo); sin Calle 18; aforo alto no simultáneo
+  (alto–sur simulado 1361 vs 1512 veh/h); todo-rojo de 0 s tras la Cra 23 igual al real; filtrado de motos como supuesto;
+  frenadas de emergencia ocasionales en la cremallera.

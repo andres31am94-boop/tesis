@@ -38,3 +38,8 @@ results/calibracion/*/*/*.rou.xml
 results/calibracion/*/*/*.sumocfg
 results/calibracion/barrido_red/*/*.net.xml
 results/calibracion/barrido_red/*/*.sumocfg
+
+# Normativa (documentos oficiales publicos, pesados: el Manual 2024 pesa 44 MB). Se citan en la tesis, no se versionan.
+docs/normativa/
+# Archivos sueltos de pruebas
+tests/*.add

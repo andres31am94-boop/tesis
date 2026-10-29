@@ -103,14 +103,16 @@ def main():
             for semilla in semillas:
                 ruta_tripinfo = carpeta / f"{escenario}_s{semilla}_tripinfo.xml"
                 reloj = time.time()
-                _, _, _, cierre = simular(ruta_config, semilla, False, "tiempos_fijos", configs, ruta_tripinfo)
+                _, _, _, cierre = simular(ruta_config, semilla, False, "tiempos_fijos", configs, ruta_tripinfo,
+                                          ruta_log=carpeta / f"{escenario}_s{semilla}_avisos.log")
                 simulado = flujos_simulados(ruta_tripinfo, inicio, fin)
                 contado = flujos_aforo(escenario)
                 valores = {b: geh(simulado[b], contado[b]) for b in BRAZOS}
                 for b in BRAZOS:
                     filas.append({"combinacion": nombre, "escenario": escenario, "semilla": semilla, "brazo": b,
                                   "aforo_veh_h": round(contado[b]), "simulado_veh_h": round(simulado[b]),
-                                  "geh": round(valores[b], 2), "sin_terminar": cierre["vehiculos_sin_terminar"]})
+                                  "geh": round(valores[b], 2), "sin_terminar": cierre["vehiculos_sin_terminar"],
+                                  "segundos_reloj": round(time.time() - reloj, 1)})  # computo de la corrida
                 cumplen = sum(v < GEH_MAXIMO for v in valores.values())
                 print(f"{nombre} {descripcion[nombre]} | {escenario:<18} s{semilla} | " +
                       " ".join(f"{b} {simulado[b]:5.0f} (GEH {valores[b]:4.1f})" for b in BRAZOS) +

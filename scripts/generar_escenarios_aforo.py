@@ -59,6 +59,8 @@ PLANTILLA_SUBCARRILES = """
     <processing>
         <!-- Modelo de subcarriles (config/calibracion.yaml): permite a las motos ir lado a lado -->
         <lateral-resolution value="{resolucion}"/>
+        <!-- Tiempo maximo trabado antes del teleport (config/calibracion.yaml: subcarriles.tiempo_teleport_s) -->
+        <time-to-teleport value="{teleport}"/>
     </processing>"""
 
 
@@ -125,7 +127,8 @@ def main():
     with open(CONFIG_CALIBRACION, encoding="utf-8") as archivo:
         calibracion = yaml.safe_load(archivo)
     subcarriles = calibracion["subcarriles"]
-    procesamiento = (PLANTILLA_SUBCARRILES.format(resolucion=subcarriles["resolucion_lateral_m"])
+    procesamiento = (PLANTILLA_SUBCARRILES.format(resolucion=subcarriles["resolucion_lateral_m"],
+                                                  teleport=subcarriles.get("tiempo_teleport_s", 300))
                      if subcarriles["activo"] else "")
     # Atributos extra de cada tipo de vehiculo (secciones "carro", "moto", "bus", "camion" de calibracion.yaml)
     # La seccion "todos" se aplica a los 4 tipos; la seccion propia de cada tipo la complementa o reemplaza.

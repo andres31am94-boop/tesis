@@ -9,7 +9,12 @@
 <configuration>
     <input>
         <sumo-net-file value="acacias_geometria.net.xml"/>
-        <connection-files value="correcciones.con.xml"/>
+        <connection-files value="correcciones.con.xml,puente_transicion.con.xml"/>
+        <!-- transicion de 2 carriles a 1 antes del puente: contorno del nodo (22.6-53.8 m) y forma de sus carriles internos -->
+        <node-files value="puente_transicion.nod.xml"/>
+        <!-- Forma del puente: una sola calzada con un carril por sentido (ver el archivo) -->
+        <!-- + forma de la Cra 23 sur: cada calzada llega recta al cruce (ver cra23_sur_forma.edg.xml) -->
+        <edge-files value="puente_forma.edg.xml,cra23_sur_forma.edg.xml"/>
     </input>
 
     <output>

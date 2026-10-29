@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Correccion de la FORMA de la Cra 23 al sur del cruce (2026-10-25; los autores vieron en netedit que "se angosta antes
+  de llegar al semaforo").
+  En OSM, las dos calzadas separadas de la Cra 23 sur (llegada 807940779 y salida 642480899) terminan en el MISMO punto
+  del cruce. Por eso, en los ultimos metros, las dos calzadas se doblaban una hacia la otra y el separador terminaba en
+  punta antes del semaforo. En la realidad el separador sigue hasta el cruce y cada calzada llega recta.
+  Aqui se quita el ultimo tramo doblado y cada calzada sigue recta (misma direccion que su tramo anterior) hasta el
+  borde del cruce. Ancho, carriles y conexiones no cambian.
+  Se aplica en el paso 3 (acacias_conexiones.netccfg).
+-->
+<edges>
+    <edge id="807940779" shape="178.99,0.00 180.49,19.99 185.11,62.44 188.34,84.95 193.04,112.49 198.55,139.89 204.86,167.12 208.04,179.54 211.15,192.00"/>
+    <edge id="642480899" shape="201.20,192.00 198.25,181.35 187.58,143.20 182.18,114.81 178.52,86.16"/>
+</edges>

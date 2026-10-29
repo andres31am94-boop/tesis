@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diseño de la maqueta</title>
+<style>
+  :root { --tinta:#2b2b28; --suave:#6b6a64; --linea:#d9d7cf; --fondo:#fbfaf7; --via:#3a3a3a; --zona:#2a78d6; --verde:#2e9e5b; }
+  body { margin:0; background:var(--fondo); color:var(--tinta); font:15px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  main { max-width:980px; margin:0 auto; padding:24px 16px 48px; }
+  h1 { font-size:24px; margin:0 0 4px; } h2 { font-size:18px; margin:32px 0 8px; }
+  p.sub { color:var(--suave); margin:0 0 16px; }
+  .fig { background:#fff; border:1px solid var(--linea); border-radius:10px; padding:12px; }
+  svg { width:100%; height:auto; display:block; }
+  table { border-collapse:collapse; width:100%; background:#fff; border:1px solid var(--linea); border-radius:10px; overflow:hidden; }
+  th, td { text-align:left; padding:7px 10px; border-bottom:1px solid var(--linea); vertical-align:top; }
+  th { background:#f2f1ec; font-weight:600; }
+  .nota { background:#fff7e6; border:1px solid #f0d9a8; border-radius:10px; padding:10px 14px; }
+  .grid { display:grid; grid-template-columns: 1fr; gap:16px; }
+  @media (min-width: 860px) { .grid2 { grid-template-columns: 1.4fr 1fr; } }
+  small { color:var(--suave); }
+</style>
+</head>
+<body>
+<main>
+<h1>Maqueta: Cra 23 × Dg 15 (Acacías)</h1>
+<p class="sub">Propuesta de diseño, versión 1 (2026-10-29). Tablero de 100 × 100 cm, carros Hot Wheels (escala ~1:64). Las medidas son de partida: se ajustan cuando se pruebe YOLO con los carros reales.</p>
+
+<h2>1. Vista superior (lo que ve la cámara)</h2>
+<div class="fig">
+<svg viewBox="-40 -40 680 700" role="img" aria-label="Planta de la maqueta">
+  <defs>
+    <marker id="fl" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#ffffff"/></marker>
+  </defs>
+  <!-- escala: 6 px = 1 cm -->
+  <rect x="0" y="0" width="600" height="600" fill="#e9e7df" stroke="#9c9a92"/>
+  <!-- Dg 15 (horizontal): calzada norte (hacia el oeste) y sur (hacia el este), separador -->
+  <rect x="0" y="222" width="600" height="72" fill="var(--via)"/>
+  <rect x="0" y="306" width="600" height="72" fill="var(--via)"/>
+  <rect x="0" y="294" width="222" height="12" fill="#b9b6aa"/>
+  <rect x="378" y="294" width="222" height="12" fill="#b9b6aa"/>
+  <!-- Cra 23 sur: dos calzadas con separador -->
+  <rect x="222" y="378" width="72" height="222" fill="var(--via)"/>
+  <rect x="306" y="378" width="72" height="222" fill="var(--via)"/>
+  <rect x="294" y="378" width="12" height="222" fill="#b9b6aa"/>
+  <!-- cruce -->
+  <rect x="222" y="222" width="156" height="156" fill="var(--via)"/>
+  <!-- Cra 23 norte: 4 carriles, transicion y puente de 1+1 -->
+  <rect x="222" y="132" width="156" height="90" fill="var(--via)"/>
+  <polygon points="222,132 378,132 336,72 264,72" fill="var(--via)"/>
+  <rect x="264" y="0" width="72" height="72" fill="var(--via)"/>
+  <rect x="258" y="0" width="6" height="72" fill="#8d8a80"/><rect x="336" y="0" width="6" height="72" fill="#8d8a80"/>
+  <text x="300" y="40" fill="#fff" font-size="12" text-anchor="middle">PUENTE</text>
+  <text x="300" y="54" fill="#fff" font-size="10" text-anchor="middle">1 carril por sentido</text>
+  <!-- lineas de carril (blancas discontinuas) -->
+  <g stroke="#fff" stroke-width="1.5" stroke-dasharray="10 8">
+    <line x1="0" y1="258" x2="222" y2="258"/><line x1="378" y1="258" x2="600" y2="258"/>
+    <line x1="0" y1="342" x2="222" y2="342"/><line x1="378" y1="342" x2="600" y2="342"/>
+    <line x1="258" y1="378" x2="258" y2="600"/><line x1="342" y1="378" x2="342" y2="600"/>
+    <line x1="258" y1="132" x2="258" y2="222"/><line x1="342" y1="132" x2="342" y2="222"/>
+  </g>
+  <line x1="300" y1="0" x2="300" y2="222" stroke="#f2c230" stroke-width="2"/>
+  <!-- lineas de pare -->
+  <g stroke="#fff" stroke-width="4">
+    <line x1="306" y1="380" x2="378" y2="380"/>
+    <line x1="222" y1="220" x2="300" y2="220"/>
+    <line x1="220" y1="306" x2="220" y2="378"/>
+    <line x1="380" y1="222" x2="380" y2="294"/>
+  </g>
+  <!-- zonas de camara (equivalente a los 100 m del simulador) -->
+  <g fill="var(--zona)" fill-opacity="0.18" stroke="var(--zona)" stroke-dasharray="6 4">
+    <rect x="306" y="384" width="72" height="180"/>
+    <rect x="222" y="40" width="78" height="176"/>
+    <rect x="40" y="306" width="176" height="72"/>
+    <rect x="384" y="222" width="176" height="72"/>
+  </g>
+  <g fill="var(--zona)" font-size="11" font-weight="600">
+    <text x="384" y="560">ZONA SUR</text><text x="170" y="60" text-anchor="end">ZONA NORTE</text>
+    <text x="44" y="396">ZONA OESTE</text><text x="556" y="214" text-anchor="end">ZONA ESTE</text>
+  </g>
+  <!-- flechas de sentido -->
+  <g stroke="#fff" stroke-width="2.5" marker-end="url(#fl)">
+    <line x1="342" y1="520" x2="342" y2="470"/><line x1="264" y1="470" x2="264" y2="520"/>
+    <line x1="264" y1="150" x2="264" y2="200"/><line x1="342" y1="200" x2="342" y2="150"/>
+    <line x1="120" y1="342" x2="170" y2="342"/><line x1="170" y1="258" x2="120" y2="258"/>
+    <line x1="480" y1="258" x2="430" y2="258"/><line x1="430" y1="342" x2="480" y2="342"/>
+  </g>
+  <!-- semaforos (modulos LED) a la derecha de cada llegada -->
+  <g>
+    <rect x="384" y="384" width="16" height="36" rx="3" fill="#111"/><circle cx="392" cy="391" r="4" fill="#d33"/><circle cx="392" cy="402" r="4" fill="#e8b10f"/><circle cx="392" cy="413" r="4" fill="var(--verde)"/>
+    <rect x="200" y="180" width="16" height="36" rx="3" fill="#111"/><circle cx="208" cy="187" r="4" fill="#d33"/><circle cx="208" cy="198" r="4" fill="#e8b10f"/><circle cx="208" cy="209" r="4" fill="var(--verde)"/>
+    <rect x="180" y="384" width="36" height="16" rx="3" fill="#111"/><circle cx="187" cy="392" r="4" fill="#d33"/><circle cx="198" cy="392" r="4" fill="#e8b10f"/><circle cx="209" cy="392" r="4" fill="var(--verde)"/>
+    <rect x="384" y="200" width="36" height="16" rx="3" fill="#111"/><circle cx="391" cy="208" r="4" fill="#d33"/><circle cx="402" cy="208" r="4" fill="#e8b10f"/><circle cx="413" cy="208" r="4" fill="var(--verde)"/>
+  </g>
+  <g font-size="10" fill="var(--tinta)">
+    <text x="404" y="432">S1 (sur)</text><text x="196" y="174" text-anchor="end">S2 (norte)</text>
+    <text x="176" y="414" text-anchor="end">S3 (oeste)</text><text x="424" y="196">S4 (este)</text>
+  </g>
+  <!-- zona tecnica y cableado -->
+  <rect x="480" y="480" width="110" height="110" fill="#fff" stroke="#9c9a92" stroke-dasharray="4 3"/>
+  <text x="535" y="520" text-anchor="middle" font-size="11" font-weight="600">ESP32 +</text>
+  <text x="535" y="535" text-anchor="middle" font-size="11" font-weight="600">protoboard</text>
+  <text x="535" y="552" text-anchor="middle" font-size="10" fill="var(--suave)">USB al PC</text>
+  <g stroke="#c0392b" stroke-width="1.5" fill="none" stroke-dasharray="3 3">
+    <path d="M400,420 L400,470 L480,500"/><path d="M200,200 L200,10 L590,10 L590,480"/>
+    <path d="M180,392 L180,590 L480,590"/><path d="M420,208 L590,208 L590,480"/>
+  </g>
+  <!-- mastil de la camara -->
+  <circle cx="585" cy="22" r="9" fill="#555"/><text x="572" y="26" text-anchor="end" font-size="10">mástil de la cámara (esquina)</text>
+  <!-- cotas -->
+  <g font-size="11" fill="var(--suave)">
+    <line x1="0" y1="-14" x2="600" y2="-14" stroke="#9c9a92"/><text x="300" y="-20" text-anchor="middle">100 cm</text>
+    <line x1="-14" y1="0" x2="-14" y2="600" stroke="#9c9a92"/><text x="-20" y="300" text-anchor="middle" transform="rotate(-90 -20 300)">100 cm</text>
+    <text x="300" y="622" text-anchor="middle">carril 6 cm · cruce 26 × 26 cm · brazos ~37 cm · separadores 2 cm</text>
+  </g>
+  <!-- leyenda -->
+  <g font-size="11" transform="translate(0,640)">
+    <rect x="0" y="0" width="14" height="10" fill="var(--zona)" fill-opacity=".25" stroke="var(--zona)"/><text x="20" y="9">zona de cámara (conteo para el agente)</text>
+    <line x1="250" y1="5" x2="270" y2="5" stroke="#c0392b" stroke-dasharray="3 3"/><text x="276" y="9">cables por debajo / borde</text>
+    <line x1="440" y1="5" x2="460" y2="5" stroke="#f2c230" stroke-width="2"/><text x="466" y="9">doble sentido (puente)</text>
+  </g>
+</svg>
+</div>
+<p><small>Simplificaciones declaradas: la Dg 15 cruza en ángulo recto (en la realidad es diagonal); la transición de 2 a 1 carril y el puente se acortan. Solo giros a la derecha y recto (izquierda prohibida, como en el cruce real).</small></p>
+
+<div class="grid grid2">
+<div>
+<h2>2. Vista lateral: altura de la cámara</h2>
+<div class="fig">
+<svg viewBox="0 0 520 340" role="img" aria-label="Vista lateral de la cámara">
+  <rect x="60" y="280" width="400" height="14" fill="#8d7b63"/>
+  <text x="260" y="314" text-anchor="middle" font-size="12">tablero 100 cm</text>
+  <rect x="452" y="60" width="8" height="220" fill="#777"/>
+  <rect x="256" y="56" width="204" height="8" fill="#777"/>
+  <rect x="246" y="62" width="28" height="14" rx="3" fill="#222"/>
+  <text x="260" y="50" text-anchor="middle" font-size="12">iPhone, lente 1×, mirando abajo</text>
+  <path d="M260,76 L60,280 L460,280 Z" fill="var(--zona)" fill-opacity=".12" stroke="var(--zona)" stroke-dasharray="5 4"/>
+  <line x1="30" y1="76" x2="30" y2="280" stroke="#9c9a92"/><text x="24" y="182" font-size="12" text-anchor="middle" transform="rotate(-90 24 182)">~90–110 cm</text>
+  <text x="470" y="180" font-size="11">mástil PVC</text><text x="470" y="194" font-size="11">o trípode</text><text x="470" y="208" font-size="11">con brazo</text>
+  <circle cx="110" cy="40" r="10" fill="#ffd866"/><circle cx="410" cy="40" r="10" fill="#ffd866"/>
+  <text x="110" y="24" font-size="11" text-anchor="middle">lámpara</text><text x="410" y="24" font-size="11" text-anchor="middle">lámpara</text>
+</svg>
+</div>
+<p><small>Con el lente principal del iPhone (~70° de ancho) a 1 m de altura se ven unos 140 cm: el tablero completo con margen. La altura final se ajusta en la prueba de YOLO (más baja = carros más grandes en la imagen).</small></p>
+</div>
+<div>
+<h2>3. Escala</h2>
+<table>
+<tr><th></th><th>Real</th><th>Maqueta</th></tr>
+<tr><td>Escala</td><td>—</td><td>~1:64 (Hot Wheels)</td></tr>
+<tr><td>Carro</td><td>4.5 × 1.8 m</td><td>~7 × 3 cm</td></tr>
+<tr><td>Carril</td><td>3.5 m</td><td>6 cm (algo más ancho para maniobrar a mano)</td></tr>
+<tr><td>Zona de cámara</td><td>100 m</td><td>~30 cm (≈ 19 m a escala)</td></tr>
+<tr><td>Carros por brazo</td><td>hasta 30+</td><td>4 a 5</td></tr>
+</table>
+</div>
+</div>
+
+<h2>4. Decisiones que quedan abiertas</h2>
+<div class="nota">
+<p><b>Conteos de la maqueta frente a los del modelo.</b> El agente decide con niveles de cola calculados en la red real (por ejemplo, "alta" = 11–22 detenidos). En la maqueta caben 4–5 carros por brazo, así que nunca pasaría de "media". Opciones para la Fase 9: (a) multiplicar los conteos por un factor fijo de escala, declarado; o (b) reentrenar el agente con cortes propios de la maqueta. Se decide con los datos de la prueba de YOLO.</p>
+<p><b>Cómo se mueven los carros.</b> Los Hot Wheels no tienen motor: se mueven a mano (un operador por brazo respeta el semáforo de la maqueta) o se compran carros a control remoto de escala parecida. Para la demostración basta con que la cámara vea carros que llegan, esperan en rojo y salen en verde.</p>
+<p><b>Ángulo de la Dg 15.</b> En ángulo recto es más fácil de construir y de calibrar las zonas; la diagonal real se puede copiar si se quiere más fidelidad.</p>
+</div>
+
+<h2>5. Materiales (ya disponibles) y dónde van</h2>
+<table>
+<tr><th>Elemento</th><th>Ubicación</th></tr>
+<tr><td>4 módulos semáforo (S1–S4)</td><td>a la derecha de cada línea de pare, de frente a los carros que llegan</td></tr>
+<tr><td>ESP32 + protoboard</td><td>zona técnica (esquina), cables por el borde o por debajo del tablero (agujeros de 5 mm junto a cada semáforo)</td></tr>
+<tr><td>iPhone (DroidCam) / webcam</td><td>centrado sobre el cruce, ~1 m, en un mástil en una esquina para no tapar la vista</td></tr>
+<tr><td>Lámparas LED</td><td>dos, en esquinas opuestas, para evitar sombras de los carros sobre las zonas</td></tr>
+<tr><td>Superficie</td><td>pintura gris oscura mate y líneas blancas mate (sin brillo: los reflejos confunden a YOLO)</td></tr>
+</table>
+</main>
+</body>
+</html>

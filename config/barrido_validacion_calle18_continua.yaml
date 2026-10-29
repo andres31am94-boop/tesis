@@ -1,0 +1,9 @@
+# Paso 14 (2026-10-27): revalidacion tras unir el puente con la Calle 18 (sin el empalme de 0.1 m del nodo 6048329437).
+# Corrige los atascos de aforo_v5 (alto s101, jueves s103).
+# Mismas 5 semillas y 5 escenarios, sin cambiar parametros. Carpeta nueva.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_calle18_continua.yaml
+nombre: validacion_calle18_continua
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

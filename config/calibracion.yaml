@@ -9,6 +9,10 @@
 subcarriles:
   activo: true
   resolucion_lateral_m: 0.7   # paso 4a: <= ancho de la moto (0.75 m) y divide exacto el carril de 3.5 m
+  # Tiempo que un vehiculo puede quedar trabado antes del teleport de SUMO: valor normal de SUMO (300 s), para no alterar
+  # las colas de la interseccion principal. (2026-10-27 se probo 120 s y se descarto, decision de los autores: el
+  # artefacto se corrige solo donde ocurre, con desatasco_calle18.)
+  tiempo_teleport_s: 300
 
 # Atributos extra del tipo de vehiculo "moto" (nombres de atributos de vType en SUMO)
 moto:
@@ -49,6 +53,17 @@ accesos:
 #   hasta la linea de pare. En campo las motos pasan por ambos lados: es una simplificacion del modelo.
 carro:
   latAlignment: right
+  # 2026-10-27: un vehiculo DETENIDO no se corre de lado (velocidad lateral maxima parado = 0). Con la cola quieta en el
+  # carril unico del puente, SUMO corria a carros y buses hacia un lado para dejar pasar motos, hasta sacarlos 0.4 m del
+  # carril; al llegar a un cruce interno de 0.1 m quedaban trabados para siempre (atascos de validacion_dg15 valle s4,
+  # aforo_v5 alto s101 y validacion_calle18_continua valle s5: bus.13, lateral offset 0.90 m, left side 3.90 > 3.5 m).
+  # Realista: en una fila parada nadie mueve el carro de lado para dar paso a una moto; las motos siguen filtrando por el
+  # espacio libre (~1.7 m en un carril de 3.5 m). En movimiento se mantiene el comportamiento de SUMO.
+  lcMaxSpeedLatStanding: 0
+bus:
+  lcMaxSpeedLatStanding: 0      # mismo motivo que en "carro"
+camion:
+  lcMaxSpeedLatStanding: 0      # mismo motivo que en "carro"
 
 # Pasos 7 y 8 (2026-10-21): COMPORTAMIENTO DEL CONDUCTOR. Resultado final de la calibracion.
 #   Barrido (results/calibracion/barrido_conductor): sigma era lo que limitaba al sur (0.5 -> 1203 veh/h; 0.25 -> 1377).
@@ -58,3 +73,13 @@ carro:
 #   no hay medicion que lo justifique. Se descarta sigma 0 (conductor perfecto, poco realista; produjo una colision).
 todos:
   sigma: 0.25   # imperfeccion del conductor (modelo Krauss); valor de SUMO por defecto: 0.5
+
+# 2026-10-27 (decision de los autores): DESATASCO DIRIGIDO en el semaforo de la Calle 18 (src/simulation/desatascador.py).
+# Artefacto del modelo de subcarriles: un vehiculo desplazado de lado queda trabado en el cruce interno del semaforo
+# (0.1 m) aunque este en verde y no tenga nada adelante. Dato de campo: con el verde de la Calle 18 pasan todos.
+# Criterio: en la linea de pare o dentro del cruce, luz de su movimiento en VERDE, nadie adelante a menos de
+# distancia_libre_m, quieto segundos_quieto seguidos -> se traslada al inicio del tramo de salida. Solo en la Calle 18.
+desatasco_calle18:
+  activo: true
+  segundos_quieto: 20       # un vehiculo real arranca en 2-3 s con verde y via libre
+  distancia_libre_m: 15

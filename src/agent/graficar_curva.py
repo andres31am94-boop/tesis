@@ -2,18 +2,17 @@
 Grafica la curva de aprendizaje de un entrenamiento.
 
 Uso (desde la carpeta tesis):
-  .\\.venv\\Scripts\\python.exe -m src.agent.graficar_curva --nombre prueba_200
+  .\\.venv\\Scripts\\python.exe -m src.agent.graficar_curva --nombre aforo_v1
 
 Lee  models/<nombre>/curva_aprendizaje.csv
-Crea models/<nombre>/curva_aprendizaje.png  (3 paneles con el mismo eje X: episodio)
-  1. Recompensa total por episodio (linea clara) y su media movil (linea oscura)
-  2. Detenidos promedio por segundo
-  3. Epsilon (cuanto exploraba el agente)
-Se usan paneles separados en lugar de un segundo eje Y: cada medida tiene su propia escala.
+Crea models/<nombre>/curva_aprendizaje.png  (2 paneles con el mismo eje X: episodio)
+  1. Vehiculos detenidos promedio por segundo, UNA LINEA POR ESCENARIO (cada escenario tiene su propio nivel de
+     trafico; mezclarlos en una sola linea esconderia si el agente mejora). Puntos = cada episodio;
+     linea = media movil de los episodios de ese escenario.
+  2. Epsilon (cuanto exploraba el agente)
 """
 import argparse
 import csv
-import json
 
 import matplotlib
 
@@ -26,7 +25,9 @@ COLOR_SERIE = "#2a78d6"        # azul (serie principal)
 COLOR_SERIE_CLARA = "#9ec5f4"  # mismo azul, paso claro (datos crudos)
 COLOR_TEXTO = "#3d3d3a"
 COLOR_REJILLA = "#e6e5df"
-VENTANA_MEDIA_MOVIL = 10
+VENTANA_MEDIA_MOVIL = 5   # episodios del MISMO escenario
+# Colores categoricos (uno por escenario), distinguibles tambien en escala de grises por su luminosidad
+COLORES_ESCENARIO = ["#2a78d6", "#e07b1f", "#2e9e5b", "#8e44ad", "#7f8c8d"]
 
 
 def media_movil(valores, ventana):
@@ -58,49 +59,35 @@ def main():
         filas = list(csv.DictReader(archivo))
     if not filas:
         raise ValueError("La curva esta vacia.")
+    escenarios = list(dict.fromkeys(f.get("escenario", "unico") for f in filas))  # en orden de aparicion
 
-    episodios = [int(f["episodio"]) for f in filas]
-    recompensa = [float(f["recompensa_total"]) for f in filas]
-    detenidos = [float(f["detenidos_promedio"]) for f in filas]
-    epsilon = [float(f["epsilon"]) for f in filas]
+    figura, (ax1, ax2) = plt.subplots(2, 1, figsize=(9, 7.5), sharex=True, gridspec_kw={"height_ratios": [3, 1.2]})
+    print(f"{'escenario':<20}{'episodios':>10}{'detenidos (primeros ' + str(VENTANA_MEDIA_MOVIL) + ')':>26}"
+          f"{'detenidos (ultimos ' + str(VENTANA_MEDIA_MOVIL) + ')':>26}")
+    for color, escenario in zip(COLORES_ESCENARIO, escenarios):
+        propias = [f for f in filas if f.get("escenario", "unico") == escenario]
+        episodios = [int(f["episodio"]) for f in propias]
+        detenidos = [float(f["detenidos_promedio"]) for f in propias]
+        ax1.scatter(episodios, detenidos, color=color, s=10, alpha=0.35)
+        ax1.plot(episodios, media_movil(detenidos, VENTANA_MEDIA_MOVIL), color=color, linewidth=2, label=escenario)
+        n = min(VENTANA_MEDIA_MOVIL, len(detenidos))
+        print(f"{escenario:<20}{len(propias):>10}{sum(detenidos[:n]) / n:>26.2f}{sum(detenidos[-n:]) / n:>26.2f}")
+    ax1.legend(frameon=False, fontsize=9, loc="upper right")
+    estilo(ax1, f"Detenidos promedio por segundo (mas bajo = mejor) · linea: media de {VENTANA_MEDIA_MOVIL} "
+                f"episodios del mismo escenario", "detenidos")
+    ax1.title.set_fontsize(10)
 
-    figura, (ax1, ax2, ax3) = plt.subplots(3, 1, figsize=(9, 9), sharex=True,
-                                            gridspec_kw={"height_ratios": [3, 2, 1.2]})
-    ax1.plot(episodios, recompensa, color=COLOR_SERIE_CLARA, linewidth=1, label="por episodio")
-    ax1.plot(episodios, media_movil(recompensa, VENTANA_MEDIA_MOVIL), color=COLOR_SERIE, linewidth=2,
-             label=f"media movil ({VENTANA_MEDIA_MOVIL} episodios)")
-    ax1.legend(frameon=False, fontsize=9, loc="lower right")
-    estilo(ax1, "Recompensa total por episodio (mas alto = menos vehiculos detenidos)", "recompensa")
+    todos = [int(f["episodio"]) for f in filas]
+    ax2.plot(todos, [float(f["epsilon"]) for f in filas], color=COLOR_SERIE, linewidth=2)
+    ax2.set_ylim(0, 1.05)
+    estilo(ax2, "Exploracion (epsilon): 1 = decide al azar, 0 = usa lo aprendido", "epsilon")
+    ax2.set_xlabel("episodio (1 episodio = 1 hora simulada)", color=COLOR_TEXTO)
 
-    ax2.plot(episodios, detenidos, color=COLOR_SERIE_CLARA, linewidth=1, label="por episodio")
-    ax2.plot(episodios, media_movil(detenidos, VENTANA_MEDIA_MOVIL), color=COLOR_SERIE, linewidth=2,
-             label=f"media movil ({VENTANA_MEDIA_MOVIL} episodios)")
-    ax2.legend(frameon=False, fontsize=9, loc="upper right")
-    estilo(ax2, "Vehiculos detenidos promedio por segundo (mas bajo = mejor)", "detenidos")
-
-    ax3.plot(episodios, epsilon, color=COLOR_SERIE, linewidth=2)
-    ax3.set_ylim(0, 1.05)
-    estilo(ax3, "Exploracion (epsilon): 1 = decide al azar, 0 = usa lo aprendido", "epsilon")
-    ax3.set_xlabel("episodio (1 episodio = 1 hora simulada)", color=COLOR_TEXTO)
-
-    escenario = "desconocido"
-    ruta_tabla = carpeta / "tabla_q.json"
-    if ruta_tabla.exists():
-        with open(ruta_tabla, encoding="utf-8") as archivo:
-            metadatos = json.load(archivo).get("metadatos", {})
-            escenario = ", ".join(metadatos.get("escenarios", [])) or metadatos.get("escenario", "desconocido")
-    figura.suptitle(f"Curva de aprendizaje — modelo {args.nombre} | escenario: {escenario}",
-                    fontsize=12, color=COLOR_TEXTO, x=0.02, ha="left")
+    figura.suptitle(f"Curva de aprendizaje — modelo {args.nombre}", fontsize=12, color=COLOR_TEXTO, x=0.02, ha="left")
     figura.tight_layout()
     ruta_png = carpeta / "curva_aprendizaje.png"
     figura.savefig(ruta_png, dpi=150)
-    print(f"Grafica guardada en: {ruta_png}")
-
-    n = min(VENTANA_MEDIA_MOVIL, len(filas))
-    print(f"Promedio primeros {n} episodios: recompensa {sum(recompensa[:n]) / n:10.0f} | "
-          f"detenidos {sum(detenidos[:n]) / n:.2f}")
-    print(f"Promedio ultimos  {n} episodios: recompensa {sum(recompensa[-n:]) / n:10.0f} | "
-          f"detenidos {sum(detenidos[-n:]) / n:.2f}")
+    print(f"\nGrafica guardada en: {ruta_png}")
 
 
 if __name__ == "__main__":

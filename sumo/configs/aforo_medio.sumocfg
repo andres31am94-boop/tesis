@@ -18,5 +18,7 @@
     <processing>
         <!-- Modelo de subcarriles (config/calibracion.yaml): permite a las motos ir lado a lado -->
         <lateral-resolution value="0.7"/>
+        <!-- Tiempo maximo trabado antes del teleport (config/calibracion.yaml: subcarriles.tiempo_teleport_s) -->
+        <time-to-teleport value="300"/>
     </processing>
 </configuration>

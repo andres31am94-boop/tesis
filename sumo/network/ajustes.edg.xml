@@ -41,6 +41,14 @@
     </edge>
     <edge id="807940779" width="3.5"/>    <!-- llegada sur -->
     <edge id="642480899" width="3.5"/>    <!-- salida hacia el sur -->
+    <!-- Revision de via (2026-10-25): los autores confirman que los carriles de la Dg 15 tienen el MISMO ancho que los de
+         la Cra 23 (3.5 m). Antes: 3.2 m, valor por defecto de SUMO. -->
+    <edge id="816899410#0" width="3.5"/>  <!-- llegada este -->
+    <edge id="44411778#0" width="3.5"/>   <!-- llegada oeste -->
+    <edge id="1414166244" width="3.5"/>   <!-- salida hacia el oeste -->
+    <edge id="1414166246#0" width="3.5"/> <!-- salida hacia el este -->
+    <edge id="acceso_este" width="3.5"/>
+    <edge id="acceso_oeste" width="3.5"/>
     <edge id="acceso_norte" width="3.5"/>
     <edge id="acceso_sur" width="3.5"/>
 </edges>

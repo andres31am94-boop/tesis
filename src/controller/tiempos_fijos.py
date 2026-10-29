@@ -15,10 +15,10 @@ class ControladorTiemposFijos:
         for eje in EJES:
             if eje not in verdes_s:
                 raise KeyError(f"Falta el verde fijo del eje '{eje}'")
-            if not (guard.verde_min_s <= verdes_s[eje] <= guard.verde_max_s):
+            if not (guard.verde_min(eje) <= verdes_s[eje] <= guard.verde_max(eje)):
                 raise ValueError(
                     f"El verde fijo de {eje} ({verdes_s[eje]} s) esta fuera de los limites de "
-                    f"seguridad [{guard.verde_min_s}, {guard.verde_max_s}]"
+                    f"seguridad [{guard.verde_min(eje)}, {guard.verde_max(eje)}]"
                 )
         self._verdes = dict(verdes_s)
         self._guard = guard

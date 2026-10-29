@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Forma de la transicion de 2 carriles a 1 antes del puente (junto con el contorno de puente_transicion.nod.xml).
+  Sin esta forma, netconvert trazaba los carriles internos en linea recta y dejaba el mismo "escalon" de 3.5 m en 8 m
+  al final. Aqui cada carril interno es una linea recta desde el fin del tramo de 2 carriles (22.6 m del cruce) hasta el
+  inicio del puente (53.8 m): el carril izquierdo sigue derecho (ya esta alineado con el puente) y el derecho se va
+  cerrando 3.4 m a lo largo de ~39 m, como la via real que "se va angostando".
+  Coordenadas tomadas de acacias.net.xml (fin de 1414166243 e inicio de puente_hacia_villavicencio).
+-->
+<connections>
+    <connection from="1414166243" to="puente_hacia_villavicencio" fromLane="0" toLane="0" shape="221.30,219.95 230.48,258.22"/>
+    <connection from="1414166243" to="puente_hacia_villavicencio" fromLane="1" toLane="0" shape="217.98,221.07 230.48,258.22"/>
+</connections>

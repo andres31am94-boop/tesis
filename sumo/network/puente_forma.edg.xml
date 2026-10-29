@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Correccion de la FORMA del puente (2026-10-25; los autores vieron en sumo-gui que estaba mal dibujado).
+  El puente es una sola calzada de ~7.5 m con 1 carril por sentido, pegados. En la red, los dos sentidos del puente
+  (puente_desde_villavicencio y puente_hacia_villavicencio) habian quedado con formas desplazadas: aparecia un
+  "hueco" de ~6 m entre los carriles y cada tramo median ~74 m en vez de ~64 m (la distancia real entre sus nodos).
+  Aqui se fija la forma de ambos sobre la MISMA linea central (de nodo a nodo) y spreadType="right": cada sentido
+  ocupa su lado de la linea, como una calzada normal de doble sentido.
+  Coordenadas = posiciones de los nodos 6048329437 (extremo norte del puente) y fin_puente_sur / inicio_puente
+  (inicio del puente, 53.8 m al norte del cruce). Si cambia la posicion de esos nodos, hay que actualizarlas.
+  Se aplica en el paso 3 (acacias_conexiones.netccfg).
+  2026-10-27: el nodo 6048329437 se traslado a la Calle 18 (puente continuo hasta el semaforo).
+  2026-10-28: se DESACTIVA la Calle 18 (config/semaforo_calle18.yaml): el nodo vuelve a su posicion de OSM (fin del
+  puente, 247.63,315.30). Hacia Villavicencio el puente termina en una salida libre (los vehiculos salen de la red al
+  final del tramo, sin cruce); desde Villavicencio el acceso norte de 500 m llega a este nodo.
+-->
+<edges>
+    <edge id="puente_desde_villavicencio" shape="247.63,315.30 227.56,254.98" spreadType="right"/>
+    <edge id="puente_hacia_villavicencio" shape="227.56,254.98 247.63,315.30" spreadType="right"/>
+</edges>

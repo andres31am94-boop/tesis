@@ -19,6 +19,9 @@ class EstadoBrazo:
     # None = no se midio en este segundo (el entrenamiento solo la mide cuando el agente decide, para ir mas rapido).
     vehiculos_zona: int | None
     detenidos_zona: int | None
+    # Detenidos en los tramos AGUAS ARRIBA del brazo (accesos y tramo de la Calle 18), fuera de la zona de medicion.
+    # Solo existe en simulacion: lo usa la recompensa del entrenamiento (iteracion 3); la camara no lo mide.
+    detenidos_aguas_arriba: int | None = None
 
 
 @dataclass(frozen=True)

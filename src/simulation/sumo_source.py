@@ -14,12 +14,14 @@ from src.common.estado import EstadoBrazo, EstadoTrafico
 class SumoSource:
     def __init__(self, config):
         self._edges = {nombre: list(datos["edges"]) for nombre, datos in config["brazos"].items()}
+        self._edges_aguas_arriba = {nombre: list(datos.get("edges_aguas_arriba", []))
+                                    for nombre, datos in config["brazos"].items()}
         self._espacio_por_vehiculo = float(config["espacio_por_vehiculo_m"])
         self._zona_camara_m = float(config["zona_camara_m"])
 
         edges_en_red = set(traci.edge.getIDList())
-        for nombre, edges in self._edges.items():
-            for edge in edges:
+        for nombre in self._edges:
+            for edge in self._edges[nombre] + self._edges_aguas_arriba[nombre]:
                 if edge not in edges_en_red:
                     raise ValueError(f"El edge '{edge}' del brazo '{nombre}' no existe en la red.")
 
@@ -71,5 +73,7 @@ class SumoSource:
                 cola_relativa=detenidos / self._capacidad[nombre],
                 vehiculos_zona=vehiculos_zona,
                 detenidos_zona=detenidos_zona,
+                detenidos_aguas_arriba=sum(traci.edge.getLastStepHaltingNumber(e)
+                                           for e in self._edges_aguas_arriba[nombre]),
             )
         return EstadoTrafico(tiempo=traci.simulation.getTime(), brazos=brazos)

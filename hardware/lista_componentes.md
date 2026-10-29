@@ -9,8 +9,14 @@ Versión 2026-10-21. Criterio: lo mínimo necesario. No se agrega hardware sin u
 | Arduino UNO | No es necesario. Queda de respaldo (por ejemplo, si el ESP32 se daña) |
 | iPhone 14 (DroidCam por USB) | Cámara para las pruebas de YOLO |
 | PC | Corre YOLO, el agente y la comunicación con el ESP32 |
+| Módulos semáforo LED (4 + 1 repuesto) | Un semáforo por brazo (confirmado 2026-10-25) |
+| LEDs 5 mm R/A/V (6 c/u) + 15 resistencias 220 Ω | Respaldo de los módulos |
+| Protoboard 830 puntos | Conexiones |
+| Cables Dupont M-H 30 cm y M-M | Cableado |
+| Cable USB de datos | ESP32 ↔ PC |
+| Multímetro | Diagnóstico |
 
-## Comprar AHORA (barato; no depende de ninguna prueba)
+## Comprar AHORA (barato; no depende de ninguna prueba) — YA ADQUIRIDO (2026-10-25)
 | # | Componente | Cantidad | Por qué |
 |---|---|---|---|
 | 1 | Módulo semáforo LED (rojo, amarillo, verde, con resistencias incluidas) | 4 + 1 de repuesto | Un semáforo por brazo. Ya trae resistencias y parece un semáforo |

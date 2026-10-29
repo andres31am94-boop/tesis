@@ -1,0 +1,9 @@
+# Paso 11 (2026-10-25): revalidacion tras corregir la FORMA del puente (sumo/network/puente_forma.edg.xml).
+# Mismas 5 semillas y los 5 escenarios del aforo, sin cambiar ningun parametro: se compara contra
+# validacion_conductor y validacion_jueves (sin la Calle 18) para medir su efecto.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_puente.yaml
+nombre: validacion_puente
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

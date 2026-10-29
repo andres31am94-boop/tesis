@@ -10,6 +10,8 @@ Uso (desde la carpeta tesis):
   --episodios  total de episodios del entrenamiento (define la semilla, el escenario y el epsilon de cada uno)
   --paquete    cuantos episodios correr en esta ejecucion (si se omite, corre todos los que faltan)
   --continuar  carga la tabla guardada y sigue desde el ultimo episodio COMPLETO
+  --ampliar    junto con --continuar: permite subir --episodios por encima del total original. Es equivalente a haber
+               pedido ese total desde el principio, porque nada del episodio k depende del total (ver abajo).
 
 Cada episodio = una hora simulada con una semilla distinta (semillas de ENTRENAMIENTO, nunca las de evaluacion).
 Con varios escenarios se ROTAN: el episodio k usa escenarios[k % n].
@@ -33,8 +35,8 @@ from src.common.configuracion import CARPETA_TESIS, cargar_interseccion
 
 CARPETA_CONFIG = CARPETA_TESIS / "config"
 CARPETA_MODELOS = CARPETA_TESIS / "models"
-COLUMNAS = ["episodio", "escenario", "semilla", "epsilon", "recompensa_total", "detenidos_promedio",
-            "decisiones", "pedidos_de_cambio", "verdes_cra23", "verdes_dg15", "segundos_reloj"]
+COLUMNAS = ["episodio", "escenario", "semilla", "politica", "epsilon", "recompensa_total", "detenidos_promedio",
+            "decisiones", "pedidos_de_cambio", "verdes_cra23", "verdes_dg15", "teletransportes", "desatascos_calle18", "segundos_reloj"]
 
 
 def leer_yaml(nombre):
@@ -42,14 +44,21 @@ def leer_yaml(nombre):
         return yaml.safe_load(archivo)
 
 
-def preparar_continuacion(carpeta, metadatos, ruta_curva):
+def preparar_continuacion(carpeta, metadatos, ruta_curva, ampliar=False):
     """Carga la tabla guardada y comprueba que se este continuando EL MISMO entrenamiento."""
     ruta_tabla = carpeta / "tabla_q.json"
     if not ruta_tabla.exists():
         sys.exit(f"ERROR: --continuar pero no existe {ruta_tabla}. Quita --continuar para empezar.")
     tabla = TablaQ.cargar(ruta_tabla)
     guardados = tabla.metadatos
-    for clave in ("escenarios", "episodios_totales", "config_agente", "config_controlador", "config_experimento"):
+    if ampliar:
+        if metadatos["episodios_totales"] < guardados["episodios_totales"]:
+            sys.exit("ERROR: --ampliar solo permite AUMENTAR el total de episodios.")
+        print(f"Ampliando el entrenamiento de {guardados['episodios_totales']} a {metadatos['episodios_totales']} episodios")
+    claves = ["escenarios", "config_agente", "config_controlador", "config_experimento"]
+    if not ampliar:
+        claves.append("episodios_totales")
+    for clave in claves:
         if guardados.get(clave) != metadatos[clave]:
             sys.exit(f"ERROR: '{clave}' no coincide con el entrenamiento guardado en {carpeta}. "
                      "No se puede continuar con otra configuracion: usa otro --nombre.")
@@ -68,6 +77,7 @@ def main():
     parser.add_argument("--paquete", type=int, help="episodios a correr en esta ejecucion (por defecto, todos los que faltan)")
     parser.add_argument("--nombre", required=True, help="nombre de la carpeta en models/")
     parser.add_argument("--continuar", action="store_true", help="seguir un entrenamiento guardado")
+    parser.add_argument("--ampliar", action="store_true", help="con --continuar: subir el total de episodios")
     parser.add_argument("--gui", action="store_true", help="ver el entrenamiento (muy lento)")
     args = parser.parse_args()
 
@@ -76,6 +86,11 @@ def main():
     config_agente = leer_yaml("agente.yaml")
     config_experimento = leer_yaml("experimento.yaml")
     aprendizaje = config_agente["aprendizaje"]
+    # Iteracion 4b: arranque desde el semaforo real y corte por tiempo sin "fin del mundo" (ver config/agente.yaml)
+    arranque = aprendizaje.get("arranque_plan_real")
+    episodios_plan = arranque["episodios"] if arranque else 0
+    verdes_plan = config_controlador["tiempos_fijos"]["verde_s"]
+    bootstrap_al_cortar = aprendizaje.get("bootstrap_al_cortar", False)
     semilla_base = config_agente["semillas"]["entrenamiento_desde"]
     if set(range(semilla_base, semilla_base + args.episodios)) & set(config_agente["semillas"]["evaluacion"]):
         raise ValueError("Las semillas de entrenamiento se cruzan con las de evaluacion.")
@@ -92,15 +107,18 @@ def main():
 
     entorno = EntornoSumo(archivos[0], config_interseccion, config_controlador, config_agente, config_experimento,
                           usar_gui=args.gui)
+    if args.ampliar and not args.continuar:
+        sys.exit("ERROR: --ampliar se usa junto con --continuar.")
     if args.continuar:
-        tabla, primer_episodio = preparar_continuacion(carpeta, metadatos, ruta_curva)
+        tabla, primer_episodio = preparar_continuacion(carpeta, metadatos, ruta_curva, args.ampliar)
         modo_curva = "a"
     else:
         if (carpeta / "tabla_q.json").exists():
             sys.exit(f"ERROR: ya existe un entrenamiento en {carpeta}. Usa --continuar para seguirlo "
                      "u otro --nombre para empezar uno nuevo (asi nunca se borra progreso por error).")
         carpeta.mkdir(parents=True, exist_ok=True)
-        tabla = TablaQ(entorno.codificador.numero_estados, aprendizaje["alfa"], aprendizaje["gamma"])
+        tabla = TablaQ(entorno.codificador.numero_estados, aprendizaje["alfa"], aprendizaje["gamma"],
+                       descuento=aprendizaje.get("descuento", "por_decision"))
         primer_episodio = 0
         modo_curva = "w"
 
@@ -119,8 +137,16 @@ def main():
             for episodio in range(primer_episodio, ultimo_episodio):
                 semilla = semilla_base + episodio
                 escenario = args.escenarios[episodio % len(args.escenarios)]
-                epsilon = epsilon_lineal(episodio, aprendizaje["epsilon_inicial"],
-                                         aprendizaje["epsilon_final"], aprendizaje["episodios_decaimiento"])
+                sigue_plan = episodio < episodios_plan
+                if arranque and episodio == episodios_plan:
+                    # fin de la fase "plan": la politica inicial del agente pasa a ser exactamente el plan real
+                    cod = entorno.codificador
+                    tabla.iniciar_desde_plan([cod.accion_plan(s, verdes_plan) for s in range(cod.numero_estados)],
+                                             arranque["margen"])
+                    print("Arranque: la tabla ahora reproduce el plan del semaforo real; empieza a explorar.")
+                epsilon = 0.0 if sigue_plan else epsilon_lineal(
+                    episodio - episodios_plan, aprendizaje["epsilon_inicial"],
+                    aprendizaje["epsilon_final"], aprendizaje["episodios_decaimiento"])
                 tabla.reiniciar_azar(semilla)
                 inicio_reloj = time.perf_counter()
 
@@ -128,21 +154,29 @@ def main():
                 recompensa_total, decisiones, pedidos = 0.0, 0, 0
                 terminado = False
                 while not terminado:
-                    accion = tabla.elegir_accion(estado, epsilon)
-                    estado_siguiente, recompensa, terminado, _ = entorno.step(accion)
-                    tabla.actualizar(estado, accion, recompensa, estado_siguiente, terminado)
+                    accion = entorno.accion_plan(verdes_plan) if sigue_plan else tabla.elegir_accion(estado, epsilon)
+                    estado_siguiente, recompensa, terminado, info = entorno.step(accion)
+                    # corte por tiempo: el trafico sigue, asi que se sigue valorando el estado siguiente
+                    final = terminado and not (bootstrap_al_cortar and info["truncado"])
+                    # fase plan: se valora el futuro siguiendo el plan (ver TablaQ.actualizar)
+                    siguiente_plan = entorno.accion_plan(verdes_plan) if sigue_plan else None
+                    tabla.actualizar(estado, accion, recompensa, estado_siguiente, final, info["segundos"],
+                                     accion_siguiente=siguiente_plan)
                     estado = estado_siguiente
-                    recompensa_total += recompensa
+                    recompensa_total -= info["detenidos"]  # sin descuento: comparable entre iteraciones
                     decisiones += 1
                     pedidos += accion == CAMBIAR
 
                 verdes = [eje for eje, _, _ in entorno.guard.historial_verdes]
                 fila = {
-                    "episodio": episodio, "escenario": escenario, "semilla": semilla, "epsilon": round(epsilon, 4),
+                    "episodio": episodio, "escenario": escenario, "semilla": semilla,
+                    "politica": "plan_real" if sigue_plan else "agente", "epsilon": round(epsilon, 4),
                     "recompensa_total": recompensa_total,
                     "detenidos_promedio": round(entorno.detenidos_episodio / max(entorno.segundos_episodio, 1), 3),
                     "decisiones": decisiones, "pedidos_de_cambio": pedidos,
                     "verdes_cra23": verdes.count("cra23"), "verdes_dg15": verdes.count("dg15"),
+                    "teletransportes": entorno.teletransportes_episodio,
+                    "desatascos_calle18": entorno.desatascos_episodio,
                     "segundos_reloj": round(time.perf_counter() - inicio_reloj, 1),
                 }
                 # Primero la tabla (escritura segura) y despues la fila de la curva: si se corta entre ambas,

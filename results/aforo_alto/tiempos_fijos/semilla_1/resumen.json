@@ -8,22 +8,22 @@
   ],
   "metricas": {
     "vehiculos_medidos": 3769,
-    "espera_total_promedio_s": 50.67100026532237,
-    "espera_en_red_promedio_s": 50.28654815600955,
-    "retraso_entrada_promedio_s": 0.3844521093128151,
-    "tiempo_viaje_promedio_s": 160.03953303263467,
-    "tiempo_perdido_promedio_s": 96.62554258423985,
-    "velocidad_promedio_kmh": 26.529872132939254,
-    "throughput_veh_h": 3956.727272727273,
-    "cola_promedio_norte": 4.8548484848484845,
-    "cola_maxima_norte": 28,
-    "cola_promedio_sur": 25.354848484848485,
-    "cola_maxima_sur": 86,
-    "cola_promedio_este": 4.5645454545454545,
-    "cola_maxima_este": 19,
-    "cola_promedio_oeste": 6.082727272727273,
+    "espera_total_promedio_s": 58.83550013266118,
+    "espera_en_red_promedio_s": 58.40037145131335,
+    "retraso_entrada_promedio_s": 0.4351286813478376,
+    "tiempo_viaje_promedio_s": 177.85964446802865,
+    "tiempo_perdido_promedio_s": 107.74709737330856,
+    "velocidad_promedio_kmh": 24.31809679428388,
+    "throughput_veh_h": 3957.818181818182,
+    "cola_promedio_norte": 3.8193939393939393,
+    "cola_maxima_norte": 32,
+    "cola_promedio_sur": 23.92030303030303,
+    "cola_maxima_sur": 88,
+    "cola_promedio_este": 5.254848484848485,
+    "cola_maxima_este": 25,
+    "cola_promedio_oeste": 5.935757575757576,
     "cola_maxima_oeste": 23,
-    "detenidos_promedio_total": 40.8569696969697,
+    "detenidos_promedio_total": 38.93030303030303,
     "verde_promedio_cra23_s": 55.0,
     "verdes_cra23": 33,
     "verde_promedio_dg15_s": 20.0,
@@ -32,21 +32,41 @@
     "cambios_forzados": 0
   },
   "cierre": {
-    "tiempo_final_s": 4011.0,
+    "tiempo_final_s": 4075.0,
     "vehiculos_sin_terminar": 0,
-    "version_sumo": "SUMO 1.27.1"
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": 17,
+    "teletransportes": 0,
+    "desatascos_calle18": 1,
+    "eventos_desatasco": [
+      [
+        3294.0,
+        "sur_recto_carro.386",
+        ":6048329437_1_0",
+        "despues_calle18_0"
+      ]
+    ]
   },
   "parametros": {
     "controlador": {
       "seguridad": {
-        "verde_min_s": 10,
-        "verde_max_s": 60,
+        "verde_min_s": 15,
+        "verde_max_s": {
+          "cra23": 70,
+          "dg15": 25
+        },
         "amarillo_s": 3,
         "todo_rojo_s": {
           "cra23": 0,
           "dg15": 20
         },
         "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
       },
       "tiempos_fijos": {
         "verde_s": {
@@ -63,6 +83,6 @@
   },
   "entorno": {
     "python": "3.11.5",
-    "fecha": "2026-10-21T21:49:42"
+    "fecha": "2026-10-27T22:07:09"
   }
 }

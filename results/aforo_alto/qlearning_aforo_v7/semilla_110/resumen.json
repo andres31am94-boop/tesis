@@ -1,0 +1,87 @@
+{
+  "escenario": "aforo_alto",
+  "controlador": "qlearning_aforo_v7",
+  "semilla": 110,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 3661,
+    "espera_total_promedio_s": 210.6667577164709,
+    "espera_en_red_promedio_s": 199.61322043157608,
+    "retraso_entrada_promedio_s": 11.053537284894837,
+    "tiempo_viaje_promedio_s": 320.6760447965037,
+    "tiempo_perdido_promedio_s": 250.63119366293364,
+    "velocidad_promedio_kmh": 22.23628272856498,
+    "throughput_veh_h": 3670.909090909091,
+    "cola_promedio_norte": 6.533636363636363,
+    "cola_maxima_norte": 59,
+    "cola_promedio_sur": 24.46181818181818,
+    "cola_maxima_sur": 82,
+    "cola_promedio_este": 6.245757575757576,
+    "cola_maxima_este": 29,
+    "cola_promedio_oeste": 10.388787878787879,
+    "cola_maxima_oeste": 57,
+    "detenidos_promedio_total": 47.63,
+    "verde_promedio_cra23_s": 67.66666666666667,
+    "verdes_cra23": 30,
+    "verde_promedio_dg15_s": 16.333333333333332,
+    "verdes_dg15": 30,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 40,
+    "decisiones_agente": 560,
+    "decisiones_respaldo": 16,
+    "pedidos_de_cambio": 59
+  },
+  "cierre": {
+    "tiempo_final_s": 5400.0,
+    "vehiculos_sin_terminar": 51,
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": 49,
+    "teletransportes": 88,
+    "desatascos_calle18": 0,
+    "eventos_desatasco": []
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": {
+          "cra23": 20,
+          "dg15": 15
+        },
+        "verde_max_s": {
+          "cra23": 70,
+          "dg15": 25
+        },
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-10-28T17:53:26"
+  }
+}

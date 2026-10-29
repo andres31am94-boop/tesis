@@ -1,0 +1,9 @@
+# Paso 17 (2026-10-28): revalidacion SIN el semaforo de la Calle 18 (config/semaforo_calle18.yaml activo: false):
+# el puente termina en una salida libre hacia Villavicencio. Debe mantener GEH < 5, sin vehiculos sin terminar.
+# Mismas 5 semillas y 5 escenarios. validacion_desatasco se conserva como evidencia (con Calle 18).
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_sin_calle18.yaml
+nombre: validacion_sin_calle18
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

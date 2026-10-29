@@ -36,11 +36,16 @@ class ControladorQLearning:
 
     def _toca_decidir(self, tiempo):
         tiempo_en_verde = self._guard.tiempo_en_etapa(tiempo)
-        if tiempo_en_verde < self._guard.verde_min_s:
+        if tiempo_en_verde < self._guard.verde_min(self._guard.eje):
             return False
         inicio_verde = tiempo - tiempo_en_verde
         primera_de_este_verde = self._ultima_decision is None or self._ultima_decision < inicio_verde
         return primera_de_este_verde or tiempo - self._ultima_decision >= self._intervalo
+
+    def va_a_decidir(self, tiempo):
+        """True si en este segundo el agente tomara una decision (sin efectos secundarios).
+        Permite medir la zona de camara solo cuando hace falta (evaluacion mas rapida)."""
+        return self._guard.etapa == VERDE and self._toca_decidir(tiempo)
 
     def pedir_cambio(self, tiempo, estado_trafico):
         if self._guard.etapa != VERDE:

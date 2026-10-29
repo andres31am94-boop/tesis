@@ -1,0 +1,9 @@
+# Paso 16 (2026-10-27): revalidacion con time-to-teleport 120 s (antes 300). Ver docs/bitacora.md.
+# Comprueba que el ajuste de la red no cambia y que los teleports siguen siendo casi 0 sin bloqueos.
+# Mismas 5 semillas y 5 escenarios. validacion_sin_empuje se conserva como evidencia.
+# Uso: .\.venv\Scripts\python.exe scripts\barrido_calibracion.py --config barrido_validacion_teleport120.yaml
+nombre: validacion_teleport120
+escenarios: [aforo_bajo, aforo_valle_manana, aforo_medio, aforo_alto, aforo_pico_jueves]
+semillas: [1, 2, 3, 4, 5]
+factores:
+  - {tipo: todos, atributo: sigma, niveles: [0.25]}

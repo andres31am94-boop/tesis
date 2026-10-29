@@ -1,0 +1,106 @@
+escenario,comparacion,metrica,tipo,pares,mediana_nuevo,mediana_base,diferencia_pct,mejora,p_wilcoxon,r_biserial,p_ajustado,significativo
+aforo_bajo,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,22.72,24.09,-5.7,si,0.1909,-0.28,0.1909,no
+aforo_bajo,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,15.19,15.0,1.3,no,1,0.0,1,no
+aforo_bajo,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,7.83,7.8,0.4,no,0.9354,0.02,1,no
+aforo_bajo,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,103.33,106.13,-2.6,si,0.07324,-0.38,0.3333,no
+aforo_bajo,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,33.12,35.81,-7.5,si,0.06666,-0.38,0.3333,no
+aforo_bajo,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,35.0,34.17,2.4,si,0.01366,0.51,0.08198,no
+aforo_bajo,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,1862.18,1869.27,-0.4,no,0.6212,-0.1,1,no
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de espera promedio (s),principal,30,22.72,24.87,-8.6,si,0.00664,-0.56,0.00664,si
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Espera en el cruce (s/veh),secundaria,30,15.19,16.76,-9.3,si,0.1772,-0.29,0.4738,no
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Vehiculos detenidos promedio (cola),secundaria,30,7.83,8.76,-10.7,si,0.1579,-0.3,0.4738,no
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de viaje promedio (s),secundaria,30,103.33,106.63,-3.1,si,0.003475,-0.6,0.01738,si
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Tiempo perdido promedio (s),secundaria,30,33.12,36.28,-8.7,si,0.003475,-0.6,0.01738,si
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Velocidad promedio (km/h),secundaria,30,35.0,34.0,2.9,si,0.0004601,0.7,0.002761,si
+aforo_bajo,Agente Q-Learning vs Real + todo-rojo norma,Throughput (veh/h),secundaria,30,1862.18,1866.55,-0.2,no,0.767,-0.06,0.767,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Tiempo de espera promedio (s),principal,30,24.87,24.09,3.2,no,0.1347,0.32,0.1347,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,16.76,15.0,11.7,no,0.1642,0.29,0.9851,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,8.76,7.8,12.3,no,0.1642,0.29,0.9851,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,106.63,106.13,0.5,no,0.2621,0.24,1,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,36.28,35.81,1.3,no,0.2621,0.24,1,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Velocidad promedio (km/h),secundaria,30,34.0,34.17,-0.5,no,0.3285,-0.21,1,no
+aforo_bajo,Real + todo-rojo norma vs Semaforo real,Throughput (veh/h),secundaria,30,1866.55,1869.27,-0.1,no,0.6643,-0.1,1,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,25.97,25.91,0.3,no,0.8553,-0.04,0.8553,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,16.96,17.33,-2.1,si,1,0.0,1,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,12.97,13.14,-1.2,si,1,0.0,1,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,109.12,111.0,-1.7,si,0.05226,-0.41,0.2613,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,39.18,41.07,-4.6,si,0.05226,-0.41,0.2613,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,33.02,32.46,1.7,si,0.009932,0.53,0.05959,no
+aforo_valle_manana,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,2760.0,2763.27,-0.1,no,0.2089,-0.26,0.6268,no
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de espera promedio (s),principal,30,25.97,27.12,-4.2,si,2.367e-05,-0.82,2.367e-05,si
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Espera en el cruce (s/veh),secundaria,30,16.96,18.29,-7.3,si,0.009301,-0.54,0.02612,si
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Vehiculos detenidos promedio (cola),secundaria,30,12.97,14.05,-7.7,si,0.008705,-0.54,0.02612,si
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de viaje promedio (s),secundaria,30,109.12,112.07,-2.6,si,6.287e-05,-0.78,0.0003143,si
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Tiempo perdido promedio (s),secundaria,30,39.18,42.15,-7.0,si,6.287e-05,-0.78,0.0003143,si
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Velocidad promedio (km/h),secundaria,30,33.02,32.25,2.4,si,2.08e-05,0.82,0.0001248,si
+aforo_valle_manana,Agente Q-Learning vs Real + todo-rojo norma,Throughput (veh/h),secundaria,30,2760.0,2760.55,-0.0,no,0.5856,0.11,0.5856,no
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Tiempo de espera promedio (s),principal,30,27.12,25.91,4.7,no,0.00664,0.56,0.00664,si
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,18.29,17.33,5.5,no,0.146,0.31,0.5472,no
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,14.05,13.14,7.0,no,0.146,0.31,0.5472,no
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,112.07,111.0,1.0,no,0.1094,0.34,0.5472,no
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,42.15,41.07,2.6,no,0.1094,0.34,0.5472,no
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Velocidad promedio (km/h),secundaria,30,32.25,32.46,-0.7,no,0.1191,-0.33,0.5472,no
+aforo_valle_manana,Real + todo-rojo norma vs Semaforo real,Throughput (veh/h),secundaria,30,2760.55,2763.27,-0.1,no,0.006008,-0.58,0.03605,si
+aforo_medio,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,28.65,27.62,3.7,no,0.0002833,0.72,0.0002833,si
+aforo_medio,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,17.58,17.76,-1.0,si,0.9032,0.03,1,no
+aforo_medio,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,16.79,17.2,-2.4,si,0.9193,0.02,1,no
+aforo_medio,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,113.96,113.87,0.1,no,0.1004,0.35,0.6024,no
+aforo_medio,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,44.11,44.15,-0.1,si,0.1004,0.35,0.6024,no
+aforo_medio,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,31.52,31.44,0.3,si,0.8872,-0.03,1,no
+aforo_medio,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,3460.36,3461.45,-0.0,no,0.7547,-0.07,1,no
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de espera promedio (s),principal,30,28.65,29.47,-2.8,si,0.2129,-0.26,0.2129,no
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Espera en el cruce (s/veh),secundaria,30,17.58,19.86,-11.5,si,0.008143,-0.54,0.04886,si
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Vehiculos detenidos promedio (cola),secundaria,30,16.79,18.97,-11.5,si,0.008143,-0.54,0.04886,si
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de viaje promedio (s),secundaria,30,113.96,115.49,-1.3,si,0.1909,-0.28,0.5728,no
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Tiempo perdido promedio (s),secundaria,30,44.11,45.48,-3.0,si,0.1981,-0.27,0.5728,no
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Velocidad promedio (km/h),secundaria,30,31.52,30.98,1.7,si,0.03272,0.45,0.1309,no
+aforo_medio,Agente Q-Learning vs Real + todo-rojo norma,Throughput (veh/h),secundaria,30,3460.36,3463.09,-0.1,no,0.7812,-0.06,0.7812,no
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Tiempo de espera promedio (s),principal,30,29.47,27.62,6.7,no,0.0005055,0.69,0.0005055,si
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,19.86,17.76,11.8,no,0.02774,0.46,0.1664,no
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,18.97,17.2,10.3,no,0.02774,0.46,0.1664,no
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,115.49,113.87,1.4,no,0.03842,0.43,0.1664,no
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,45.48,44.15,3.0,no,0.03842,0.43,0.1664,no
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Velocidad promedio (km/h),secundaria,30,30.98,31.44,-1.5,no,0.06356,-0.39,0.1664,no
+aforo_medio,Real + todo-rojo norma vs Semaforo real,Throughput (veh/h),secundaria,30,3463.09,3461.45,0.0,si,0.8643,-0.04,0.8643,no
+aforo_alto,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,149.81,59.4,152.2,no,1.863e-09,1.0,1.863e-09,si
+aforo_alto,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,49.61,35.29,40.6,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,56.36,40.32,39.8,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,291.39,181.01,61.0,no,3.725e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,221.39,110.99,99.5,no,3.725e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,20.12,23.95,-16.0,no,9.313e-09,-0.99,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,3759.82,3990.55,-5.8,no,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de espera promedio (s),principal,30,149.81,73.03,105.1,no,1.863e-09,1.0,1.863e-09,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Espera en el cruce (s/veh),secundaria,30,49.61,38.87,27.6,no,1.061e-05,0.84,2.122e-05,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Vehiculos detenidos promedio (cola),secundaria,30,56.36,44.22,27.4,no,5.145e-06,0.86,1.543e-05,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de viaje promedio (s),secundaria,30,291.39,201.37,44.7,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Tiempo perdido promedio (s),secundaria,30,221.39,131.13,68.8,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Velocidad promedio (km/h),secundaria,30,20.12,23.13,-13.0,no,3.725e-09,-1.0,1.49e-08,si
+aforo_alto,Agente Q-Learning vs Real + todo-rojo norma,Throughput (veh/h),secundaria,30,3759.82,3926.18,-4.2,no,2.689e-05,-0.81,2.689e-05,si
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Tiempo de espera promedio (s),principal,30,73.03,59.4,23.0,no,4.422e-06,0.87,4.422e-06,si
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,38.87,35.29,10.2,no,0.001719,0.63,0.004372,si
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,44.22,40.32,9.7,no,0.001457,0.64,0.004372,si
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,201.37,181.01,11.3,no,1.061e-05,0.84,5.305e-05,si
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,131.13,110.99,18.1,no,1.061e-05,0.84,5.305e-05,si
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Velocidad promedio (km/h),secundaria,30,23.13,23.95,-3.4,no,0.06356,-0.39,0.06356,no
+aforo_alto,Real + todo-rojo norma vs Semaforo real,Throughput (veh/h),secundaria,30,3926.18,3990.55,-1.6,no,4.065e-06,-0.96,2.439e-05,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,75.75,31.96,137.0,no,1.863e-09,1.0,1.863e-09,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,47.88,23.11,107.2,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,55.03,27.11,103.0,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,193.52,123.8,56.3,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,122.07,51.92,135.1,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,24.79,29.88,-17.0,no,3.725e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,4066.36,4198.91,-3.2,no,1.733e-06,-1.0,1.733e-06,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de espera promedio (s),principal,30,75.75,34.79,117.7,no,3.725e-09,1.0,3.725e-09,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Espera en el cruce (s/veh),secundaria,30,47.88,24.46,95.8,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Vehiculos detenidos promedio (cola),secundaria,30,55.03,28.37,93.9,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Tiempo de viaje promedio (s),secundaria,30,193.52,126.16,53.4,no,3.725e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Tiempo perdido promedio (s),secundaria,30,122.07,54.46,124.2,no,3.725e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Velocidad promedio (km/h),secundaria,30,24.79,29.5,-16.0,no,1.863e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Real + todo-rojo norma,Throughput (veh/h),secundaria,30,4066.36,4182.55,-2.8,no,1.92e-06,-1.0,1.92e-06,si
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Tiempo de espera promedio (s),principal,30,34.79,31.96,8.8,no,0.002766,0.61,0.002766,si
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,24.46,23.11,5.8,no,0.08033,0.37,0.1607,no
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,28.37,27.11,4.7,no,0.08033,0.37,0.1607,no
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,126.16,123.8,1.9,no,0.007612,0.55,0.03806,si
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,54.46,51.92,4.9,no,0.007612,0.55,0.03806,si
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Velocidad promedio (km/h),secundaria,30,29.5,29.88,-1.3,no,0.04971,-0.41,0.1491,no
+aforo_pico_jueves,Real + todo-rojo norma vs Semaforo real,Throughput (veh/h),secundaria,30,4182.55,4198.91,-0.4,no,0.004111,-0.62,0.02467,si
