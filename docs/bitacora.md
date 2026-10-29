@@ -1390,3 +1390,16 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
   esta evaluación se corrió una sola vez. Limitaciones: simulación (no campo); sin Calle 18; aforo alto no simultáneo
   (alto–sur simulado 1361 vs 1512 veh/h); todo-rojo de 0 s tras la Cra 23 igual al real; filtrado de motos como supuesto;
   frenadas de emergencia ocasionales en la cremallera.
+
+### 2026-10-29 — Figuras y estadística de la tesis
+- Nuevo `scripts/graficas_tesis.py` (solo lee resultados guardados; reproducible) → `docs/figuras/`: fig01 calibración
+  (simulado vs aforo, GEH), fig02 espera pareada por semilla, fig03 cambio % por semilla con IC 95 % bootstrap, fig04 mapa
+  de todas las métricas (Holm), fig05 verdes y ciclo, fig06 colas por brazo, fig07 evolución por iteración (historia del
+  desarrollo, redes distintas), fig08 política aprendida (Q-table), y `estadistica_evaluacion_final.md` (descriptiva,
+  Wilcoxon, r, IC bootstrap, Shapiro-Wilk, t pareada, dz, prueba de signos, calidad de corridas).
+- Sensibilidad: las conclusiones no cambian con la t pareada ni con la prueba de signos (todas p ≤ 0.0012). Diferencias no
+  normales en alto y jueves (Shapiro p = 0.029 y 0.001) → se mantiene Wilcoxon como prueba principal.
+- Dos formas de reportar el cambio: entre medianas (bajo −13.4, valle −9.8, medio −11.0, alto −43.1, jueves −5.3 %) y
+  mediana del cambio por semilla con IC 95 % (−12.3 [−14.0, −10.5]; −9.5 [−10.6, −8.9]; −11.3 [−12.6, −10.0];
+  −37.0 [−38.5, −34.9]; −3.5 [−5.1, −1.9] %).
+- Figuras 10–11 (dinámica en el tiempo) requieren correr la semilla 1 de bajo y alto con ambos controladores (ver el script).
