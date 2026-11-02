@@ -1,0 +1,32 @@
+{
+  "escenario": "aforo_alto",
+  "controlador": "qlearning_aforo_v8",
+  "semilla": 1,
+  "ventana_s": [
+    900,
+    1200
+  ],
+  "velocidad": 1.0,
+  "puerto": "COM4",
+  "cambios_de_luz": 17,
+  "latencia_confirmacion_ms": {
+    "media": 2.94,
+    "maxima": 16.0,
+    "n": 16
+  },
+  "retraso_respecto_al_reloj": {
+    "retraso_reloj_max_ms": 0.0,
+    "pasos_atrasados": 0
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-11-02T14:31:53"
+  },
+  "comparacion_con_simulacion_pura": {
+    "segundos_comparados": 300,
+    "segundos_distintos": 0,
+    "primeros_segundos_distintos": [],
+    "mismos_cambios_de_luz": true,
+    "identicas": true
+  }
+}

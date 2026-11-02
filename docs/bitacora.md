@@ -1542,3 +1542,15 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
 - Corrección menor posterior: el contador de "pasos atrasados" contaba un paso con retraso 0,0 ms (espera exactamente 0);
   ahora solo cuenta esperas negativas. No afecta la comparación.
 - Lanzador por doble clic: `scripts/windows/lazo_tiempos_fijos.bat`.
+
+## 2026-11-02 — Fase 10, paso 10.5c VALIDADO: el agente aforo_v8 controla el semáforo físico en el lazo
+- Corrida: aforo_alto, semilla 1, `--controlador qlearning --modelo aforo_v8`, lazo t=900–1200 s en tiempo real, SUMO-GUI.
+- Verdes decididos por el agente y confirmados por el ESP32 (17 cambios): Cra 23 = 55, 55 y 60 s; Dg 15 = 15, 15 y 15 s
+  (el plan real usa 55 / 20 s). Ciclo ≈ 96–101 s. Es UNA ventana de 5 min y una semilla: ilustra el funcionamiento, no
+  es una medida de desempeño (la evaluación oficial sigue siendo la de 30 semillas en simulación pura).
+- Latencia orden→OK: media 2,9 ms, máx. 16 ms (resolución del reloj de Windows ~15,6 ms). Pasos atrasados al reloj: 0.
+- Comparación con la simulación pura: 300/300 segundos idénticos y mismos cambios de luz → el agente decide igual con el
+  semáforo físico en el lazo que en la simulación con la que fue evaluado.
+- Observación de los autores: lo mostrado en PowerShell coincidió con los LEDs durante toda la corrida.
+- Resultados: `results/hardware/lazo/aforo_alto_qlearning_aforo_v8_s1_t900-1200/`.
+- Con esto la Fase 10 (ESP32) queda completa.
