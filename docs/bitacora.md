@@ -1403,3 +1403,79 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
   mediana del cambio por semilla con IC 95 % (−12.3 [−14.0, −10.5]; −9.5 [−10.6, −8.9]; −11.3 [−12.6, −10.0];
   −37.0 [−38.5, −34.9]; −3.5 [−5.1, −1.9] %).
 - Figuras 10–11 (dinámica en el tiempo) requieren correr la semilla 1 de bajo y alto con ambos controladores (ver el script).
+
+### 2026-10-29 — Referencia adicional: plan fijo OPTIMIZADO (Webster)
+- Pregunta que responde: ¿el agente gana solo porque el semáforo real está mal programado? Webster (1958) calcula el mejor
+  plan fijo conociendo la demanda; aquí con la demanda EXACTA de cada escenario → mejor caso para un plan fijo.
+- `scripts/plan_webster.py` → `config/plan_webster.yaml`. Supuestos declarados: saturación 1800 veh. eq./h/carril;
+  equivalencias carro 1, moto 0.33, bus 2, camión 2; 2 carriles por brazo; pérdida de arranque 2 s por fase;
+  L = (3 + 0) + (3 + 20) + 2 × 2 = 30 s. Ajuste a la capa de seguridad (mín. 20/15 s, máx. 70/25 s).
+  | Escenario | Y | C0 Webster (s) | Verde Cra 23 / Dg 15 (s) | Ciclo (s) |
+  |---|---|---|---|---|
+  | bajo | 0.198 | 62.4 | 27 / 15 (Webster daba 9 s a la Dg 15: se sube al mínimo) | 68 |
+  | valle | 0.313 | 72.7 | 34 / 15 | 75 |
+  | medio | 0.387 | 81.5 | 38 / 17 | 81 |
+  | alto | 0.451 | 91.1 | 49 / 16 | 91 |
+  | jueves | 0.432 | 88.0 | 40 / 22 | 88 |
+- Controlador nuevo `tiempos_fijos_webster` (perfil "real"): se corre con las MISMAS semillas 1–30 y se agrega a
+  `results/comparacion/evaluacion_final/` (el agente y el real no se vuelven a correr ni cambian). `analizar_comparacion.py`
+  compara agente vs Webster y Webster vs real.
+- **Resultado Webster (semillas 1–30, 150 corridas; espera, mediana):**
+  | Escenario | Real | Webster | Webster vs real | Agente | Agente vs Webster (p; mejor en) |
+  |---|---|---|---|---|---|
+  | bajo | 15.59 | 14.28 | −8.4 % | 13.49 | −5.5 % (1.3e−7; 27/30) |
+  | valle | 17.76 | 16.64 | −6.3 % | 16.01 | −3.8 % (1.2e−5; 25/30) |
+  | medio | 19.30 | 20.43 | +5.8 % | 17.18 | −15.9 % (1.9e−9; 30/30) |
+  | alto | 55.85 | 57.40 | +2.8 % | 31.76 | −44.7 % (1.9e−9; 30/30) |
+  | jueves | 23.58 | 61.04 | +158.9 % | 22.32 | −63.4 % (1.9e−9; 30/30) |
+  0 vehículos sin terminar. Lectura: con tráfico liviano Webster mejora al real (ciclos cortos) y el agente igual le gana
+  (−4 a −6 %). Con tráfico medio y pico Webster es PEOR que el real: supone 2 carriles de salida con saturación
+  1800 veh. eq./h/carril, pero la Cra 23 hacia el norte se reduce a 1 carril antes del puente (cuello de botella aguas
+  abajo), así que su reparto (40/22 s en jueves) le quita verde a la Cra 23 y la cola crece. El método de manual no ve esa
+  restricción; el plan real (55/20, ajustado en la práctica) y el agente (aprende de la simulación) sí.
+  → Webster con parámetros de manual NO es "el mejor plan fijo posible" aquí. Para esa pregunta haría falta un plan fijo
+  optimizado por búsqueda en la propia simulación (pendiente, a decisión de los autores).
+
+### 2026-10-29 — Referencia definitiva: el MEJOR plan fijo posible (búsqueda en la simulación)
+- Como Webster no sirve aquí, se busca el mejor plan fijo directamente en la simulación: `scripts/buscar_plan_fijo.py`.
+  Rejilla por escenario: verde Cra 23 30–70 s (paso 5) × Dg 15 15/20/25 s = 27 planes (dentro de la capa de seguridad;
+  amarillo y todo-rojo del real). Selección: menor espera media en semillas de VALIDACIÓN 101–103 (no se tocan las de
+  evaluación). Resultado → `config/plan_fijo_optimo.yaml` (con la espera de cada plan de la rejilla) y
+  `results/plan_fijo_optimo/busqueda.csv`. Luego se evalúa con las semillas 1–30 como controlador `tiempos_fijos_optimo`.
+- Como se elige con la demanda exacta de cada hora, es el mejor caso posible para un semáforo de tiempos fijos (en la
+  realidad un plan fijo no sabe qué demanda llegará). Código: `crear_controlador` acepta planes por archivo y un plan
+  dado (`tiempos_fijos_plan`, `verdes_fijos`).
+- **Resultado de la búsqueda** (405 corridas, semillas 101–103): mejor plan (Cra 23 / Dg 15, ¿en el borde?): {'aforo_bajo': (40, 15, True), 'aforo_valle_manana': (40, 15, True), 'aforo_medio': (40, 15, True), 'aforo_alto': (70, 15, True), 'aforo_pico_jueves': (55, 20, False)}.
+  Jueves: el mejor plan fijo es 55/20 = el plan del semáforo real.
+- **Evaluación del mejor plan fijo (semillas 1–30; espera, mediana; Wilcoxon):**
+  | Escenario | Real | Mejor fijo | Agente | Agente vs mejor fijo (p; agente mejor en) | Mejor fijo vs real |
+  |---|---|---|---|---|---|
+  | bajo | 15.59 | 14.01 | 13.49 | −3.7 % (4.6e−4; 24/30) | −10.2 % |
+  | valle | 17.76 | 16.16 | 16.01 | −0.9 % (0.146, no signif.; 18/30) | −9.0 % |
+  | medio | 19.30 | 18.56 | 17.18 | −7.4 % (8.0e−8; 28/30) | −3.8 % |
+  | **alto** | 55.85 | **23.76** | 31.76 | **+33.7 % (1.9e−9; 0/30)** | −57.5 % |
+  | jueves | 23.58 | 23.58 | 22.32 | −5.3 % (1.1e−4; 26/30) | 0.0 % |
+  0 vehículos sin terminar con el mejor fijo. Lectura: el agente supera al mejor plan fijo (elegido con la demanda exacta)
+  en bajo, medio y jueves, empata en valle y PIERDE en alto. En alto la mejor estrategia es el verde máximo de la Cra 23
+  (70 s, límite de seguridad) con el mínimo de la Dg 15; el agente aprendió a dar más verde a la Cra 23 (57 s) pero no
+  llegó a ese extremo. Limitación a reportar.
+
+## 2026-10-31 — Fase 10, paso 10.0/10.1: ESP32 conectado y programa de prueba cargado
+- Entorno verificado: Arduino IDE 2.3.10, núcleo ESP32 (Espressif) instalado, placa "ESP32 Dev Module" en COM4.
+- Mapa de pines definido en `hardware/esp32/conexiones.md` (12 salidas, se evitan pines solo-entrada, de arranque, D14 y RX0/TX0).
+- `hardware/esp32/prueba_cableado/prueba_cableado.ino` compilado y cargado ("Hash of data verified").
+- Monitor Serie (115200): imprime "=== Prueba de cableado: 12 LEDs ===" y recorre los 12 LEDs (S1 GPIO32 … S4 GPIO17) y "--- vuelta completa ---".
+- Incidencia: la primera compilación se colgó sin salida (incluso en modo verbose); se resolvió cerrando y reabriendo Arduino IDE.
+- Pendiente: cablear los 4 módulos semáforo y comprobar visualmente que cada LED coincide con el texto del Monitor Serie.
+
+## 2026-11-01 — Fase 10, paso 10.1 VALIDADO: cableado de los 4 semáforos
+- Los 4 módulos (S1–S4) conectados según `hardware/esp32/conexiones.md`, GND común en el riel de la protoboard.
+- Prueba `prueba_cableado.ino`: los 12 LEDs encienden uno a uno y coinciden con el texto del Monitor Serie (confirmado por los autores).
+- Siguiente: paso 10.2, `hardware/esp32/semaforo_tiempos_fijos/` (plan real 20/3/20 + 55/3/0, ciclo 101 s, arranque en Dg 15).
+
+## 2026-11-01 — Fase 10, paso 10.2 VALIDADO: semáforo de tiempos fijos en la maqueta
+- `hardware/esp32/semaforo_tiempos_fijos/semaforo_tiempos_fijos.ino` cargado en el ESP32 (COM4).
+- Plan real: Dg15 verde 20 → amarillo 3 → todo rojo 20 → Cra23 verde 55 → amarillo 3 (todo rojo 0). Ciclo 101 s, arranque en Dg 15.
+- Monitor Serie: fases con marcas [t=1 s] Dg15 VERDE, [t=21 s] Dg15 AMARILLO, [t=24 s] TODO ROJO, ...
+- Observación de los autores: secuencia correcta en los 4 semáforos. Rojo de la Cra 23 = 43 s (20+3+20); el primer ciclo dura 1 s más por el todo-rojo inicial de arranque.
+- Regla de seguridad en el firmware: `faseEsSegura()` impide paso simultáneo en ambos ejes.
