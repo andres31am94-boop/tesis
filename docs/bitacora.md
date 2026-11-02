@@ -1526,3 +1526,19 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
   automáticos de 2,99 y 3,0 s. Salida: `results/hardware/prueba_10_5a_obediente_2026-11-02.txt`.
 - Siguiente (10.5b): SUMO en tiempo real con las luces del semáforo de SUMO tomadas del ESP32 (hardware en el lazo),
   primero con tiempos fijos; 10.5c: agente aforo_v8.
+
+## 2026-11-02 — Fase 10, paso 10.5b VALIDADO: hardware en el lazo con el semáforo de tiempos fijos
+- `src/simulation/lazo_hardware.py`: SUMO avanza en tiempo real (1 s simulado = 1 s de reloj); el controlador + SafetyGuard
+  deciden la luz, Python la envía al ESP32 y SOLO cuando el ESP32 confirma (OK) se aplica en el semáforo de SUMO. Si el
+  ESP32 no confirma en 0,5 s o activa un freno, la corrida se detiene (no se sigue con luces distintas). Con `--comparar`
+  repite la misma ventana sin ESP32 (simulación pura, misma semilla) y compara segundo a segundo.
+- Corrida: aforo_alto, semilla 1, tiempos_fijos (plan real), avance rápido hasta t=900 s, lazo t=900–1200 s, con SUMO-GUI.
+- Resultado: 16 cambios de luz confirmados por el ESP32; secuencia igual al plan real (55/3/0 – 20/3/20).
+  Latencia orden→OK: media 4,8 ms, máx. 16 ms (n=16); en Windows el reloj de `time.monotonic` avanza en saltos de ~15,6 ms,
+  así que los valores 0 y 15–16 ms solo indican "menos de ~16 ms". Comparación con la simulación pura: 300/300 segundos
+  idénticos (luces y detenidos por brazo) y los mismos cambios de luz → el lazo con el semáforo físico NO altera la
+  simulación. Observación visual de los autores: LEDs sincronizados con SUMO-GUI durante todo el lazo.
+  Resultados: `results/hardware/lazo/aforo_alto_tiempos_fijos_s1_t900-1200/`.
+- Corrección menor posterior: el contador de "pasos atrasados" contaba un paso con retraso 0,0 ms (espera exactamente 0);
+  ahora solo cuenta esperas negativas. No afecta la comparación.
+- Lanzador por doble clic: `scripts/windows/lazo_tiempos_fijos.bat`.

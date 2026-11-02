@@ -1,0 +1,32 @@
+{
+  "escenario": "aforo_alto",
+  "controlador": "tiempos_fijos",
+  "semilla": 1,
+  "ventana_s": [
+    900,
+    1200
+  ],
+  "velocidad": 1.0,
+  "puerto": "COM4",
+  "cambios_de_luz": 16,
+  "latencia_confirmacion_ms": {
+    "media": 4.81,
+    "maxima": 16.0,
+    "n": 16
+  },
+  "retraso_respecto_al_reloj": {
+    "retraso_reloj_max_ms": -0.0,
+    "pasos_atrasados": 1
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-11-02T14:19:44"
+  },
+  "comparacion_con_simulacion_pura": {
+    "segundos_comparados": 300,
+    "segundos_distintos": 0,
+    "primeros_segundos_distintos": [],
+    "mismos_cambios_de_luz": true,
+    "identicas": true
+  }
+}

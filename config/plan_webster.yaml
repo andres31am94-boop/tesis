@@ -1,0 +1,112 @@
+descripcion: Plan fijo optimizado por Webster por escenario (generado por scripts/plan_webster.py;
+  no editar).
+supuestos:
+  saturacion_veh_eq_h_carril: 1800.0
+  equivalentes:
+    carro: 1.0
+    moto: 0.33
+    bus: 2.0
+    camion: 2.0
+  perdida_arranque_s: 2.0
+  tiempo_perdido_ciclo_s: 30.0
+  carriles_por_brazo:
+    norte: 2
+    sur: 2
+    este: 2
+    oeste: 2
+planes:
+  aforo_bajo:
+    verde_s:
+      cra23: 27
+      dg15: 15
+    ciclo_s: 68
+    calculo:
+      flujo_equivalente_veh_h:
+        norte: 459
+        sur: 561
+        este: 153
+        oeste: 77
+      y:
+        cra23: 0.156
+        dg15: 0.042
+      Y: 0.198
+      ciclo_optimo_webster_s: 62.4
+      verde_webster_s:
+        cra23: 27.5
+        dg15: 8.9
+  aforo_valle_manana:
+    verde_s:
+      cra23: 34
+      dg15: 15
+    ciclo_s: 75
+    calculo:
+      flujo_equivalente_veh_h:
+        norte: 801
+        sur: 832
+        este: 294
+        oeste: 239
+      y:
+        cra23: 0.231
+        dg15: 0.082
+      Y: 0.313
+      ciclo_optimo_webster_s: 72.7
+      verde_webster_s:
+        cra23: 33.6
+        dg15: 13.2
+  aforo_medio:
+    verde_s:
+      cra23: 38
+      dg15: 17
+    ciclo_s: 81
+    calculo:
+      flujo_equivalente_veh_h:
+        norte: 977
+        sur: 750
+        este: 415
+        oeste: 220
+      y:
+        cra23: 0.271
+        dg15: 0.115
+      Y: 0.387
+      ciclo_optimo_webster_s: 81.5
+      verde_webster_s:
+        cra23: 38.2
+        dg15: 17.3
+  aforo_alto:
+    verde_s:
+      cra23: 49
+      dg15: 16
+    ciclo_s: 91
+    calculo:
+      flujo_equivalente_veh_h:
+        norte: 1061
+        sur: 1253
+        este: 259
+        oeste: 372
+      y:
+        cra23: 0.348
+        dg15: 0.103
+      Y: 0.451
+      ciclo_optimo_webster_s: 91.1
+      verde_webster_s:
+        cra23: 49.2
+        dg15: 16.0
+  aforo_pico_jueves:
+    verde_s:
+      cra23: 40
+      dg15: 22
+    ciclo_s: 88
+    calculo:
+      flujo_equivalente_veh_h:
+        norte: 872
+        sur: 1011
+        este: 545
+        oeste: 288
+      y:
+        cra23: 0.281
+        dg15: 0.151
+      Y: 0.432
+      ciclo_optimo_webster_s: 88.0
+      verde_webster_s:
+        cra23: 39.7
+        dg15: 22.3

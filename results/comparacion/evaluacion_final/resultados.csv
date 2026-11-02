@@ -6,6 +6,34 @@ aforo_bajo,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secun
 aforo_bajo,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,21.56,23.25,-7.3,si,1.863e-09,-1.0,1.118e-08,si
 aforo_bajo,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,37.96,38.02,-0.1,no,0.3931,-0.18,0.3931,no
 aforo_bajo,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,1877.45,1860.55,0.9,si,0.1382,0.31,0.2763,no
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Tiempo de espera promedio (s),principal,30,13.49,14.28,-5.5,si,1.304e-07,-0.95,1.304e-07,si
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Espera en el cruce (s/veh),secundaria,30,13.43,14.18,-5.3,si,8.009e-08,-0.96,2.403e-07,si
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Vehiculos detenidos promedio (cola),secundaria,30,6.93,7.39,-6.2,si,8.009e-08,-0.96,2.403e-07,si
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Tiempo de viaje promedio (s),secundaria,30,84.06,85.27,-1.4,si,3.539e-08,-0.97,1.77e-07,si
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Tiempo perdido promedio (s),secundaria,30,21.56,22.74,-5.2,si,3.539e-08,-0.97,1.77e-07,si
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Velocidad promedio (km/h),secundaria,30,37.96,37.33,1.7,si,2.608e-08,0.97,1.565e-07,si
+aforo_bajo,Agente Q-Learning vs Plan fijo Webster,Throughput (veh/h),secundaria,30,1877.45,1866.55,0.6,si,0.02784,-0.47,0.02784,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Tiempo de espera promedio (s),principal,30,14.28,15.59,-8.4,si,1.863e-09,-1.0,1.863e-09,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,14.18,15.56,-8.9,si,3.725e-09,-1.0,2.235e-08,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,7.39,7.99,-7.5,si,3.725e-09,-1.0,2.235e-08,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,85.27,85.57,-0.4,si,0.005776,-0.57,0.01155,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,22.74,23.25,-2.2,si,0.006195,-0.56,0.01155,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Velocidad promedio (km/h),secundaria,30,37.33,38.02,-1.8,no,3.725e-09,-1.0,2.235e-08,si
+aforo_bajo,Plan fijo Webster vs Semaforo real,Throughput (veh/h),secundaria,30,1866.55,1860.55,0.3,si,1.205e-05,0.95,3.615e-05,si
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de espera promedio (s),principal,30,13.49,14.01,-3.7,si,0.0004601,-0.7,0.0004601,si
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Espera en el cruce (s/veh),secundaria,30,13.43,13.98,-4.0,si,4.408e-05,-0.79,0.0002645,si
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Vehiculos detenidos promedio (cola),secundaria,30,6.93,7.24,-4.3,si,0.0001359,-0.8,0.0006795,si
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de viaje promedio (s),secundaria,30,84.06,84.25,-0.2,si,0.06356,-0.39,0.1731,no
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo perdido promedio (s),secundaria,30,21.56,21.84,-1.3,si,0.05769,-0.4,0.1731,no
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Velocidad promedio (km/h),secundaria,30,37.96,38.09,-0.3,no,0.01643,-0.5,0.06572,no
+aforo_bajo,Agente Q-Learning vs Mejor plan fijo (busqueda),Throughput (veh/h),secundaria,30,1877.45,1870.91,0.3,si,0.611,0.11,0.611,no
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de espera promedio (s),principal,30,14.01,15.59,-10.2,si,1.863e-09,-1.0,1.863e-09,si
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,13.98,15.56,-10.2,si,1.863e-09,-1.0,1.118e-08,si
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,7.24,7.99,-9.4,si,1.863e-09,-1.0,1.118e-08,si
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,84.25,85.57,-1.5,si,3.725e-09,-1.0,1.49e-08,si
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,21.84,23.25,-6.1,si,3.725e-09,-1.0,1.49e-08,si
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Velocidad promedio (km/h),secundaria,30,38.09,38.02,0.2,si,0.08407,0.36,0.1681,no
+aforo_bajo,Mejor plan fijo (busqueda) vs Semaforo real,Throughput (veh/h),secundaria,30,1870.91,1860.55,0.6,si,0.3189,0.21,0.3189,no
 aforo_valle_manana,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,16.01,17.76,-9.8,si,1.863e-09,-1.0,1.863e-09,si
 aforo_valle_manana,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,15.64,17.53,-10.8,si,1.863e-09,-1.0,1.118e-08,si
 aforo_valle_manana,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,11.93,13.44,-11.2,si,1.863e-09,-1.0,1.118e-08,si
@@ -13,6 +41,34 @@ aforo_valle_manana,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (
 aforo_valle_manana,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,26.53,27.44,-3.3,si,1.304e-07,-0.95,3.912e-07,si
 aforo_valle_manana,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,35.81,36.27,-1.3,no,1.304e-08,-0.98,5.215e-08,si
 aforo_valle_manana,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,2761.64,2758.91,0.1,si,0.0007094,0.71,0.0007094,si
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Tiempo de espera promedio (s),principal,30,16.01,16.64,-3.8,si,1.218e-05,-0.84,1.218e-05,si
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Espera en el cruce (s/veh),secundaria,30,15.64,16.18,-3.3,si,2.689e-05,-0.81,0.0001613,si
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Vehiculos detenidos promedio (cola),secundaria,30,11.93,12.47,-4.3,si,2.689e-05,-0.81,0.0001613,si
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Tiempo de viaje promedio (s),secundaria,30,90.26,90.76,-0.5,si,0.008705,-0.54,0.03482,si
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Tiempo perdido promedio (s),secundaria,30,26.53,27.07,-2.0,si,0.008705,-0.54,0.03482,si
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Velocidad promedio (km/h),secundaria,30,35.81,35.83,-0.1,no,0.4771,-0.15,0.9542,no
+aforo_valle_manana,Agente Q-Learning vs Plan fijo Webster,Throughput (veh/h),secundaria,30,2761.64,2766.55,-0.2,no,0.758,-0.07,0.9542,no
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Tiempo de espera promedio (s),principal,30,16.64,17.76,-6.3,si,2.608e-08,-0.97,2.608e-08,si
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,16.18,17.53,-7.7,si,3.725e-09,-1.0,2.235e-08,si
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,12.47,13.44,-7.2,si,5.588e-09,-0.99,2.794e-08,si
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,90.76,91.31,-0.6,si,0.009932,-0.53,0.01986,si
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,27.07,27.44,-1.4,si,0.0106,-0.53,0.01986,si
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Velocidad promedio (km/h),secundaria,30,35.83,36.27,-1.2,no,6.91e-07,-0.91,2.764e-06,si
+aforo_valle_manana,Plan fijo Webster vs Semaforo real,Throughput (veh/h),secundaria,30,2766.55,2758.91,0.3,si,3.576e-05,0.88,0.0001073,si
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de espera promedio (s),principal,30,16.01,16.16,-0.9,si,0.146,-0.31,0.146,no
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Espera en el cruce (s/veh),secundaria,30,15.64,15.92,-1.8,si,0.00664,-0.56,0.01328,si
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Vehiculos detenidos promedio (cola),secundaria,30,11.93,12.29,-2.9,si,0.00664,-0.56,0.01328,si
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de viaje promedio (s),secundaria,30,90.26,89.88,0.4,no,0.0001699,0.74,0.0008495,si
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo perdido promedio (s),secundaria,30,26.53,26.05,1.8,no,0.0001886,0.74,0.0008495,si
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Velocidad promedio (km/h),secundaria,30,35.81,36.36,-1.5,no,1.863e-09,-1.0,1.118e-08,si
+aforo_valle_manana,Agente Q-Learning vs Mejor plan fijo (busqueda),Throughput (veh/h),secundaria,30,2761.64,2771.45,-0.4,no,0.003124,-0.63,0.009371,si
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de espera promedio (s),principal,30,16.16,17.76,-9.0,si,1.863e-09,-1.0,1.863e-09,si
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,15.92,17.53,-9.2,si,1.863e-09,-1.0,1.118e-08,si
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,12.29,13.44,-8.6,si,1.863e-09,-1.0,1.118e-08,si
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,89.88,91.31,-1.6,si,9.313e-09,-0.99,3.725e-08,si
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,26.05,27.44,-5.1,si,9.313e-09,-0.99,3.725e-08,si
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Velocidad promedio (km/h),secundaria,30,36.36,36.27,0.3,si,0.2894,0.23,0.2894,no
+aforo_valle_manana,Mejor plan fijo (busqueda) vs Semaforo real,Throughput (veh/h),secundaria,30,2771.45,2758.91,0.5,si,5.479e-06,0.98,1.096e-05,si
 aforo_medio,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,17.18,19.3,-11.0,si,1.863e-09,-1.0,1.863e-09,si
 aforo_medio,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,16.58,18.73,-11.5,si,1.863e-09,-1.0,1.118e-08,si
 aforo_medio,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,15.96,17.98,-11.2,si,1.863e-09,-1.0,1.118e-08,si
@@ -20,6 +76,34 @@ aforo_medio,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secu
 aforo_medio,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,28.01,29.88,-6.3,si,1.863e-09,-1.0,1.118e-08,si
 aforo_medio,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,35.36,35.21,0.4,si,0.09195,0.35,0.09195,no
 aforo_medio,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,3458.73,3452.18,0.2,si,0.01393,0.51,0.02786,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Tiempo de espera promedio (s),principal,30,17.18,20.43,-15.9,si,1.863e-09,-1.0,1.863e-09,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Espera en el cruce (s/veh),secundaria,30,16.58,18.98,-12.6,si,1.863e-09,-1.0,1.118e-08,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Vehiculos detenidos promedio (cola),secundaria,30,15.96,18.18,-12.2,si,1.863e-09,-1.0,1.118e-08,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Tiempo de viaje promedio (s),secundaria,30,92.14,96.53,-4.5,si,1.863e-09,-1.0,1.118e-08,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Tiempo perdido promedio (s),secundaria,30,28.01,32.43,-13.6,si,1.863e-09,-1.0,1.118e-08,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Velocidad promedio (km/h),secundaria,30,35.36,33.9,4.3,si,1.863e-09,1.0,1.118e-08,si
+aforo_medio,Agente Q-Learning vs Plan fijo Webster,Throughput (veh/h),secundaria,30,3458.73,3462.0,-0.1,no,0.02961,-0.47,0.02961,si
+aforo_medio,Plan fijo Webster vs Semaforo real,Tiempo de espera promedio (s),principal,30,20.43,19.3,5.8,no,4.408e-05,0.79,4.408e-05,si
+aforo_medio,Plan fijo Webster vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,18.98,18.73,1.3,no,0.1519,0.3,0.2695,no
+aforo_medio,Plan fijo Webster vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,18.18,17.98,1.1,no,0.1347,0.32,0.2695,no
+aforo_medio,Plan fijo Webster vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,96.53,93.93,2.8,no,3.725e-09,1.0,1.863e-08,si
+aforo_medio,Plan fijo Webster vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,32.43,29.88,8.5,no,3.725e-09,1.0,1.863e-08,si
+aforo_medio,Plan fijo Webster vs Semaforo real,Velocidad promedio (km/h),secundaria,30,33.9,35.21,-3.7,no,1.863e-09,-1.0,1.118e-08,si
+aforo_medio,Plan fijo Webster vs Semaforo real,Throughput (veh/h),secundaria,30,3462.0,3452.18,0.3,si,0.0001132,0.82,0.0003396,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de espera promedio (s),principal,30,17.18,18.56,-7.4,si,8.009e-08,-0.96,8.009e-08,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Espera en el cruce (s/veh),secundaria,30,16.58,17.72,-6.4,si,8.009e-08,-0.96,4.806e-07,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Vehiculos detenidos promedio (cola),secundaria,30,15.96,17.03,-6.3,si,8.009e-08,-0.96,4.806e-07,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de viaje promedio (s),secundaria,30,92.14,93.72,-1.7,si,8.009e-08,-0.96,4.806e-07,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo perdido promedio (s),secundaria,30,28.01,29.68,-5.6,si,8.009e-08,-0.96,4.806e-07,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Velocidad promedio (km/h),secundaria,30,35.36,34.93,1.2,si,1.192e-06,0.9,2.384e-06,si
+aforo_medio,Agente Q-Learning vs Mejor plan fijo (busqueda),Throughput (veh/h),secundaria,30,3458.73,3466.36,-0.2,no,0.03869,-0.43,0.03869,si
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de espera promedio (s),principal,30,18.56,19.3,-3.8,si,0.0002833,-0.72,0.0002833,si
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,17.72,18.73,-5.4,si,2.608e-08,-0.97,1.565e-07,si
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,17.03,17.98,-5.3,si,2.608e-08,-0.97,1.565e-07,si
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,93.72,93.93,-0.2,si,0.7303,-0.08,1,no
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,29.68,29.88,-0.7,si,0.7,-0.08,1,no
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Velocidad promedio (km/h),secundaria,30,34.93,35.21,-0.8,no,3.904e-05,-0.8,0.0001405,si
+aforo_medio,Mejor plan fijo (busqueda) vs Semaforo real,Throughput (veh/h),secundaria,30,3466.36,3452.18,0.4,si,3.512e-05,0.86,0.0001405,si
 aforo_alto,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,31.76,55.85,-43.1,si,1.863e-09,-1.0,1.863e-09,si
 aforo_alto,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,29.8,37.35,-20.2,si,1.863e-09,-1.0,1.118e-08,si
 aforo_alto,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,33.75,42.54,-20.7,si,1.863e-09,-1.0,1.118e-08,si
@@ -27,6 +111,34 @@ aforo_alto,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s),secun
 aforo_alto,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,60.35,109.37,-44.8,si,1.863e-09,-1.0,1.118e-08,si
 aforo_alto,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,28.69,25.44,12.8,si,1.863e-09,1.0,1.118e-08,si
 aforo_alto,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,4029.82,3950.18,2.0,si,1.729e-06,1.0,1.729e-06,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Tiempo de espera promedio (s),principal,30,31.76,57.4,-44.7,si,1.863e-09,-1.0,1.863e-09,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Espera en el cruce (s/veh),secundaria,30,29.8,36.85,-19.1,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Vehiculos detenidos promedio (cola),secundaria,30,33.75,42.07,-19.8,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Tiempo de viaje promedio (s),secundaria,30,123.67,178.66,-30.8,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Tiempo perdido promedio (s),secundaria,30,60.35,115.19,-47.6,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Velocidad promedio (km/h),secundaria,30,28.69,25.35,13.2,si,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Plan fijo Webster,Throughput (veh/h),secundaria,30,4029.82,3929.45,2.6,si,1.725e-06,1.0,1.725e-06,si
+aforo_alto,Plan fijo Webster vs Semaforo real,Tiempo de espera promedio (s),principal,30,57.4,55.85,2.8,no,0.03643,0.44,0.03643,si
+aforo_alto,Plan fijo Webster vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,36.85,37.35,-1.4,si,0.06057,-0.39,0.2308,no
+aforo_alto,Plan fijo Webster vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,42.07,42.54,-1.1,si,0.05769,-0.4,0.2308,no
+aforo_alto,Plan fijo Webster vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,178.66,172.71,3.4,no,0.001719,0.63,0.01031,si
+aforo_alto,Plan fijo Webster vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,115.19,109.37,5.3,no,0.001719,0.63,0.01031,si
+aforo_alto,Plan fijo Webster vs Semaforo real,Velocidad promedio (km/h),secundaria,30,25.35,25.44,-0.3,no,0.2206,-0.26,0.2308,no
+aforo_alto,Plan fijo Webster vs Semaforo real,Throughput (veh/h),secundaria,30,3929.45,3950.18,-0.5,no,0.06263,-0.39,0.2308,no
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de espera promedio (s),principal,30,31.76,23.76,33.7,no,1.863e-09,1.0,1.863e-09,si
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Espera en el cruce (s/veh),secundaria,30,29.8,22.92,30.0,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Vehiculos detenidos promedio (cola),secundaria,30,33.75,26.18,28.9,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de viaje promedio (s),secundaria,30,123.67,102.75,20.4,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo perdido promedio (s),secundaria,30,60.35,39.5,52.8,no,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Velocidad promedio (km/h),secundaria,30,28.69,32.44,-11.6,no,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Agente Q-Learning vs Mejor plan fijo (busqueda),Throughput (veh/h),secundaria,30,4029.82,4077.82,-1.2,no,9.313e-09,-0.99,1.118e-08,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de espera promedio (s),principal,30,23.76,55.85,-57.5,si,1.863e-09,-1.0,1.863e-09,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,22.92,37.35,-38.6,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,26.18,42.54,-38.5,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,102.75,172.71,-40.5,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,39.5,109.37,-63.9,si,1.863e-09,-1.0,1.118e-08,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Velocidad promedio (km/h),secundaria,30,32.44,25.44,27.5,si,1.863e-09,1.0,1.118e-08,si
+aforo_alto,Mejor plan fijo (busqueda) vs Semaforo real,Throughput (veh/h),secundaria,30,4077.82,3950.18,3.2,si,1.733e-06,1.0,1.733e-06,si
 aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Tiempo de espera promedio (s),principal,30,22.32,23.58,-5.3,si,0.0001106,-0.76,0.0001106,si
 aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,21.95,23.21,-5.5,si,6.287e-05,-0.78,0.0003772,si
 aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,25.59,27.07,-5.5,si,6.287e-05,-0.78,0.0003772,si
@@ -34,3 +146,31 @@ aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Tiempo de viaje promedio (s
 aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,35.98,37.54,-4.2,si,0.0006084,-0.69,0.002434,si
 aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Velocidad promedio (km/h),secundaria,30,33.36,33.22,0.4,si,0.05769,0.4,0.1154,no
 aforo_pico_jueves,Agente Q-Learning vs Semaforo real,Throughput (veh/h),secundaria,30,4197.27,4198.91,-0.0,no,0.2135,0.26,0.2135,no
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Tiempo de espera promedio (s),principal,30,22.32,61.04,-63.4,si,1.863e-09,-1.0,1.863e-09,si
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Espera en el cruce (s/veh),secundaria,30,21.95,44.33,-50.5,si,1.863e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Vehiculos detenidos promedio (cola),secundaria,30,25.59,52.68,-51.4,si,1.863e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Tiempo de viaje promedio (s),secundaria,30,100.5,168.45,-40.3,si,1.863e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Tiempo perdido promedio (s),secundaria,30,35.98,103.7,-65.3,si,1.863e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Velocidad promedio (km/h),secundaria,30,33.36,26.78,24.6,si,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Agente Q-Learning vs Plan fijo Webster,Throughput (veh/h),secundaria,30,4197.27,4055.45,3.5,si,1.731e-06,1.0,1.731e-06,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Tiempo de espera promedio (s),principal,30,61.04,23.58,158.9,no,1.863e-09,1.0,1.863e-09,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,44.33,23.21,91.0,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,52.68,27.07,94.6,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,168.45,102.54,64.3,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,103.7,37.54,176.2,no,1.863e-09,1.0,1.118e-08,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Velocidad promedio (km/h),secundaria,30,26.78,33.22,-19.4,no,1.863e-09,-1.0,1.118e-08,si
+aforo_pico_jueves,Plan fijo Webster vs Semaforo real,Throughput (veh/h),secundaria,30,4055.45,4198.91,-3.4,no,1.733e-06,-1.0,1.733e-06,si
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de espera promedio (s),principal,30,22.32,23.58,-5.3,si,0.0001106,-0.76,0.0001106,si
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Espera en el cruce (s/veh),secundaria,30,21.95,23.21,-5.5,si,6.287e-05,-0.78,0.0003772,si
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Vehiculos detenidos promedio (cola),secundaria,30,25.59,27.07,-5.5,si,6.287e-05,-0.78,0.0003772,si
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo de viaje promedio (s),secundaria,30,100.5,102.54,-2.0,si,0.0006666,-0.68,0.002434,si
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Tiempo perdido promedio (s),secundaria,30,35.98,37.54,-4.2,si,0.0006084,-0.69,0.002434,si
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Velocidad promedio (km/h),secundaria,30,33.36,33.22,0.4,si,0.05769,0.4,0.1154,no
+aforo_pico_jueves,Agente Q-Learning vs Mejor plan fijo (busqueda),Throughput (veh/h),secundaria,30,4197.27,4198.91,-0.0,no,0.2135,0.26,0.2135,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de espera promedio (s),principal,30,23.58,23.58,0.0,no,1,0.0,1,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Espera en el cruce (s/veh),secundaria,30,23.21,23.21,0.0,no,1,0.0,1,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Vehiculos detenidos promedio (cola),secundaria,30,27.07,27.07,0.0,no,1,0.0,1,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo de viaje promedio (s),secundaria,30,102.54,102.54,0.0,no,1,0.0,1,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Tiempo perdido promedio (s),secundaria,30,37.54,37.54,0.0,no,1,0.0,1,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Velocidad promedio (km/h),secundaria,30,33.22,33.22,0.0,no,1,0.0,1,no
+aforo_pico_jueves,Mejor plan fijo (busqueda) vs Semaforo real,Throughput (veh/h),secundaria,30,4198.91,4198.91,0.0,no,1,0.0,1,no

@@ -59,6 +59,10 @@ class ConexionESP32:
         tipo = palabras[0] if palabras[0] in tipos_conocidos else "OTRO"   # OTRO = mensajes de arranque del ESP32
         return MensajeESP32(tipo=tipo, partes=palabras[1:], texto=texto)
 
+    def hay_mensajes(self):
+        """True si el ESP32 ya envio algo que no se ha leido (no bloquea)."""
+        return self.puerto_serie.in_waiting > 0
+
     def enviar_verde(self, eje: str, segundos: int):
         if eje not in EJES_VALIDOS:
             raise ValueError(f"Eje no valido: {eje}. Use uno de {EJES_VALIDOS}")

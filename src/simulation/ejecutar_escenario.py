@@ -38,13 +38,20 @@ CARPETA_CONFIG = CARPETA_TESIS / "config"
 CARPETA_ESCENARIOS = CARPETA_TESIS / "sumo" / "configs"
 CARPETA_RESULTADOS = CARPETA_TESIS / "results"
 CARPETA_MODELOS = CARPETA_TESIS / "models"
-CONTROLADORES = ["tiempos_fijos", "tiempos_fijos_norma", "qlearning"]
+CONTROLADORES = ["tiempos_fijos", "tiempos_fijos_norma", "tiempos_fijos_webster", "tiempos_fijos_optimo", "qlearning"]
+# Planes fijos por escenario leidos de un archivo (config/): Webster (formula) y el optimo por busqueda en la simulacion
+ARCHIVO_PLANES = {"tiempos_fijos_webster": ("plan_webster.yaml", "scripts/plan_webster.py"),
+                  "tiempos_fijos_optimo": ("plan_fijo_optimo.yaml", "scripts/buscar_plan_fijo.py")}
 # Perfil de seguridad de cada controlador (config/controlador.yaml):
 #   tiempos_fijos       semaforo real tal cual (todo-rojo medido)              -> "real"
 #   tiempos_fijos_norma semaforo real con el todo-rojo del Manual (referencia) -> "norma"
 #   qlearning           el perfil CON EL QUE SE ENTRENO (perfil_seguridad en la config del modelo; los modelos
 #                       anteriores a la iteracion 4b no lo guardaban: usaban "norma")
-PERFIL_SEGURIDAD = {"tiempos_fijos": "real", "tiempos_fijos_norma": "norma"}
+#   tiempos_fijos_webster plan fijo OPTIMIZADO por Webster para cada escenario (config/plan_webster.yaml) -> "real"
+#   tiempos_fijos_optimo  mejor plan fijo por BUSQUEDA en la simulacion (config/plan_fijo_optimo.yaml) -> "real"
+#   tiempos_fijos_plan    plan fijo dado a mano (verdes_fijos); lo usa la busqueda                -> "real"
+PERFIL_SEGURIDAD = {"tiempos_fijos": "real", "tiempos_fijos_norma": "norma", "tiempos_fijos_webster": "real",
+                    "tiempos_fijos_optimo": "real", "tiempos_fijos_plan": "real"}
 
 
 def perfil_seguridad(nombre_controlador, modelo=None):
@@ -61,9 +68,20 @@ def leer_yaml(nombre):
         return yaml.safe_load(archivo)
 
 
-def crear_controlador(nombre, config_controlador, guard, config_interseccion=None, modelo=None):
+def crear_controlador(nombre, config_controlador, guard, config_interseccion=None, modelo=None, escenario=None,
+                      verdes_fijos=None):
     if nombre in ("tiempos_fijos", "tiempos_fijos_norma"):
         return ControladorTiemposFijos.desde_config(config_controlador, guard)
+    if nombre == "tiempos_fijos_plan":
+        if verdes_fijos is None:
+            raise ValueError("tiempos_fijos_plan necesita verdes_fijos, p. ej. {'cra23': 45, 'dg15': 20}")
+        return ControladorTiemposFijos(verdes_fijos, guard)
+    if nombre in ARCHIVO_PLANES:
+        archivo, script = ARCHIVO_PLANES[nombre]
+        planes = leer_yaml(archivo)["planes"]
+        if escenario not in planes:
+            raise ValueError(f"No hay plan '{nombre}' para el escenario '{escenario}' (correr {script})")
+        return ControladorTiemposFijos(planes[escenario]["verde_s"], guard)
     if nombre == "qlearning":
         if modelo is None:
             raise ValueError("El controlador qlearning necesita --modelo (carpeta en models/).")
@@ -78,7 +96,7 @@ def crear_controlador(nombre, config_controlador, guard, config_interseccion=Non
 
 
 def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, ruta_tripinfo, modelo=None,
-            zona="siempre", ruta_log=None):
+            zona="siempre", ruta_log=None, verdes_fijos=None):
     """Corre la simulacion y devuelve (filas por segundo, guard, controlador, info de cierre).
     zona = "siempre": mide la zona de camara cada segundo (series.csv completo).
     zona = "al_decidir": solo cuando el controlador va a decidir (mismo resultado, mas rapido; para la comparacion)."""
@@ -99,7 +117,8 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
         actuador = SumoActuator(config_interseccion)
         guard = SafetyGuard.desde_config(config_controlador, perfil_seguridad(nombre_controlador, modelo))
         controlador = crear_controlador(nombre_controlador, config_controlador, guard,
-                                        config_interseccion, modelo)
+                                        config_interseccion, modelo, escenario=Path(archivo_escenario).stem,
+                                        verdes_fijos=verdes_fijos)
 
         tiempo = traci.simulation.getTime()
         fase = guard.iniciar(tiempo)
