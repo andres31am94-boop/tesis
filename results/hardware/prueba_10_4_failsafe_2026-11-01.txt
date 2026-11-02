@@ -1,0 +1,58 @@
+Paso 10.4 - Prueba del modo a prueba de fallas (scripts/probar_failsafe.py --puerto COM4), 2026-11-01
+Firmware: hardware/esp32/semaforo_failsafe/semaforo_failsafe.ino. Salida copiada de la consola (se omiten las lineas de arranque del ROM).
+Observacion visual de los autores: en intermitente, el amarillo de la Cra 23 y el rojo de la Dg 15 destellan (~1 por segundo).
+
+[PC    1.1 s] ESP32: LISTO
+[PC    1.1 s] ESP32: FASE 1 1 DG15_VERDE 20
+[PC   21.1 s] ESP32: FASE 21 1 DG15_AMARILLO 3
+[PC   21.1 s] ESP32: SOLICITUD CRA23
+            PC -> ESP32: VERDE CRA23 30
+[PC   21.1 s] ESP32: OK VERDE CRA23 30
+[PC   24.1 s] ESP32: FASE 24 1 TODO_ROJO_PEATONES 20
+[PC   44.1 s] ESP32: FASE 44 1 CRA23_VERDE 30
+[PC   74.1 s] ESP32: FASE 74 1 CRA23_AMARILLO 3
+[PC   74.1 s] ESP32: SOLICITUD DG15
+            PC -> ESP32: VERDE DG15 15
+            PC: desde ahora NO responde (simula falla del PC)
+[PC   74.1 s] ESP32: OK VERDE DG15 15
+[PC   77.1 s] ESP32: FASE 77 2 DG15_VERDE 15
+[PC   92.1 s] ESP32: FASE 92 2 DG15_AMARILLO 3
+[PC   92.1 s] ESP32: SOLICITUD CRA23
+[PC   95.1 s] ESP32: FASE 95 2 TODO_ROJO_PEATONES 20
+[PC  115.1 s] ESP32: SIN_RESPUESTA CRA23 55 1
+[PC  115.1 s] ESP32: FASE 115 2 CRA23_VERDE 55
+[PC  170.1 s] ESP32: FASE 170 2 CRA23_AMARILLO 3
+[PC  170.1 s] ESP32: SOLICITUD DG15
+[PC  173.1 s] ESP32: SIN_RESPUESTA DG15 20 2
+[PC  173.1 s] ESP32: FASE 173 3 DG15_VERDE 20
+[PC  193.1 s] ESP32: FASE 193 3 DG15_AMARILLO 3
+[PC  193.1 s] ESP32: SOLICITUD CRA23
+[PC  196.1 s] ESP32: FASE 196 3 TODO_ROJO_PEATONES 20
+[PC  216.1 s] ESP32: SIN_RESPUESTA CRA23 55 3
+[PC  216.1 s] ESP32: FASE 216 3 CRA23_VERDE 55
+[PC  271.1 s] ESP32: FASE 271 3 CRA23_AMARILLO 3
+[PC  271.1 s] ESP32: SOLICITUD DG15
+[PC  274.1 s] ESP32: SIN_RESPUESTA DG15 20 4
+[PC  274.1 s] ESP32: FASE 274 4 DG15_VERDE 20
+[PC  294.1 s] ESP32: FASE 294 4 DG15_AMARILLO 3
+[PC  294.1 s] ESP32: SOLICITUD CRA23
+[PC  297.1 s] ESP32: FASE 297 4 TODO_ROJO_PEATONES 20
+[PC  317.1 s] ESP32: MODO INTERMITENTE SIN_PC
+[PC  322.1 s] ESP32: SOLICITUD CRA23
+[PC  327.1 s] ESP32: SOLICITUD CRA23
+[PC  332.1 s] ESP32: SOLICITUD CRA23
+            PC: vuelve a responder
+[PC  337.1 s] ESP32: SOLICITUD CRA23
+            PC -> ESP32: VERDE CRA23 30
+[PC  337.1 s] ESP32: OK VERDE CRA23 30
+[PC  337.1 s] ESP32: MODO NORMAL
+[PC  337.1 s] ESP32: FASE 337 4 TODO_ROJO_PEATONES 20
+[PC  357.1 s] ESP32: FASE 357 4 CRA23_VERDE 30
+
+===== RESULTADO =====
+  [OK] Plan real durante la falla: esperado [('CRA23', 55, 1), ('DG15', 20, 2), ('CRA23', 55, 3), ('DG15', 20, 4)], visto igual
+  [OK] Pasa a intermitente por SIN_PC
+  [OK] Sale de intermitente (MODO NORMAL)
+  [OK] Transicion segura: todo rojo 20 s antes del verde
+  [OK] Retoma con Cra 23 verde 30 s (pedido 30)
+PRUEBA SUPERADA

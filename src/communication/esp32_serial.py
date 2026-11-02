@@ -1,8 +1,8 @@
 """
 Comunicacion PC <-> ESP32 del semaforo de la maqueta por puerto serie (USB). Paso 10.3.
 
-Protocolo: ver hardware/esp32/semaforo_serial/semaforo_serial.ino.
-  ESP32 -> PC: LISTO | FASE <t_s> <ciclo> <nombre> <s> | SOLICITUD <EJE> | OK ... | AJUSTADO ... | SIN_RESPUESTA ... | ERROR ...
+Protocolo: ver hardware/esp32/semaforo_failsafe/semaforo_failsafe.ino (10.4; extiende el de semaforo_serial.ino).
+  ESP32 -> PC: LISTO | FASE <t_s> <ciclo> <nombre> <s> | SOLICITUD <EJE> | OK ... | AJUSTADO ... | SIN_RESPUESTA ... | MODO INTERMITENTE <motivo> | MODO NORMAL | ERROR ...
   PC -> ESP32: VERDE <EJE> <s>
 
 El ESP32 es quien aplica los limites de seguridad; esta clase solo transporta mensajes.
@@ -18,7 +18,7 @@ EJES_VALIDOS = ("CRA23", "DG15")
 
 @dataclass
 class MensajeESP32:
-    tipo: str            # primera palabra: FASE, SOLICITUD, OK, AJUSTADO, SIN_RESPUESTA, ERROR, LISTO u OTRO
+    tipo: str            # primera palabra: FASE, SOLICITUD, OK, AJUSTADO, SIN_RESPUESTA, ERROR, MODO, LISTO u OTRO
     partes: list         # palabras restantes
     texto: str           # linea completa
 
@@ -46,7 +46,7 @@ class ConexionESP32:
         if not texto:
             return None
         palabras = texto.split()
-        tipos_conocidos = {"LISTO", "FASE", "SOLICITUD", "OK", "AJUSTADO", "SIN_RESPUESTA", "ERROR"}
+        tipos_conocidos = {"LISTO", "FASE", "SOLICITUD", "OK", "AJUSTADO", "SIN_RESPUESTA", "ERROR", "MODO"}
         tipo = palabras[0] if palabras[0] in tipos_conocidos else "OTRO"   # OTRO = mensajes de arranque del ESP32
         return MensajeESP32(tipo=tipo, partes=palabras[1:], texto=texto)
 

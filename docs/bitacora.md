@@ -1489,3 +1489,17 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
 - Resultado (COM4): 6/6 casos OK — comando inválido rechazado; 30 y 15 s aplicados; 100 s → 70 s y 5 s → 15 s (AJUSTADO);
   sin respuesta → 55 s (SIN_RESPUESTA). Los tiempos de fase coinciden al segundo con lo pedido.
   Salida completa: `results/hardware/prueba_10_3_serial_2026-11-01.txt`.
+
+## 2026-11-01 — Fase 10, paso 10.4 VALIDADO: fail-safe del semáforo físico
+- Decisión de los autores: opción "mezcla". Sin órdenes de Python → plan real (55/20) durante 4 verdes (2 ciclos);
+  si sigue la falla → intermitente (amarillo Cra 23 / rojo Dg 15); al volver Python → todo rojo 20 s y Cra 23 en verde.
+  Combinación insegura detectada → intermitente sin recuperación automática (requiere reinicio).
+- Norma: Manual de Señalización Vial 2024, 4.2.3 (Controlador): ante fallas o estados conflictivos, amarillo intermitente en
+  la vía principal y rojo intermitente en la secundaria. 4.10: 50–60 destellos/min, encendido entre 1/2 y 2/3 del periodo
+  → se usa 60/min con 0,6 s encendido.
+- Firmware `hardware/esp32/semaforo_failsafe/semaforo_failsafe.ino`; prueba `scripts/probar_failsafe.py`.
+- Resultado: 5/5 OK. Primera orden faltante a t=92 s; plan real en los verdes de t=115, 173, 216, 274 s; intermitente a
+  t=317 s (~3,75 min después de la última respuesta); recuperación a t=337 s con todo rojo 20 s y Cra 23 verde 30 s.
+  Parpadeo verificado visualmente por los autores. Salida: `results/hardware/prueba_10_4_failsafe_2026-11-01.txt`.
+- Limitación: el ESP32 se alimenta por el USB del PC; si se desconecta el cable se apaga (no hay intermitente). Con fuente
+  externa el fail-safe cubriría también el corte del cable de datos. Se declara en la tesis.
