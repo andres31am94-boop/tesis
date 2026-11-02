@@ -1,0 +1,44 @@
+Paso 10.3 - Prueba de comunicacion PC -> ESP32 (scripts/probar_esp32.py --puerto COM4), 2026-11-01
+Firmware: hardware/esp32/semaforo_serial/semaforo_serial.ino. Salida copiada de la consola (se omiten las lineas de arranque del ROM del ESP32).
+
+[PC    1.1 s] ESP32: LISTO
+            PC -> ESP32: HOLA (comando invalido a proposito)
+[PC    1.1 s] ESP32: FASE 1 1 DG15_VERDE 20
+[PC    1.1 s] ESP32: ERROR comando no reconocido: HOLA
+[PC   21.1 s] ESP32: FASE 21 1 DG15_AMARILLO 3
+[PC   21.1 s] ESP32: SOLICITUD CRA23
+            PC -> ESP32: VERDE CRA23 30
+[PC   21.1 s] ESP32: OK VERDE CRA23 30
+[PC   24.1 s] ESP32: FASE 24 1 TODO_ROJO_PEATONES 20
+[PC   44.1 s] ESP32: FASE 44 1 CRA23_VERDE 30
+[PC   74.1 s] ESP32: FASE 74 1 CRA23_AMARILLO 3
+[PC   74.1 s] ESP32: SOLICITUD DG15
+            PC -> ESP32: VERDE DG15 15
+[PC   74.1 s] ESP32: OK VERDE DG15 15
+[PC   77.1 s] ESP32: FASE 77 2 DG15_VERDE 15
+[PC   92.1 s] ESP32: FASE 92 2 DG15_AMARILLO 3
+[PC   92.1 s] ESP32: SOLICITUD CRA23
+            PC -> ESP32: VERDE CRA23 100
+[PC   92.1 s] ESP32: AJUSTADO VERDE CRA23 100 70
+[PC   95.1 s] ESP32: FASE 95 2 TODO_ROJO_PEATONES 20
+[PC  115.1 s] ESP32: FASE 115 2 CRA23_VERDE 70
+[PC  185.1 s] ESP32: FASE 185 2 CRA23_AMARILLO 3
+[PC  185.1 s] ESP32: SOLICITUD DG15
+            PC -> ESP32: VERDE DG15 5
+[PC  185.1 s] ESP32: AJUSTADO VERDE DG15 5 15
+[PC  188.1 s] ESP32: FASE 188 3 DG15_VERDE 15
+[PC  203.1 s] ESP32: FASE 203 3 DG15_AMARILLO 3
+[PC  203.1 s] ESP32: SOLICITUD CRA23
+            PC: (no responde a proposito)
+[PC  206.1 s] ESP32: FASE 206 3 TODO_ROJO_PEATONES 20
+[PC  226.1 s] ESP32: SIN_RESPUESTA CRA23 55
+[PC  226.1 s] ESP32: FASE 226 3 CRA23_VERDE 55
+
+===== RESULTADO =====
+  [OK] Comando invalido rechazado con ERROR
+  [OK] Verde CRA23: esperado 30 s, ESP32 aplico 30 s
+  [OK] Verde DG15: esperado 15 s, ESP32 aplico 15 s
+  [OK] Verde CRA23: esperado 70 s, ESP32 aplico 70 s
+  [OK] Verde DG15: esperado 15 s, ESP32 aplico 15 s
+  [OK] Verde CRA23: esperado 55 s, ESP32 aplico 55 s
+PRUEBA SUPERADA

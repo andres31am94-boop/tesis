@@ -7,3 +7,4 @@ pyyaml
 matplotlib
 openpyxl
 scipy        # prueba de Wilcoxon (scripts/analizar_comparacion.py)
+pyserial>=3.5        # Fase 10: comunicacion con el ESP32

@@ -1479,3 +1479,13 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
 - Monitor Serie: fases con marcas [t=1 s] Dg15 VERDE, [t=21 s] Dg15 AMARILLO, [t=24 s] TODO ROJO, ...
 - Observación de los autores: secuencia correcta en los 4 semáforos. Rojo de la Cra 23 = 43 s (20+3+20); el primer ciclo dura 1 s más por el todo-rojo inicial de arranque.
 - Regla de seguridad en el firmware: `faseEsSegura()` impide paso simultáneo en ambos ejes.
+
+## 2026-11-01 — Fase 10, paso 10.3 VALIDADO: Python decide el verde, el ESP32 lo ejecuta con sus límites
+- Firmware `hardware/esp32/semaforo_serial/semaforo_serial.ino`: el ESP32 mantiene el ciclo y la seguridad (amarillo 3 s,
+  todo rojo 0/20 s, nunca paso simultáneo, verde recortado a 20–70 s Cra 23 y 15–25 s Dg 15) y pide a Python el próximo
+  verde ("SOLICITUD <EJE>") al empezar el amarillo del otro eje. Sin respuesta → plan real (55/20).
+- Python: `src/communication/esp32_serial.py` (clase ConexionESP32, reinicia el ESP32 por RTS al conectar) y
+  `scripts/probar_esp32.py`. Dependencia nueva: pyserial 3.5 (requirements.txt).
+- Resultado (COM4): 6/6 casos OK — comando inválido rechazado; 30 y 15 s aplicados; 100 s → 70 s y 5 s → 15 s (AJUSTADO);
+  sin respuesta → 55 s (SIN_RESPUESTA). Los tiempos de fase coinciden al segundo con lo pedido.
+  Salida completa: `results/hardware/prueba_10_3_serial_2026-11-01.txt`.
