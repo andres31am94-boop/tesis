@@ -1503,3 +1503,26 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
   Parpadeo verificado visualmente por los autores. Salida: `results/hardware/prueba_10_4_failsafe_2026-11-01.txt`.
 - Limitación: el ESP32 se alimenta por el USB del PC; si se desconecta el cable se apaga (no hay intermitente). Con fuente
   externa el fail-safe cubriría también el corte del cable de datos. Se declara en la tesis.
+
+## 2026-11-01 — Fase 10, paso 10.5a VALIDADO: cambio de diseño a ESP32 OBEDIENTE
+- Problema detectado al preparar 10.5: el agente (aforo_v8) decide MANTENER/CAMBIAR cada 5 s tras el verde mínimo
+  (`src/controller/qlearning_controlador.py`); no conoce la duración del verde por adelantado, así que el protocolo de
+  10.3/10.4 ("VERDE <eje> <s>") no permite conectarlo sin cambiar el agente.
+- Decisiones de los autores:
+  - El ESP32 NO decide: Python (agente + SafetyGuard, ya probado con tests) decide todas las luces y el ESP32 obedece.
+  - El ESP32 conserva solo dos frenos de emergencia: (1) monitor de conflictos — rechaza luces desconocidas y pasar de
+    un verde a algo distinto de su amarillo (Manual cap. 7: nunca de verde a rojo sin amarillo) → amarillo + intermitente
+    CONFLICTO sin recuperación; (2) vigilancia — 5 s sin mensajes → amarillo 3 s + intermitente SIN_PC, recuperable con
+    LUZ TODO_ROJO. Reemplaza la "mezcla" del 10.4 (plan real en el ESP32 sería el ESP32 decidiendo tiempos).
+  - Se mantiene la decisión cada 5 s (lo entrenado y evaluado). Decidir cada 2 s queda como experimento posterior
+    (aforo_v9: reentrenar + nueva evaluación final con semillas nuevas, p. ej. 31–60).
+- Protocolo nuevo: PC → `LUZ <VERDE_CRA23|AMARILLO_CRA23|VERDE_DG15|AMARILLO_DG15|TODO_ROJO>` cada segundo (latido);
+  ESP32 → `LISTO | OK <t_ms> <luz> | AUTO <t_ms> <luz> | MODO INTERMITENTE <motivo> | MODO NORMAL | ERROR`.
+- Archivos: `hardware/esp32/semaforo_obediente/`, `src/communication/esp32_serial.py` (método `enviar_luz`; se conserva
+  `enviar_verde` para repetir 10.3/10.4), `scripts/probar_esp32_obediente.py`, `scripts/windows/probar_esp32_obediente.bat`
+  (lanzador por doble clic; guarda la salida en results/hardware).
+- Resultado: 13/13 OK. Latencia orden→confirmación medida con el reloj del PC: media 1,3 ms, máx. 5,3 ms (n=6; muestra
+  pequeña, solo indicativa). Watchdog: amarillo automático 4,94 s después del último mensaje (esperado 5 s); amarillos
+  automáticos de 2,99 y 3,0 s. Salida: `results/hardware/prueba_10_5a_obediente_2026-11-02.txt`.
+- Siguiente (10.5b): SUMO en tiempo real con las luces del semáforo de SUMO tomadas del ESP32 (hardware en el lazo),
+  primero con tiempos fijos; 10.5c: agente aforo_v8.

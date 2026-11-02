@@ -1,5 +1,13 @@
 """
-Comunicacion PC <-> ESP32 del semaforo de la maqueta por puerto serie (USB). Paso 10.3.
+Comunicacion PC <-> ESP32 del semaforo de la maqueta por puerto serie (USB). Pasos 10.3 a 10.5.
+
+Protocolo VIGENTE (10.5a, firmware hardware/esp32/semaforo_obediente): Python decide la luz y la envia cada segundo.
+  PC -> ESP32: LUZ <VERDE_CRA23|AMARILLO_CRA23|VERDE_DG15|AMARILLO_DG15|TODO_ROJO>   (metodo enviar_luz)
+  ESP32 -> PC: LISTO | OK <t_ms> <luz> | AUTO <t_ms> <luz> | MODO INTERMITENTE <motivo> | MODO NORMAL | ERROR ...
+
+Protocolo ANTERIOR (10.3/10.4, firmware semaforo_serial y semaforo_failsafe; se conserva enviar_verde para poder
+repetir esas pruebas). Se reemplazo porque el agente decide MANTENER/CAMBIAR cada 5 s y no conoce la duracion del verde
+por adelantado.
 
 Protocolo: ver hardware/esp32/semaforo_failsafe/semaforo_failsafe.ino (10.4; extiende el de semaforo_serial.ino).
   ESP32 -> PC: LISTO | FASE <t_s> <ciclo> <nombre> <s> | SOLICITUD <EJE> | OK ... | AJUSTADO ... | SIN_RESPUESTA ... | MODO INTERMITENTE <motivo> | MODO NORMAL | ERROR ...
@@ -14,6 +22,7 @@ from dataclasses import dataclass
 import serial
 
 EJES_VALIDOS = ("CRA23", "DG15")
+LUCES_VALIDAS = ("VERDE_CRA23", "AMARILLO_CRA23", "VERDE_DG15", "AMARILLO_DG15", "TODO_ROJO")
 
 
 @dataclass
@@ -46,7 +55,7 @@ class ConexionESP32:
         if not texto:
             return None
         palabras = texto.split()
-        tipos_conocidos = {"LISTO", "FASE", "SOLICITUD", "OK", "AJUSTADO", "SIN_RESPUESTA", "ERROR", "MODO"}
+        tipos_conocidos = {"LISTO", "FASE", "SOLICITUD", "OK", "AJUSTADO", "SIN_RESPUESTA", "ERROR", "MODO", "AUTO"}
         tipo = palabras[0] if palabras[0] in tipos_conocidos else "OTRO"   # OTRO = mensajes de arranque del ESP32
         return MensajeESP32(tipo=tipo, partes=palabras[1:], texto=texto)
 
@@ -54,6 +63,13 @@ class ConexionESP32:
         if eje not in EJES_VALIDOS:
             raise ValueError(f"Eje no valido: {eje}. Use uno de {EJES_VALIDOS}")
         self.enviar_texto(f"VERDE {eje} {int(segundos)}")
+
+    def enviar_luz(self, luz: str):
+        """luz: nombre del protocolo (VERDE_CRA23...) o el de SafetyGuard.fase_actual() (verde_cra23...)."""
+        luz = luz.upper()
+        if luz not in LUCES_VALIDAS:
+            raise ValueError(f"Luz no valida: {luz}. Use una de {LUCES_VALIDAS}")
+        self.enviar_texto(f"LUZ {luz}")
 
     def enviar_texto(self, texto: str):
         """Envia una linea tal cual (se usa tambien para probar que el ESP32 rechaza comandos invalidos)."""

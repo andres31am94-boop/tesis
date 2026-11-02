@@ -1,0 +1,48 @@
+Paso 10.5a - Prueba del ESP32 OBEDIENTE (scripts/probar_esp32_obediente.py --puerto COM4), ejecutada el 2026-11-01 ~21:35 (hora local)
+Firmware: hardware/esp32/semaforo_obediente/semaforo_obediente.ino. Salida copiada de la consola (se omiten las lineas de arranque del ROM).
+
+[PC   0.84 s] ESP32: LISTO
+--- 1. Secuencia normal (una orden por segundo) ---
+[PC   3.22 s] PC -> ESP32: LUZ VERDE_DG15       | ESP32: OK 2896 VERDE_DG15
+[PC   8.58 s] PC -> ESP32: LUZ AMARILLO_DG15    | ESP32: OK 8254 AMARILLO_DG15
+[PC  11.81 s] PC -> ESP32: LUZ TODO_ROJO        | ESP32: OK 11486 TODO_ROJO
+[PC  15.12 s] PC -> ESP32: LUZ VERDE_CRA23      | ESP32: OK 14789 VERDE_CRA23
+[PC  20.49 s] PC -> ESP32: LUZ AMARILLO_CRA23   | ESP32: OK 20162 AMARILLO_CRA23
+[PC  23.75 s] PC -> ESP32: LUZ VERDE_DG15       | ESP32: OK 23425 VERDE_DG15
+            Latencia orden->OK (ms): media 1.3, maxima 5.3, n=6  (reloj del PC; incluye la lectura cada 0.1 s)
+--- 2. Nombre desconocido ---
+[PC  27.01 s] PC -> ESP32: LUZ AZUL             | ESP32: ERROR luz desconocida: AZUL
+--- 3. Freno 1: VERDE_DG15 -> VERDE_CRA23 sin amarillo ---
+[PC  28.10 s] PC -> ESP32: LUZ VERDE_CRA23 (prohibido a proposito)
+[PC  28.11 s] ESP32: ERROR transicion prohibida VERDE_DG15 -> VERDE_CRA23
+[PC  28.11 s] ESP32: AUTO 27778 AMARILLO_DG15
+[PC  31.10 s] ESP32: MODO INTERMITENTE CONFLICTO
+[PC  32.65 s] ESP32: ERROR intermitente por CONFLICTO: reinicie el ESP32
+--- 4. Freno 2: Python deja de enviar con la Cra 23 en verde ---
+[PC  36.45 s] ESP32: LISTO   (reinicio por RTS)
+[PC  38.82 s] PC -> ESP32: LUZ VERDE_CRA23      | ESP32: OK 2889 VERDE_CRA23
+            PC: deja de enviar (ultimo mensaje en t=41.04 s)
+[PC  45.98 s] ESP32: AUTO 10045 AMARILLO_CRA23
+[PC  48.98 s] ESP32: MODO INTERMITENTE SIN_PC
+--- 5. Recuperacion ---
+[PC  52.12 s] PC -> ESP32: LUZ VERDE_DG15       | ESP32: ERROR para salir de intermitente envie LUZ TODO_ROJO
+[PC  53.23 s] PC -> ESP32: LUZ TODO_ROJO        | ESP32: MODO NORMAL / OK 17297 TODO_ROJO
+[PC  55.33 s] PC -> ESP32: LUZ VERDE_DG15       | ESP32: OK 19397 VERDE_DG15
+[PC  58.62 s] ESP32: OK 22686 AMARILLO_DG15
+[PC  59.72 s] ESP32: OK 23789 TODO_ROJO
+
+===== RESULTADO =====
+  [OK] Arranque: el ESP32 envia LISTO
+  [OK] Obedece la secuencia: 6/6 cambios confirmados con OK
+  [OK] Luz desconocida rechazada (ERROR) sin cambiar la luz
+  [OK] Transicion prohibida rechazada (ERROR)
+  [OK] Amarillo automatico de la Dg 15 antes del intermitente
+  [OK] Intermitente CONFLICTO tras el amarillo (amarillo medido: 2.99 s)
+  [OK] Intermitente por CONFLICTO no se recupera sin reiniciar
+  [OK] Reinicio por RTS: LISTO
+  [OK] Amarillo automatico de la Cra 23 tras el silencio (medido: 4.94 s, esperado 5.0 s)
+  [OK] Intermitente SIN_PC tras el amarillo (amarillo medido: 3.0 s)
+  [OK] En intermitente rechaza un verde directo
+  [OK] Con TODO_ROJO vuelve a MODO NORMAL
+  [OK] Despues de recuperarse obedece de nuevo (OK VERDE_DG15)
+PRUEBA SUPERADA

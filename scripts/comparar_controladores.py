@@ -28,7 +28,7 @@ from src.metrics.metricas import leer_tripinfo, resumir_colas, resumir_verdes, r
 from src.simulation.ejecutar_escenario import CARPETA_ESCENARIOS, leer_yaml, simular  # noqa: E402
 
 ESCENARIOS = ["aforo_bajo", "aforo_valle_manana", "aforo_medio", "aforo_alto", "aforo_pico_jueves"]
-CONTROLADORES = ["tiempos_fijos", "tiempos_fijos_norma", "qlearning"]
+CONTROLADORES = ["tiempos_fijos", "tiempos_fijos_norma", "tiempos_fijos_webster", "tiempos_fijos_optimo", "qlearning"]
 CICLO_RECOMENDADO_MAX_S = 120  # Manual de Senalizacion Vial 2024, 4.8.6
 
 
@@ -45,14 +45,14 @@ def resumir_ciclos(historial_verdes, inicio, fin):
             "ciclos_mayores_120_pct": 100 * sum(c > CICLO_RECOMENDADO_MAX_S for c in ciclos) / len(ciclos)}
 
 
-def una_corrida(escenario, semilla, controlador, modelo, configs, ruta_log=None):
+def una_corrida(escenario, semilla, controlador, modelo, configs, ruta_log=None, verdes_fijos=None):
     config_interseccion, _, config_experimento = configs
     inicio, fin = config_experimento["calentamiento_s"], config_experimento["duracion_demanda_s"]
     with tempfile.TemporaryDirectory() as carpeta_temporal:  # el tripinfo se borra al terminar
         ruta_tripinfo = Path(carpeta_temporal) / "tripinfo.xml"
         filas, guard, ctrl, cierre = simular(CARPETA_ESCENARIOS / f"{escenario}.sumocfg", semilla, False, controlador,
                                              configs, ruta_tripinfo, modelo if controlador == "qlearning" else None,
-                                             zona="al_decidir", ruta_log=ruta_log)
+                                             zona="al_decidir", ruta_log=ruta_log, verdes_fijos=verdes_fijos)
         viajes = leer_tripinfo(ruta_tripinfo)
     fila = {"escenario": escenario, "semilla": semilla, "controlador": controlador}
     fila.update(resumir_viajes(viajes, inicio, fin))

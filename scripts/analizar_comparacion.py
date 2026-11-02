@@ -43,10 +43,15 @@ METRICAS = {
     "throughput_veh_h": ("Throughput (veh/h)", True),
 }
 COMPARACIONES = [("qlearning", "tiempos_fijos"), ("qlearning", "tiempos_fijos_norma"),
+                 ("qlearning", "tiempos_fijos_webster"), ("tiempos_fijos_webster", "tiempos_fijos"),
+                 ("qlearning", "tiempos_fijos_optimo"), ("tiempos_fijos_optimo", "tiempos_fijos"),
                  ("tiempos_fijos_norma", "tiempos_fijos")]
 NOMBRES = {"tiempos_fijos": "Semaforo real", "tiempos_fijos_norma": "Real + todo-rojo norma",
+           "tiempos_fijos_webster": "Plan fijo Webster", "tiempos_fijos_optimo": "Mejor plan fijo (busqueda)",
            "qlearning": "Agente Q-Learning"}
-COLORES = {"tiempos_fijos": "#7f8c8d", "tiempos_fijos_norma": "#e07b1f", "qlearning": "#2a78d6"}
+COLORES = {"tiempos_fijos": "#eb6834", "tiempos_fijos_norma": "#e07b1f", "tiempos_fijos_webster": "#1baf7a",
+           "tiempos_fijos_optimo": "#6250d6",
+           "qlearning": "#2a78d6"}
 
 
 def biserial_de_rangos(diferencias):
