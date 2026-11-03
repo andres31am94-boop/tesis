@@ -1,0 +1,250 @@
+{
+  "pesos": "C:\\Users\\andre\\Documents\\tesis\\results\\vision\\entrenamiento\\hotwheels_v1_epoca2\\weights\\best.pt",
+  "conf": 0.25,
+  "imgsz": 640,
+  "nms_iou": 0.5,
+  "error_absoluto_medio": 3.688,
+  "total_reales": 129,
+  "total_detectados": 96,
+  "imagenes": [
+    {
+      "imagen": "angulo_7carros_a.jpg",
+      "reales": 7,
+      "detectados": 6,
+      "error": -1,
+      "inferencia_ms": 416.0,
+      "confianzas": [
+        0.823,
+        0.733,
+        0.722,
+        0.663,
+        0.605,
+        0.537
+      ]
+    },
+    {
+      "imagen": "angulo_7carros_b.jpg",
+      "reales": 7,
+      "detectados": 8,
+      "error": 1,
+      "inferencia_ms": 175.5,
+      "confianzas": [
+        0.828,
+        0.73,
+        0.652,
+        0.638,
+        0.631,
+        0.459,
+        0.314,
+        0.252
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_a.jpg",
+      "reales": 9,
+      "detectados": 14,
+      "error": 5,
+      "inferencia_ms": 142.0,
+      "confianzas": [
+        0.616,
+        0.498,
+        0.471,
+        0.446,
+        0.438,
+        0.412,
+        0.394,
+        0.393,
+        0.381,
+        0.336,
+        0.315,
+        0.313,
+        0.31,
+        0.257
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_b.jpg",
+      "reales": 9,
+      "detectados": 14,
+      "error": 5,
+      "inferencia_ms": 409.4,
+      "confianzas": [
+        0.663,
+        0.546,
+        0.508,
+        0.495,
+        0.484,
+        0.473,
+        0.409,
+        0.388,
+        0.345,
+        0.342,
+        0.326,
+        0.309,
+        0.293,
+        0.267
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_a.jpg",
+      "reales": 9,
+      "detectados": 10,
+      "error": 1,
+      "inferencia_ms": 296.9,
+      "confianzas": [
+        0.531,
+        0.507,
+        0.468,
+        0.436,
+        0.41,
+        0.381,
+        0.373,
+        0.342,
+        0.32,
+        0.309
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_b.jpg",
+      "reales": 9,
+      "detectados": 10,
+      "error": 1,
+      "inferencia_ms": 274.8,
+      "confianzas": [
+        0.603,
+        0.564,
+        0.478,
+        0.432,
+        0.361,
+        0.339,
+        0.307,
+        0.304,
+        0.298,
+        0.293
+      ]
+    },
+    {
+      "imagen": "cruce_cerca2_8carros.jpg",
+      "reales": 8,
+      "detectados": 7,
+      "error": -1,
+      "inferencia_ms": 401.0,
+      "confianzas": [
+        0.845,
+        0.765,
+        0.763,
+        0.615,
+        0.588,
+        0.367,
+        0.341
+      ]
+    },
+    {
+      "imagen": "cruce_cerca_8carros.jpg",
+      "reales": 8,
+      "detectados": 4,
+      "error": -4,
+      "inferencia_ms": 488.1,
+      "confianzas": [
+        0.634,
+        0.365,
+        0.293,
+        0.254
+      ]
+    },
+    {
+      "imagen": "cruce_prueba_8carros_a.jpg",
+      "reales": 8,
+      "detectados": 2,
+      "error": -6,
+      "inferencia_ms": 321.2,
+      "confianzas": [
+        0.436,
+        0.377
+      ]
+    },
+    {
+      "imagen": "cruce_prueba_8carros_b.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 319.7,
+      "confianzas": [
+        0.423
+      ]
+    },
+    {
+      "imagen": "cruce_recorte_norte_8carros_a.jpg",
+      "reales": 8,
+      "detectados": 2,
+      "error": -6,
+      "inferencia_ms": 358.9,
+      "confianzas": [
+        0.353,
+        0.331
+      ]
+    },
+    {
+      "imagen": "cruce_recorte_norte_8carros_b.jpg",
+      "reales": 8,
+      "detectados": 5,
+      "error": -3,
+      "inferencia_ms": 244.6,
+      "confianzas": [
+        0.45,
+        0.343,
+        0.3,
+        0.268,
+        0.251
+      ]
+    },
+    {
+      "imagen": "cruce_var_oscura_8carros.jpg",
+      "reales": 8,
+      "detectados": 0,
+      "error": -8,
+      "inferencia_ms": 299.0,
+      "confianzas": []
+    },
+    {
+      "imagen": "cruce_var_rotada_8carros.jpg",
+      "reales": 8,
+      "detectados": 2,
+      "error": -6,
+      "inferencia_ms": 260.7,
+      "confianzas": [
+        0.626,
+        0.596
+      ]
+    },
+    {
+      "imagen": "cruce_var_sin_cinta_8carros.jpg",
+      "reales": 8,
+      "detectados": 4,
+      "error": -4,
+      "inferencia_ms": 221.5,
+      "confianzas": [
+        0.487,
+        0.432,
+        0.333,
+        0.272
+      ]
+    },
+    {
+      "imagen": "video_IMG_0566_cuadro0.jpg",
+      "reales": 7,
+      "detectados": 7,
+      "error": 0,
+      "inferencia_ms": 320.4,
+      "confianzas": [
+        0.918,
+        0.768,
+        0.708,
+        0.695,
+        0.637,
+        0.632,
+        0.411
+      ]
+    }
+  ]
+}

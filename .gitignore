@@ -43,3 +43,14 @@ results/calibracion/barrido_red/*/*.sumocfg
 docs/normativa/
 # Archivos sueltos de pruebas
 tests/*.add
+
+# Entorno aparte de Label Studio y su base de datos local (Fase 7.4)
+.venv_label/
+data/label_studio/
+
+# Imagenes con cajas sobre FOTOS PROPIAS (salen manos/pies, la casa): se quedan en el PC; se suben solo los resumen.json
+results/vision/evaluacion_hotwheels/**/*.jpg
+results/vision/prueba_hotwheels/**/*.jpg
+results/vision/tracking/**/*.jpg
+results/vision/zonas/*.jpg
+results/vision/conteo_zonas/**/*.jpg

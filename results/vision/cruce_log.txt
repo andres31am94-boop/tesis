@@ -1,0 +1,16 @@
+Guardado: C:\Users\andre\Documents\tesis\results\vision\zonas\zonas_cruce_prueba_8carros_b.jpg
+Modelo C:\Users\andre\Documents\tesis\results\vision\entrenamiento\hotwheels_v1_epoca1\weights\best.pt | conf >= 0.4 | imgsz 640 | nms_iou 0.5
+
+imagen                           reales  detect.  error     ms
+angulo_7carros_a.jpg                  7        6     -1   1251
+angulo_7carros_b.jpg                  7        6     -1   2612
+arriba_9carros_a.jpg                  9        8     -1   1210
+arriba_9carros_b.jpg                  9        9     +0    985
+arriba_9carros_filas_a.jpg            9        9     +0    879
+arriba_9carros_filas_b.jpg            9        9     +0    917
+cruce_prueba_8carros_a.jpg            8        0     -8    722
+cruce_prueba_8carros_b.jpg            8        0     -8    392
+video_IMG_0566_cuadro0.jpg            7        7     +0    595
+
+Total reales 73 | detectados 54 | error absoluto medio por imagen 2.11
+Imagenes con cajas y resumen en: C:\Users\andre\Documents\tesis\results\vision\evaluacion_hotwheels\hotwheels_v1_epoca1_conf0.4_nms0.5

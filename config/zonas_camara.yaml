@@ -1,0 +1,21 @@
+# Zonas de camara de la maqueta (Fase 8): un poligono por brazo, en coordenadas NORMALIZADAS de la imagen
+# (x = fraccion del ancho, y = fraccion del alto; 0,0 = esquina superior izquierda).
+# Cada zona cubre SOLO el carril que llega al cruce, desde la linea de pare hacia atras (igual que la zona de
+# camara de SUMO). PROVISIONAL: se define sobre la foto del cruce de prueba con la camara fija; si la camara se
+# mueve, hay que volver a definirlas. Verificar dibujandolas: scripts/ver_zonas.py
+imagen_referencia: data/raw/hotwheels/cruce_prueba_8carros_b.jpg   # cruce provisional en el piso (2026-11-02), 1512x2016
+# Orientacion (definida por los autores, 2026-11-02): la calle HORIZONTAL de la foto es la Cra 23 -> brazo
+# derecho (donde estan los carros) = norte, brazo izquierdo = sur. La calle VERTICAL es la Dg 15 -> arriba = este,
+# abajo = oeste (asignacion arbitraria: el agente decide por EJE, asi que da igual cual sea cual).
+# Cada zona cubre los DOS carriles del brazo, desde la linea de pare hasta el borde de la calle (en la maqueta los
+# carros que llegan pueden usar ambos carriles; los que salen del cruce atraviesan la zona del brazo opuesto en
+# movimiento y no cuentan como detenidos).
+zonas:
+  norte: [[0.583, 0.512], [0.967, 0.512], [0.967, 0.603], [0.583, 0.603]]   # Cra 23, derecha de la imagen
+  sur:   [[0.000, 0.511], [0.380, 0.511], [0.380, 0.600], [0.000, 0.600]]   # Cra 23, izquierda
+  este:  [[0.423, 0.207], [0.537, 0.207], [0.537, 0.481], [0.423, 0.481]]   # Dg 15, arriba
+  oeste: [[0.417, 0.634], [0.537, 0.634], [0.537, 0.975], [0.417, 0.975]]   # Dg 15, abajo
+deteccion_detenido:
+  ventana_s: 1.0               # debe estar quieto al menos este tiempo
+  umbral_movimiento: 0.01      # desplazamiento maximo en la ventana (fraccion del lado mayor de la imagen)
+punto_referencia: centro       # "centro" de la caja (camara cenital) o "base" (camara inclinada)

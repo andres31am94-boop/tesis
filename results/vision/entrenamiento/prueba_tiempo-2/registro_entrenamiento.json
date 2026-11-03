@@ -1,0 +1,16 @@
+{
+  "fecha": "2026-11-02T17:04:00",
+  "ultralytics": "8.4.198",
+  "python": "3.11.5",
+  "procesador": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+  "dispositivo": "cpu",
+  "datos": "C:\\Users\\andre\\Documents\\tesis\\data\\raw\\datasets_comunidad\\hot-wheels-recognition_v1\\data_tesis.yaml",
+  "modelo_inicial": "yolo26n.pt",
+  "epocas": 1,
+  "fraccion": 0.05,
+  "imgsz": 640,
+  "lote": 8,
+  "semilla": 0,
+  "nota": "registro de la corrida prueba_tiempo-2 (lanzada por el tutor); prueba_tiempo la lanzaron los autores con los mismos parametros",
+  "minutos_entrenamiento": 17.9
+}

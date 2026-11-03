@@ -1554,3 +1554,164 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
 - Observación de los autores: lo mostrado en PowerShell coincidió con los LEDs durante toda la corrida.
 - Resultados: `results/hardware/lazo/aforo_alto_qlearning_aforo_v8_s1_t900-1200/`.
 - Con esto la Fase 10 (ESP32) queda completa.
+
+## 2026-11-02 — Fase 7, paso 7.0: entorno para visión artificial
+- Decisión de los autores: la maqueta se hará solo con Hot Wheels movidos manualmente (no se compran mini RC).
+  Justificación: el agente decide con la cola (detenidos/presentes cerca de la línea de pare), que con Hot Wheels se
+  arma de forma controlada y repetible; el movimiento para el tracking se da empujándolos con una regla.
+- Entorno medido (`scripts/verificar_entorno_vision.py`): Windows (AMD64), Python 3.11.5 (venv), CPU Intel
+  (Family 6 Model 142), SIN GPU NVIDIA → YOLO correrá en CPU (los FPS deben medirse). PyTorch, Ultralytics y OpenCV
+  no estaban instalados.
+- Modelo elegido para la primera prueba: YOLO26n (Ultralytics), el más reciente de la familia según la documentación
+  oficial (docs.ultralytics.com/models/yolo26), variante nano por ser la más liviana para CPU. Se probará tal cual
+  (preentrenado en COCO: car, motorcycle, bus, truck) antes de decidir si hace falta entrenar con fotos propias.
+- Script de prueba: `scripts/probar_yolo_imagenes.py` (fotos/videos en data/raw/hotwheels/, no se versionan).
+- Instalado (2026-11-02, `pip install ultralytics` en el venv): Ultralytics 8.4.198, PyTorch 2.15.0+cpu (CUDA no
+  disponible), OpenCV 5.0.0. Agregado a requirements.txt (ultralytics fijado a 8.4.198).
+
+## 2026-11-02 — Fase 7, paso 7.1: YOLO26n preentrenado (COCO) con Hot Wheels — NO sirve tal cual
+- Datos: 6 fotos propias (2 en ángulo con 7 carros, 4 desde arriba con 9) + primer cuadro de un video desde arriba,
+  sobre baldosa (no es todavía el tablero final). `scripts/probar_yolo_imagenes.py`, conf ≥ 0,10, imgsz 640, CPU.
+- Resultado: 0 vehículos (car/motorcycle/bus/truck) en las 7 imágenes. Revisando las imágenes con cajas:
+  - En ángulo, YOLO SÍ encuentra 3 de 7 carros, pero los clasifica como "cell phone" (0,17–0,82).
+  - Desde arriba (2016×1512), no encuentra ningún carro (cada carro ocupa ~30 px tras reducir la imagen a 640).
+  - Cuadro del video (1080×1920): localiza 6 de 7 carros, todos como "cell phone" o "bottle" (0,12–0,39).
+  - Falsos positivos: muebles (chair, refrigerator, toilet, tv) y pies/mano (person).
+- Interpretación: el modelo COCO aprendió carros reales vistos de lado o en ángulo; un juguete visto desde arriba se
+  parece más a un celular. Se descarta usar "cell phone" como vehículo (no es defendible ni robusto).
+- Velocidad medida en este PC (CPU, imgsz 640): 60–120 ms por imagen (un caso de 301 ms) → ~8–16 imágenes/s;
+  221 ms para el cuadro de 1080×1920. Suficiente para la demo (se estimaban 5–10 imágenes/s necesarias).
+- Decisión propuesta: entrenar YOLO26n con fotos propias de los Hot Wheels (transferencia de aprendizaje, clase
+  "vehiculo"), tomadas en el montaje final (cámara, altura e iluminación de la maqueta).
+
+## 2026-11-02 — Fase 7, paso 7.2: elección de un dataset de la comunidad
+- Revisados en Roboflow Universe (con la cuenta de los autores):
+  - toy-car (yolo-ansk1/toy-car-ertgd, 412 img, CC BY 4.0): cuadros de un video de UN carro blanco sobre tapete verde → poca variedad, descartado.
+  - Hot Wheels (license-plate-detection-wns13/hot-wheels-eq6ep, 906 img, dominio público): UN Hot Wheels filmado de cerca y de lado → no se parece a la maqueta, descartado.
+  - **Hot-wheels-recognition** (group-project-konh2/hot-wheels-recognition, v1, 7.058 imágenes originales / 17.626 con
+    aumentos ×3; CC BY 4.0; 1 clase "Auto"; 640×640 estirado; división 90/8/2 %): muchos carros de juguete distintos,
+    varios por imagen, incluidas vistas desde arriba sobre tapetes con calles → **elegido**.
+- Descarga en formato YOLO26 (zip) desde Chrome con la sesión de los autores (autorizada). Destino final:
+  data/raw/datasets_comunidad/ (no se versiona). Cita: Roboflow Universe, "Hot-wheels-recognition", CC BY 4.0.
+- Script de entrenamiento preparado: `scripts/entrenar_yolo.py` (YOLO26n, CPU, semilla 0; primero una prueba corta
+  con --fraccion 0.05 --epocas 1 para medir el tiempo por época).
+- Descargado y descomprimido (2026-11-02): `Hot-wheels-recognition.v1i.yolo26.zip` (670 MB) →
+  data/raw/datasets_comunidad/hot-wheels-recognition_v1/: train 15.871, valid 1.404, test 351 imágenes (cada una con su
+  etiqueta), clase única "Car". Se agregó `data_tesis.yaml` (misma definición con ruta explícita) y `origen_dataset.json`.
+  El zip original queda en Descargas (puede borrarse; se regenera desde Roboflow).
+- Disco del PC: 238 GB, 28 GB libres antes de la descarga (el dataset ocupa ~1,3 GB entre zip y carpeta).
+
+## 2026-11-02 — Fase 7, paso 7.2: prueba de tiempo y lanzamiento del entrenamiento (autorizado por los autores, ausentes)
+- Prueba de tiempo (1 época, 5 % del train = 794 imágenes, lote 8, imgsz 640, CPU): la corrieron los autores
+  (`prueba_tiempo`) y el tutor (`prueba_tiempo-2`) con los mismos parámetros. Tiempo total 17,9 min (entrenamiento
+  ~9 min a ~4,8 s por lote de 8 → ~0,6 s por imagen; validación con 1.404 imágenes ~4–5 min, se hace al final de cada
+  época y otra vez al terminar). Métricas tras 1 época con 5 %: P 0,16, R 0,064, mAP50 0,040 (las dos corridas casi
+  iguales: 0,158/0,065/0,040) → claramente insuficiente, como se esperaba con tan poco entrenamiento.
+  Inferencia medida en validación: ~99 ms por imagen.
+- Corrección: si la carpeta de resultados ya existe, Ultralytics crea "<nombre>-2"; el script guardaba
+  registro_entrenamiento.json en la carpeta equivocada. Ahora usa `modelo.trainer.save_dir`. Se movió el registro a
+  `prueba_tiempo-2`. Se agregó `--reanudar` (continúa desde last.pt si se interrumpe).
+- Entrenamiento lanzado (17:04 hora local) con `ENTRENAR_HOTWHEELS_V1.bat`: YOLO26n, 20 % del train (3.174 imágenes),
+  8 épocas, lote 8, imgsz 640, CPU, semilla 0. Estimado: ~32 min de entrenamiento + ~4 min de validación por época →
+  ~5 h. Registro: `results/vision/entrenamiento_hotwheels_v1_log.txt`; resultados en
+  `results/vision/entrenamiento/hotwheels_v1/`. Si se corta: `REANUDAR_HOTWHEELS_V1.bat`.
+  Criterio de elección (decisión del tutor con autorización de los autores): el entrenamiento completo (15.871 imágenes)
+  tomaría ~3 h por época en este CPU; con 20 % y 8 épocas cabe en una tarde/noche. Si no basta, la alternativa es
+  Google Colab (GPU), que requiere la cuenta de Google de los autores.
+
+## 2026-11-02 — Fase 7, paso 7.2: resultado de la época 1 (hotwheels_v1)
+- Época 1 (20 % del train, 3.174 imágenes): 38 min (2.287 s). Validación del dataset (1.404 imágenes): P 0,571,
+  R 0,436, mAP50 0,464, mAP50-95 0,280. (Prueba de tiempo con 5 %: mAP50 0,040.)
+- Copia del modelo de la época 1: `results/vision/entrenamiento/hotwheels_v1_epoca1/weights/best.pt` (= last.pt época 1).
+- Evaluación con las 7 fotos PROPIAS (nunca vistas; 57 carros reales), `scripts/evaluar_yolo_hotwheels.py`:
+  | configuración | detectados | error absoluto medio por foto | fotos exactas |
+  | conf 0,25, sin NMS | 79 | 3,14 | 2/7 |
+  | conf 0,10, sin NMS | 99 | 6,00 | 0/7 |
+  | conf 0,25, NMS IoU 0,5 | 60 | 0,71 | 4/7 |
+  | **conf 0,40, NMS IoU 0,5** | **54** | **0,43** | **4/7 (las otras 3 con error de −1)** |
+  Revisando las imágenes: sin NMS el exceso NO eran falsos positivos (muebles, pies, mano: ninguno), sino 2–3 cajas
+  casi encimadas sobre el MISMO carro. YOLO26 no aplica NMS por defecto (cabeza uno-a-uno), y con 1 época aún no
+  converge; se agregó `--nms_iou` (torchvision.ops.nms) al script de evaluación. Inferencia: ~120–580 ms por foto
+  de 2016×1512 mientras el entrenamiento ocupaba la CPU.
+- Decisión de los autores: si con la época 1 ya reconoce los carros, quedarse con ese modelo. Con conf 0,40 + NMS
+  cuenta 54/57 → se adopta `hotwheels_v1_epoca1` como detector provisional. Limitación: solo 7 fotos de prueba sobre
+  baldosa; hay que repetir la evaluación con fotos de la maqueta (tablero de madera, cámara definitiva).
+- El tutor no pudo cerrar la ventana del entrenamiento a distancia (los clics en la consola no tuvieron efecto); el
+  entrenamiento sigue corriendo (épocas 2–8). Los autores pueden cerrarlo o dejarlo terminar: last.pt/best.pt de
+  épocas posteriores podrían reducir las cajas duplicadas (hay que medirlo con el mismo script).
+- Error propio corregido: precedencia de operadores en la ruta de salida del script de evaluación (TypeError).
+
+## 2026-11-02 — Fase 7, paso 7.3: YOLO (época 1) + NMS + ByteTrack sobre el video de prueba
+- `scripts/probar_tracking_video.py` (lanzado con `PROBAR_TRACKING.bat`): modelo hotwheels_v1_epoca1, conf 0,40,
+  NMS IoU 0,5 aplicado ANTES del tracker (callback de Ultralytics), ByteTrack. Video: 10 s, 300 cuadros,
+  1080×1920 a 30 fps, cenital, 7 Hot Wheels; 3 de ellos se arrastran con hilos (movimiento sin mano en cuadro).
+- Ultralytics instaló automáticamente la dependencia `lap` 0.5.13 (necesaria para ByteTrack); agregada a requirements.txt.
+- Resultado: vehículos detectados por cuadro: promedio 6,98 (mín. 5, máx. 7) de 7 reales; ids distintos en todo el
+  video: 8 (7 carros → 1 id extra). Los ids 1–7 se mantienen durante todo el video, incluidos los 3 carros en
+  movimiento (ids 1, 2, 3). En los últimos cuadros los carros 1 y 2 quedan pegados y el detector los encierra en una
+  sola caja (de ahí el mínimo de 5): limitación con vehículos que se tocan; en la maqueta habrá separación por carril.
+  Velocidad: mediana 234 ms por cuadro (4,3 cuadros/s) MIENTRAS el entrenamiento ocupaba la CPU; debe medirse de
+  nuevo con la CPU libre. Mosaico de cuadros 0/100/200/299 en
+  results/vision/tracking/hotwheels_v1_epoca1_video_IMG_0566_bytetrack/.
+- Entrenamiento en curso: época 2 → P 0,635, R 0,504, mAP50 0,522, mAP50-95 0,321 (época 1: 0,571/0,436/0,464/0,280).
+
+## 2026-11-02 — Fase 8 (preparación): cruce provisional y conteo por brazo
+- Sin la tabla aún, los autores armaron un cruce provisional en el piso con cinta negra (calles de ~1 m, 2 carriles,
+  líneas de pare punteadas). Primera foto: cámara inclinada, brazos cortados por el borde, objetos y reflejos en
+  cuadro → se pidió cámara fija cenital con todo el cruce visible, sin objetos, foto vacía + video de ~30 s.
+- Preparado: `config/zonas_camara.yaml` (zonas por brazo en coordenadas normalizadas; se completa con la foto de
+  referencia), `scripts/ver_zonas.py` (dibuja las zonas para verificarlas) y `scripts/contar_zonas_video.py`
+  (YOLO + NMS + ByteTrack + ContadorZonas → presentes y detenidos por brazo, una fila por segundo + video anotado).
+- Fotos del cruce provisional (cámara más alta y más cenital, todo el cruce visible; 8 carros en cola en 2 carriles):
+  `data/raw/hotwheels/cruce_prueba_8carros_a/b.jpg`. Zonas definidas sobre la "b" (entre "a" y "b" la cámara se movió
+  un poco → hay que fijarla). Orientación según los autores: calle horizontal = Cra 23 (derecha = norte, donde está
+  la cola; izquierda = sur); calle vertical = Dg 15 (arriba = este, abajo = oeste, asignación arbitraria). Mismos
+  nombres de brazo que config/interseccion.yaml. Cada zona cubre los 2 carriles del brazo.
+- Detección en esas fotos con el modelo de la época 1 (conf 0,40, NMS, imgsz 640): **0 de 8** en ambas (las 7 fotos
+  anteriores siguen con error ±1). Hipótesis: con la cámara más alta cada carro queda de ~30 px al reducir la imagen
+  a 640. Preparada prueba con imgsz 1280 y con conf 0,15 (`PROBAR_CRUCE.bat`). Opciones si no basta: bajar la cámara,
+  recortar la región de las calles antes de YOLO, o entrenar con fotos de este montaje.
+- Pruebas para explicar el 0 de 8 en el cruce provisional (todas con NMS IoU 0,5):
+  | modelo / ajuste | cruce completo (8) | brazo norte recortado (8) | 7 fotos anteriores (57) |
+  | época 1, conf 0,40, imgsz 640 | 0 y 0 | 0 y 0 | 54 (error ±1) |
+  | época 1, conf 0,40, imgsz 1280 | 1 y 0 | — | 15 (peor: se entrenó a 640) |
+  | época 1, conf 0,15 | 0 y 0 | — | 65 (más duplicados) |
+  | época 2, conf 0,40 | 1 y 1 | 0 y 1 | 41 |
+  | época 2, conf 0,15 | 3 y 2 | 5 y 6 | 86 (muchos duplicados) |
+  Conclusión: NO es el tamaño (recortado, los carros quedan ~3 veces más grandes, y sigue sin detectarlos) ni el umbral:
+  el modelo entrenado con el dataset público no generaliza a este montaje (cinta negra, luz blanca pareja, carros en
+  fila apretada). Decisión propuesta: adaptación al dominio = ajuste fino con fotos propias del montaje (~40–60,
+  etiquetadas en Roboflow con la cuenta de los autores), partiendo del modelo actual; medir antes/después con las
+  mismas fotos de prueba (que NO se usan para entrenar).
+- Foto más cercana del cruce (`cruce_cerca_8carros.jpg`, 8 carros dispersos en los 4 brazos; los autores rotularon
+  en el piso: arriba = oeste, abajo = este, derecha = norte, izquierda = sur → corrige la asignación arbitraria de
+  la Dg 15). Época 1 (conf 0,40): 2 de 8. Época 2 (conf 0,25): 4 cajas, de las cuales solo 2 son carros (azul y
+  naranja); las otras 2 son falsos positivos (la repisa/frasco de la esquina y un tramo de calle con cinta).
+  Acercar la cámara ayuda poco: se confirma la necesidad de entrenar con imágenes propias del montaje.
+- Prueba de causas con variantes de `cruce_prueba_8carros_b.jpg` cambiando UNA cosa (época 1, NMS 0,5):
+  rotada a horizontal → 1 de 8; más oscura (gamma 1,8) → 0; cinta negra borrada (inpainting, carros intactos) →
+  0 (conf 0,40) / 1 (conf 0,25). Ninguna de las tres explica sola el fallo: no es (solo) la cinta, la orientación
+  ni el brillo. Interpretación: el modelo (1 época, 20 % del dataset público) es frágil fuera de las condiciones de
+  la primera sesión de fotos; el 54/57 inicial fue optimista (fotos muy parecidas entre sí). Decisión de los autores:
+  agregar fotos propias del montaje al entrenamiento. Regla: las fotos de PRUEBA ya usadas no entran al entrenamiento.
+- Segunda foto cercana (`cruce_cerca2_8carros.jpg`, cámara más baja: cada carro ~150 px de largo en la foto original;
+  ahora la Cra 23 es la calle vertical). Época 1 (conf 0,40): 3 de 8. **Época 2 (conf 0,25): 6 carros bien
+  detectados de 8** + 1 falso positivo (la palabra "oeste" escrita a mano en el piso); no detectó el azul (oeste) ni
+  el blanco (cortado por el borde inferior). Es el mejor resultado en el montaje: acercar la cámara SÍ ayuda cuando
+  la foto tiene más detalle real (el recorte digital no lo daba). Pendiente igualmente: entrenar con fotos propias.
+  Recomendación: no escribir rótulos en la zona de las calles (causan falsos positivos).
+
+## 2026-11-02 — Fase 7, paso 7.4: imágenes propias para entrenar (adaptación al dominio)
+- Videos de los autores sobre el cruce provisional (iPhone, 1920×1080, ~60 fps, H.264): IMG_0576 (1,3 s, descartado),
+  IMG_0577 (16 s), IMG_0578 (55 s), IMG_0579 (61 s), IMG_0580 (42 s). Movidos de "tesis/videos tesis" a
+  data/raw/hotwheels/videos_tesis/ (data/raw no se versiona; .MOV no estaba cubierto por .gitignore en la raíz).
+- Extraído 1 cuadro cada 1,5 s con ffmpeg (`-vf fps=1/1.5 -q:v 2`) → data/raw/hotwheels/cuadros_entrenamiento/:
+  117 imágenes (v0577: 11, v0578: 37, v0579: 41, v0580: 28). Contenido: colas en distintos brazos, carros dispersos
+  y cruzando, encuadre algo distinto entre videos; aparecen manos y pies (útiles como ejemplos de "no carro").
+- Las fotos de prueba previas (cruce_*, data/raw/hotwheels) NO se usan para entrenar.
+- Herramienta de etiquetado elegida: Label Studio LOCAL (las imágenes no salen del PC; el plan gratuito de Roboflow
+  publica los proyectos). Pre-etiquetado con el modelo de la época 2 (conf 0,25 + NMS) para que los autores solo
+  corrijan. Preparado: `scripts/preetiquetar_label_studio.py` y los lanzadores INSTALAR_LABEL_STUDIO.bat (entorno
+  aparte .venv_label), PRE_ETIQUETAR.bat e INICIAR_LABEL_STUDIO.bat. .gitignore: .venv_label/ y data/label_studio/.
+  Pendiente (siguiente sesión): instalar, pre-etiquetar, crear el proyecto, corregir las 117 imágenes, exportar en
+  formato YOLO y reentrenar.

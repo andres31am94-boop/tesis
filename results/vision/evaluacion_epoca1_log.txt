@@ -1,0 +1,26 @@
+Modelo C:\Users\andre\Documents\tesis\results\vision\entrenamiento\hotwheels_v1_epoca1\weights\best.pt | conf >= 0.25 | imgsz 640
+
+imagen                           reales  detect.  error     ms
+angulo_7carros_a.jpg                  7        7     +0    580
+angulo_7carros_b.jpg                  7        7     +0    264
+arriba_9carros_a.jpg                  9       12     +3    273
+arriba_9carros_b.jpg                  9       14     +5    354
+arriba_9carros_filas_a.jpg            9       17     +8    371
+arriba_9carros_filas_b.jpg            9       12     +3    305
+video_IMG_0566_cuadro0.jpg            7       10     +3    226
+
+Total reales 57 | detectados 79 | error absoluto medio por imagen 3.14
+Imagenes con cajas y resumen en: C:\Users\andre\Documents\tesis\results\vision\evaluacion_hotwheels\hotwheels_v1_epoca1_conf0.25
+Modelo C:\Users\andre\Documents\tesis\results\vision\entrenamiento\hotwheels_v1_epoca1\weights\best.pt | conf >= 0.1 | imgsz 640
+
+imagen                           reales  detect.  error     ms
+angulo_7carros_a.jpg                  7        9     +2    392
+angulo_7carros_b.jpg                  7       10     +3    204
+arriba_9carros_a.jpg                  9       17     +8    216
+arriba_9carros_b.jpg                  9       16     +7    274
+arriba_9carros_filas_a.jpg            9       18     +9    279
+arriba_9carros_filas_b.jpg            9       16     +7    368
+video_IMG_0566_cuadro0.jpg            7       13     +6    516
+
+Total reales 57 | detectados 99 | error absoluto medio por imagen 6.00
+Imagenes con cajas y resumen en: C:\Users\andre\Documents\tesis\results\vision\evaluacion_hotwheels\hotwheels_v1_epoca1_conf0.1

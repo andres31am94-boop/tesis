@@ -8,3 +8,5 @@ matplotlib
 openpyxl
 scipy        # prueba de Wilcoxon (scripts/analizar_comparacion.py)
 pyserial>=3.5        # Fase 10: comunicacion con el ESP32
+ultralytics==8.4.198   # Fase 7: YOLO (instala PyTorch 2.15.0+cpu y OpenCV 5.0.0 en este PC, sin GPU)
+lap==0.5.13            # Fase 7: lo pide Ultralytics para el tracking (ByteTrack); se instalo solo el 2026-11-02

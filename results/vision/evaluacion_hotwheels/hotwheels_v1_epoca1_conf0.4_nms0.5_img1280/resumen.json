@@ -1,0 +1,104 @@
+{
+  "pesos": "C:\\Users\\andre\\Documents\\tesis\\results\\vision\\entrenamiento\\hotwheels_v1_epoca1\\weights\\best.pt",
+  "conf": 0.4,
+  "imgsz": 1280,
+  "nms_iou": 0.5,
+  "error_absoluto_medio": 6.444,
+  "total_reales": 73,
+  "total_detectados": 15,
+  "imagenes": [
+    {
+      "imagen": "angulo_7carros_a.jpg",
+      "reales": 7,
+      "detectados": 4,
+      "error": -3,
+      "inferencia_ms": 2843.9,
+      "confianzas": [
+        0.772,
+        0.76,
+        0.709,
+        0.427
+      ]
+    },
+    {
+      "imagen": "angulo_7carros_b.jpg",
+      "reales": 7,
+      "detectados": 5,
+      "error": -2,
+      "inferencia_ms": 1532.0,
+      "confianzas": [
+        0.777,
+        0.736,
+        0.659,
+        0.534,
+        0.443
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_a.jpg",
+      "reales": 9,
+      "detectados": 1,
+      "error": -8,
+      "inferencia_ms": 785.2,
+      "confianzas": [
+        0.437
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_b.jpg",
+      "reales": 9,
+      "detectados": 0,
+      "error": -9,
+      "inferencia_ms": 701.3,
+      "confianzas": []
+    },
+    {
+      "imagen": "arriba_9carros_filas_a.jpg",
+      "reales": 9,
+      "detectados": 2,
+      "error": -7,
+      "inferencia_ms": 731.8,
+      "confianzas": [
+        0.667,
+        0.5
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_b.jpg",
+      "reales": 9,
+      "detectados": 0,
+      "error": -9,
+      "inferencia_ms": 871.9,
+      "confianzas": []
+    },
+    {
+      "imagen": "cruce_prueba_8carros_a.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 1243.5,
+      "confianzas": [
+        0.463
+      ]
+    },
+    {
+      "imagen": "cruce_prueba_8carros_b.jpg",
+      "reales": 8,
+      "detectados": 0,
+      "error": -8,
+      "inferencia_ms": 533.8,
+      "confianzas": []
+    },
+    {
+      "imagen": "video_IMG_0566_cuadro0.jpg",
+      "reales": 7,
+      "detectados": 2,
+      "error": -5,
+      "inferencia_ms": 1328.0,
+      "confianzas": [
+        0.48,
+        0.411
+      ]
+    }
+  ]
+}

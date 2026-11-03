@@ -1,0 +1,42 @@
+Modelo C:\Users\andre\Documents\tesis\results\vision\entrenamiento\hotwheels_v1_epoca1\weights\best.pt | conf >= 0.4 | imgsz 640 | nms_iou 0.5
+
+imagen                           reales  detect.  error     ms
+angulo_7carros_a.jpg                  7        6     -1    309
+angulo_7carros_b.jpg                  7        6     -1    124
+arriba_9carros_a.jpg                  9        8     -1    306
+arriba_9carros_b.jpg                  9        9     +0    363
+arriba_9carros_filas_a.jpg            9        9     +0    320
+arriba_9carros_filas_b.jpg            9        9     +0    259
+cruce_cerca_8carros.jpg               8        2     -6    441
+cruce_prueba_8carros_a.jpg            8        0     -8    299
+cruce_prueba_8carros_b.jpg            8        0     -8    233
+cruce_recorte_norte_8carros_a.jpg      8        0     -8    392
+cruce_recorte_norte_8carros_b.jpg      8        0     -8    190
+cruce_var_oscura_8carros.jpg          8        0     -8    296
+cruce_var_rotada_8carros.jpg          8        1     -7    222
+cruce_var_sin_cinta_8carros.jpg       8        0     -8    148
+video_IMG_0566_cuadro0.jpg            7        7     +0    495
+
+Total reales 121 | detectados 57 | error absoluto medio por imagen 4.27
+Imagenes con cajas y resumen en: C:\Users\andre\Documents\tesis\results\vision\evaluacion_hotwheels\hotwheels_v1_epoca1_conf0.4_nms0.5
+Modelo C:\Users\andre\Documents\tesis\results\vision\entrenamiento\hotwheels_v1_epoca1\weights\best.pt | conf >= 0.25 | imgsz 640 | nms_iou 0.5
+
+imagen                           reales  detect.  error     ms
+angulo_7carros_a.jpg                  7        6     -1    425
+angulo_7carros_b.jpg                  7        7     +0    250
+arriba_9carros_a.jpg                  9       10     +1    324
+arriba_9carros_b.jpg                  9       12     +3    243
+arriba_9carros_filas_a.jpg            9        9     +0    213
+arriba_9carros_filas_b.jpg            9        9     +0    261
+cruce_cerca_8carros.jpg               8        2     -6    277
+cruce_prueba_8carros_a.jpg            8        0     -8    464
+cruce_prueba_8carros_b.jpg            8        0     -8    378
+cruce_recorte_norte_8carros_a.jpg      8        0     -8    418
+cruce_recorte_norte_8carros_b.jpg      8        0     -8    328
+cruce_var_oscura_8carros.jpg          8        0     -8    293
+cruce_var_rotada_8carros.jpg          8        1     -7    325
+cruce_var_sin_cinta_8carros.jpg       8        1     -7    249
+video_IMG_0566_cuadro0.jpg            7        7     +0    406
+
+Total reales 121 | detectados 64 | error absoluto medio por imagen 4.33
+Imagenes con cajas y resumen en: C:\Users\andre\Documents\tesis\results\vision\evaluacion_hotwheels\hotwheels_v1_epoca1_conf0.25_nms0.5

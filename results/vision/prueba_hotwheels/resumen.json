@@ -1,0 +1,234 @@
+{
+  "ultralytics": "8.4.198",
+  "modelo": "yolo26n.pt",
+  "conf": 0.1,
+  "imgsz": 640,
+  "resultados": [
+    {
+      "imagen": "angulo_7carros_a.jpg",
+      "ancho": 2016,
+      "alto": 1512,
+      "inferencia_ms": 120.3,
+      "detecciones": [
+        {
+          "clase": "cell phone",
+          "confianza": 0.816,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "chair",
+          "confianza": 0.591,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "refrigerator",
+          "confianza": 0.269,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.264,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.165,
+          "es_vehiculo": false
+        }
+      ]
+    },
+    {
+      "imagen": "angulo_7carros_b.jpg",
+      "ancho": 2016,
+      "alto": 1512,
+      "inferencia_ms": 62.3,
+      "detecciones": [
+        {
+          "clase": "cell phone",
+          "confianza": 0.791,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "chair",
+          "confianza": 0.6,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "refrigerator",
+          "confianza": 0.295,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.256,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.212,
+          "es_vehiculo": false
+        }
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_a.jpg",
+      "ancho": 2016,
+      "alto": 1512,
+      "inferencia_ms": 68.6,
+      "detecciones": [
+        {
+          "clase": "person",
+          "confianza": 0.692,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "refrigerator",
+          "confianza": 0.509,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "chair",
+          "confianza": 0.429,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "person",
+          "confianza": 0.378,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "toilet",
+          "confianza": 0.209,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "person",
+          "confianza": 0.175,
+          "es_vehiculo": false
+        }
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_b.jpg",
+      "ancho": 2016,
+      "alto": 1512,
+      "inferencia_ms": 60.4,
+      "detecciones": [
+        {
+          "clase": "refrigerator",
+          "confianza": 0.597,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "chair",
+          "confianza": 0.565,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "person",
+          "confianza": 0.553,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "person",
+          "confianza": 0.194,
+          "es_vehiculo": false
+        }
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_a.jpg",
+      "ancho": 2016,
+      "alto": 1512,
+      "inferencia_ms": 61.3,
+      "detecciones": [
+        {
+          "clase": "toilet",
+          "confianza": 0.168,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "chair",
+          "confianza": 0.12,
+          "es_vehiculo": false
+        }
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_b.jpg",
+      "ancho": 2016,
+      "alto": 1512,
+      "inferencia_ms": 301.4,
+      "detecciones": [
+        {
+          "clase": "toilet",
+          "confianza": 0.295,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "chair",
+          "confianza": 0.272,
+          "es_vehiculo": false
+        }
+      ]
+    },
+    {
+      "imagen": "video_IMG_0566_cuadro0.jpg",
+      "ancho": 1080,
+      "alto": 1920,
+      "inferencia_ms": 220.9,
+      "detecciones": [
+        {
+          "clase": "person",
+          "confianza": 0.397,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.394,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "bottle",
+          "confianza": 0.251,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "person",
+          "confianza": 0.226,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.226,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.219,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.192,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.147,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "tv",
+          "confianza": 0.123,
+          "es_vehiculo": false
+        },
+        {
+          "clase": "cell phone",
+          "confianza": 0.117,
+          "es_vehiculo": false
+        }
+      ]
+    }
+  ]
+}

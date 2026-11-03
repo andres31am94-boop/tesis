@@ -1,0 +1,24 @@
+{
+  "video": "C:\\Users\\andre\\Documents\\tesis\\data\\raw\\hotwheels\\video_IMG_0566.mov",
+  "pesos": "results\\vision\\entrenamiento\\hotwheels_v1_epoca1\\weights\\best.pt",
+  "tracker": "bytetrack.yaml",
+  "conf": 0.4,
+  "nms_iou": 0.5,
+  "cuadros_procesados": 300,
+  "fps_video": 30.01,
+  "resolucion": [
+    1080,
+    1920
+  ],
+  "ids_distintos": 8,
+  "detectados_por_cuadro": {
+    "min": 5,
+    "max": 7,
+    "promedio": 6.98
+  },
+  "ms_por_cuadro": {
+    "mediana": 234.5,
+    "max": 14223.7
+  },
+  "fps_procesamiento": 4.26
+}

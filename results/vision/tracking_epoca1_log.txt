@@ -1,0 +1,42 @@
+[31m[1mrequirements:[0m Ultralytics requirement ['lap>=0.5.12'] not found, attempting AutoUpdate...
+Collecting lap>=0.5.12
+  Obtaining dependency information for lap>=0.5.12 from https://files.pythonhosted.org/packages/00/d1/052da79a000b09dd0f9c659dd2cbc5b46931e3804799fe2f8b3ef2a37599/lap-0.5.13-cp311-cp311-win_amd64.whl.metadata
+  Downloading lap-0.5.13-cp311-cp311-win_amd64.whl.metadata (6.8 kB)
+Requirement already satisfied: numpy>=1.21.6 in c:\users\andre\documents\tesis\.venv\lib\site-packages (from lap>=0.5.12) (2.4.6)
+Downloading lap-0.5.13-cp311-cp311-win_amd64.whl (1.5 MB)
+   ---------------------------------------- 1.5/1.5 MB 1.6 MB/s eta 0:00:00
+Installing collected packages: lap
+Successfully installed lap-0.5.13
+
+[notice] A new release of pip is available: 23.2.1 -> 26.3
+[notice] To update, run: C:\Users\andre\Documents\tesis\.venv\Scripts\python.exe -m pip install --upgrade pip
+
+[31m[1mrequirements:[0m AutoUpdate success  13.0s
+WARNING [31m[1mrequirements:[0m [1mRestart runtime or rerun command for updates to take effect[0m
+
+{
+  "video": "C:\\Users\\andre\\Documents\\tesis\\data\\raw\\hotwheels\\video_IMG_0566.mov",
+  "pesos": "results\\vision\\entrenamiento\\hotwheels_v1_epoca1\\weights\\best.pt",
+  "tracker": "bytetrack.yaml",
+  "conf": 0.4,
+  "nms_iou": 0.5,
+  "cuadros_procesados": 300,
+  "fps_video": 30.01,
+  "resolucion": [
+    1080,
+    1920
+  ],
+  "ids_distintos": 8,
+  "detectados_por_cuadro": {
+    "min": 5,
+    "max": 7,
+    "promedio": 6.98
+  },
+  "ms_por_cuadro": {
+    "mediana": 234.5,
+    "max": 14223.7
+  },
+  "fps_procesamiento": 4.26
+}
+
+Video con ids en: C:\Users\andre\Documents\tesis\results\vision\tracking\hotwheels_v1_epoca1_video_IMG_0566_bytetrack\tracking.mp4
