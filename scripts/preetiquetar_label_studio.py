@@ -26,7 +26,7 @@ ETIQUETA = "Car"
 def main():
     parser = argparse.ArgumentParser(description="Genera tareas de Label Studio con cajas propuestas por el modelo")
     parser.add_argument("--pesos", default=str(CARPETA_TESIS / "results" / "vision" / "entrenamiento" /
-                                               "hotwheels_v1_epoca2" / "weights" / "best.pt"))
+                                               "hotwheels_v1" / "weights" / "best.pt"))
     parser.add_argument("--conf", type=float, default=0.25)
     parser.add_argument("--nms_iou", type=float, default=0.5)
     argumentos = parser.parse_args()

@@ -1,0 +1,653 @@
+Requirement already satisfied: pip in c:\users\andre\documents\tesis\.venv_label\lib\site-packages (23.2.1)
+Collecting pip
+  Obtaining dependency information for pip from https://files.pythonhosted.org/packages/07/25/ee8c38ae72d66b844ce8eb9711ba905dba21ca1a8a0c960057c41cd23337/pip-26.3-py3-none-any.whl.metadata
+  Downloading pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+Downloading pip-26.3-py3-none-any.whl (2.0 MB)
+   ---------------------------------------- 2.0/2.0 MB 1.9 MB/s eta 0:00:00
+Installing collected packages: pip
+  Attempting uninstall: pip
+    Found existing installation: pip 23.2.1
+    Uninstalling pip-23.2.1:
+      Successfully uninstalled pip-23.2.1
+Successfully installed pip-26.3
+Collecting label-studio
+  Downloading label_studio-1.23.2-py3-none-any.whl.metadata (14 kB)
+Collecting Django<5.3.0,>=5.2.16 (from label-studio)
+  Downloading django-5.2.18-py3-none-any.whl.metadata (4.1 kB)
+Collecting appdirs>=1.4.3 (from label-studio)
+  Downloading appdirs-1.4.4-py2.py3-none-any.whl.metadata (9.0 kB)
+Collecting attr==0.3.1 (from label-studio)
+  Downloading attr-0.3.1.tar.gz (1.7 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting attrs>=19.2.0 (from label-studio)
+  Downloading attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting azure-storage-blob>=12.6.0 (from label-studio)
+  Downloading azure_storage_blob-12.31.1-py3-none-any.whl.metadata (26 kB)
+Collecting bleach>=6.4.0 (from label-studio)
+  Downloading bleach-6.4.0-py3-none-any.whl.metadata (32 kB)
+Collecting boto3<2.0.0,>=1.28.58 (from label-studio)
+  Downloading boto3-1.43.123-py3-none-any.whl.metadata (6.6 kB)
+Collecting botocore<2.0.0,>=1.39.3 (from label-studio)
+  Downloading botocore-1.43.123-py3-none-any.whl.metadata (5.6 kB)
+Collecting colorama>=0.4.4 (from label-studio)
+  Using cached colorama-0.4.6-py2.py3-none-any.whl.metadata (17 kB)
+Collecting cryptography>=46.0.7 (from label-studio)
+  Downloading cryptography-50.0.2-cp311-abi3-win_amd64.whl.metadata (4.4 kB)
+Collecting defusedxml>=0.7.1 (from label-studio)
+  Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+Collecting django-annoying==0.10.6 (from label-studio)
+  Downloading django_annoying-0.10.6-py2.py3-none-any.whl.metadata (2.3 kB)
+Collecting django-cors-headers==4.7.0 (from label-studio)
+  Downloading django_cors_headers-4.7.0-py3-none-any.whl.metadata (16 kB)
+Collecting django-csp==3.7 (from label-studio)
+  Downloading django_csp-3.7-py2.py3-none-any.whl.metadata (2.7 kB)
+Collecting django-debug-toolbar==3.2.1 (from label-studio)
+  Downloading django_debug_toolbar-3.2.1-py3-none-any.whl.metadata (3.2 kB)
+Collecting django-environ==0.10.0 (from label-studio)
+  Downloading django_environ-0.10.0-py2.py3-none-any.whl.metadata (13 kB)
+Collecting django-extensions==3.2.3 (from label-studio)
+  Downloading django_extensions-3.2.3-py3-none-any.whl.metadata (6.3 kB)
+Collecting django-filter==24.3 (from label-studio)
+  Downloading django_filter-24.3-py3-none-any.whl.metadata (5.2 kB)
+Collecting django-migration-linter<6.0.0,>=5.1.0 (from label-studio)
+  Downloading django_migration_linter-5.2.0-py3-none-any.whl.metadata (6.4 kB)
+Collecting django-ranged-fileresponse>=0.1.2 (from label-studio)
+  Downloading django-ranged-fileresponse-0.1.2.tar.gz (2.7 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting django-rq<3.2,>=3.1 (from label-studio)
+  Downloading django_rq-3.1-py3-none-any.whl.metadata (21 kB)
+Collecting django-storages==1.12.3 (from label-studio)
+  Downloading django_storages-1.12.3-py3-none-any.whl.metadata (54 kB)
+Collecting django-user-agents==0.4.0 (from label-studio)
+  Downloading django_user_agents-0.4.0-py3-none-any.whl.metadata (6.2 kB)
+Collecting djangorestframework==3.17.2 (from label-studio)
+  Downloading djangorestframework-3.17.2-py3-none-any.whl.metadata (7.9 kB)
+Collecting djangorestframework-simplejwt<6.0.0,>=5.4.0 (from djangorestframework-simplejwt[crypto]<6.0.0,>=5.4.0->label-studio)
+  Downloading djangorestframework_simplejwt-5.5.1-py3-none-any.whl.metadata (4.6 kB)
+Collecting drf-dynamic-fields==0.3.0 (from label-studio)
+  Downloading drf_dynamic_fields-0.3.0-py2.py3-none-any.whl.metadata (4.8 kB)
+Collecting drf-flex-fields==0.9.5 (from label-studio)
+  Downloading drf-flex-fields-0.9.5.tar.gz (27 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting drf-generators==0.3.0 (from label-studio)
+  Downloading drf-generators-0.3.0.tar.gz (9.4 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting drf-spectacular==0.28.0 (from label-studio)
+  Downloading drf_spectacular-0.28.0-py3-none-any.whl.metadata (14 kB)
+Collecting google-cloud-logging<4.0.0,>=3.10.0 (from label-studio)
+  Downloading google_cloud_logging-3.17.0-py3-none-any.whl.metadata (10.0 kB)
+Collecting google-cloud-storage<4.0.0,>=3.8.0 (from label-studio)
+  Downloading google_cloud_storage-3.17.1-py3-none-any.whl.metadata (14 kB)
+Collecting ijson<4.0.0,>=3.4.0 (from label-studio)
+  Downloading ijson-3.6.0-cp311-cp311-win_amd64.whl.metadata (24 kB)
+Collecting label-studio-sdk==2.1.2 (from label-studio)
+  Downloading label_studio_sdk-2.1.2-py3-none-any.whl.metadata (9.1 kB)
+Collecting launchdarkly-server-sdk==8.2.1 (from label-studio)
+  Downloading launchdarkly_server_sdk-8.2.1-py3-none-any.whl.metadata (1.3 kB)
+Collecting lxml>=6.1.0 (from lxml[html-clean]>=6.1.0->label-studio)
+  Downloading lxml-6.1.3-cp311-cp311-win_amd64.whl.metadata (3.4 kB)
+Collecting numpy<3.0.0,>=2.2.6 (from label-studio)
+  Downloading numpy-2.4.6-cp311-cp311-win_amd64.whl.metadata (6.6 kB)
+Collecting openai<2.0.0,>=1.10.0 (from label-studio)
+  Downloading openai-1.109.1-py3-none-any.whl.metadata (29 kB)
+Collecting ordered-set==4.0.2 (from label-studio)
+  Downloading ordered-set-4.0.2.tar.gz (10 kB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting pandas>=2.2.3 (from label-studio)
+  Downloading pandas-3.1.0-cp311-cp311-win_amd64.whl.metadata (18 kB)
+Collecting psycopg<4.0.0,>=3.2.0 (from psycopg[binary]<4.0.0,>=3.2.0->label-studio)
+  Downloading psycopg-3.3.7-py3-none-any.whl.metadata (4.4 kB)
+Collecting pyarrow<25.0.0,>=24.0.0 (from label-studio)
+  Downloading pyarrow-24.0.0-cp311-cp311-win_amd64.whl.metadata (3.0 kB)
+Collecting pyboxen>=1.3.0 (from label-studio)
+  Downloading pyboxen-1.3.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting pydantic>=2.9.2 (from label-studio)
+  Downloading pydantic-2.14.2-py3-none-any.whl.metadata (137 kB)
+Collecting python-dateutil>=2.8.1 (from label-studio)
+  Downloading python_dateutil-4.0.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting python-json-logger==2.0.4 (from label-studio)
+  Downloading python_json_logger-2.0.4-py3-none-any.whl.metadata (6.5 kB)
+Collecting pytz<2023.0,>=2022.1 (from label-studio)
+  Downloading pytz-2022.7.1-py2.py3-none-any.whl.metadata (21 kB)
+Collecting pyyaml>=6.0.0 (from label-studio)
+  Downloading pyyaml-6.0.3-cp311-cp311-win_amd64.whl.metadata (2.4 kB)
+Collecting redis<5.3.0,>=5.2.1 (from label-studio)
+  Downloading redis-5.2.1-py3-none-any.whl.metadata (9.1 kB)
+Collecting requests<3.0.0,>=2.33.0 (from label-studio)
+  Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting rq<2.7,>=2.6 (from label-studio)
+  Downloading rq-2.6.1-py3-none-any.whl.metadata (10 kB)
+Collecting rules==3.4 (from label-studio)
+  Downloading rules-3.4-py2.py3-none-any.whl.metadata (38 kB)
+Collecting sentry-sdk>=2.16.0 (from label-studio)
+  Downloading sentry_sdk-2.73.0-py3-none-any.whl.metadata (11 kB)
+Collecting setuptools>=83.0.0 (from label-studio)
+  Using cached setuptools-84.2.1-py3-none-any.whl.metadata (6.6 kB)
+Collecting tldextract>=5.1.3 (from label-studio)
+  Downloading tldextract-5.4.0-py3-none-any.whl.metadata (9.2 kB)
+Collecting ujson>=5.13.0 (from label-studio)
+  Downloading ujson-6.1.0-cp311-cp311-win_amd64.whl.metadata (10 kB)
+Collecting uuid-utils<1.0.0,>=0.11.0 (from label-studio)
+  Downloading uuid_utils-0.19.0-cp310-abi3-win_amd64.whl.metadata (6.5 kB)
+Collecting wheel>=0.46.3 (from label-studio)
+  Downloading wheel-0.48.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting xmljson==0.2.1 (from label-studio)
+  Downloading xmljson-0.2.1-py2.py3-none-any.whl.metadata (12 kB)
+Collecting six (from django-annoying==0.10.6->label-studio)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting asgiref>=3.6 (from django-cors-headers==4.7.0->label-studio)
+  Downloading asgiref-3.13.0-py3-none-any.whl.metadata (12 kB)
+Collecting sqlparse>=0.2.0 (from django-debug-toolbar==3.2.1->label-studio)
+  Downloading sqlparse-0.6.1-py3-none-any.whl.metadata (6.9 kB)
+Collecting user-agents (from django-user-agents==0.4.0->label-studio)
+  Downloading user_agents-2.2.0-py3-none-any.whl.metadata (7.9 kB)
+Collecting uritemplate>=2.0.0 (from drf-spectacular==0.28.0->label-studio)
+  Downloading uritemplate-4.2.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting jsonschema>=2.6.0 (from drf-spectacular==0.28.0->label-studio)
+  Downloading jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting inflection>=0.3.1 (from drf-spectacular==0.28.0->label-studio)
+  Downloading inflection-0.5.1-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting Pillow>=12.3.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading pillow-13.0.0-cp311-cp311-win_amd64.whl.metadata (9.3 kB)
+Collecting datamodel-code-generator>=0.70.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading datamodel_code_generator-0.88.0-py3-none-any.whl.metadata (36 kB)
+Collecting doclang>=0.7.1 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading doclang-0.9.0-py3-none-any.whl.metadata (5.5 kB)
+Collecting httpx>=0.21.2 (from label-studio-sdk==2.1.2->label-studio)
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting jsf<0.12.0,>=0.11.2 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading jsf-0.11.2-py3-none-any.whl.metadata (5.0 kB)
+Collecting nltk<=3.11.0,>=3.10.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading nltk-3.10.4-py3-none-any.whl.metadata (5.0 kB)
+Collecting opencv-python-headless<4.13.0,>=4.12.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading opencv_python_headless-4.12.0.88-cp37-abi3-win_amd64.whl.metadata (20 kB)
+Collecting pydantic-core<3.0.0,>=2.18.2 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading pydantic_core-2.50.2-cp311-cp311-win_amd64.whl.metadata (6.7 kB)
+Collecting pyjwt<2.14.0,>=2.13.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading pyjwt-2.13.0-py3-none-any.whl.metadata (3.4 kB)
+Collecting requests-mock==1.12.1 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading requests_mock-1.12.1-py2.py3-none-any.whl.metadata (4.1 kB)
+Collecting typer>=0.12.3 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading typer-0.27.3-py3-none-any.whl.metadata (16 kB)
+Collecting typing_extensions>=4.0.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting urllib3>=2.5.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting watchfiles>=0.21.0 (from label-studio-sdk==2.1.2->label-studio)
+  Downloading watchfiles-1.3.0-cp310-abi3-win_amd64.whl.metadata (5.0 kB)
+Collecting certifi>=2018.4.16 (from launchdarkly-server-sdk==8.2.1->label-studio)
+  Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+Collecting expiringdict>=1.1.4 (from launchdarkly-server-sdk==8.2.1->label-studio)
+  Downloading expiringdict-1.2.2-py3-none-any.whl.metadata (3.7 kB)
+Collecting pyRFC3339>=1.0 (from launchdarkly-server-sdk==8.2.1->label-studio)
+  Downloading pyrfc3339-2.1.1-py3-none-any.whl.metadata (2.7 kB)
+Collecting semver>=2.10.2 (from launchdarkly-server-sdk==8.2.1->label-studio)
+  Downloading semver-3.1.0-py3-none-any.whl.metadata (6.9 kB)
+Collecting jmespath<2.0.0,>=0.7.1 (from boto3<2.0.0,>=1.28.58->label-studio)
+  Downloading jmespath-1.1.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting s3transfer<0.20.0,>=0.19.0 (from boto3<2.0.0,>=1.28.58->label-studio)
+  Downloading s3transfer-0.19.3-py3-none-any.whl.metadata (1.7 kB)
+Collecting python-dateutil>=2.8.1 (from label-studio)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting tzdata (from Django<5.3.0,>=5.2.16->label-studio)
+  Downloading tzdata-2026.6-py2.py3-none-any.whl.metadata (1.4 kB)
+Collecting toml>=0.10.2 (from django-migration-linter<6.0.0,>=5.1.0->label-studio)
+  Downloading toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)
+Collecting google-api-core<3.0.0,>=2.28.0 (from google-api-core[grpc]<3.0.0,>=2.28.0->google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading google_api_core-2.43.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting google-auth!=2.24.0,!=2.25.0,<3.0.0,>=2.14.1 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading google_auth-2.62.1-py3-none-any.whl.metadata (6.0 kB)
+Collecting google-cloud-appengine-logging<2.0.0,>=1.6.1 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading google_cloud_appengine_logging-1.11.0-py3-none-any.whl.metadata (9.4 kB)
+Collecting google-cloud-audit-log<1.0.0,>=0.3.2 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading google_cloud_audit_log-0.6.3-py3-none-any.whl.metadata (9.1 kB)
+Collecting google-cloud-core<3.0.0,>=2.0.0 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading google_cloud_core-2.8.0-py3-none-any.whl.metadata (2.9 kB)
+Collecting grpc-google-iam-v1<1.0.0,>=0.14.2 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading grpc_google_iam_v1-0.14.6-py3-none-any.whl.metadata (8.9 kB)
+Collecting opentelemetry-api>=1.16.0 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+Collecting grpcio<2.0.0,>=1.59.0 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading grpcio-1.85.1-cp311-cp311-win_amd64.whl.metadata (3.9 kB)
+Collecting proto-plus<2.0.0,>=1.26.1 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading proto_plus-1.29.0-py3-none-any.whl.metadata (2.2 kB)
+Collecting protobuf<8.0.0,>=6.33.5 (from google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading protobuf-7.36.2-cp310-abi3-win_amd64.whl.metadata (595 bytes)
+Collecting googleapis-common-protos<2.0.0,>=1.69.2 (from google-api-core<3.0.0,>=2.28.0->google-api-core[grpc]<3.0.0,>=2.28.0->google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading googleapis_common_protos-1.76.0-py3-none-any.whl.metadata (8.5 kB)
+Collecting grpcio-status<2.0.0,>=1.59.0 (from google-api-core[grpc]<3.0.0,>=2.28.0->google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading grpcio_status-1.85.1-py3-none-any.whl.metadata (1.3 kB)
+Collecting pyasn1-modules>=0.2.1 (from google-auth!=2.24.0,!=2.25.0,<3.0.0,>=2.14.1->google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Using cached pyasn1_modules-0.4.2-py3-none-any.whl.metadata (3.5 kB)
+Collecting google-resumable-media<3.0.0,>=2.7.2 (from google-cloud-storage<4.0.0,>=3.8.0->label-studio)
+  Downloading google_resumable_media-2.11.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting google-crc32c<2.0.0,>=1.6.0 (from google-cloud-storage<4.0.0,>=3.8.0->label-studio)
+  Downloading google_crc32c-1.9.0-cp311-cp311-win_amd64.whl.metadata (2.2 kB)
+Collecting faker>=15.3.4 (from jsf<0.12.0,>=0.11.2->label-studio-sdk==2.1.2->label-studio)
+  Downloading faker-40.44.0-py3-none-any.whl.metadata (16 kB)
+Collecting rstr>=3.2.0 (from jsf<0.12.0,>=0.11.2->label-studio-sdk==2.1.2->label-studio)
+  Downloading rstr-3.2.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting smart-open>=6.3.0 (from smart-open[http]>=6.3.0->jsf<0.12.0,>=0.11.2->label-studio-sdk==2.1.2->label-studio)
+  Downloading smart_open-9.0.2-py3-none-any.whl.metadata (25 kB)
+Collecting click (from nltk<=3.11.0,>=3.10.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting joblib (from nltk<=3.11.0,>=3.10.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading joblib-1.6.0-py3-none-any.whl.metadata (6.5 kB)
+Collecting regex>=2021.8.3 (from nltk<=3.11.0,>=3.10.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading regex-2026.9.29-cp311-cp311-win_amd64.whl.metadata (41 kB)
+Collecting tqdm (from nltk<=3.11.0,>=3.10.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting anyio<5,>=3.5.0 (from openai<2.0.0,>=1.10.0->label-studio)
+  Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+Collecting distro<2,>=1.7.0 (from openai<2.0.0,>=1.10.0->label-studio)
+  Using cached distro-1.9.0-py3-none-any.whl.metadata (6.8 kB)
+Collecting jiter<1,>=0.4.0 (from openai<2.0.0,>=1.10.0->label-studio)
+  Downloading jiter-0.18.0-cp311-cp311-win_amd64.whl.metadata (5.3 kB)
+Collecting sniffio (from openai<2.0.0,>=1.10.0->label-studio)
+  Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting idna>=2.8 (from anyio<5,>=3.5.0->openai<2.0.0,>=1.10.0->label-studio)
+  Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting httpcore==1.* (from httpx>=0.21.2->label-studio-sdk==2.1.2->label-studio)
+  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx>=0.21.2->label-studio-sdk==2.1.2->label-studio)
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting numpy<3.0.0,>=2.2.6 (from label-studio)
+  Downloading numpy-2.2.6-cp311-cp311-win_amd64.whl.metadata (60 kB)
+Collecting psycopg-binary==3.3.7 (from psycopg[binary]<4.0.0,>=3.2.0->label-studio)
+  Downloading psycopg_binary-3.3.7-cp311-cp311-win_amd64.whl.metadata (2.8 kB)
+Collecting annotated-types>=0.6.0 (from pydantic>=2.9.2->label-studio)
+  Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting typing-inspection>=0.4.4 (from pydantic>=2.9.2->label-studio)
+  Downloading typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting charset_normalizer<4,>=2 (from requests<3.0.0,>=2.33.0->label-studio)
+  Downloading charset_normalizer-3.5.2-cp311-cp311-win_amd64.whl.metadata (47 kB)
+Collecting croniter (from rq<2.7,>=2.6->label-studio)
+  Downloading croniter-6.2.4-py3-none-any.whl.metadata (23 kB)
+Collecting azure-core>=1.37.0 (from azure-storage-blob>=12.6.0->label-studio)
+  Downloading azure_core-1.41.0-py3-none-any.whl.metadata (49 kB)
+Collecting isodate>=0.6.1 (from azure-storage-blob>=12.6.0->label-studio)
+  Downloading isodate-0.7.2-py3-none-any.whl.metadata (11 kB)
+Collecting webencodings (from bleach>=6.4.0->label-studio)
+  Downloading webencodings-0.6.1-py3-none-any.whl.metadata (3.4 kB)
+Collecting cffi>=2.0.0 (from cryptography>=46.0.7->label-studio)
+  Downloading cffi-2.1.1-cp311-cp311-win_amd64.whl.metadata (2.6 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=46.0.7->label-studio)
+  Downloading pycparser-3.12-py3-none-any.whl.metadata (9.7 kB)
+Collecting argcomplete<4,>=2.10.1 (from datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading argcomplete-3.7.2-py3-none-any.whl.metadata (16 kB)
+Collecting black>=19.10b0 (from datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading black-26.10.1-cp311-cp311-win_amd64.whl.metadata (108 kB)
+Collecting genson<2,>=1.2.1 (from datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading genson-1.4.0-py3-none-any.whl.metadata (34 kB)
+Collecting inflect<8,>=4.1 (from datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading inflect-7.6.0-py3-none-any.whl.metadata (25 kB)
+Collecting isort<9,>=4.3.21 (from datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading isort-8.0.1-py3-none-any.whl.metadata (11 kB)
+Collecting jinja2<4,>=2.10.1 (from datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+Collecting jaraco.functools (from inflect<8,>=4.1->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading jaraco_functools-4.6.0-py3-none-any.whl.metadata (2.9 kB)
+Collecting more_itertools>=8.5.0 (from inflect<8,>=4.1->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading more_itertools-11.2.1-py3-none-any.whl.metadata (42 kB)
+Collecting typeguard>=4.0.1 (from inflect<8,>=4.1->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading typeguard-4.6.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting MarkupSafe>=2.0 (from jinja2<4,>=2.10.1->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading markupsafe-3.0.4-cp311-cp311-win_amd64.whl.metadata (2.8 kB)
+Collecting mypy-extensions>=0.4.3 (from black>=19.10b0->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+Collecting packaging>=22.0 (from black>=19.10b0->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Collecting pathspec>=1.0.0 (from black>=19.10b0->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+Collecting platformdirs>=2 (from black>=19.10b0->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading platformdirs-4.14.3-py3-none-any.whl.metadata (5.4 kB)
+Collecting pytokens~=0.4.0 (from black>=19.10b0->datamodel-code-generator>=0.70.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading pytokens-0.4.1-cp311-cp311-win_amd64.whl.metadata (3.9 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=2.6.0->drf-spectacular==0.28.0->label-studio)
+  Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema>=2.6.0->drf-spectacular==0.28.0->label-studio)
+  Downloading referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema>=2.6.0->drf-spectacular==0.28.0->label-studio)
+  Downloading rpds_py-2026.9.1-cp311-cp311-win_amd64.whl.metadata (4.2 kB)
+Collecting lxml_html_clean (from lxml[html-clean]>=6.1.0->label-studio)
+  Downloading lxml_html_clean-0.4.6-py3-none-any.whl.metadata (2.4 kB)
+Collecting pyasn1<0.7.0,>=0.6.1 (from pyasn1-modules>=0.2.1->google-auth!=2.24.0,!=2.25.0,<3.0.0,>=2.14.1->google-cloud-logging<4.0.0,>=3.10.0->label-studio)
+  Downloading pyasn1-0.6.5-py3-none-any.whl.metadata (8.4 kB)
+Collecting rich>=12.5.1 (from pyboxen>=1.3.0->label-studio)
+  Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=12.5.1->pyboxen>=1.3.0->label-studio)
+  Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting pygments<3.0.0,>=2.13.0 (from rich>=12.5.1->pyboxen>=1.3.0->label-studio)
+  Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=12.5.1->pyboxen>=1.3.0->label-studio)
+  Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting wrapt (from smart-open>=6.3.0->smart-open[http]>=6.3.0->jsf<0.12.0,>=0.11.2->label-studio-sdk==2.1.2->label-studio)
+  Downloading wrapt-2.5.2-cp311-cp311-win_amd64.whl.metadata (7.7 kB)
+Collecting requests-file>=1.4 (from tldextract>=5.1.3->label-studio)
+  Downloading requests_file-3.0.1-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting filelock>=3.0.8 (from tldextract>=5.1.3->label-studio)
+  Downloading filelock-4.2.7-py3-none-any.whl.metadata (2.0 kB)
+Collecting shellingham>=1.3.0 (from typer>=0.12.3->label-studio-sdk==2.1.2->label-studio)
+  Downloading shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting annotated-doc>=0.0.2 (from typer>=0.12.3->label-studio-sdk==2.1.2->label-studio)
+  Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting cloudpickle>=3.0 (from joblib->nltk<=3.11.0,>=3.10.0->label-studio-sdk==2.1.2->label-studio)
+  Downloading cloudpickle-3.1.2-py3-none-any.whl.metadata (7.1 kB)
+Collecting ua-parser>=0.10.0 (from user-agents->django-user-agents==0.4.0->label-studio)
+  Downloading ua_parser-1.0.2-py3-none-any.whl.metadata (5.5 kB)
+Collecting ua-parser-builtins (from ua-parser>=0.10.0->user-agents->django-user-agents==0.4.0->label-studio)
+  Downloading ua_parser_builtins-202610-py3-none-any.whl.metadata (1.8 kB)
+Downloading label_studio-1.23.2-py3-none-any.whl (73.6 MB)
+   ---------------------------------------- 73.6/73.6 MB 6.1 MB/s  0:00:12
+Downloading django_annoying-0.10.6-py2.py3-none-any.whl (9.5 kB)
+Downloading django_cors_headers-4.7.0-py3-none-any.whl (12 kB)
+Downloading django_csp-3.7-py2.py3-none-any.whl (17 kB)
+Downloading django_debug_toolbar-3.2.1-py3-none-any.whl (199 kB)
+Downloading django_environ-0.10.0-py2.py3-none-any.whl (19 kB)
+Downloading django_extensions-3.2.3-py3-none-any.whl (229 kB)
+Downloading django_filter-24.3-py3-none-any.whl (95 kB)
+Downloading django_storages-1.12.3-py3-none-any.whl (44 kB)
+Downloading django_user_agents-0.4.0-py3-none-any.whl (8.6 kB)
+Downloading djangorestframework-3.17.2-py3-none-any.whl (899 kB)
+   ---------------------------------------- 899.1/899.1 kB 5.1 MB/s  0:00:00
+Downloading drf_dynamic_fields-0.3.0-py2.py3-none-any.whl (6.6 kB)
+Downloading drf_spectacular-0.28.0-py3-none-any.whl (103 kB)
+Downloading label_studio_sdk-2.1.2-py3-none-any.whl (1.1 MB)
+   ---------------------------------------- 1.1/1.1 MB 5.7 MB/s  0:00:00
+Downloading launchdarkly_server_sdk-8.2.1-py3-none-any.whl (171 kB)
+Downloading python_json_logger-2.0.4-py3-none-any.whl (7.8 kB)
+Downloading requests_mock-1.12.1-py2.py3-none-any.whl (27 kB)
+Downloading rules-3.4-py2.py3-none-any.whl (25 kB)
+Downloading xmljson-0.2.1-py2.py3-none-any.whl (10 kB)
+Downloading boto3-1.43.123-py3-none-any.whl (140 kB)
+Downloading botocore-1.43.123-py3-none-any.whl (16.2 MB)
+   ---------------------------------------- 16.2/16.2 MB 6.5 MB/s  0:00:02
+Downloading django-5.2.18-py3-none-any.whl (8.3 MB)
+   ---------------------------------------- 8.3/8.3 MB 5.7 MB/s  0:00:01
+Downloading django_migration_linter-5.2.0-py3-none-any.whl (27 kB)
+Downloading django_rq-3.1-py3-none-any.whl (72 kB)
+Downloading djangorestframework_simplejwt-5.5.1-py3-none-any.whl (107 kB)
+Downloading google_cloud_logging-3.17.0-py3-none-any.whl (234 kB)
+Downloading google_api_core-2.43.2-py3-none-any.whl (224 kB)
+Downloading google_auth-2.62.1-py3-none-any.whl (267 kB)
+Downloading google_cloud_appengine_logging-1.11.0-py3-none-any.whl (20 kB)
+Downloading google_cloud_audit_log-0.6.3-py3-none-any.whl (40 kB)
+Downloading google_cloud_core-2.8.0-py3-none-any.whl (31 kB)
+Downloading google_cloud_storage-3.17.1-py3-none-any.whl (345 kB)
+Downloading google_crc32c-1.9.0-cp311-cp311-win_amd64.whl (35 kB)
+Downloading google_resumable_media-2.11.0-py3-none-any.whl (81 kB)
+Downloading googleapis_common_protos-1.76.0-py3-none-any.whl (307 kB)
+Downloading grpc_google_iam_v1-0.14.6-py3-none-any.whl (33 kB)
+Downloading grpcio-1.85.1-cp311-cp311-win_amd64.whl (5.6 MB)
+   ---------------------------------------- 5.6/5.6 MB 6.9 MB/s  0:00:00
+Downloading grpcio_status-1.85.1-py3-none-any.whl (14 kB)
+Downloading ijson-3.6.0-cp311-cp311-win_amd64.whl (54 kB)
+Downloading jmespath-1.1.0-py3-none-any.whl (20 kB)
+Downloading jsf-0.11.2-py3-none-any.whl (49 kB)
+Downloading nltk-3.10.4-py3-none-any.whl (1.7 MB)
+   ---------------------------------------- 1.7/1.7 MB 5.5 MB/s  0:00:00
+Downloading openai-1.109.1-py3-none-any.whl (948 kB)
+   ---------------------------------------- 948.6/948.6 kB 6.2 MB/s  0:00:00
+Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+Using cached distro-1.9.0-py3-none-any.whl (20 kB)
+Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Downloading jiter-0.18.0-cp311-cp311-win_amd64.whl (219 kB)
+Downloading opencv_python_headless-4.12.0.88-cp37-abi3-win_amd64.whl (38.9 MB)
+   ---------------------------------------- 38.9/38.9 MB 6.7 MB/s  0:00:05
+Downloading numpy-2.2.6-cp311-cp311-win_amd64.whl (12.9 MB)
+   ---------------------------------------- 12.9/12.9 MB 6.3 MB/s  0:00:02
+Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+Downloading proto_plus-1.29.0-py3-none-any.whl (50 kB)
+Downloading protobuf-7.36.2-cp310-abi3-win_amd64.whl (456 kB)
+Downloading psycopg-3.3.7-py3-none-any.whl (216 kB)
+Downloading psycopg_binary-3.3.7-cp311-cp311-win_amd64.whl (3.6 MB)
+   ---------------------------------------- 3.6/3.6 MB 5.8 MB/s  0:00:00
+Downloading pyarrow-24.0.0-cp311-cp311-win_amd64.whl (27.3 MB)
+   ---------------------------------------- 27.3/27.3 MB 5.8 MB/s  0:00:04
+Downloading pydantic-2.14.2-py3-none-any.whl (490 kB)
+Downloading pydantic_core-2.50.2-cp311-cp311-win_amd64.whl (2.2 MB)
+   ---------------------------------------- 2.2/2.2 MB 6.7 MB/s  0:00:00
+Downloading pyjwt-2.13.0-py3-none-any.whl (31 kB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading pytz-2022.7.1-py2.py3-none-any.whl (499 kB)
+Downloading redis-5.2.1-py3-none-any.whl (261 kB)
+Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.2-cp311-cp311-win_amd64.whl (214 kB)
+Downloading idna-3.20-py3-none-any.whl (69 kB)
+Downloading rq-2.6.1-py3-none-any.whl (112 kB)
+Downloading s3transfer-0.19.3-py3-none-any.whl (90 kB)
+Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+Downloading uuid_utils-0.19.0-cp310-abi3-win_amd64.whl (182 kB)
+Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Downloading appdirs-1.4.4-py2.py3-none-any.whl (9.6 kB)
+Downloading asgiref-3.13.0-py3-none-any.whl (27 kB)
+Downloading attrs-26.1.0-py3-none-any.whl (67 kB)
+Downloading azure_storage_blob-12.31.1-py3-none-any.whl (455 kB)
+Downloading azure_core-1.41.0-py3-none-any.whl (220 kB)
+Downloading bleach-6.4.0-py3-none-any.whl (165 kB)
+Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+Downloading click-8.5.0-py3-none-any.whl (125 kB)
+Using cached colorama-0.4.6-py2.py3-none-any.whl (25 kB)
+Downloading cryptography-50.0.2-cp311-abi3-win_amd64.whl (3.8 MB)
+   ---------------------------------------- 3.8/3.8 MB 2.0 MB/s  0:00:01
+Downloading cffi-2.1.1-cp311-cp311-win_amd64.whl (185 kB)
+Downloading datamodel_code_generator-0.88.0-py3-none-any.whl (2.1 MB)
+   ---------------------------------------- 2.1/2.1 MB 2.3 MB/s  0:00:00
+Downloading argcomplete-3.7.2-py3-none-any.whl (43 kB)
+Downloading genson-1.4.0-py3-none-any.whl (24 kB)
+Downloading inflect-7.6.0-py3-none-any.whl (37 kB)
+Downloading isort-8.0.1-py3-none-any.whl (89 kB)
+Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)
+Downloading black-26.10.1-cp311-cp311-win_amd64.whl (1.6 MB)
+   ---------------------------------------- 1.6/1.6 MB 4.8 MB/s  0:00:00
+Downloading pytokens-0.4.1-cp311-cp311-win_amd64.whl (103 kB)
+Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+Downloading doclang-0.9.0-py3-none-any.whl (94 kB)
+Downloading expiringdict-1.2.2-py3-none-any.whl (8.5 kB)
+Downloading faker-40.44.0-py3-none-any.whl (2.1 MB)
+   ---------------------------------------- 2.1/2.1 MB 4.8 MB/s  0:00:00
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading inflection-0.5.1-py2.py3-none-any.whl (9.5 kB)
+Downloading isodate-0.7.2-py3-none-any.whl (22 kB)
+Downloading jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Downloading jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Downloading lxml-6.1.3-cp311-cp311-win_amd64.whl (4.0 MB)
+   ---------------------------------------- 4.0/4.0 MB 5.5 MB/s  0:00:00
+Downloading markupsafe-3.0.4-cp311-cp311-win_amd64.whl (14 kB)
+Downloading more_itertools-11.2.1-py3-none-any.whl (74 kB)
+Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Downloading packaging-26.3-py3-none-any.whl (129 kB)
+Downloading pandas-3.1.0-cp311-cp311-win_amd64.whl (11.0 MB)
+   ---------------------------------------- 11.0/11.0 MB 7.5 MB/s  0:00:01
+Downloading pathspec-1.1.1-py3-none-any.whl (57 kB)
+Downloading pillow-13.0.0-cp311-cp311-win_amd64.whl (7.3 MB)
+   ---------------------------------------- 7.3/7.3 MB 7.0 MB/s  0:00:01
+Downloading platformdirs-4.14.3-py3-none-any.whl (35 kB)
+Using cached pyasn1_modules-0.4.2-py3-none-any.whl (181 kB)
+Downloading pyasn1-0.6.5-py3-none-any.whl (84 kB)
+Downloading pyboxen-1.3.0-py3-none-any.whl (6.8 kB)
+Downloading pyrfc3339-2.1.1-py3-none-any.whl (6.5 kB)
+Downloading pyyaml-6.0.3-cp311-cp311-win_amd64.whl (158 kB)
+Downloading referencing-0.37.0-py3-none-any.whl (26 kB)
+Downloading regex-2026.9.29-cp311-cp311-win_amd64.whl (280 kB)
+Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+   ---------------------------------------- 1.3/1.3 MB 1.5 MB/s  0:00:00
+Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading rpds_py-2026.9.1-cp311-cp311-win_amd64.whl (226 kB)
+Downloading rstr-3.2.2-py3-none-any.whl (10 kB)
+Downloading semver-3.1.0-py3-none-any.whl (18 kB)
+Downloading sentry_sdk-2.73.0-py3-none-any.whl (549 kB)
+   ---------------------------------------- 549.0/549.0 kB 1.1 MB/s  0:00:00
+Using cached setuptools-84.2.1-py3-none-any.whl (876 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading smart_open-9.0.2-py3-none-any.whl (76 kB)
+Downloading sqlparse-0.6.1-py3-none-any.whl (51 kB)
+Downloading tldextract-5.4.0-py3-none-any.whl (107 kB)
+Downloading filelock-4.2.7-py3-none-any.whl (164 kB)
+Downloading requests_file-3.0.1-py2.py3-none-any.whl (4.5 kB)
+Downloading toml-0.10.2-py2.py3-none-any.whl (16 kB)
+Downloading tqdm-4.70.1-py3-none-any.whl (80 kB)
+Downloading typeguard-4.6.0-py3-none-any.whl (36 kB)
+Downloading typer-0.27.3-py3-none-any.whl (123 kB)
+Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Downloading shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Downloading typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Downloading ujson-6.1.0-cp311-cp311-win_amd64.whl (227 kB)
+Downloading uritemplate-4.2.0-py3-none-any.whl (11 kB)
+Downloading watchfiles-1.3.0-cp310-abi3-win_amd64.whl (290 kB)
+Downloading wheel-0.48.0-py3-none-any.whl (33 kB)
+Downloading croniter-6.2.4-py3-none-any.whl (46 kB)
+Downloading jaraco_functools-4.6.0-py3-none-any.whl (11 kB)
+Downloading joblib-1.6.0-py3-none-any.whl (306 kB)
+Downloading cloudpickle-3.1.2-py3-none-any.whl (22 kB)
+Downloading lxml_html_clean-0.4.6-py3-none-any.whl (14 kB)
+Downloading pycparser-3.12-py3-none-any.whl (62 kB)
+Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+Downloading tzdata-2026.6-py2.py3-none-any.whl (348 kB)
+Downloading user_agents-2.2.0-py3-none-any.whl (9.6 kB)
+Downloading ua_parser-1.0.2-py3-none-any.whl (31 kB)
+Downloading ua_parser_builtins-202610-py3-none-any.whl (90 kB)
+Downloading webencodings-0.6.1-py3-none-any.whl (8.7 kB)
+Downloading wrapt-2.5.2-cp311-cp311-win_amd64.whl (106 kB)
+Building wheels for collected packages: attr, drf-flex-fields, drf-generators, ordered-set, django-ranged-fileresponse
+  Building wheel for attr (pyproject.toml): started
+  Building wheel for attr (pyproject.toml): finished with status 'done'
+  Created wheel for attr: filename=attr-0.3.1-py3-none-any.whl size=2495 sha256=413516c1adc5191441ba84ba6baba168f2234ae5ec2adf0503ada1f5f1c60318
+  Stored in directory: c:\users\andre\appdata\local\pip\cache\wheels\99\78\34\c9ccebf90ce79b2bd421622108ab849f3669e943257245c315
+  Building wheel for drf-flex-fields (pyproject.toml): started
+  Building wheel for drf-flex-fields (pyproject.toml): finished with status 'done'
+  Created wheel for drf-flex-fields: filename=drf_flex_fields-0.9.5-py3-none-any.whl size=14543 sha256=9aa93ec53701e439aacaf1f32e4151f257e9f3beef9861290dbebe11a32fd98f
+  Stored in directory: c:\users\andre\appdata\local\pip\cache\wheels\cb\7a\1c\464c77f394a1d65be212cda616e0e47655f17e80780eac7e14
+  Building wheel for drf-generators (pyproject.toml): started
+  Building wheel for drf-generators (pyproject.toml): finished with status 'done'
+  Created wheel for drf-generators: filename=drf_generators-0.3.0-py2.py3-none-any.whl size=9867 sha256=8583338eeab40ee991da2abc0d1d754c8781b3eaf9cf7d5ce7603afba663da68
+  Stored in directory: c:\users\andre\appdata\local\pip\cache\wheels\12\70\4f\1288a8b5537b011a49bd4f69a9b059edd90fd6e0bc9444ff3e
+  Building wheel for ordered-set (pyproject.toml): started
+  Building wheel for ordered-set (pyproject.toml): finished with status 'done'
+  Created wheel for ordered-set: filename=ordered_set-4.0.2-py2.py3-none-any.whl size=8338 sha256=6bdfe8a20a1bb3d07420dcce3b8b2cc1ec6da56a17e739d3f67949e09ac9ef39
+  Stored in directory: c:\users\andre\appdata\local\pip\cache\wheels\97\5e\d1\2802f182608830c125f5b3fcd8da4eac788f9156ad92f56b8f
+  Building wheel for django-ranged-fileresponse (pyproject.toml): started
+  Building wheel for django-ranged-fileresponse (pyproject.toml): finished with status 'done'
+  Created wheel for django-ranged-fileresponse: filename=django_ranged_fileresponse-0.1.2-py3-none-any.whl size=3272 sha256=65afa66dd2c6d48546819a1cac906ae5f453a487c78b7c7a0552c1ef0f343823
+  Stored in directory: c:\users\andre\appdata\local\pip\cache\wheels\a5\92\f2\1cb67cc203160ca0fc6d4b91db63bf364b82b4b297d2c8dea0
+Successfully built attr drf-flex-fields drf-generators ordered-set django-ranged-fileresponse
+Installing collected packages: xmljson, rules, pytz, expiringdict, drf-flex-fields, drf-dynamic-fields, django-ranged-fileresponse, attr, appdirs, wrapt, webencodings, uuid-utils, urllib3, uritemplate, ujson, ua-parser-builtins, tzdata, typing_extensions, toml, sqlparse, sniffio, six, shellingham, setuptools, semver, rstr, rpds-py, regex, redis, pyyaml, pytokens, python-json-logger, pyRFC3339, pyjwt, pygments, pycparser, pyasn1, pyarrow, psycopg-binary, protobuf, platformdirs, Pillow, pathspec, packaging, ordered-set, numpy, mypy-extensions, more_itertools, mdurl, MarkupSafe, lxml, jmespath, jiter, isort, isodate, inflection, ijson, idna, h11, google-crc32c, genson, filelock, django-environ, distro, defusedxml, colorama, cloudpickle, click, charset_normalizer, certifi, attrs, asgiref, argcomplete, annotated-types, annotated-doc, wheel, ua-parser, typing-inspection, typeguard, tqdm, smart-open, sentry-sdk, requests, referencing, python-dateutil, pydantic-core, pyasn1-modules, psycopg, proto-plus, opentelemetry-api, opencv-python-headless, markdown-it-py, lxml_html_clean, launchdarkly-server-sdk, joblib, jinja2, jaraco.functools, httpcore, grpcio, googleapis-common-protos, google-resumable-media, faker, Django, cffi, bleach, black, anyio, watchfiles, user-agents, rich, requests-mock, requests-file, pydantic, pandas, nltk, jsonschema-specifications, inflect, httpx, grpcio-status, google-cloud-audit-log, drf-generators, djangorestframework, django-storages, django-migration-linter, django-filter, django-extensions, django-debug-toolbar, django-csp, django-cors-headers, django-annoying, cryptography, croniter, botocore, azure-core, typer, tldextract, s3transfer, rq, pyboxen, openai, jsonschema, grpc-google-iam-v1, google-auth, djangorestframework-simplejwt, django-user-agents, datamodel-code-generator, azure-storage-blob, jsf, google-api-core, drf-spectacular, doclang, django-rq, boto3, label-studio-sdk, google-cloud-core, google-cloud-storage, google-cloud-appengine-logging, google-cloud-logging, label-studio
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.0
+    Uninstalling setuptools-65.5.0:
+      Successfully uninstalled setuptools-65.5.0
+
+Successfully installed Django-5.2.18 MarkupSafe-3.0.4 Pillow-13.0.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 appdirs-1.4.4 argcomplete-3.7.2 asgiref-3.13.0 attr-0.3.1 attrs-26.1.0 azure-core-1.41.0 azure-storage-blob-12.31.1 black-26.10.1 bleach-6.4.0 boto3-1.43.123 botocore-1.43.123 certifi-2026.10.23 cffi-2.1.1 charset_normalizer-3.5.2 click-8.5.0 cloudpickle-3.1.2 colorama-0.4.6 croniter-6.2.4 cryptography-50.0.2 datamodel-code-generator-0.88.0 defusedxml-0.7.1 distro-1.9.0 django-annoying-0.10.6 django-cors-headers-4.7.0 django-csp-3.7 django-debug-toolbar-3.2.1 django-environ-0.10.0 django-extensions-3.2.3 django-filter-24.3 django-migration-linter-5.2.0 django-ranged-fileresponse-0.1.2 django-rq-3.1 django-storages-1.12.3 django-user-agents-0.4.0 djangorestframework-3.17.2 djangorestframework-simplejwt-5.5.1 doclang-0.9.0 drf-dynamic-fields-0.3.0 drf-flex-fields-0.9.5 drf-generators-0.3.0 drf-spectacular-0.28.0 expiringdict-1.2.2 faker-40.44.0 filelock-4.2.7 genson-1.4.0 google-api-core-2.43.2 google-auth-2.62.1 google-cloud-appengine-logging-1.11.0 google-cloud-audit-log-0.6.3 google-cloud-core-2.8.0 google-cloud-logging-3.17.0 google-cloud-storage-3.17.1 google-crc32c-1.9.0 google-resumable-media-2.11.0 googleapis-common-protos-1.76.0 grpc-google-iam-v1-0.14.6 grpcio-1.85.1 grpcio-status-1.85.1 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 ijson-3.6.0 inflect-7.6.0 inflection-0.5.1 isodate-0.7.2 isort-8.0.1 jaraco.functools-4.6.0 jinja2-3.1.6 jiter-0.18.0 jmespath-1.1.0 joblib-1.6.0 jsf-0.11.2 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 label-studio-1.23.2 label-studio-sdk-2.1.2 launchdarkly-server-sdk-8.2.1 lxml-6.1.3 lxml_html_clean-0.4.6 markdown-it-py-4.2.0 mdurl-0.1.2 more_itertools-11.2.1 mypy-extensions-1.1.0 nltk-3.10.4 numpy-2.2.6 openai-1.109.1 opencv-python-headless-4.12.0.88 opentelemetry-api-1.45.2 ordered-set-4.0.2 packaging-26.3 pandas-3.1.0 pathspec-1.1.1 platformdirs-4.14.3 proto-plus-1.29.0 protobuf-7.36.2 psycopg-3.3.7 psycopg-binary-3.3.7 pyRFC3339-2.1.1 pyarrow-24.0.0 pyasn1-0.6.5 pyasn1-modules-0.4.2 pyboxen-1.3.0 pycparser-3.12 pydantic-2.14.2 pydantic-core-2.50.2 pygments-2.21.0 pyjwt-2.13.0 python-dateutil-2.9.0.post0 python-json-logger-2.0.4 pytokens-0.4.1 pytz-2022.7.1 pyyaml-6.0.3 redis-5.2.1 referencing-0.37.0 regex-2026.9.29 requests-2.34.2 requests-file-3.0.1 requests-mock-1.12.1 rich-15.0.0 rpds-py-2026.9.1 rq-2.6.1 rstr-3.2.2 rules-3.4 s3transfer-0.19.3 semver-3.1.0 sentry-sdk-2.73.0 setuptools-84.2.1 shellingham-1.5.4 six-1.17.0 smart-open-9.0.2 sniffio-1.3.1 sqlparse-0.6.1 tldextract-5.4.0 toml-0.10.2 tqdm-4.70.1 typeguard-4.6.0 typer-0.27.3 typing-inspection-0.4.4 typing_extensions-4.16.0 tzdata-2026.6 ua-parser-1.0.2 ua-parser-builtins-202610 ujson-6.1.0 uritemplate-4.2.0 urllib3-2.8.0 user-agents-2.2.0 uuid-utils-0.19.0 watchfiles-1.3.0 webencodings-0.6.1 wheel-0.48.0 wrapt-2.5.2 xmljson-0.2.1
+=> Database and media directory: C:\Users\andre\AppData\Local\label-studio\label-studio
+=> Static URL is set to: /static/
+=> Database and media directory: C:\Users\andre\AppData\Local\label-studio\label-studio
+=> Static URL is set to: /static/
+C:\Users\andre\AppData\Local\label-studio\label-studio\.env not found - if you're not configuring your environment separately, check this.
+get 'SECRET_KEY' casted as '<class 'str'>' with default ''
+Warning: SECRET_KEY not found in environment variables. Will generate a random key.
+Starting new HTTPS connection (1): pypi.org:443
+https://pypi.org:443 "GET /pypi/label-studio/json HTTP/1.1" 200 41138
+C:\Users\andre\Documents\tesis\.venv_label\Lib\site-packages\django\db\backends\utils.py:98: RuntimeWarning: Accessing the database during app initialization is discouraged. To fix this warning, avoid executing queries in AppConfig.ready() or when your app modules are imported.
+  warnings.warn(self.APPS_NOT_READY_WARNING_MSG, category=RuntimeWarning)
+Initializing database..
+Normalized 0/0 LocalFilesImportStorage paths
+Normalized 0/0 LocalFilesExportStorage paths
+
+Label Studio version: 1.23.2 
+
+{
+    "release": "1.23.2",
+    "label-studio-os-package": {
+        "version": "1.23.2",
+        "short_version": "1.23",
+        "latest_version_from_pypi": "1.23.2",
+        "latest_version_upload_time": "2026-09-29T14:52:36",
+        "current_version_is_outdated": false
+    },
+    "label-studio-os-backend": {
+        "message": "fix: PLT-1331: Block SSRF in export media downloads",
+        "commit": "df96d79183156e556d91825d15fa7721f1145e1a",
+        "date": "2026/09/25 23:22:13",
+        "branch": "",
+        "version": "1.23.2+0.gdf96d79.dirty"
+    },
+    "label-studio-frontend": {
+        "message": "fix: PLT-1331: Block SSRF in export media downloads",
+        "commit": "df96d79183156e556d91825d15fa7721f1145e1a",
+        "date": "2026-09-25T09:13:03.000Z",
+        "branch": "develop"
+    },
+    "dm2": {
+        "message": "fix: PLT-1331: Block SSRF in export media downloads",
+        "commit": "df96d79183156e556d91825d15fa7721f1145e1a",
+        "date": "2026-09-25T09:13:03.000Z",
+        "branch": "develop"
+    },
+    "label-studio-converter": {
+        "version": "2.1.2"
+    },
+    "edition": "Community"
+}
+November 03, 2026 - 07:36:43
+Django version 5.2.18, using settings 'label_studio.core.settings.label_studio'
+Starting development server at http://0.0.0.0:8080/
+Quit the server with CTRL-BREAK.
+
+WARNING: This is a development server. Do not use it in a production setting. Use a production WSGI or ASGI server instead.
+For more information on production servers see: https://docs.djangoproject.com/en/5.2/howto/deployment/
+[2026-11-03 07:36:48,148] [django.server::log_message::213] [INFO] "GET / HTTP/1.1" 302 0
+[2026-11-03 07:36:48,148] [django.server::log_message::213] [INFO] "GET / HTTP/1.1" 302 0
+[2026-11-03 07:36:48,758] [django.server::log_message::213] [INFO] "GET /user/login/ HTTP/1.1" 200 27445
+[2026-11-03 07:36:48,758] [django.server::log_message::213] [INFO] "GET /user/login/ HTTP/1.1" 200 27445
+[2026-11-03 07:36:48,881] [django.server::log_message::213] [INFO] "GET /static/css/main.9be72da65a79.css HTTP/1.1" 200 28897
+[2026-11-03 07:36:48,881] [django.server::log_message::213] [INFO] "GET /static/css/main.9be72da65a79.css HTTP/1.1" 200 28897
+[2026-11-03 07:36:48,890] [django.server::log_message::213] [INFO] "GET /static/css/fonts.hellix.ad84997f14b9.css HTTP/1.1" 200 366
+[2026-11-03 07:36:48,890] [django.server::log_message::213] [INFO] "GET /static/css/fonts.hellix.ad84997f14b9.css HTTP/1.1" 200 366
+[2026-11-03 07:36:48,897] [django.server::log_message::213] [INFO] "GET /react-app/main.css?v=df96d7 HTTP/1.1" 200 232558
+[2026-11-03 07:36:48,897] [django.server::log_message::213] [INFO] "GET /react-app/main.css?v=df96d7 HTTP/1.1" 200 232558
+[2026-11-03 07:36:48,918] [django.server::log_message::213] [INFO] "GET /static/css/login.f115716e9a7c.css HTTP/1.1" 200 7369
+[2026-11-03 07:36:48,918] [django.server::log_message::213] [INFO] "GET /static/css/login.f115716e9a7c.css HTTP/1.1" 200 7369
+[2026-11-03 07:36:49,094] [django.server::log_message::213] [INFO] "GET /static/images/login-bg.2c7fadf7bd88.svg HTTP/1.1" 200 529
+[2026-11-03 07:36:49,094] [django.server::log_message::213] [INFO] "GET /static/images/login-bg.2c7fadf7bd88.svg HTTP/1.1" 200 529
+[2026-11-03 07:36:49,094] [django.server::log_message::213] [INFO] "GET /static/fonts/Hellix-Regular.ce7e7fc9354f.woff HTTP/1.1" 200 51972
+[2026-11-03 07:36:49,094] [django.server::log_message::213] [INFO] "GET /static/fonts/Hellix-Regular.ce7e7fc9354f.woff HTTP/1.1" 200 51972
+[2026-11-03 07:36:49,112] [django.server::log_message::213] [INFO] "GET /static/images/heidi-tip.2e3228516929.svg HTTP/1.1" 200 39408
+[2026-11-03 07:36:49,112] [django.server::log_message::213] [INFO] "GET /static/images/heidi-tip.2e3228516929.svg HTTP/1.1" 200 39408
+[2026-11-03 07:36:49,152] [django.server::log_message::213] [INFO] "GET /static/fonts/Hellix-SemiBold.656fff162b3b.woff HTTP/1.1" 200 52680
+[2026-11-03 07:36:49,152] [django.server::log_message::213] [INFO] "GET /static/fonts/Hellix-SemiBold.656fff162b3b.woff HTTP/1.1" 200 52680
+[2026-11-03 07:36:50,400] [django.server::log_message::213] [INFO] "GET /heidi-tips HTTP/1.1" 200 10362
+[2026-11-03 07:36:50,400] [django.server::log_message::213] [INFO] "GET /heidi-tips HTTP/1.1" 200 10362
+[2026-11-03 07:36:50,969] [django.server::log_message::213] [INFO] "POST /__lsa/?__=%7B%22ls_gaclient_id%22%3Anull%2C%22event%22%3A%22users.login.view%22%2C%22url%22%3A%22http%3A%2F%2Flocalhost%3A8080%2Fuser%2Flogin%2F%22%7D HTTP/1.1" 204 0
+[2026-11-03 07:36:50,969] [django.server::log_message::213] [INFO] "POST /__lsa/?__=%7B%22ls_gaclient_id%22%3Anull%2C%22event%22%3A%22users.login.view%22%2C%22url%22%3A%22http%3A%2F%2Flocalhost%3A8080%2Fuser%2Flogin%2F%22%7D HTTP/1.1" 204 0
+[2026-11-03 07:36:53,617] [django.server::log_message::213] [INFO] "GET /static/images/favicon.8992b8aa4126.ico HTTP/1.1" 200 15406
+[2026-11-03 07:36:53,617] [django.server::log_message::213] [INFO] "GET /static/images/favicon.8992b8aa4126.ico HTTP/1.1" 200 15406
+FIN_INSTALACION 

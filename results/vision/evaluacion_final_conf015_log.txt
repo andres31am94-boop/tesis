@@ -1,0 +1,22 @@
+Modelo C:\Users\andre\Documents\tesis\results\vision\entrenamiento\hotwheels_v1\weights\best.pt | conf >= 0.15 | imgsz 640 | nms_iou 0.5
+
+imagen                           reales  detect.  error     ms
+angulo_7carros_a.jpg                  7        6     -1    124
+angulo_7carros_b.jpg                  7        6     -1     62
+arriba_9carros_a.jpg                  9       10     +1     68
+arriba_9carros_b.jpg                  9        8     -1     66
+arriba_9carros_filas_a.jpg            9        9     +0     72
+arriba_9carros_filas_b.jpg            9        9     +0    135
+cruce_cerca2_8carros.jpg              8        8     +0    125
+cruce_cerca_8carros.jpg               8        5     -3     79
+cruce_prueba_8carros_a.jpg            8        2     -6     72
+cruce_prueba_8carros_b.jpg            8        6     -2     62
+cruce_recorte_norte_8carros_a.jpg      8        8     +0    100
+cruce_recorte_norte_8carros_b.jpg      8        6     -2     52
+cruce_var_oscura_8carros.jpg          8        5     -3     65
+cruce_var_rotada_8carros.jpg          8        6     -2     65
+cruce_var_sin_cinta_8carros.jpg       8        5     -3     77
+video_IMG_0566_cuadro0.jpg            7        7     +0    120
+
+Total reales 129 | detectados 106 | error absoluto medio por imagen 1.56
+Imagenes con cajas y resumen en: C:\Users\andre\Documents\tesis\results\vision\evaluacion_hotwheels\hotwheels_v1_conf0.15_nms0.5

@@ -1,0 +1,207 @@
+{
+  "pesos": "C:\\Users\\andre\\Documents\\tesis\\results\\vision\\entrenamiento\\hotwheels_v1\\weights\\best.pt",
+  "conf": 0.4,
+  "imgsz": 640,
+  "nms_iou": 0.5,
+  "error_absoluto_medio": 4.812,
+  "total_reales": 129,
+  "total_detectados": 52,
+  "imagenes": [
+    {
+      "imagen": "angulo_7carros_a.jpg",
+      "reales": 7,
+      "detectados": 6,
+      "error": -1,
+      "inferencia_ms": 136.6,
+      "confianzas": [
+        0.727,
+        0.695,
+        0.603,
+        0.548,
+        0.47,
+        0.41
+      ]
+    },
+    {
+      "imagen": "angulo_7carros_b.jpg",
+      "reales": 7,
+      "detectados": 6,
+      "error": -1,
+      "inferencia_ms": 68.6,
+      "confianzas": [
+        0.741,
+        0.668,
+        0.593,
+        0.584,
+        0.512,
+        0.457
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_a.jpg",
+      "reales": 9,
+      "detectados": 2,
+      "error": -7,
+      "inferencia_ms": 63.8,
+      "confianzas": [
+        0.477,
+        0.446
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_b.jpg",
+      "reales": 9,
+      "detectados": 3,
+      "error": -6,
+      "inferencia_ms": 63.4,
+      "confianzas": [
+        0.532,
+        0.506,
+        0.471
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_a.jpg",
+      "reales": 9,
+      "detectados": 6,
+      "error": -3,
+      "inferencia_ms": 62.2,
+      "confianzas": [
+        0.51,
+        0.498,
+        0.473,
+        0.452,
+        0.437,
+        0.411
+      ]
+    },
+    {
+      "imagen": "arriba_9carros_filas_b.jpg",
+      "reales": 9,
+      "detectados": 4,
+      "error": -5,
+      "inferencia_ms": 61.2,
+      "confianzas": [
+        0.499,
+        0.481,
+        0.459,
+        0.433
+      ]
+    },
+    {
+      "imagen": "cruce_cerca2_8carros.jpg",
+      "reales": 8,
+      "detectados": 2,
+      "error": -6,
+      "inferencia_ms": 117.2,
+      "confianzas": [
+        0.528,
+        0.511
+      ]
+    },
+    {
+      "imagen": "cruce_cerca_8carros.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 60.8,
+      "confianzas": [
+        0.444
+      ]
+    },
+    {
+      "imagen": "cruce_prueba_8carros_a.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 62.6,
+      "confianzas": [
+        0.824
+      ]
+    },
+    {
+      "imagen": "cruce_prueba_8carros_b.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 81.1,
+      "confianzas": [
+        0.82
+      ]
+    },
+    {
+      "imagen": "cruce_recorte_norte_8carros_a.jpg",
+      "reales": 8,
+      "detectados": 6,
+      "error": -2,
+      "inferencia_ms": 205.1,
+      "confianzas": [
+        0.854,
+        0.757,
+        0.738,
+        0.662,
+        0.649,
+        0.532
+      ]
+    },
+    {
+      "imagen": "cruce_recorte_norte_8carros_b.jpg",
+      "reales": 8,
+      "detectados": 4,
+      "error": -4,
+      "inferencia_ms": 76.9,
+      "confianzas": [
+        0.854,
+        0.766,
+        0.662,
+        0.603
+      ]
+    },
+    {
+      "imagen": "cruce_var_oscura_8carros.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 67.3,
+      "confianzas": [
+        0.836
+      ]
+    },
+    {
+      "imagen": "cruce_var_rotada_8carros.jpg",
+      "reales": 8,
+      "detectados": 3,
+      "error": -5,
+      "inferencia_ms": 71.6,
+      "confianzas": [
+        0.592,
+        0.539,
+        0.537
+      ]
+    },
+    {
+      "imagen": "cruce_var_sin_cinta_8carros.jpg",
+      "reales": 8,
+      "detectados": 1,
+      "error": -7,
+      "inferencia_ms": 72.4,
+      "confianzas": [
+        0.85
+      ]
+    },
+    {
+      "imagen": "video_IMG_0566_cuadro0.jpg",
+      "reales": 7,
+      "detectados": 5,
+      "error": -2,
+      "inferencia_ms": 115.9,
+      "confianzas": [
+        0.668,
+        0.545,
+        0.461,
+        0.453,
+        0.427
+      ]
+    }
+  ]
+}

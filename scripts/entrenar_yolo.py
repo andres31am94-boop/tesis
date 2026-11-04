@@ -33,7 +33,8 @@ SEMILLA = 0   # reproducibilidad (Ultralytics fija las semillas de Python, NumPy
 def main():
     parser = argparse.ArgumentParser(description="Ajuste fino de YOLO26n con carros de juguete")
     parser.add_argument("--datos", required=True, help="ruta al data.yaml del dataset")
-    parser.add_argument("--modelo", default="yolo26n.pt", help="pesos de partida (en models/yolo/)")
+    parser.add_argument("--modelo", default="yolo26n.pt",
+                        help="pesos de partida: nombre en models/yolo/ o ruta a un best.pt ya entrenado")
     parser.add_argument("--epocas", type=int, default=30)
     parser.add_argument("--fraccion", type=float, default=1.0, help="fraccion del conjunto de entrenamiento a usar")
     parser.add_argument("--imgsz", type=int, default=640)
@@ -56,7 +57,12 @@ def main():
     if not ruta_datos.exists():
         raise FileNotFoundError(f"No existe {ruta_datos}")
 
-    modelo = YOLO(str(CARPETA_PESOS / argumentos.modelo))
+    ruta_modelo = Path(argumentos.modelo)
+    if not ruta_modelo.exists():
+        ruta_modelo = CARPETA_PESOS / argumentos.modelo
+    if not ruta_modelo.exists():
+        raise FileNotFoundError(f"No existen los pesos de partida {argumentos.modelo}")
+    modelo = YOLO(str(ruta_modelo))
     inicio = time.time()
     modelo.train(data=str(ruta_datos), epochs=argumentos.epocas, imgsz=argumentos.imgsz, batch=argumentos.lote,
                  fraction=argumentos.fraccion, device="cpu", seed=SEMILLA, deterministic=True,

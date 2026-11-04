@@ -1715,3 +1715,78 @@ Auditoría de código + validación de aforo_v4. Además del descuento por segun
   aparte .venv_label), PRE_ETIQUETAR.bat e INICIAR_LABEL_STUDIO.bat. .gitignore: .venv_label/ y data/label_studio/.
   Pendiente (siguiente sesión): instalar, pre-etiquetar, crear el proyecto, corregir las 117 imágenes, exportar en
   formato YOLO y reentrenar.
+
+## 2026-11-02 — Maqueta: tamaño de la tabla (decisión aplazada, PRIORIDAD para la siguiente sesión)
+- Cruce provisional medido por los autores (app Medidas del iPhone): calles de 1,38 m y 1,15 m. A esa escala, con la
+  cámara alta YOLO no detecta (0/8) y con la cámara a ~1 m detecta mejor (6/8) pero los brazos se salen de la imagen.
+- El video del iPhone es 16:9 (1920×1080): estimación (sin medir) del área visible a 1 m de altura ≈ 1,2 × 0,7 m →
+  un cruce cuadrado de 1 × 1 m no cabe. Propuesta preliminar: tabla rectangular ~120 × 70 cm (Cra 23 a lo largo,
+  brazos ~48 cm; Dg 15 a lo ancho, brazos ~23 cm), coherente con que la Cra 23 lleva ~70 % del tráfico.
+- Decisión de los autores: NO mandar a hacer la tabla hasta medir el área real que ve la cámara (celular a 1 m, modo
+  video 1×, horizontal; marcar bordes en el piso) y comprobar la detección tras el reentrenamiento con imágenes propias.
+
+## 2026-11-03 — Fin del entrenamiento hotwheels_v1 (8 épocas)
+
+Entrenamiento YOLO26n en CPU, 20 % del dataset Hot-wheels-recognition v1, lote 8, semilla 0. Duración total: 380.9 min.
+Fuente: `results/vision/entrenamiento/hotwheels_v1/results.csv` y `results/vision/entrenamiento_hotwheels_v1_log.txt`.
+
+| Época | Precisión | Recall | mAP50 | mAP50-95 |
+|---|---|---|---|---|
+| 1 | 0.571 | 0.436 | 0.464 | 0.280 |
+| 2 | 0.635 | 0.504 | 0.522 | 0.321 |
+| 3 | 0.630 | 0.415 | 0.449 | 0.288 |
+| 4 | 0.687 | 0.477 | 0.507 | 0.330 |
+| **5** | **0.760** | **0.563** | **0.614** | **0.418** |
+| 6 | 0.755 | 0.476 | 0.523 | 0.360 |
+| 7 | 0.760 | 0.450 | 0.486 | 0.337 |
+| 8 | 0.760 | 0.462 | 0.504 | 0.354 |
+
+- `best.pt` = época 5 (validación final del mejor modelo: P 0.758, R 0.564, mAP50 0.613, mAP50-95 0.418, 1404 imágenes / 5350 carros de validación; inferencia 95 ms/imagen en CPU).
+- Las épocas 6–8 bajan en validación mientras la pérdida de entrenamiento sigue bajando: indicio de sobreajuste al 20 % usado. No compensa entrenar más épocas con los mismos datos; el siguiente paso es añadir imágenes propias (Label Studio).
+- Siguiente: `EVALUAR_FINAL.bat` evalúa el conteo de `best.pt` con las fotos propias (conf 0.25 y 0.40, NMS 0.5).
+
+### Evaluación de conteo del modelo final (`hotwheels_v1/best.pt`, NMS 0.5)
+
+Ejecutado con `EVALUAR_FINAL.bat` y `EVALUAR_FINAL_CONF015.bat`. Logs: `results/vision/evaluacion_final_log.txt`, `results/vision/evaluacion_final_conf015_log.txt`.
+
+| Umbral | Fotos sueltas (7 img, 57 carros) detectados / MAE | Cruce de cinta (9 img, 72 carros) detectados / MAE |
+|---|---|---|
+| 0.15 | 55 / 0.57 | 51 / 2.33 |
+| 0.25 | 47 / 1.43 | 40 / 3.56 |
+| 0.40 | 32 / 3.57 | 20 / 5.78 |
+| ref. época 1, conf 0.40 | 54 / 0.43 | 6 / 7.33 |
+| ref. época 2, conf 0.25 | 69 / 2.00 | 27 / 5.00 |
+
+**Revisión visual (importante):** el conteo coincidente puede esconder errores que se compensan.
+- `cruce_cerca2_8carros` a conf 0.15 da 8/8 en número, pero solo 5 cajas son carros reales: 3 son las palabras escritas a mano en el piso ("este", "oeste", "norte") y 3 carros no se detectan.
+- `cruce_prueba_8carros_b` da 6 detecciones: 4 carros reales, una caja grande que abarca toda la fila y una caja sobre objetos de la esquina.
+
+Conclusiones:
+1. El modelo final detecta mejor el cruce que las épocas 1–2, pero aún no es fiable en el escenario de la maqueta.
+2. La métrica de conteo por imagen no basta; hace falta evaluar por cajas (verdaderos/falsos positivos) con fotos propias etiquetadas → Label Studio.
+3. Decisión de diseño para la maqueta: **no escribir texto sobre la calzada** (el modelo lo confunde con carros) y despejar los bordes de objetos ajenos.
+
+### Label Studio instalado y pre-etiquetado (2026-11-03)
+- `INSTALAR_LABEL_STUDIO.bat` ahora deja el log en `results/vision/instalar_label_studio_log.txt`. Instalado **label-studio 1.23.2** en `.venv_label` (entorno aparte).
+- `scripts/preetiquetar_label_studio.py` usa ahora por defecto el modelo final `hotwheels_v1/weights/best.pt` (antes época 2). Resultado: 117 tareas con 361 cajas propuestas (conf 0.25, NMS 0.5) en `data/raw/hotwheels/tareas_label_studio.json`. Las cajas son solo propuestas: las corrigen los autores.
+- `INICIAR_LABEL_STUDIO.bat` ejecutado: el servidor abre en http://localhost:8080.
+
+### Proyecto de Label Studio configurado (2026-11-04)
+- Proyecto `hotwheels_maqueta` (id 1), etiqueta única `Car` (RectangleLabels `label` → Image `image`).
+- Fuente de imágenes: Local files en `data\raw\hotwheels\cuadros_entrenamiento` (sin "Sync", para no duplicar tareas).
+- Importadas 117 tareas con 117 predicciones (`model_version` = `hotwheels_v1`); el proyecto muestra las predicciones como pre-etiquetas.
+- Nota: la traducción automática de Chrome rompe la interfaz de Label Studio (error de React al importar); debe desactivarse para `localhost`.
+- Siguiente: los autores corrigen las 117 imágenes y se exporta en formato YOLO.
+
+### Etiquetado propio terminado y convertido a YOLO (2026-11-04)
+- Los autores corrigieron las 117 imágenes en Label Studio: 117 anotaciones, 0 omitidas, **491 cajas** (el modelo había propuesto 361). Una imagen (v0580_028) quedó sin cajas a propósito: solo carros cortados en el borde.
+- Revisión de calidad: una sola etiqueta (`Car`), ninguna caja de tamaño anómalo; revisión visual de 6 imágenes (tareas 1, 19, 40, 57, 99, 117) correcta.
+- Exportación: `data/label_studio/media/export/1/project-1-at-2026-11-04-16-08-0a0e2c00.json`.
+- Nuevo `scripts/convertir_label_studio_a_yolo.py` → `data/processed/hotwheels_propio/` (no se sube a GitHub: contiene fotos personales).
+  - División **por video** para evitar fuga de información entre cuadros casi idénticos: train = v0577, v0578, v0579 (89 imágenes, 366 cajas); val = v0580 (28 imágenes, 125 cajas).
+
+### Reentrenamiento hotwheels_v2 lanzado (2026-11-04, 16:17)
+- Dataset: `scripts/preparar_dataset_combinado.py` → `data/processed/hotwheels_combinado/` (semilla 0): 89 imágenes propias ×5 copias (445) + 1000 públicas muestreadas de 15 871 = 1445 de entrenamiento (30.8 % propias). Validación: 28 imágenes propias del video v0580 (una sin carros).
+- `scripts/entrenar_yolo.py`: `--modelo` acepta ahora la ruta de un best.pt ya entrenado.
+- `ENTRENAR_HOTWHEELS_V2.bat`: parte de `hotwheels_v1/weights/best.pt`, 10 épocas, lote 8, CPU. Log: `results/vision/entrenamiento_hotwheels_v2_log.txt`. Si se interrumpe: `REANUDAR_HOTWHEELS_V2.bat`.
+- Ultralytics eligió AdamW lr 0.002. Con 10 épocas y `close_mosaic=10` no se usa aumento mosaico (igual que en v1).
