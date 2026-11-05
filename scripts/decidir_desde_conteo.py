@@ -33,7 +33,7 @@ from src.common.estado import EstadoBrazo, EstadoTrafico  # noqa: E402
 from src.controller.qlearning_controlador import ControladorQLearning  # noqa: E402
 from src.controller.safety_guard import SafetyGuard  # noqa: E402
 from src.controller.tiempos_fijos import ControladorTiemposFijos  # noqa: E402
-from src.vision.escala_maqueta import EscaladorMaqueta, capacidad_zona_sumo  # noqa: E402
+from src.vision.escala_maqueta import EscaladorMaqueta, capacidades_zona_sumo  # noqa: E402
 
 BRAZOS = ("norte", "sur", "este", "oeste")
 
@@ -107,7 +107,7 @@ def main():
     tabla = TablaQ.cargar(CARPETA_TESIS / "models" / argumentos.modelo / "tabla_q.json")
     config_agente = tabla.metadatos["config_agente"]
     codificador = CodificadorEstado(config_interseccion, config_agente)
-    escalador = EscaladorMaqueta(config_zonas["capacidad_carros"], capacidad_zona_sumo(config_interseccion))
+    escalador = EscaladorMaqueta(config_zonas["capacidad_carros"], capacidades_zona_sumo(config_interseccion))
 
     controladores = ["qlearning"] + (["tiempos_fijos"] if argumentos.comparar else [])
     for nombre in controladores:

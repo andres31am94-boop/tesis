@@ -41,7 +41,7 @@ from src.controller.qlearning_controlador import ControladorQLearning
 from src.controller.safety_guard import SafetyGuard
 from src.controller.tiempos_fijos import ControladorTiemposFijos
 from src.simulation.lazo_hardware import ErrorLazo, enviar_y_confirmar, esperar_listo, leer_pendientes
-from src.vision.escala_maqueta import EscaladorMaqueta, capacidad_zona_sumo
+from src.vision.escala_maqueta import EscaladorMaqueta, capacidades_zona_sumo
 from src.vision.zonas import ContadorZonas, VehiculoSeguido
 
 sys.path.insert(0, str(CARPETA_TESIS / "scripts"))
@@ -71,7 +71,14 @@ def crear_controlador(nombre, modelo, config_interseccion):
 
 def abrir_fuente(fuente):
     es_camara = fuente.isdigit()
-    captura = cv2.VideoCapture(int(fuente) if es_camara else str(Path(fuente).resolve()))
+    if es_camara:
+        # DirectShow: backend que usan las camaras virtuales de Windows (iPhone como camara web). Se pide 1920x1080,
+        # la misma proporcion 16:9 del video con que se midio el area visible (102 x 68 cm a 1 m).
+        captura = cv2.VideoCapture(int(fuente), cv2.CAP_DSHOW)
+        captura.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
+        captura.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
+    else:
+        captura = cv2.VideoCapture(str(Path(fuente).resolve()))
     if not captura.isOpened():
         raise RuntimeError(f"No se pudo abrir la fuente de video '{fuente}'")
     return captura, es_camara
@@ -106,7 +113,7 @@ def main():
     contador = ContadorZonas(zonas, ventana_detenido_s=config_zonas["deteccion_detenido"]["ventana_s"],
                              umbral_movimiento=config_zonas["deteccion_detenido"]["umbral_movimiento"],
                              punto_referencia=config_zonas.get("punto_referencia", "centro"))
-    escalador = EscaladorMaqueta(config_zonas["capacidad_carros"], capacidad_zona_sumo(config_interseccion))
+    escalador = EscaladorMaqueta(config_zonas["capacidad_carros"], capacidades_zona_sumo(config_interseccion))
     controlador, guard, codificador = crear_controlador(argumentos.controlador, argumentos.modelo, config_interseccion)
 
     modelo_yolo = YOLO(str(Path(argumentos.pesos).resolve()))

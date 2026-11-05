@@ -26,7 +26,7 @@ sys.path.insert(0, str(CARPETA_TESIS))
 
 from src.agent.codificador_estado import nivel  # noqa: E402
 from src.common.estado import EstadoBrazo, EstadoTrafico  # noqa: E402
-from src.vision.escala_maqueta import EscaladorMaqueta, capacidad_zona_sumo  # noqa: E402
+from src.vision.escala_maqueta import EscaladorMaqueta, capacidades_zona_sumo  # noqa: E402
 
 NOMBRES_NIVEL = ["vacia", "baja", "media", "alta", "muy_alta"]
 EJES = {"cra23": ["norte", "sur"], "dg15": ["este", "oeste"]}
@@ -44,12 +44,12 @@ def main():
     config_interseccion = yaml.safe_load((CARPETA_TESIS / "config" / "interseccion.yaml").read_text(encoding="utf-8"))
     estado_agente = json.loads(Path(argumentos.agente).read_text(encoding="utf-8"))["metadatos"]["config_agente"]["estado"]
     cortes_cola, cortes_presentes = estado_agente["cortes_detenidos_zona"], estado_agente["cortes_presentes_zona_verde"]
-    escalador = EscaladorMaqueta(config_zonas["capacidad_carros"], capacidad_zona_sumo(config_interseccion))
+    escalador = EscaladorMaqueta(config_zonas["capacidad_carros"], capacidades_zona_sumo(config_interseccion))
 
     with open(argumentos.conteo, encoding="utf-8") as archivo:
         filas = list(csv.DictReader(archivo))
     salida = []
-    print(f"Capacidad de la zona en SUMO: {escalador.capacidad_sumo:.1f} veh. | capacidad maqueta: "
+    print(f"Capacidad de la zona en SUMO: { {b: round(c, 1) for b, c in escalador.capacidad_sumo.items()} } | capacidad maqueta: "
           f"{escalador.capacidad_carros} | cortes cola {cortes_cola} | cortes presentes {cortes_presentes}\n")
     for fila in filas:
         segundo = int(fila["segundo"])

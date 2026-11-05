@@ -59,3 +59,6 @@ results/vision/conteo_zonas/**/*.jpg
 # muestran manos, pies y la casa. Se suben solo las curvas (.png), results.csv y el registro.
 results/vision/entrenamiento/hotwheels_v2*/**/*.jpg
 results/vision/prueba_alturas/**/*.jpg
+
+# Copias que deja la app de Claude al entregar archivos (duplicados; los originales estan en hardware/ y scripts/)
+Claude outputs/

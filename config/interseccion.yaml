@@ -13,10 +13,6 @@ espacio_por_vehiculo_m: 7.5
 # Igual para todos los brazos: es lo que veria una camara en el cruce (y lo que medira la camara en la maqueta).
 # En campo las colas observadas llegan a ~150 m como maximo; una cola mas larga que la zona se ve como "alta".
 zona_camara_m: 100
-# Carriles de llegada en la zona de camara (2026-11-04, verificado en acacias.net.xml: los 4 brazos llegan a la linea
-# de pare con 2 carriles de 3.5 m). Capacidad de la zona = carriles * zona_camara_m / espacio_por_vehiculo_m ~ 26.7.
-# La usa la traduccion maqueta -> escala SUMO (src/vision/escala_maqueta.py).
-carriles_zona_camara: 2
 
 # Brazos de llegada: tramos (edges) de SUMO que forman la ZONA DE MEDICION del brazo y eje al que pertenece.
 # La lista va desde la linea de pare hacia atras. El primero es el tramo de llegada original de OSM
