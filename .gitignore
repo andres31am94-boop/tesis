@@ -58,3 +58,4 @@ results/vision/conteo_zonas/**/*.jpg
 # Entrenamientos con FOTOS PROPIAS (hotwheels_v2 en adelante): los mosaicos train_batch/val_batch/labels.jpg
 # muestran manos, pies y la casa. Se suben solo las curvas (.png), results.csv y el registro.
 results/vision/entrenamiento/hotwheels_v2*/**/*.jpg
+results/vision/prueba_alturas/**/*.jpg

@@ -1790,3 +1790,78 @@ Conclusiones:
 - `scripts/entrenar_yolo.py`: `--modelo` acepta ahora la ruta de un best.pt ya entrenado.
 - `ENTRENAR_HOTWHEELS_V2.bat`: parte de `hotwheels_v1/weights/best.pt`, 10 épocas, lote 8, CPU. Log: `results/vision/entrenamiento_hotwheels_v2_log.txt`. Si se interrumpe: `REANUDAR_HOTWHEELS_V2.bat`.
 - Ultralytics eligió AdamW lr 0.002. Con 10 épocas y `close_mosaic=10` no se usa aumento mosaico (igual que en v1).
+
+### Medición del área que ve la cámara (2026-11-04, medido por los autores)
+Celular horizontal apuntando al piso; distancias medidas desde el centro de la baldosa hasta el borde visible en cada lado.
+
+| Altura | Lado largo | Lado corto | Área visible | Largo/altura | Corto/altura |
+|---|---|---|---|---|---|
+| 100 cm | 51 + 51 = 102 cm | 34 + 34 = 68 cm | 102 × 68 cm | 1.02 | 0.68 |
+| 80 cm | 42 + 42 = 84 cm | 22 + 31 = 53 cm | 84 × 53 cm | 1.05 | 0.66 |
+| 60 cm | 23 + 41 = 64 cm | 18 + 21 = 39 cm | 64 × 39 cm | 1.07 | 0.65 |
+
+- Las tres medidas son coherentes: el área crece en proporción a la altura (≈ 1.05·h × 0.66·h). Las diferencias entre lados opuestos (22/31, 18/21, 23/41) solo indican que la cámara no estaba centrada sobre la baldosa.
+- Estimación (no medición): en el lado largo de 1920 px, un carro de ~7.5 cm ocupa ~141 px a 100 cm, ~171 px a 80 cm y ~225 px a 60 cm; reducido a 640 px de entrada de YOLO: ~47, ~57 y ~75 px. En los cuadros etiquetados el carro ocupaba ~51 px a 640, es decir, una escala parecida a la de 80–100 cm.
+- Pendiente: medir la detección real a cada altura con video antes de decidir la tabla.
+
+## 2026-11-04 — Resultados de hotwheels_v2 (reentrenado con fotos propias)
+
+Entrenamiento: 10 épocas, 160.7 min en CPU. `best.pt` = **época 7** (validación v0580, 28 imágenes / 125 carros): P 0.961, R 0.996, mAP50 0.992, mAP50-95 0.715. Inferencia ~63–69 ms por imagen.
+
+### Conteo en fotos de prueba (nunca usadas para entrenar), NMS 0.5
+| Modelo | conf | Fotos sueltas (57 carros) det. / MAE | Cruce (72 carros) det. / MAE |
+|---|---|---|---|
+| hotwheels_v1 (antes) | 0.15 | 55 / 0.57 | 51 / 2.33 |
+| hotwheels_v1 (antes) | 0.25 | 47 / 1.43 | 40 / 3.56 |
+| **hotwheels_v2** | 0.25 | 66 / 1.29 | 80 / 0.89 |
+| **hotwheels_v2** | **0.40** | 65 / 1.14 | **73 / 0.11** |
+
+Revisión visual (conf 0.40): en el cruce las cajas sobran solo en `cruce_cerca2` (texto "oeste" escrito en el piso, conf 0.44). Las detecciones de más en fotos sueltas son **pies** (conf 0.43–0.64) y una caja doble. En la maqueta no habrá pies ni texto en la calzada.
+
+### Prueba de alturas de cámara (`scripts/evaluar_alturas.py`, 1 cuadro por segundo, conf 0.25)
+Conteo real hecho a mano por el tutor revisando cada cuadro (`results/vision/prueba_alturas/hotwheels_v2_conf0.25/`).
+
+| Altura | Cuadros | Carros reales | Detectados correctos | No detectados | Falsos positivos | Lado mayor del carro (mediana) |
+|---|---|---|---|---|---|---|
+| 100 cm | 15 | 63 | 63 | 0 | 9 (pie, conf 0.26–0.37) | 156 px |
+| 80 cm | 11 | 35 | 35 | 0 | 0 | 183 px |
+| 60 cm | 9 | 18 | 18 | 0 | 4 (pie, conf 0.27–0.44) | 229 px |
+
+- A 1 m los carros se detectan con confianza 0.75–0.90, igual que a 60–80 cm: la altura no degrada la detección en este rango.
+- Todos los falsos positivos son pies con confianza baja; con conf 0.40 desaparecen casi todos.
+- Decisión propuesta: **cámara a 1 m**, conf 0.40, NMS 0.5. Área visible medida: 102 × 68 cm.
+
+### Decisión de diseño: tabla de la maqueta (2026-11-04)
+- Tabla **110 × 80 cm** = área visible a 1 m (102 × 68 cm medida) + margen de 4 cm (lado largo) y 6 cm (lado corto) por lado, para tolerar cámara descentrada o un poco más alta.
+- Calles de 15 cm (2 carriles de 7.5 cm), Cra 23 a lo largo; las calles llegan al borde de la tabla (los carros entran desde fuera del campo visual).
+- Cámara fija a 1 m, centrada. Superficie mate y sin texto en la calzada (el texto y los reflejos generaron falsos positivos).
+
+### Fase 9.1 — Qué ve el agente y cómo traducir la maqueta (revisión, 2026-11-04)
+- `aforo_v8` no recibe números exactos: `src/agent/codificador_estado.py` convierte la cola en **5 niveles** con cortes sobre la ZONA DE CÁMARA (`zona_camara_m: 100` en `config/interseccion.yaml`), tomando el brazo más cargado de cada eje:
+  - eje en rojo (detenidos): cortes [1, 4, 11, 23] → vacía 0 | baja 1–3 | media 4–10 | alta 11–22 | muy alta ≥23
+  - eje en verde (presentes): cortes [1, 5, 16, 30]
+- Red SUMO (`acacias.net.xml`): los 4 brazos llegan a la línea de pare con **2 carriles de 3.5 m** → capacidad de la zona ≈ 2 × 100 m / 7.5 m ≈ 26 vehículos por brazo.
+- Propuesta de traducción: **ocupación relativa**. Vehículos equivalentes = (carros vistos en el brazo / capacidad del brazo en la maqueta) × 26. La misma fracción de calle llena en la maqueta = la misma fracción de zona llena en SUMO.
+
+### Fase 9.2 — Video de 1 m → estado del agente (2026-11-04)
+- `config/zonas_prueba_1m.yaml`: zonas del cruce de cinta en el video `un_metro.MOV`, ubicadas detectando la cinta negra (calle horizontal y 456–714 px, vertical x 836–1096 px) y verificadas dibujándolas (`results/vision/zonas/zonas_prueba_1m.jpg`). Capacidad por brazo: Cra 23 = 5 carros, Dg 15 = 3.
+- `config/interseccion.yaml`: nuevo `carriles_zona_camara: 2` → capacidad de la zona SUMO = 2 × 100 / 7.5 = 26.7 vehículos.
+- Nuevo `src/vision/escala_maqueta.py` (`EscaladorMaqueta`, ocupación relativa) + `tests/test_escala_maqueta.py` (6 pruebas, pasan).
+- `scripts/contar_zonas_video.py`: nueva opción `--zonas`.
+- Nuevo `scripts/estado_agente_desde_video.py`: cada 5 s traduce el conteo y lo pasa por los cortes de `aforo_v8`.
+- Corrida (`PASO9_2_ESTADO_DESDE_VIDEO.bat`, hotwheels_v2, conf 0.40, 1 de cada 2 cuadros): **13.4 cuadros/s** procesados en CPU (74 ms por cuadro). En t=4 s el conteo (sur 2, norte 1, uno en el centro del cruce sin zona) coincide con la imagen revisada.
+  - Estado cada 5 s: Cra 23 = 2 carros presentes → 11 equivalentes → "media" si está en verde; Dg 15 vacía. Casi no hay detenidos porque los carros se mueven halados con hilo.
+- Observación: el corte más alto de "presentes" del agente es 30 y la capacidad equivalente es 26.7, así que el nivel "muy alta en verde" no se alcanza desde la maqueta (sí "muy alta" en rojo, corte 23). Impacto esperado bajo; se revisará en el paso 3.
+
+### Fase 9.3 — El agente decide con conteos de cámara (lazo abierto, 2026-11-04)
+- Nuevo `scripts/decidir_desde_conteo.py`: conteo por segundo → `EscaladorMaqueta` → `ControladorQLearning` (tabla congelada de `aforo_v8`, mismo código que en SUMO) → `SafetyGuard` (tiempos reales). `--comparar` corre también tiempos fijos (55/20 s) con la misma entrada.
+- Prueba con un **guion SINTÉTICO** (`config/guiones_prueba/desbalance.csv`, NO es un resultado experimental): 3 tramos de 240 s con conteos constantes. Lazo abierto: la entrada no reacciona a las luces.
+
+| Tramo del guion | Decisiones del agente | Con respaldo (estado nunca visto) | Verdes dados |
+|---|---|---|---|
+| Dg 15 llena, Cra 23 vacía | 22 | **22** | Cra 23 55 s, Dg 15 20 s (= plan fijo) |
+| Cra 23 llena, Dg 15 vacía | 23 | **21** | Dg 15 15 s (corta al mínimo), Cra 23 55–70 s |
+| Ambas llenas | 28 | 0 | Cra 23 70 s (máximo), Dg 15 20 s |
+
+- Hallazgo: cuando un eje está **completamente vacío**, el estado (p. ej. "Cra 23 vacía en verde, Dg 15 muy alta") **nunca se visitó** en el entrenamiento con el aforo real (la Cra 23 siempre tuvo tráfico) y el controlador cae al **respaldo de tiempos fijos** (comportamiento seguro ya previsto en `ControladorQLearning`). Con ambos ejes cargados el agente sí adapta (Cra 23 hasta 70 s).
+- Implicación para la maqueta: con pocos carros habrá brazos vacíos con frecuencia → en esos momentos el semáforo se comportará como el plan fijo. Pendiente decidir cómo cubrir esos estados (ver opciones en la conversación del 2026-11-04).

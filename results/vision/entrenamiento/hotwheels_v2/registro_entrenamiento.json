@@ -1,0 +1,15 @@
+{
+  "fecha": "2026-11-04T18:57:26",
+  "ultralytics": "8.4.198",
+  "python": "3.11.5",
+  "procesador": "Intel64 Family 6 Model 142 Stepping 12, GenuineIntel",
+  "dispositivo": "cpu",
+  "datos": "C:\\Users\\andre\\Documents\\tesis\\data\\processed\\hotwheels_combinado\\data.yaml",
+  "modelo_inicial": "results\\vision\\entrenamiento\\hotwheels_v1\\weights\\best.pt",
+  "epocas": 10,
+  "fraccion": 1.0,
+  "imgsz": 640,
+  "lote": 8,
+  "semilla": 0,
+  "minutos_entrenamiento": 160.7
+}

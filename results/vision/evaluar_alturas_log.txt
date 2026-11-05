@@ -1,0 +1,5 @@
+60_centimetros   cuadros   9 | detecciones por cuadro [4, 3, 3, 4, 3, 2, 2, 1, 0]
+80_centimetros   cuadros  11 | detecciones por cuadro [4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2]
+un_metro         cuadros  15 | detecciones por cuadro [5, 5, 4, 4, 4, 5, 5, 4, 5, 5, 5, 6, 6, 5, 4]
+
+Imagenes y resumen en C:\Users\andre\Documents\tesis\results\vision\prueba_alturas\hotwheels_v2_conf0.25

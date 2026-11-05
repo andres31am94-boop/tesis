@@ -6,7 +6,7 @@ Por cada SEGUNDO de video guarda, para cada brazo: vehiculos presentes en su zon
 
 Uso (desde la carpeta tesis):
   .\\.venv\\Scripts\\python.exe scripts\\contar_zonas_video.py --pesos <best.pt> --video data\\raw\\hotwheels\\<video>
-  opciones: --conf 0.40 --nms_iou 0.5 --tracker bytetrack.yaml --cada 1
+  opciones: --conf 0.40 --nms_iou 0.5 --tracker bytetrack.yaml --cada 1 --zonas config\\zonas_camara.yaml
 Salida en results/vision/conteo_zonas/<video>/: conteo_por_segundo.csv, conteo.mp4 (zonas y conteos dibujados),
 resumen.json. Para medir el error: contar a mano algunos segundos del video y compararlos con el CSV.
 """
@@ -39,9 +39,11 @@ def main():
     parser.add_argument("--imgsz", type=int, default=640)
     parser.add_argument("--tracker", default="bytetrack.yaml")
     parser.add_argument("--cada", type=int, default=1, help="procesar 1 de cada N cuadros")
+    parser.add_argument("--zonas", default=str(CARPETA_TESIS / "config" / "zonas_camara.yaml"),
+                        help="archivo de zonas (depende de la posicion de la camara)")
     argumentos = parser.parse_args()
 
-    zonas, config = cargar_zonas()
+    zonas, config = cargar_zonas(Path(argumentos.zonas).resolve())
     contador = ContadorZonas(zonas, ventana_detenido_s=config["deteccion_detenido"]["ventana_s"],
                              umbral_movimiento=config["deteccion_detenido"]["umbral_movimiento"],
                              punto_referencia=config.get("punto_referencia", "centro"))
@@ -103,7 +105,7 @@ def main():
         escritor = csv.DictWriter(archivo, fieldnames=list(filas[0]))
         escritor.writeheader()
         escritor.writerows(filas)
-    resumen = {"video": str(ruta_video), "pesos": argumentos.pesos, "conf": argumentos.conf,
+    resumen = {"video": str(ruta_video), "zonas": argumentos.zonas, "pesos": argumentos.pesos, "conf": argumentos.conf,
                "nms_iou": argumentos.nms_iou, "tracker": argumentos.tracker, "segundos": len(filas),
                "ms_por_cuadro_mediana": round(statistics.median(tiempos_ms), 1),
                "fps_procesamiento": round(1000 / statistics.median(tiempos_ms), 2)}

@@ -1,0 +1,11 @@
+{
+  "video": "C:\\Users\\andre\\Documents\\tesis\\data\\raw\\hotwheels\\prueba_alturas\\un_metro.MOV",
+  "zonas": "config\\zonas_prueba_1m.yaml",
+  "pesos": "results\\vision\\entrenamiento\\hotwheels_v2\\weights\\best.pt",
+  "conf": 0.4,
+  "nms_iou": 0.5,
+  "tracker": "bytetrack.yaml",
+  "segundos": 15,
+  "ms_por_cuadro_mediana": 74.4,
+  "fps_procesamiento": 13.44
+}

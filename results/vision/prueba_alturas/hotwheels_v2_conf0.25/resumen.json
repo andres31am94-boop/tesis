@@ -1,0 +1,610 @@
+{
+  "pesos": "C:\\Users\\andre\\Documents\\tesis\\results\\vision\\entrenamiento\\hotwheels_v2\\weights\\best.pt",
+  "conf": 0.25,
+  "nms_iou": 0.5,
+  "imgsz": 640,
+  "cada_s": 1.0,
+  "videos": {
+    "60_centimetros": {
+      "altura_cm": 60,
+      "resolucion": "1920x1080",
+      "cuadros_evaluados": 9,
+      "detecciones_promedio": 2.44,
+      "lado_mayor_px_mediana": 229.0,
+      "inferencia_ms_mediana": 66.2,
+      "cuadros": [
+        {
+          "segundo": 0.0,
+          "detectados": 4,
+          "confianzas": [
+            0.818,
+            0.792,
+            0.776,
+            0.319
+          ],
+          "lado_mayor_px": [
+            245,
+            229,
+            210,
+            100
+          ],
+          "inferencia_ms": 400.9
+        },
+        {
+          "segundo": 1.0,
+          "detectados": 3,
+          "confianzas": [
+            0.839,
+            0.83,
+            0.765
+          ],
+          "lado_mayor_px": [
+            249,
+            228,
+            265
+          ],
+          "inferencia_ms": 63.1
+        },
+        {
+          "segundo": 2.0,
+          "detectados": 3,
+          "confianzas": [
+            0.852,
+            0.818,
+            0.815
+          ],
+          "lado_mayor_px": [
+            252,
+            223,
+            278
+          ],
+          "inferencia_ms": 71.9
+        },
+        {
+          "segundo": 3.0,
+          "detectados": 4,
+          "confianzas": [
+            0.836,
+            0.828,
+            0.813,
+            0.271
+          ],
+          "lado_mayor_px": [
+            227,
+            248,
+            237,
+            111
+          ],
+          "inferencia_ms": 61.1
+        },
+        {
+          "segundo": 4.0,
+          "detectados": 3,
+          "confianzas": [
+            0.852,
+            0.838,
+            0.331
+          ],
+          "lado_mayor_px": [
+            271,
+            229,
+            98
+          ],
+          "inferencia_ms": 49.4
+        },
+        {
+          "segundo": 5.0,
+          "detectados": 2,
+          "confianzas": [
+            0.802,
+            0.795
+          ],
+          "lado_mayor_px": [
+            230,
+            217
+          ],
+          "inferencia_ms": 62.9
+        },
+        {
+          "segundo": 6.0,
+          "detectados": 2,
+          "confianzas": [
+            0.736,
+            0.442
+          ],
+          "lado_mayor_px": [
+            244,
+            95
+          ],
+          "inferencia_ms": 66.2
+        },
+        {
+          "segundo": 7.0,
+          "detectados": 1,
+          "confianzas": [
+            0.677
+          ],
+          "lado_mayor_px": [
+            199
+          ],
+          "inferencia_ms": 153.6
+        },
+        {
+          "segundo": 8.0,
+          "detectados": 0,
+          "confianzas": [],
+          "lado_mayor_px": [],
+          "inferencia_ms": 80.6
+        }
+      ]
+    },
+    "80_centimetros": {
+      "altura_cm": 80,
+      "resolucion": "1920x1080",
+      "cuadros_evaluados": 11,
+      "detecciones_promedio": 3.18,
+      "lado_mayor_px_mediana": 183,
+      "inferencia_ms_mediana": 67.5,
+      "cuadros": [
+        {
+          "segundo": 0.0,
+          "detectados": 4,
+          "confianzas": [
+            0.855,
+            0.832,
+            0.82,
+            0.792
+          ],
+          "lado_mayor_px": [
+            183,
+            192,
+            180,
+            200
+          ],
+          "inferencia_ms": 126.2
+        },
+        {
+          "segundo": 1.0,
+          "detectados": 4,
+          "confianzas": [
+            0.864,
+            0.863,
+            0.851,
+            0.843
+          ],
+          "lado_mayor_px": [
+            177,
+            200,
+            181,
+            189
+          ],
+          "inferencia_ms": 100.1
+        },
+        {
+          "segundo": 2.0,
+          "detectados": 4,
+          "confianzas": [
+            0.869,
+            0.867,
+            0.831,
+            0.817
+          ],
+          "lado_mayor_px": [
+            190,
+            180,
+            177,
+            202
+          ],
+          "inferencia_ms": 71.0
+        },
+        {
+          "segundo": 3.0,
+          "detectados": 4,
+          "confianzas": [
+            0.878,
+            0.854,
+            0.829,
+            0.779
+          ],
+          "lado_mayor_px": [
+            176,
+            190,
+            202,
+            165
+          ],
+          "inferencia_ms": 63.9
+        },
+        {
+          "segundo": 4.0,
+          "detectados": 4,
+          "confianzas": [
+            0.854,
+            0.852,
+            0.803,
+            0.744
+          ],
+          "lado_mayor_px": [
+            178,
+            188,
+            200,
+            98
+          ],
+          "inferencia_ms": 55.2
+        },
+        {
+          "segundo": 5.0,
+          "detectados": 3,
+          "confianzas": [
+            0.857,
+            0.835,
+            0.829
+          ],
+          "lado_mayor_px": [
+            199,
+            177,
+            187
+          ],
+          "inferencia_ms": 53.3
+        },
+        {
+          "segundo": 6.0,
+          "detectados": 3,
+          "confianzas": [
+            0.86,
+            0.836,
+            0.809
+          ],
+          "lado_mayor_px": [
+            199,
+            178,
+            192
+          ],
+          "inferencia_ms": 68.5
+        },
+        {
+          "segundo": 7.0,
+          "detectados": 3,
+          "confianzas": [
+            0.855,
+            0.833,
+            0.789
+          ],
+          "lado_mayor_px": [
+            196,
+            176,
+            92
+          ],
+          "inferencia_ms": 67.5
+        },
+        {
+          "segundo": 8.0,
+          "detectados": 2,
+          "confianzas": [
+            0.868,
+            0.798
+          ],
+          "lado_mayor_px": [
+            199,
+            177
+          ],
+          "inferencia_ms": 52.2
+        },
+        {
+          "segundo": 9.01,
+          "detectados": 2,
+          "confianzas": [
+            0.867,
+            0.804
+          ],
+          "lado_mayor_px": [
+            200,
+            180
+          ],
+          "inferencia_ms": 54.3
+        },
+        {
+          "segundo": 10.01,
+          "detectados": 2,
+          "confianzas": [
+            0.834,
+            0.752
+          ],
+          "lado_mayor_px": [
+            179,
+            97
+          ],
+          "inferencia_ms": 84.7
+        }
+      ]
+    },
+    "un_metro": {
+      "altura_cm": 100,
+      "resolucion": "1920x1080",
+      "cuadros_evaluados": 15,
+      "detecciones_promedio": 4.8,
+      "lado_mayor_px_mediana": 155.5,
+      "inferencia_ms_mediana": 68.6,
+      "cuadros": [
+        {
+          "segundo": 0.0,
+          "detectados": 5,
+          "confianzas": [
+            0.864,
+            0.853,
+            0.846,
+            0.834,
+            0.304
+          ],
+          "lado_mayor_px": [
+            161,
+            147,
+            146,
+            162,
+            172
+          ],
+          "inferencia_ms": 73.2
+        },
+        {
+          "segundo": 1.0,
+          "detectados": 5,
+          "confianzas": [
+            0.887,
+            0.849,
+            0.84,
+            0.819,
+            0.365
+          ],
+          "lado_mayor_px": [
+            147,
+            147,
+            157,
+            162,
+            208
+          ],
+          "inferencia_ms": 78.2
+        },
+        {
+          "segundo": 2.0,
+          "detectados": 4,
+          "confianzas": [
+            0.879,
+            0.849,
+            0.841,
+            0.819
+          ],
+          "lado_mayor_px": [
+            150,
+            157,
+            149,
+            163
+          ],
+          "inferencia_ms": 90.5
+        },
+        {
+          "segundo": 3.0,
+          "detectados": 4,
+          "confianzas": [
+            0.862,
+            0.852,
+            0.842,
+            0.841
+          ],
+          "lado_mayor_px": [
+            150,
+            146,
+            159,
+            160
+          ],
+          "inferencia_ms": 103.0
+        },
+        {
+          "segundo": 4.0,
+          "detectados": 4,
+          "confianzas": [
+            0.874,
+            0.873,
+            0.855,
+            0.854
+          ],
+          "lado_mayor_px": [
+            147,
+            148,
+            158,
+            163
+          ],
+          "inferencia_ms": 125.7
+        },
+        {
+          "segundo": 5.0,
+          "detectados": 5,
+          "confianzas": [
+            0.871,
+            0.862,
+            0.858,
+            0.84,
+            0.336
+          ],
+          "lado_mayor_px": [
+            146,
+            147,
+            159,
+            161,
+            188
+          ],
+          "inferencia_ms": 72.2
+        },
+        {
+          "segundo": 6.0,
+          "detectados": 5,
+          "confianzas": [
+            0.876,
+            0.857,
+            0.846,
+            0.754,
+            0.333
+          ],
+          "lado_mayor_px": [
+            145,
+            147,
+            157,
+            159,
+            207
+          ],
+          "inferencia_ms": 68.6
+        },
+        {
+          "segundo": 7.0,
+          "detectados": 4,
+          "confianzas": [
+            0.886,
+            0.882,
+            0.85,
+            0.766
+          ],
+          "lado_mayor_px": [
+            161,
+            144,
+            150,
+            162
+          ],
+          "inferencia_ms": 54.3
+        },
+        {
+          "segundo": 8.01,
+          "detectados": 5,
+          "confianzas": [
+            0.881,
+            0.865,
+            0.846,
+            0.825,
+            0.299
+          ],
+          "lado_mayor_px": [
+            144,
+            148,
+            155,
+            167,
+            171
+          ],
+          "inferencia_ms": 53.4
+        },
+        {
+          "segundo": 9.01,
+          "detectados": 5,
+          "confianzas": [
+            0.9,
+            0.875,
+            0.859,
+            0.793,
+            0.256
+          ],
+          "lado_mayor_px": [
+            156,
+            145,
+            146,
+            167,
+            204
+          ],
+          "inferencia_ms": 53.8
+        },
+        {
+          "segundo": 10.01,
+          "detectados": 5,
+          "confianzas": [
+            0.871,
+            0.843,
+            0.836,
+            0.825,
+            0.301
+          ],
+          "lado_mayor_px": [
+            148,
+            169,
+            145,
+            154,
+            205
+          ],
+          "inferencia_ms": 58.1
+        },
+        {
+          "segundo": 11.01,
+          "detectados": 6,
+          "confianzas": [
+            0.863,
+            0.859,
+            0.849,
+            0.849,
+            0.333,
+            0.311
+          ],
+          "lado_mayor_px": [
+            146,
+            146,
+            147,
+            166,
+            100,
+            184
+          ],
+          "inferencia_ms": 49.1
+        },
+        {
+          "segundo": 12.01,
+          "detectados": 6,
+          "confianzas": [
+            0.888,
+            0.886,
+            0.854,
+            0.811,
+            0.351,
+            0.281
+          ],
+          "lado_mayor_px": [
+            148,
+            158,
+            125,
+            168,
+            101,
+            187
+          ],
+          "inferencia_ms": 54.1
+        },
+        {
+          "segundo": 13.01,
+          "detectados": 5,
+          "confianzas": [
+            0.872,
+            0.855,
+            0.828,
+            0.561,
+            0.331
+          ],
+          "lado_mayor_px": [
+            144,
+            156,
+            165,
+            80,
+            101
+          ],
+          "inferencia_ms": 57.9
+        },
+        {
+          "segundo": 14.01,
+          "detectados": 4,
+          "confianzas": [
+            0.879,
+            0.869,
+            0.83,
+            0.676
+          ],
+          "lado_mayor_px": [
+            141,
+            159,
+            166,
+            97
+          ],
+          "inferencia_ms": 70.3
+        }
+      ]
+    }
+  }
+}

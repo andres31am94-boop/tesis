@@ -1,0 +1,20 @@
+# Zonas PROVISIONALES para el video de prueba a 1 m (data/raw/hotwheels/prueba_alturas/un_metro.MOV, 1920x1080),
+# cruce de cinta en el piso. Bordes medidos sobre el cuadro t=4 s detectando la cinta negra (2026-11-04):
+#   calle horizontal entre y = 456 y 714 px; calle vertical entre x = 836 y 1096 px.
+# Orientacion: calle horizontal (lado largo de la imagen) = Cra 23 (derecha = norte, izquierda = sur);
+# calle vertical = Dg 15 (arriba = este, abajo = oeste). El agente decide por EJE.
+# Limitacion de esta prueba: el cruce del piso tiene 1 carril por sentido y la zona cubre el ancho completo de la
+# calle. En la maqueta (2 carriles por sentido) cada zona cubrira solo los carriles que LLEGAN al cruce.
+imagen_referencia: data/raw/hotwheels/prueba_alturas/vistas_previas/un_metro_full.jpg
+zonas:
+  norte: [[0.588, 0.422], [1.000, 0.422], [1.000, 0.661], [0.588, 0.661]]
+  sur:   [[0.000, 0.422], [0.421, 0.422], [0.421, 0.661], [0.000, 0.661]]
+  este:  [[0.435, 0.000], [0.571, 0.000], [0.571, 0.398], [0.435, 0.398]]
+  oeste: [[0.435, 0.693], [0.571, 0.693], [0.571, 1.000], [0.435, 1.000]]
+deteccion_detenido:
+  ventana_s: 1.0
+  umbral_movimiento: 0.01
+punto_referencia: centro
+# CAPACIDAD de cada brazo en la maqueta (carros en fila en la parte visible): largo visible / (7 cm carro + 1.5 cm).
+# A 1 m, 1920 px = 102 cm. Brazos horizontales: ~808 px = 43 cm -> 5 carros. Verticales: ~430 px = 27 cm -> 3 carros.
+capacidad_carros: {norte: 5, sur: 5, este: 3, oeste: 3}
