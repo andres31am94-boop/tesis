@@ -4,7 +4,7 @@ cd /d "%~dp0"
 (
 git add -A
 git status --short
-git commit -m "Fase 7.5-9.3: YOLO hotwheels_v2 (fotos propias), prueba de alturas de camara (decision: 1 m, tabla 110x80 cm), traduccion maqueta-SUMO por ocupacion relativa y agente decidiendo con conteos de camara" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01NSfkFfRDfUTDbj3sqLx43G"
+git commit -m "aforo_v9 (adaptacion de v8 a la maqueta): escenarios desbalanceados, entrenamiento y validacion; plano de la tabla; lazo en vivo camara-agente-ESP32 (src/maqueta/lazo_camara.py)" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01NSfkFfRDfUTDbj3sqLx43G"
 git push
 git log --oneline -1
 ) > results\subir_avances_log.txt 2>&1

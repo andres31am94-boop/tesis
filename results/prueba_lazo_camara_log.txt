@@ -1,0 +1,21 @@
+t=   0s  VERDE_DG15  (inicio)
+t=  15s  verde_dg15      ve: cola Cra23=vacia, cola Dg15=vacia, verde=dg15, tiempo_verde=nivel 0 -> CAMBIAR
+t=  15s  ==> AMARILLO_DG15
+t=  18s  ==> TODO_ROJO
+t=  38s  ==> VERDE_CRA23
+t=  58s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 0 -> MANTENER
+t=  63s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 0 -> MANTENER
+t=  68s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 0 -> MANTENER
+t=  73s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 0 -> MANTENER
+t=  78s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 0 -> MANTENER
+t=  83s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 1 -> MANTENER
+t=  88s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 1 -> MANTENER
+t=  93s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 2 -> MANTENER
+t=  98s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 2 -> MANTENER
+t= 103s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 2 -> MANTENER
+t= 108s  verde_cra23     ve: cola Cra23=media, cola Dg15=vacia, verde=cra23, tiempo_verde=nivel 2 -> MANTENER
+t= 108s  ==> AMARILLO_CRA23
+t= 111s  ==> VERDE_DG15
+{"fuente": "data\\raw\\hotwheels\\prueba_alturas\\un_metro.MOV", "zonas": "config\\zonas_prueba_1m.yaml", "pesos": "C:\\Users\\andre\\Documents\\tesis\\results\\vision\\entrenamiento\\hotwheels_v2\\weights\\best.pt", "controlador": "qlearning", "modelo": "aforo_v9", "conf": 0.4, "puerto": null, "segundos": 120, "cuadros": 7196, "ms_por_cuadro_mediana": 93.7, "cuadros_por_segundo": 10.67, "verdes": [["dg15", 15], ["cra23", 70]], "decisiones": 12, "decisiones_respaldo": 0}
+Resultados en C:\Users\andre\Documents\tesis\results\maqueta\lazo\20261105_160449_qlearning
+FIN_PRUEBA_LAZO 

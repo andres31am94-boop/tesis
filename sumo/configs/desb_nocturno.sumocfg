@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Escenario DERIVADO desb_nocturno (scripts/generar_escenarios_desbalanceados.py): Madrugada simulada: todos los brazos al 30 % del aforo bajo -->
+<configuration>
+    <input>
+        <net-file value="../network/acacias.net.xml"/>
+        <route-files value="../routes/desb_nocturno.rou.xml"/>
+    </input>
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+    <report>
+        <no-step-log value="true"/>
+    </report>
+    <processing>
+        <!-- Modelo de subcarriles (config/calibracion.yaml): permite a las motos ir lado a lado -->
+        <lateral-resolution value="0.7"/>
+        <!-- Tiempo maximo trabado antes del teleport (config/calibracion.yaml: subcarriles.tiempo_teleport_s) -->
+        <time-to-teleport value="300"/>
+    </processing>
+</configuration>

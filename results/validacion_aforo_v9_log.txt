@@ -1,0 +1,560 @@
+Modelo aforo_v9: 180 corridas pendientes (0 ya guardadas)
+Warning: Vehicle 'sur_recto_carro.49' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=981.00.
+[1/180] aforo_bajo         s101 tiempos_fijos        espera   15.43 s | cola   7.80 | ciclo   101 s |     8 s
+[2/180] aforo_bajo         s101 qlearning            espera   13.50 s | cola   6.80 | ciclo    81 s |     8 s
+[3/180] aforo_bajo         s102 tiempos_fijos        espera   15.67 s | cola   8.13 | ciclo   101 s |     8 s
+Warning: Vehicle 'sur_recto_camion.46' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=1552.00.
+Warning: Vehicle 'sur_recto_carro.98' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1801.00.
+Warning: Vehicle 'sur_recto_carro.162' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2770.00.
+Warning: Vehicle 'sur_recto_carro.163' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2773.00.
+Warning: Vehicle 'sur_recto_carro.166' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2823.00.
+[4/180] aforo_bajo         s102 qlearning            espera   14.05 s | cola   7.22 | ciclo    74 s |     8 s
+[5/180] aforo_bajo         s103 tiempos_fijos        espera   15.29 s | cola   7.79 | ciclo   101 s |     8 s
+[6/180] aforo_bajo         s103 qlearning            espera   13.41 s | cola   6.80 | ciclo    77 s |     9 s
+[7/180] aforo_bajo         s104 tiempos_fijos        espera   15.58 s | cola   8.00 | ciclo   101 s |     8 s
+Warning: Vehicle 'sur_recto_carro.84' performs emergency braking on lane '1414166243_1' with decel=9.00, wished=4.50, severity=1.00, time=1961.00.
+Warning: Teleporting vehicle 'sur_recto_camion.58'; collision with vehicle 'sur_recto_carro.84', lane='1414166243_1', gap=-0.67, latGap=-0.90, time=1961.00, stage=move.
+Warning: Vehicle 'sur_recto_camion.58' ends teleporting on edge 'puente_hacia_villavicencio', time=1965.00.
+[8/180] aforo_bajo         s104 qlearning            espera   14.67 s | cola   7.50 | ciclo    75 s |     8 s
+Warning: Vehicle 'sur_recto_carro.113' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2393.00.
+[9/180] aforo_bajo         s105 tiempos_fijos        espera   14.70 s | cola   7.48 | ciclo   101 s |     8 s
+Warning: Vehicle 'sur_recto_carro.170' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3472.00.
+[10/180] aforo_bajo         s105 qlearning            espera   13.52 s | cola   6.71 | ciclo    79 s |     9 s
+[11/180] aforo_bajo         s106 tiempos_fijos        espera   15.22 s | cola   7.80 | ciclo   101 s |     8 s
+[12/180] aforo_bajo         s106 qlearning            espera   13.87 s | cola   7.15 | ciclo    73 s |    10 s
+[13/180] aforo_bajo         s107 tiempos_fijos        espera   15.97 s | cola   8.19 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro.64' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1234.00.
+Warning: Vehicle 'sur_recto_bus.9' performs emergency braking on lane '1414166243_1' with decel=7.00, wished=4.00, severity=1.00, time=2052.00.
+Warning: Vehicle 'sur_recto_bus.20' performs emergency braking on lane ':inicio_puente_0_0' with decel=7.00, wished=4.00, severity=1.00, time=3620.00.
+[14/180] aforo_bajo         s107 qlearning            espera   13.38 s | cola   6.78 | ciclo    74 s |    15 s
+Warning: Vehicle 'sur_recto_carro.152' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3084.00.
+[15/180] aforo_bajo         s108 tiempos_fijos        espera   16.10 s | cola   8.34 | ciclo   101 s |    14 s
+[16/180] aforo_bajo         s108 qlearning            espera   14.19 s | cola   7.33 | ciclo    73 s |    14 s
+[17/180] aforo_bajo         s109 tiempos_fijos        espera   14.87 s | cola   7.69 | ciclo   101 s |    13 s
+Warning: Vehicle 'sur_recto_carro.133' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2760.00.
+[18/180] aforo_bajo         s109 qlearning            espera   13.76 s | cola   7.18 | ciclo    76 s |    15 s
+[19/180] aforo_bajo         s110 tiempos_fijos        espera   16.13 s | cola   8.44 | ciclo   101 s |    14 s
+[20/180] aforo_bajo         s110 qlearning            espera   14.29 s | cola   7.57 | ciclo    72 s |    15 s
+Warning: Vehicle 'sur_recto_camion.7' performs emergency braking on lane ':inicio_puente_0_0' with decel=7.00, wished=4.00, severity=1.00, time=364.00.
+[21/180] aforo_valle_manana s101 tiempos_fijos        espera   17.76 s | cola  13.03 | ciclo   101 s |    15 s
+[22/180] aforo_valle_manana s101 qlearning            espera   15.74 s | cola  11.62 | ciclo    72 s |    18 s
+Warning: Vehicle 'sur_recto_carro.107' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1083.00.
+[23/180] aforo_valle_manana s102 tiempos_fijos        espera   17.81 s | cola  13.58 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro.93' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=963.00.
+Warning: Vehicle 'sur_recto_carro.226' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2323.00.
+Warning: Vehicle 'sur_recto_carro.225' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2326.00.
+Warning: Vehicle 'sur_recto_camion.149' performs emergency braking on lane '1414166243_0' with decel=7.00, wished=4.00, severity=1.00, time=3451.00.
+[24/180] aforo_valle_manana s102 qlearning            espera   16.35 s | cola  12.46 | ciclo    73 s |    16 s
+Warning: Vehicle 'sur_recto_carro.249' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2885.00.
+Warning: Vehicle 'sur_recto_carro.310' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3489.00.
+[25/180] aforo_valle_manana s103 tiempos_fijos        espera   17.86 s | cola  13.26 | ciclo   101 s |    15 s
+[26/180] aforo_valle_manana s103 qlearning            espera   16.14 s | cola  11.90 | ciclo    68 s |    18 s
+Warning: Vehicle 'sur_recto_carro.6' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=98.00.
+[27/180] aforo_valle_manana s104 tiempos_fijos        espera   17.68 s | cola  13.28 | ciclo   101 s |    18 s
+Warning: Vehicle 'sur_recto_carro.6' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=98.00.
+Warning: Vehicle 'sur_recto_carro.44' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=768.00.
+Warning: Vehicle 'sur_recto_carro.296' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3665.00.
+[28/180] aforo_valle_manana s104 qlearning            espera   16.43 s | cola  12.10 | ciclo    71 s |    18 s
+Warning: Vehicle 'sur_recto_carro.66' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=766.00.
+Warning: Vehicle 'sur_recto_carro.116' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1381.00.
+[29/180] aforo_valle_manana s105 tiempos_fijos        espera   16.51 s | cola  12.52 | ciclo   101 s |    18 s
+Warning: Teleporting vehicle 'sur_recto_camion.43'; junction collision with vehicle 'sur_recto_carro.92', lane=':cluster_12995046887_9702926134_7_0', gap=-1.49, latGap=-0.45, time=1159.00, stage=move.
+Warning: Vehicle 'sur_recto_camion.43' teleports beyond arrival edge 'puente_hacia_villavicencio', time=1162.00.
+Warning: Vehicle 'sur_recto_carro.121' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1400.00.
+Warning: Vehicle 'sur_recto_carro.220' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2483.00.
+[30/180] aforo_valle_manana s105 qlearning            espera   15.74 s | cola  11.85 | ciclo    74 s |    19 s
+Warning: Vehicle 'sur_recto_carro.91' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1114.00.
+[31/180] aforo_valle_manana s106 tiempos_fijos        espera   17.78 s | cola  13.34 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.55' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=789.00.
+Warning: Vehicle 'sur_recto_carro.149' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1787.00.
+Warning: Vehicle 'sur_recto_camion.82' performs emergency braking on lane '1414166243_1' with decel=7.00, wished=4.00, severity=1.00, time=2133.00.
+[32/180] aforo_valle_manana s106 qlearning            espera   15.35 s | cola  11.46 | ciclo    73 s |    19 s
+[33/180] aforo_valle_manana s107 tiempos_fijos        espera   17.47 s | cola  12.95 | ciclo   101 s |    18 s
+Warning: Vehicle 'sur_recto_carro.187' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2180.00.
+Warning: Vehicle 'sur_recto_carro.281' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3302.00.
+[34/180] aforo_valle_manana s107 qlearning            espera   16.17 s | cola  11.85 | ciclo    72 s |    19 s
+Warning: Teleporting vehicle 'sur_recto_camion.104'; junction collision with vehicle 'sur_recto_carro.226', lane=':cluster_12995046887_9702926134_7_0', gap=-1.96, latGap=-0.10, time=2780.00, stage=move.
+Warning: Vehicle 'sur_recto_camion.104' teleports beyond arrival edge 'puente_hacia_villavicencio', time=2783.00.
+[35/180] aforo_valle_manana s108 tiempos_fijos        espera   17.56 s | cola  13.20 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.303' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3597.00.
+[36/180] aforo_valle_manana s108 qlearning            espera   15.74 s | cola  11.80 | ciclo    73 s |    20 s
+[37/180] aforo_valle_manana s109 tiempos_fijos        espera   17.87 s | cola  13.49 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro.263' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2860.00.
+[38/180] aforo_valle_manana s109 qlearning            espera   16.23 s | cola  12.26 | ciclo    71 s |    16 s
+Warning: Vehicle 'sur_recto_carro.119' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1467.00.
+Warning: Vehicle 'sur_recto_carro.308' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3488.00.
+[39/180] aforo_valle_manana s110 tiempos_fijos        espera   17.97 s | cola  13.31 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro.319' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3577.00.
+[40/180] aforo_valle_manana s110 qlearning            espera   16.26 s | cola  11.94 | ciclo    70 s |    16 s
+[41/180] aforo_medio        s101 tiempos_fijos        espera   20.23 s | cola  18.11 | ciclo   101 s |    17 s
+[42/180] aforo_medio        s101 qlearning            espera   17.20 s | cola  15.47 | ciclo    82 s |    19 s
+Warning: Vehicle 'sur_recto_carro.61' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=800.00.
+Warning: Vehicle 'sur_recto_carro.322' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3599.00.
+[43/180] aforo_medio        s102 tiempos_fijos        espera   18.85 s | cola  17.05 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.32' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=498.00.
+Warning: Vehicle 'sur_recto_carro.34' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=507.00.
+Warning: Vehicle 'sur_recto_carro.130' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1629.00.
+Warning: Vehicle 'sur_recto_carro.258' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2956.00.
+[44/180] aforo_medio        s102 qlearning            espera   17.11 s | cola  15.49 | ciclo    80 s |    18 s
+Warning: Vehicle 'sur_recto_bus.21' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=1920.00.
+[45/180] aforo_medio        s103 tiempos_fijos        espera   19.12 s | cola  18.04 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.62' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=630.00.
+Warning: Vehicle 'sur_recto_carro.66' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=753.00.
+Warning: Vehicle 'sur_recto_carro.83' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1017.00.
+Warning: Vehicle 'sur_recto_carro.138' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1772.00.
+Warning: Teleporting vehicle 'sur_recto_bus.34'; junction collision with vehicle 'sur_recto_carro.294', lane=':cluster_12995046887_9702926134_7_0', gap=-0.49, latGap=-0.50, time=3468.00, stage=move.
+Warning: Vehicle 'sur_recto_bus.34' ends teleporting on edge '1414166243', time=3469.00.
+[46/180] aforo_medio        s103 qlearning            espera   17.40 s | cola  16.27 | ciclo    82 s |    20 s
+Warning: Vehicle 'sur_recto_carro.48' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=586.00.
+Warning: Vehicle 'sur_recto_bus.10' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=681.00.
+Warning: Vehicle 'sur_recto_carro.167' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1786.00.
+[47/180] aforo_medio        s104 tiempos_fijos        espera   19.26 s | cola  17.92 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.217' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2319.00.
+[48/180] aforo_medio        s104 qlearning            espera   17.73 s | cola  16.77 | ciclo    80 s |    19 s
+[49/180] aforo_medio        s105 tiempos_fijos        espera   19.95 s | cola  18.47 | ciclo   101 s |    18 s
+Warning: Vehicle 'sur_recto_carro.240' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2658.00.
+Warning: Vehicle 'sur_recto_camion.48' performs emergency braking on lane '1414166243_0' with decel=7.00, wished=4.00, severity=1.00, time=2659.00.
+Warning: Vehicle 'sur_recto_carro.243' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2678.00.
+Warning: Vehicle 'sur_recto_carro.293' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3164.00.
+[50/180] aforo_medio        s105 qlearning            espera   18.11 s | cola  17.16 | ciclo    83 s |    19 s
+[51/180] aforo_medio        s106 tiempos_fijos        espera   19.35 s | cola  17.40 | ciclo   101 s |    18 s
+[52/180] aforo_medio        s106 qlearning            espera   17.46 s | cola  15.65 | ciclo    77 s |    18 s
+[53/180] aforo_medio        s107 tiempos_fijos        espera   19.11 s | cola  17.67 | ciclo   101 s |    17 s
+[54/180] aforo_medio        s107 qlearning            espera   17.39 s | cola  16.04 | ciclo    82 s |    18 s
+Warning: Vehicle 'sur_recto_carro.57' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=765.00.
+Warning: Vehicle 'sur_recto_carro.67' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=873.00.
+[55/180] aforo_medio        s108 tiempos_fijos        espera   19.84 s | cola  18.69 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.192' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2248.00.
+[56/180] aforo_medio        s108 qlearning            espera   18.64 s | cola  17.64 | ciclo    85 s |    19 s
+Warning: Vehicle 'sur_recto_carro.257' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2997.00.
+[57/180] aforo_medio        s109 tiempos_fijos        espera   20.69 s | cola  18.90 | ciclo   101 s |    17 s
+Warning: Teleporting vehicle 'sur_recto_camion.15'; junction collision with vehicle 'sur_recto_carro.56', lane=':cluster_12995046887_9702926134_7_1', gap=-0.07, latGap=-0.45, time=664.00, stage=move.
+Warning: Vehicle 'sur_recto_camion.15' teleports beyond arrival edge 'puente_hacia_villavicencio', time=667.00.
+Warning: Vehicle 'sur_recto_carro.167' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1972.00.
+[58/180] aforo_medio        s109 qlearning            espera   17.40 s | cola  16.13 | ciclo    85 s |    18 s
+Warning: Vehicle 'sur_recto_carro.9' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=157.00.
+Warning: Vehicle 'sur_recto_carro.84' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=984.00.
+[59/180] aforo_medio        s110 tiempos_fijos        espera   20.13 s | cola  18.09 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro.159' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1871.00.
+Warning: Vehicle 'sur_recto_carro.214' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2538.00.
+Warning: Vehicle 'sur_recto_carro.246' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2911.00.
+[60/180] aforo_medio        s110 qlearning            espera   17.54 s | cola  16.15 | ciclo    80 s |    18 s
+Warning: Vehicle 'sur_recto_carro.19' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=195.00.
+Warning: Vehicle 'sur_recto_carro.188' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1785.00.
+Warning: Vehicle 'sur_recto_carro.236' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2124.00.
+Warning: Vehicle 'sur_recto_carro.252' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2299.00.
+Warning: Vehicle 'sur_recto_carro.397' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3521.00.
+Warning: Teleporting vehicle 'sur_recto_bus.109'; collision with vehicle 'sur_recto_carro.397', lane='1414166243_1', gap=-1.65, latGap=-0.00, time=3521.00, stage=move.
+Warning: Vehicle 'sur_recto_bus.109' teleports beyond arrival edge 'puente_hacia_villavicencio', time=3526.00.
+[61/180] aforo_alto         s101 tiempos_fijos        espera   32.67 s | cola  33.84 | ciclo   101 s |    25 s
+Warning: Vehicle 'sur_recto_carro.212' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1882.00.
+Warning: Vehicle 'sur_recto_carro.285' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2481.00.
+Warning: Vehicle 'sur_recto_carro.382' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3245.00.
+Warning: Vehicle 'sur_recto_carro.419' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3550.00.
+Warning: Vehicle 'sur_recto_carro.421' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3552.00.
+[62/180] aforo_alto         s101 qlearning            espera   19.62 s | cola  21.26 | ciclo    99 s |    25 s
+Warning: Vehicle 'sur_recto_carro.32' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=396.00.
+Warning: Vehicle 'sur_recto_carro.34' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=398.00.
+Warning: Vehicle 'sur_recto_carro.41' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=481.00.
+[63/180] aforo_alto         s102 tiempos_fijos        espera   56.58 s | cola  42.11 | ciclo   101 s |    35 s
+Warning: Vehicle 'sur_recto_carro.15' performs emergency braking on lane '1414166243_1' with decel=9.00, wished=4.50, severity=1.00, time=175.00.
+Warning: Vehicle 'sur_recto_carro.110' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1025.00.
+Warning: Vehicle 'sur_recto_carro.155' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1323.00.
+Warning: Vehicle 'sur_recto_camion.44' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=1548.00.
+Warning: Vehicle 'sur_recto_carro.405' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3118.00.
+[64/180] aforo_alto         s102 qlearning            espera   43.64 s | cola  39.44 | ciclo    98 s |    39 s
+Warning: Vehicle 'sur_recto_carro.127' performs emergency braking on lane '1414166243_1' with decel=9.00, wished=4.50, severity=1.00, time=1070.00.
+Warning: Vehicle 'sur_recto_carro.279' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2379.00.
+Warning: Teleporting vehicle 'este_recto_carro.97'; side collision with vehicle 'este_recto_moto.281', lane=':cluster_12995046887_9702926134_4_0', gap=-1.97, latGap=-0.20, time=3437.00, stage=laneChange.
+Warning: Vehicle 'este_recto_carro.97' ends teleporting on edge '1414166244', time=3437.00.
+[65/180] aforo_alto         s103 tiempos_fijos        espera   57.74 s | cola  44.47 | ciclo   101 s |    31 s
+Warning: Vehicle 'sur_recto_carro.23' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=273.00.
+Warning: Vehicle 'sur_recto_carro.207' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1658.00.
+Warning: Vehicle 'sur_recto_carro.226' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1838.00.
+Warning: Vehicle 'sur_recto_carro.251' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1962.00.
+Warning: Vehicle 'sur_recto_carro.267' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2047.00.
+Warning: Vehicle 'sur_recto_carro.304' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2366.00.
+[66/180] aforo_alto         s103 qlearning            espera   29.46 s | cola  31.97 | ciclo    99 s |    33 s
+Warning: Vehicle 'sur_recto_carro.77' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=779.00.
+Warning: Vehicle 'sur_recto_carro.214' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1993.00.
+Warning: Teleporting vehicle 'sur_recto_bus.78'; collision with vehicle 'sur_recto_carro.241', lane='1414166243_0', gap=-0.28, latGap=-0.50, time=2221.00, stage=move.
+Warning: Vehicle 'sur_recto_bus.78' teleports beyond arrival edge 'puente_hacia_villavicencio', time=2226.00.
+Warning: Vehicle 'sur_recto_carro.259' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2327.00.
+[67/180] aforo_alto         s104 tiempos_fijos        espera   61.52 s | cola  42.63 | ciclo   101 s |    33 s
+Warning: Vehicle 'sur_recto_carro.59' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=559.00.
+Warning: Vehicle 'sur_recto_carro.90' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=838.00.
+Warning: Vehicle 'sur_recto_bus.60' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=1564.00.
+Warning: Vehicle 'sur_recto_bus.64' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=1661.00.
+Warning: Vehicle 'sur_recto_carro.262' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2107.00.
+Warning: Vehicle 'sur_recto_carro.335' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=2672.00.
+[68/180] aforo_alto         s104 qlearning            espera   23.63 s | cola  25.04 | ciclo   103 s |    29 s
+Warning: Vehicle 'sur_recto_carro.225' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=2191.00.
+Warning: Vehicle 'sur_recto_carro.226' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2197.00.
+[69/180] aforo_alto         s105 tiempos_fijos        espera   57.64 s | cola  45.68 | ciclo   101 s |    33 s
+Warning: Vehicle 'sur_recto_carro.226' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2014.00.
+Warning: Vehicle 'sur_recto_bus.150' performs emergency braking on lane '1414166243_1' with decel=7.00, wished=4.00, severity=1.00, time=3807.00.
+[70/180] aforo_alto         s105 qlearning            espera   28.36 s | cola  30.43 | ciclo   100 s |    34 s
+Warning: Vehicle 'sur_recto_carro.371' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3193.00.
+Warning: Vehicle 'sur_recto_carro.457' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3941.00.
+[71/180] aforo_alto         s106 tiempos_fijos        espera   53.19 s | cola  42.09 | ciclo   101 s |    31 s
+Warning: Vehicle 'sur_recto_carro.19' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=209.00.
+Warning: Vehicle 'sur_recto_carro.40' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=412.00.
+Warning: Vehicle 'sur_recto_carro.407' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3225.00.
+[72/180] aforo_alto         s106 qlearning            espera   26.49 s | cola  28.65 | ciclo   101 s |    30 s
+Warning: Vehicle 'sur_recto_carro.152' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1289.00.
+Warning: Vehicle 'sur_recto_carro.164' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1370.00.
+Warning: Vehicle 'sur_recto_carro.321' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2694.00.
+Warning: Vehicle 'sur_recto_carro.347' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2900.00.
+Warning: Teleporting vehicle 'sur_recto_bus.92'; junction collision with vehicle 'sur_recto_carro.368', lane=':cluster_12995046887_9702926134_7_0', gap=-0.32, latGap=-0.50, time=3085.00, stage=move.
+Warning: Vehicle 'sur_recto_bus.92' ends teleporting on edge '1414166243', time=3086.00.
+[73/180] aforo_alto         s107 tiempos_fijos        espera   61.58 s | cola  43.34 | ciclo   101 s |    36 s
+Warning: Vehicle 'sur_recto_carro.12' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=212.00.
+Warning: Vehicle 'sur_recto_carro.134' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1141.00.
+Warning: Vehicle 'sur_recto_carro.159' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1276.00.
+Warning: Vehicle 'sur_recto_carro.322' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2563.00.
+Warning: Vehicle 'sur_recto_carro.483' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3763.00.
+[74/180] aforo_alto         s107 qlearning            espera   44.88 s | cola  38.91 | ciclo   100 s |    39 s
+Warning: Vehicle 'sur_recto_carro.86' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=908.00.
+Warning: Vehicle 'sur_recto_carro.423' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3536.00.
+Warning: Vehicle 'sur_recto_carro.445' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3723.00.
+[75/180] aforo_alto         s108 tiempos_fijos        espera   41.63 s | cola  39.02 | ciclo   101 s |    27 s
+Warning: Vehicle 'sur_recto_carro.410' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3285.00.
+[76/180] aforo_alto         s108 qlearning            espera   28.09 s | cola  29.93 | ciclo   100 s |    32 s
+Warning: Vehicle 'sur_recto_carro.209' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1718.00.
+Warning: Vehicle 'sur_recto_carro.207' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1719.00.
+Warning: Teleporting vehicle 'sur_recto_camion.90'; junction collision with vehicle 'sur_recto_carro.314', lane=':cluster_12995046887_9702926134_7_0', gap=-1.28, latGap=-0.60, time=2781.00, stage=move.
+Warning: Vehicle 'sur_recto_camion.90' teleports beyond arrival edge 'puente_hacia_villavicencio', time=2784.00.
+[77/180] aforo_alto         s109 tiempos_fijos        espera   53.12 s | cola  41.59 | ciclo   101 s |    31 s
+Warning: Vehicle 'sur_recto_carro.14' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=195.00.
+Warning: Vehicle 'sur_recto_carro.105' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=929.00.
+Warning: Vehicle 'sur_recto_carro.137' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=1139.00.
+[78/180] aforo_alto         s109 qlearning            espera   20.68 s | cola  22.74 | ciclo   103 s |    30 s
+Warning: Vehicle 'sur_recto_camion.34' performs emergency braking on lane '1414166243_1' with decel=7.00, wished=4.00, severity=1.00, time=1208.00.
+Warning: Vehicle 'sur_recto_carro.167' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1291.00.
+[79/180] aforo_alto         s110 tiempos_fijos        espera   53.43 s | cola  41.13 | ciclo   101 s |    32 s
+Warning: Vehicle 'sur_recto_carro.29' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=289.00.
+Warning: Vehicle 'sur_recto_carro.328' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2533.00.
+Warning: Vehicle 'sur_recto_carro.437' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3498.00.
+Warning: Vehicle 'sur_recto_carro.461' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3715.00.
+[80/180] aforo_alto         s110 qlearning            espera   35.21 s | cola  35.48 | ciclo    98 s |    35 s
+Warning: Vehicle 'sur_recto_carro.233' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1975.00.
+Warning: Vehicle 'sur_recto_carro.400' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3385.00.
+[81/180] aforo_pico_jueves  s101 tiempos_fijos        espera   21.86 s | cola  24.54 | ciclo   101 s |    22 s
+Warning: Vehicle 'sur_recto_carro.106' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=962.00.
+Warning: Vehicle 'sur_recto_carro.160' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1339.00.
+Warning: Vehicle 'sur_recto_carro.352' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2973.00.
+[82/180] aforo_pico_jueves  s101 qlearning            espera   22.06 s | cola  24.95 | ciclo    90 s |    28 s
+Warning: Vehicle 'sur_recto_carro.30' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=383.00.
+Warning: Vehicle 'sur_recto_carro.155' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1283.00.
+Warning: Vehicle 'sur_recto_carro.366' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2915.00.
+Warning: Vehicle 'sur_recto_carro.390' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3098.00.
+[83/180] aforo_pico_jueves  s102 tiempos_fijos        espera   23.19 s | cola  26.59 | ciclo   101 s |    21 s
+Warning: Vehicle 'sur_recto_carro.173' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1341.00.
+Warning: Vehicle 'sur_recto_camion.38' performs emergency braking on lane '1414166243_1' with decel=7.00, wished=4.00, severity=1.00, time=1613.00.
+Warning: Vehicle 'sur_recto_carro.341' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2712.00.
+[84/180] aforo_pico_jueves  s102 qlearning            espera   22.62 s | cola  26.36 | ciclo    91 s |    27 s
+Warning: Vehicle 'sur_recto_carro.74' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=703.00.
+Warning: Vehicle 'sur_recto_carro.98' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=900.00.
+Warning: Vehicle 'sur_recto_camion.17' performs emergency braking on lane ':inicio_puente_0_0' with decel=7.00, wished=4.00, severity=1.00, time=901.00.
+Warning: Vehicle 'sur_recto_carro.202' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1710.00.
+[85/180] aforo_pico_jueves  s103 tiempos_fijos        espera   21.60 s | cola  25.01 | ciclo   101 s |    22 s
+Warning: Vehicle 'sur_recto_carro.15' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=164.00.
+Warning: Vehicle 'sur_recto_carro.270' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2291.00.
+Warning: Vehicle 'sur_recto_carro.272' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2293.00.
+Warning: Vehicle 'sur_recto_carro.284' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2382.00.
+Warning: Vehicle 'sur_recto_carro.285' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2384.00.
+Warning: Vehicle 'sur_recto_carro.385' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3139.00.
+[86/180] aforo_pico_jueves  s103 qlearning            espera   21.67 s | cola  25.13 | ciclo    91 s |    27 s
+Warning: Vehicle 'sur_recto_carro.73' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=696.00.
+Warning: Vehicle 'sur_recto_carro.224' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1994.00.
+Warning: Vehicle 'sur_recto_carro.244' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2207.00.
+Warning: Vehicle 'sur_recto_carro.276' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=2482.00.
+Warning: Vehicle 'sur_recto_carro.378' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=3392.00.
+[87/180] aforo_pico_jueves  s104 tiempos_fijos        espera   22.11 s | cola  24.42 | ciclo   101 s |    21 s
+Warning: Vehicle 'sur_recto_carro.61' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=597.00.
+Warning: Vehicle 'sur_recto_carro.85' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=830.00.
+Warning: Vehicle 'sur_recto_carro.238' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2155.00.
+Warning: Vehicle 'sur_recto_carro.348' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3060.00.
+Warning: Vehicle 'sur_recto_carro.351' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3065.00.
+Warning: Vehicle 'sur_recto_carro.381' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3397.00.
+[88/180] aforo_pico_jueves  s104 qlearning            espera   22.55 s | cola  25.21 | ciclo    93 s |    27 s
+Warning: Vehicle 'sur_recto_carro.9' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=158.00.
+[89/180] aforo_pico_jueves  s105 tiempos_fijos        espera   24.66 s | cola  28.71 | ciclo   101 s |    22 s
+Warning: Vehicle 'sur_recto_carro.119' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=989.00.
+Warning: Vehicle 'sur_recto_camion.20' performs emergency braking on lane ':inicio_puente_0_0' with decel=7.00, wished=4.00, severity=1.00, time=990.00.
+Warning: Vehicle 'sur_recto_carro.332' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2749.00.
+Warning: Vehicle 'sur_recto_carro.352' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2855.00.
+Warning: Vehicle 'sur_recto_camion.72' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=2965.00.
+Warning: Vehicle 'sur_recto_carro.392' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3123.00.
+Warning: Vehicle 'sur_recto_carro.426' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3416.00.
+[90/180] aforo_pico_jueves  s105 qlearning            espera   23.55 s | cola  27.63 | ciclo    96 s |    28 s
+Warning: Vehicle 'sur_recto_camion.72' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=3207.00.
+Warning: Vehicle 'este_derecha_carro.59' performs emergency braking on lane ':cluster_12995046887_9702926134_3_0' with decel=9.00, wished=4.50, severity=1.00, time=3346.00.
+[91/180] aforo_pico_jueves  s106 tiempos_fijos        espera   23.16 s | cola  26.04 | ciclo   101 s |    21 s
+Warning: Vehicle 'sur_recto_carro.219' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1970.00.
+[92/180] aforo_pico_jueves  s106 qlearning            espera   22.15 s | cola  24.99 | ciclo    92 s |    28 s
+[93/180] aforo_pico_jueves  s107 tiempos_fijos        espera   23.64 s | cola  27.11 | ciclo   101 s |    23 s
+Warning: Teleporting vehicle 'norte_recto_moto.376'; collision with vehicle 'norte_recto_carro.172', lane='-642480900_0', gap=-6.54, latGap=-0.00, time=2002.00, stage=move.
+Warning: Vehicle 'norte_recto_moto.376' ends teleporting on edge '642480899', time=2002.00.
+Warning: Vehicle 'sur_recto_carro.374' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2957.00.
+Warning: Vehicle 'sur_recto_carro.408' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3227.00.
+Warning: Vehicle 'sur_recto_carro.423' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3359.00.
+[94/180] aforo_pico_jueves  s107 qlearning            espera   22.65 s | cola  26.10 | ciclo    96 s |    29 s
+Warning: Vehicle 'sur_recto_carro.274' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2386.00.
+Warning: Vehicle 'sur_recto_carro.319' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=2793.00.
+Warning: Vehicle 'sur_recto_carro.400' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3421.00.
+[95/180] aforo_pico_jueves  s108 tiempos_fijos        espera   21.54 s | cola  24.21 | ciclo   101 s |    23 s
+Warning: Vehicle 'sur_recto_carro.17' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=244.00.
+Warning: Vehicle 'sur_recto_carro.120' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1053.00.
+Warning: Vehicle 'sur_recto_carro.181' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1599.00.
+Warning: Vehicle 'sur_recto_carro.253' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2145.00.
+Warning: Vehicle 'sur_recto_carro.274' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2382.00.
+[96/180] aforo_pico_jueves  s108 qlearning            espera   22.46 s | cola  25.57 | ciclo    89 s |    24 s
+Warning: Teleporting vehicle 'sur_recto_camion.62'; junction collision with vehicle 'sur_recto_carro.273', lane=':cluster_12995046887_9702926134_7_0', gap=-1.37, latGap=-0.45, time=2304.00, stage=move.
+Warning: Vehicle 'sur_recto_camion.62' teleports beyond arrival edge 'puente_hacia_villavicencio', time=2307.00.
+Warning: Vehicle 'sur_recto_carro.304' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2595.00.
+Warning: Vehicle 'sur_recto_carro.453' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=3623.00.
+[97/180] aforo_pico_jueves  s109 tiempos_fijos        espera   24.21 s | cola  28.35 | ciclo   101 s |    22 s
+Warning: Vehicle 'sur_recto_carro.16' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=241.00.
+Warning: Vehicle 'sur_recto_carro.99' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=865.00.
+Warning: Vehicle 'sur_recto_carro.168' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1468.00.
+Warning: Vehicle 'sur_recto_carro.236' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1972.00.
+[98/180] aforo_pico_jueves  s109 qlearning            espera   22.31 s | cola  26.25 | ciclo    94 s |    28 s
+Warning: Teleporting vehicle 'norte_recto_moto.356'; junction collision with vehicle 'norte_derecha_moto.89', lane=':fin_puente_sur_0_0', gap=-2.26, latGap=-0.62, time=2031.00, stage=move.
+Warning: Vehicle 'norte_recto_moto.356' ends teleporting on edge '-642480900', time=2031.00.
+Warning: Vehicle 'sur_recto_carro.286' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2319.00.
+Warning: Vehicle 'sur_recto_carro.364' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3018.00.
+Warning: Vehicle 'sur_recto_carro.366' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3019.00.
+[99/180] aforo_pico_jueves  s110 tiempos_fijos        espera   22.38 s | cola  25.54 | ciclo   101 s |    23 s
+Warning: Vehicle 'sur_recto_carro.125' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1158.00.
+Warning: Vehicle 'sur_recto_bus.13' performs emergency braking on lane ':inicio_puente_0_0' with decel=7.00, wished=4.00, severity=1.00, time=1552.00.
+Warning: Teleporting vehicle 'sur_recto_carro.180'; collision with vehicle 'sur_recto_bus.13', lane='1414166243_0', gap=-0.55, latGap=-0.00, time=1552.00, stage=move.
+Warning: Vehicle 'sur_recto_carro.180' ends teleporting on edge 'puente_hacia_villavicencio', time=1556.00.
+Warning: Vehicle 'sur_recto_carro.222' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1822.00.
+Warning: Vehicle 'sur_recto_camion.82' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=2817.00.
+[100/180] aforo_pico_jueves  s110 qlearning            espera   21.91 s | cola  24.92 | ciclo    92 s |    26 s
+[101/180] desb_dg15_cargada  s101 tiempos_fijos        espera   30.62 s | cola  16.12 | ciclo   101 s |    17 s
+[102/180] desb_dg15_cargada  s101 qlearning            espera   15.26 s | cola   7.94 | ciclo    71 s |    16 s
+[103/180] desb_dg15_cargada  s102 tiempos_fijos        espera   31.91 s | cola  16.84 | ciclo   101 s |    15 s
+[104/180] desb_dg15_cargada  s102 qlearning            espera   16.30 s | cola   8.52 | ciclo    73 s |    19 s
+[105/180] desb_dg15_cargada  s103 tiempos_fijos        espera   29.61 s | cola  15.98 | ciclo   101 s |    16 s
+[106/180] desb_dg15_cargada  s103 qlearning            espera   17.20 s | cola   9.31 | ciclo    75 s |    16 s
+[107/180] desb_dg15_cargada  s104 tiempos_fijos        espera   31.82 s | cola  16.82 | ciclo   101 s |    15 s
+[108/180] desb_dg15_cargada  s104 qlearning            espera   16.32 s | cola   8.78 | ciclo    74 s |    17 s
+[109/180] desb_dg15_cargada  s105 tiempos_fijos        espera   35.65 s | cola  19.45 | ciclo   101 s |    17 s
+[110/180] desb_dg15_cargada  s105 qlearning            espera   16.70 s | cola   9.13 | ciclo    73 s |    18 s
+Warning: Vehicle 'este_derecha_carro_t0.23' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1624.00.
+[111/180] desb_dg15_cargada  s106 tiempos_fijos        espera   29.79 s | cola  15.70 | ciclo   101 s |    18 s
+Warning: Vehicle 'este_recto_carro_t0.25' performs emergency braking on lane ':cluster_12995046887_9702926134_4_0' with decel=9.00, wished=4.50, severity=1.00, time=471.00.
+[112/180] desb_dg15_cargada  s106 qlearning            espera   16.62 s | cola   8.85 | ciclo    74 s |    17 s
+[113/180] desb_dg15_cargada  s107 tiempos_fijos        espera   32.26 s | cola  16.49 | ciclo   101 s |    15 s
+[114/180] desb_dg15_cargada  s107 qlearning            espera   15.75 s | cola   8.20 | ciclo    72 s |    17 s
+[115/180] desb_dg15_cargada  s108 tiempos_fijos        espera   30.13 s | cola  16.16 | ciclo   101 s |    17 s
+[116/180] desb_dg15_cargada  s108 qlearning            espera   17.02 s | cola   9.25 | ciclo    73 s |    17 s
+[117/180] desb_dg15_cargada  s109 tiempos_fijos        espera   30.90 s | cola  16.38 | ciclo   101 s |    18 s
+[118/180] desb_dg15_cargada  s109 qlearning            espera   17.88 s | cola   9.50 | ciclo    75 s |    18 s
+[119/180] desb_dg15_cargada  s110 tiempos_fijos        espera   32.50 s | cola  17.04 | ciclo   101 s |    16 s
+[120/180] desb_dg15_cargada  s110 qlearning            espera   16.71 s | cola   8.71 | ciclo    73 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.178' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1996.00.
+[121/180] desb_cra23_sola    s101 tiempos_fijos        espera   14.17 s | cola   8.64 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro_t0.69' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=829.00.
+Warning: Vehicle 'sur_recto_carro_t0.247' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2707.00.
+[122/180] desb_cra23_sola    s101 qlearning            espera   10.99 s | cola   6.66 | ciclo   111 s |    19 s
+Warning: Vehicle 'sur_recto_carro_t0.29' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=480.00.
+Warning: Vehicle 'sur_recto_carro_t0.182' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2179.00.
+Warning: Vehicle 'sur_recto_carro_t0.190' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2204.00.
+[123/180] desb_cra23_sola    s102 tiempos_fijos        espera   13.12 s | cola   8.24 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.68' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=906.00.
+Warning: Vehicle 'sur_recto_carro_t0.209' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2436.00.
+Warning: Vehicle 'sur_recto_carro_t0.237' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2722.00.
+Warning: Vehicle 'sur_recto_carro_t0.258' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2985.00.
+Warning: Vehicle 'sur_recto_carro_t0.261' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2987.00.
+[124/180] desb_cra23_sola    s102 qlearning            espera    9.96 s | cola   6.30 | ciclo   108 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.102' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1189.00.
+[125/180] desb_cra23_sola    s103 tiempos_fijos        espera   13.95 s | cola   9.07 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.78' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=943.00.
+Warning: Vehicle 'sur_recto_carro_t0.275' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3249.00.
+[126/180] desb_cra23_sola    s103 qlearning            espera   10.22 s | cola   6.53 | ciclo   110 s |    19 s
+Warning: Vehicle 'sur_recto_carro_t0.8' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=177.00.
+Warning: Vehicle 'sur_recto_carro_t0.253' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2722.00.
+Warning: Vehicle 'sur_recto_carro_t0.263' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2797.00.
+Warning: Vehicle 'sur_recto_carro_t0.266' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2798.00.
+[127/180] desb_cra23_sola    s104 tiempos_fijos        espera   14.38 s | cola   9.29 | ciclo   101 s |    14 s
+Warning: Vehicle 'sur_recto_carro_t0.211' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2272.00.
+[128/180] desb_cra23_sola    s104 qlearning            espera   10.24 s | cola   6.59 | ciclo   106 s |    15 s
+Warning: Vehicle 'sur_recto_carro_t0.241' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2685.00.
+[129/180] desb_cra23_sola    s105 tiempos_fijos        espera   13.75 s | cola   9.06 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro_t0.98' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1045.00.
+Warning: Vehicle 'sur_recto_carro_t0.198' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2126.00.
+[130/180] desb_cra23_sola    s105 qlearning            espera   10.75 s | cola   6.98 | ciclo   109 s |    19 s
+Warning: Vehicle 'sur_recto_carro_t0.58' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=683.00.
+Warning: Vehicle 'sur_recto_carro_t0.120' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1285.00.
+[131/180] desb_cra23_sola    s106 tiempos_fijos        espera   14.96 s | cola   9.19 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro_t0.71' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=827.00.
+Warning: Vehicle 'sur_recto_carro_t0.113' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1285.00.
+Warning: Vehicle 'sur_recto_carro_t0.144' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1505.00.
+Warning: Vehicle 'sur_recto_camion_t0.43' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=2830.00.
+[132/180] desb_cra23_sola    s106 qlearning            espera   10.62 s | cola   6.63 | ciclo   110 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.55' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=863.00.
+[133/180] desb_cra23_sola    s107 tiempos_fijos        espera   12.82 s | cola   8.35 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.86' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1069.00.
+Warning: Vehicle 'sur_recto_carro_t0.235' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2666.00.
+[134/180] desb_cra23_sola    s107 qlearning            espera   10.59 s | cola   6.86 | ciclo   104 s |    18 s
+[135/180] desb_cra23_sola    s108 tiempos_fijos        espera   14.08 s | cola   9.06 | ciclo   101 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.179' performs emergency braking on lane '1414166243_0' with decel=9.00, wished=4.50, severity=1.00, time=2152.00.
+[136/180] desb_cra23_sola    s108 qlearning            espera   11.42 s | cola   7.44 | ciclo   109 s |    18 s
+Warning: Vehicle 'sur_recto_carro_t0.144' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1670.00.
+Warning: Vehicle 'sur_recto_bus_t0.30' performs emergency braking on lane '1414166243_1' with decel=7.00, wished=4.00, severity=1.00, time=3609.00.
+[137/180] desb_cra23_sola    s109 tiempos_fijos        espera   14.78 s | cola   9.00 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro_t0.46' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=566.00.
+Warning: Vehicle 'sur_recto_carro_t0.137' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1571.00.
+Warning: Vehicle 'sur_recto_carro_t0.138' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1572.00.
+[138/180] desb_cra23_sola    s109 qlearning            espera   10.66 s | cola   6.57 | ciclo   111 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.148' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1791.00.
+[139/180] desb_cra23_sola    s110 tiempos_fijos        espera   14.10 s | cola   8.88 | ciclo   101 s |    14 s
+[140/180] desb_cra23_sola    s110 qlearning            espera   10.72 s | cola   6.75 | ciclo   108 s |    16 s
+[141/180] desb_nocturno      s101 tiempos_fijos        espera   13.11 s | cola   1.94 | ciclo   101 s |    10 s
+[142/180] desb_nocturno      s101 qlearning            espera    8.44 s | cola   1.30 | ciclo    80 s |    11 s
+[143/180] desb_nocturno      s102 tiempos_fijos        espera   14.89 s | cola   2.27 | ciclo   101 s |    10 s
+[144/180] desb_nocturno      s102 qlearning            espera   10.52 s | cola   1.54 | ciclo    75 s |    10 s
+[145/180] desb_nocturno      s103 tiempos_fijos        espera   14.01 s | cola   2.10 | ciclo   101 s |    10 s
+[146/180] desb_nocturno      s103 qlearning            espera    9.83 s | cola   1.43 | ciclo    76 s |    10 s
+[147/180] desb_nocturno      s104 tiempos_fijos        espera   15.27 s | cola   2.41 | ciclo   101 s |    11 s
+[148/180] desb_nocturno      s104 qlearning            espera   10.63 s | cola   1.67 | ciclo    74 s |    10 s
+[149/180] desb_nocturno      s105 tiempos_fijos        espera   14.65 s | cola   2.18 | ciclo   101 s |    10 s
+[150/180] desb_nocturno      s105 qlearning            espera   10.07 s | cola   1.49 | ciclo    80 s |    11 s
+[151/180] desb_nocturno      s106 tiempos_fijos        espera   14.93 s | cola   2.35 | ciclo   101 s |     9 s
+[152/180] desb_nocturno      s106 qlearning            espera    9.57 s | cola   1.53 | ciclo    77 s |    10 s
+Warning: Vehicle 'sur_recto_carro_t0.2' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=258.00.
+[153/180] desb_nocturno      s107 tiempos_fijos        espera   14.77 s | cola   2.33 | ciclo   101 s |    10 s
+[154/180] desb_nocturno      s107 qlearning            espera    9.48 s | cola   1.44 | ciclo    78 s |    10 s
+[155/180] desb_nocturno      s108 tiempos_fijos        espera   15.32 s | cola   2.21 | ciclo   101 s |    10 s
+[156/180] desb_nocturno      s108 qlearning            espera   10.00 s | cola   1.46 | ciclo    80 s |     9 s
+Warning: Vehicle 'sur_recto_carro_t0.33' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2580.00.
+[157/180] desb_nocturno      s109 tiempos_fijos        espera   13.06 s | cola   2.05 | ciclo   101 s |    10 s
+[158/180] desb_nocturno      s109 qlearning            espera    9.19 s | cola   1.39 | ciclo    77 s |    10 s
+[159/180] desb_nocturno      s110 tiempos_fijos        espera   14.56 s | cola   2.33 | ciclo   101 s |    10 s
+[160/180] desb_nocturno      s110 qlearning            espera    9.80 s | cola   1.59 | ciclo    76 s |    10 s
+Warning: Vehicle 'sur_recto_carro_t2.10' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2587.00.
+[161/180] desb_alternante    s101 tiempos_fijos        espera   21.47 s | cola  14.06 | ciclo   101 s |    15 s
+Warning: Vehicle 'sur_recto_carro_t0.69' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=829.00.
+[162/180] desb_alternante    s101 qlearning            espera   15.42 s | cola   9.83 | ciclo    81 s |    18 s
+Warning: Vehicle 'sur_recto_carro_t0.29' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=480.00.
+[163/180] desb_alternante    s102 tiempos_fijos        espera   20.40 s | cola  13.78 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.68' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=906.00.
+Warning: Vehicle 'sur_recto_carro_t1.2' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1464.00.
+[164/180] desb_alternante    s102 qlearning            espera   14.34 s | cola   9.58 | ciclo    80 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.102' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1189.00.
+[165/180] desb_alternante    s103 tiempos_fijos        espera   19.84 s | cola  13.74 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.78' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=943.00.
+Warning: Vehicle 'sur_recto_carro_t2.94' performs emergency braking on lane '1414166243_1' with decel=9.00, wished=4.50, severity=1.00, time=3611.00.
+[166/180] desb_alternante    s103 qlearning            espera   15.36 s | cola  10.59 | ciclo    84 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.8' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=177.00.
+Warning: Vehicle 'sur_recto_carro_t2.26' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2729.00.
+[167/180] desb_alternante    s104 tiempos_fijos        espera   20.31 s | cola  13.93 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t2.62' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3074.00.
+[168/180] desb_alternante    s104 qlearning            espera   15.92 s | cola  10.88 | ciclo    86 s |    18 s
+Warning: Vehicle 'sur_recto_carro_t2.115' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3599.00.
+[169/180] desb_alternante    s105 tiempos_fijos        espera   19.84 s | cola  13.75 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.98' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=1045.00.
+Warning: Vehicle 'sur_recto_carro_t2.65' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3091.00.
+[170/180] desb_alternante    s105 qlearning            espera   15.72 s | cola  10.69 | ciclo    82 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.58' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=683.00.
+Warning: Vehicle 'sur_recto_carro_t2.16' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2678.00.
+[171/180] desb_alternante    s106 tiempos_fijos        espera   20.28 s | cola  13.35 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.71' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=827.00.
+Warning: Vehicle 'sur_recto_carro_t0.113' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1279.00.
+Warning: Vehicle 'sur_recto_carro_t0.115' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1281.00.
+[172/180] desb_alternante    s106 qlearning            espera   14.98 s | cola   9.73 | ciclo    84 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.55' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=863.00.
+[173/180] desb_alternante    s107 tiempos_fijos        espera   20.05 s | cola  13.80 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.86' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1069.00.
+[174/180] desb_alternante    s107 qlearning            espera   14.83 s | cola  10.14 | ciclo    83 s |    18 s
+[175/180] desb_alternante    s108 tiempos_fijos        espera   21.08 s | cola  14.52 | ciclo   101 s |    16 s
+[176/180] desb_alternante    s108 qlearning            espera   16.03 s | cola  11.16 | ciclo    86 s |    20 s
+[177/180] desb_alternante    s109 tiempos_fijos        espera   20.19 s | cola  14.16 | ciclo   101 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.46' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=566.00.
+Warning: Vehicle 'sur_recto_carro_t2.45' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2959.00.
+[178/180] desb_alternante    s109 qlearning            espera   15.73 s | cola  10.88 | ciclo    83 s |    18 s
+Warning: Vehicle 'sur_recto_carro_t2.61' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3193.00.
+[179/180] desb_alternante    s110 tiempos_fijos        espera   21.22 s | cola  14.52 | ciclo   101 s |    16 s
+Warning: Teleporting vehicle 'sur_recto_bus_t1.1'; junction collision with vehicle 'sur_recto_carro_t1.5', lane=':cluster_12995046887_9702926134_7_0', gap=-1.71, latGap=-0.50, time=1836.00, stage=move.
+Warning: Vehicle 'sur_recto_bus_t1.1' ends teleporting on edge '1414166243', time=1837.00.
+[180/180] desb_alternante    s110 qlearning            espera   15.25 s | cola  10.49 | ciclo    84 s |    18 s
+
+Guardado en C:\Users\andre\Documents\tesis\results\comparacion\aforo_v9_validacion\corridas.csv
+Modelo aforo_v8: 40 corridas pendientes (0 ya guardadas)
+[1/40] desb_dg15_cargada  s101 qlearning            espera   16.90 s | cola   9.11 | ciclo    63 s |    15 s
+[2/40] desb_dg15_cargada  s102 qlearning            espera   16.27 s | cola   8.53 | ciclo    62 s |    16 s
+[3/40] desb_dg15_cargada  s103 qlearning            espera   15.96 s | cola   8.75 | ciclo    62 s |    15 s
+[4/40] desb_dg15_cargada  s104 qlearning            espera   15.60 s | cola   8.20 | ciclo    62 s |    15 s
+[5/40] desb_dg15_cargada  s105 qlearning            espera   16.52 s | cola   8.99 | ciclo    63 s |    16 s
+[6/40] desb_dg15_cargada  s106 qlearning            espera   16.94 s | cola   8.93 | ciclo    63 s |    15 s
+[7/40] desb_dg15_cargada  s107 qlearning            espera   16.61 s | cola   8.62 | ciclo    62 s |    16 s
+[8/40] desb_dg15_cargada  s108 qlearning            espera   17.21 s | cola   9.31 | ciclo    63 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.42' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2123.00.
+[9/40] desb_dg15_cargada  s109 qlearning            espera   15.91 s | cola   8.92 | ciclo    63 s |    15 s
+[10/40] desb_dg15_cargada  s110 qlearning            espera   15.83 s | cola   8.35 | ciclo    63 s |    16 s
+[11/40] desb_cra23_sola    s101 qlearning            espera   12.49 s | cola   7.73 | ciclo    99 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.29' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=469.00.
+Warning: Vehicle 'sur_recto_carro_t0.30' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=472.00.
+Warning: Vehicle 'sur_recto_carro_t0.123' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1587.00.
+Warning: Vehicle 'sur_recto_carro_t0.155' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1886.00.
+[12/40] desb_cra23_sola    s102 qlearning            espera   11.86 s | cola   7.33 | ciclo    97 s |    16 s
+Warning: Teleporting vehicle 'norte_recto_camion_t0.27'; collision with vehicle 'norte_recto_carro_t0.75', lane='-642480900_0', gap=-1.29, latGap=-0.00, time=979.00, stage=move.
+Warning: Vehicle 'norte_recto_camion_t0.27' ends teleporting on edge '642480899', time=979.00.
+Warning: Vehicle 'sur_recto_camion_t0.37' performs emergency braking on lane ':inicio_puente_0_1' with decel=7.00, wished=4.00, severity=1.00, time=2871.00.
+[13/40] desb_cra23_sola    s103 qlearning            espera   12.29 s | cola   7.90 | ciclo    97 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.8' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=177.00.
+[14/40] desb_cra23_sola    s104 qlearning            espera   12.69 s | cola   8.23 | ciclo    95 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.63' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=696.00.
+[15/40] desb_cra23_sola    s105 qlearning            espera   13.37 s | cola   8.59 | ciclo    98 s |    19 s
+Warning: Vehicle 'sur_recto_carro_t0.314' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3624.00.
+[16/40] desb_cra23_sola    s106 qlearning            espera   12.21 s | cola   7.95 | ciclo    96 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.173' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1987.00.
+[17/40] desb_cra23_sola    s107 qlearning            espera   13.03 s | cola   8.33 | ciclo    96 s |    17 s
+[18/40] desb_cra23_sola    s108 qlearning            espera   13.10 s | cola   8.20 | ciclo    98 s |    16 s
+Warning: Vehicle 'sur_recto_carro_t0.131' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=1518.00.
+[19/40] desb_cra23_sola    s109 qlearning            espera   13.58 s | cola   8.22 | ciclo    96 s |    17 s
+[20/40] desb_cra23_sola    s110 qlearning            espera   12.97 s | cola   8.01 | ciclo    95 s |    16 s
+[21/40] desb_nocturno      s101 qlearning            espera    9.15 s | cola   1.37 | ciclo    79 s |    10 s
+[22/40] desb_nocturno      s102 qlearning            espera   11.13 s | cola   1.64 | ciclo    75 s |    10 s
+[23/40] desb_nocturno      s103 qlearning            espera   11.47 s | cola   1.65 | ciclo    76 s |    10 s
+[24/40] desb_nocturno      s104 qlearning            espera   11.26 s | cola   1.78 | ciclo    76 s |    10 s
+[25/40] desb_nocturno      s105 qlearning            espera   11.26 s | cola   1.66 | ciclo    76 s |    11 s
+[26/40] desb_nocturno      s106 qlearning            espera   10.58 s | cola   1.69 | ciclo    78 s |    10 s
+[27/40] desb_nocturno      s107 qlearning            espera    9.98 s | cola   1.52 | ciclo    76 s |    10 s
+[28/40] desb_nocturno      s108 qlearning            espera   10.53 s | cola   1.53 | ciclo    78 s |     9 s
+[29/40] desb_nocturno      s109 qlearning            espera   10.14 s | cola   1.55 | ciclo    76 s |    11 s
+[30/40] desb_nocturno      s110 qlearning            espera    9.89 s | cola   1.59 | ciclo    76 s |    11 s
+Warning: Vehicle 'sur_recto_carro_t2.49' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3010.00.
+[31/40] desb_alternante    s101 qlearning            espera   16.04 s | cola  10.40 | ciclo    75 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.29' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=469.00.
+Warning: Vehicle 'sur_recto_carro_t0.30' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=472.00.
+Warning: Vehicle 'sur_recto_carro_t2.7' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2546.00.
+Warning: Vehicle 'sur_recto_carro_t2.71' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3259.00.
+[32/40] desb_alternante    s102 qlearning            espera   15.11 s | cola  10.03 | ciclo    73 s |    17 s
+Warning: Teleporting vehicle 'norte_recto_camion_t0.27'; collision with vehicle 'norte_recto_carro_t0.75', lane='-642480900_0', gap=-1.29, latGap=-0.00, time=979.00, stage=move.
+Warning: Vehicle 'norte_recto_camion_t0.27' ends teleporting on edge '642480899', time=979.00.
+Warning: Vehicle 'sur_recto_carro_t2.17' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2672.00.
+[33/40] desb_alternante    s103 qlearning            espera   15.36 s | cola  10.55 | ciclo    74 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t0.8' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=177.00.
+Warning: Teleporting vehicle 'sur_recto_camion_t2.6'; collision with vehicle 'sur_recto_carro_t2.13', lane='1414166243_0', gap=-1.06, latGap=-0.10, time=2615.00, stage=move.
+Warning: Vehicle 'sur_recto_camion_t2.6' ends teleporting on edge 'puente_hacia_villavicencio', time=2619.00.
+Warning: Vehicle 'sur_recto_carro_t2.63' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=3059.00.
+[34/40] desb_alternante    s104 qlearning            espera   15.43 s | cola  10.62 | ciclo    74 s |    18 s
+Warning: Vehicle 'sur_recto_carro_t0.63' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=696.00.
+Warning: Vehicle 'este_derecha_carro_t2.11' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2982.00.
+Warning: Teleporting vehicle 'este_derecha_carro_t2.11'; collision with vehicle 'sur_recto_carro_t2.47', lane='puente_hacia_villavicencio_0', gap=-0.50, latGap=-1.00, time=2982.00, stage=move.
+Warning: Vehicle 'este_derecha_carro_t2.11' teleports beyond arrival edge 'puente_hacia_villavicencio', time=2982.00.
+[35/40] desb_alternante    s105 qlearning            espera   15.69 s | cola  10.84 | ciclo    74 s |    18 s
+Warning: Vehicle 'sur_recto_carro_t2.11' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=2587.00.
+[36/40] desb_alternante    s106 qlearning            espera   15.67 s | cola  10.36 | ciclo    76 s |    17 s
+Warning: Vehicle 'sur_recto_carro_t2.92' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3470.00.
+[37/40] desb_alternante    s107 qlearning            espera   14.60 s | cola   9.98 | ciclo    77 s |    15 s
+[38/40] desb_alternante    s108 qlearning            espera   16.11 s | cola  11.31 | ciclo    78 s |    18 s
+[39/40] desb_alternante    s109 qlearning            espera   15.70 s | cola  10.95 | ciclo    74 s |    17 s
+[40/40] desb_alternante    s110 qlearning            espera   15.10 s | cola  10.30 | ciclo    74 s |    17 s
+
+Guardado en C:\Users\andre\Documents\tesis\results\comparacion\aforo_v8_validacion_desb\corridas.csv
+FIN_VALIDACION 

@@ -1,0 +1,29 @@
+# Escenarios DESBALANCEADOS / de baja demanda para ampliar el entrenamiento del agente (aforo_v9, 2026-11-05).
+# NO son mediciones: se DERIVAN de los escenarios del aforo real multiplicando la demanda de cada brazo por un factor
+# (se conserva la mezcla de tipos y de giros observada en campo). Motivo: en la maqueta habra brazos vacios con
+# frecuencia, y el agente aforo_v8 nunca vio estados como "Cra 23 vacia con Dg 15 llena" (caia al respaldo fijo).
+# Cada escenario puede tener varios TRAMOS de tiempo con factores distintos (demanda que cambia en la hora).
+# Generar: python scripts/generar_escenarios_desbalanceados.py
+escenarios:
+  desb_dg15_cargada:
+    base: aforo_pico_jueves
+    descripcion: "Dg 15 con la demanda del pico del jueves; Cra 23 al 15 % (casi vacia)"
+    tramos:
+      - {desde_s: 0, hasta_s: 3600, factores: {norte: 0.15, sur: 0.15, este: 1.0, oeste: 1.0}}
+  desb_cra23_sola:
+    base: aforo_medio
+    descripcion: "Cra 23 con la demanda media; Dg 15 al 10 % (casi vacia)"
+    tramos:
+      - {desde_s: 0, hasta_s: 3600, factores: {norte: 1.0, sur: 1.0, este: 0.1, oeste: 0.1}}
+  desb_nocturno:
+    base: aforo_bajo
+    descripcion: "Madrugada simulada: todos los brazos al 30 % del aforo bajo"
+    tramos:
+      - {desde_s: 0, hasta_s: 3600, factores: {norte: 0.3, sur: 0.3, este: 0.3, oeste: 0.3}}
+  desb_alternante:
+    base: aforo_medio
+    descripcion: "La demanda cambia cada 20 min: Cra 23 sola -> Dg 15 dominante -> aforo medio"
+    tramos:
+      - {desde_s: 0,    hasta_s: 1200, factores: {norte: 1.0,  sur: 1.0,  este: 0.1, oeste: 0.1}}
+      - {desde_s: 1200, hasta_s: 2400, factores: {norte: 0.15, sur: 0.15, este: 1.3, oeste: 1.3}}
+      - {desde_s: 2400, hasta_s: 3600, factores: {norte: 1.0,  sur: 1.0,  este: 1.0, oeste: 1.0}}

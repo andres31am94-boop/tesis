@@ -1865,3 +1865,60 @@ Conteo real hecho a mano por el tutor revisando cada cuadro (`results/vision/pru
 
 - Hallazgo: cuando un eje está **completamente vacío**, el estado (p. ej. "Cra 23 vacía en verde, Dg 15 muy alta") **nunca se visitó** en el entrenamiento con el aforo real (la Cra 23 siempre tuvo tráfico) y el controlador cae al **respaldo de tiempos fijos** (comportamiento seguro ya previsto en `ControladorQLearning`). Con ambos ejes cargados el agente sí adapta (Cra 23 hasta 70 s).
 - Implicación para la maqueta: con pocos carros habrá brazos vacíos con frecuencia → en esos momentos el semáforo se comportará como el plan fijo. Pendiente decidir cómo cubrir esos estados (ver opciones en la conversación del 2026-11-04).
+
+## 2026-11-05 — aforo_v9: escenarios desbalanceados y entrenamiento
+- Nuevo `config/escenarios_desbalanceados.yaml` + `scripts/generar_escenarios_desbalanceados.py`: escenarios DERIVADOS (no medidos) del aforo real, multiplicando la demanda de cada brazo (se conserva la mezcla de tipos y giros). Resumen por escenario en `sumo/demanda/<escenario>_resumen.csv`.
+
+| Escenario | Base | Cra 23 (veh/h) | Dg 15 (veh/h) |
+|---|---|---|---|
+| desb_dg15_cargada | aforo_pico_jueves | 403 (×0.15) | 1500 |
+| desb_cra23_sola | aforo_medio | 2356 | 110 (×0.1) |
+| desb_nocturno | aforo_bajo | 424 (×0.3) | 130 (×0.3) |
+| desb_alternante | aforo_medio | 2356 → 353 → 2356 | 110 → 1430 → 1100 (tramos de 20 min) |
+
+- Verificación (`VERIFICAR_ESCENARIOS_DESB.bat`, semilla 1, UNA corrida: no es un resultado): los 4 escenarios corren sin vehículos sin terminar ni teleports. Espera total promedio, tiempos fijos vs aforo_v8: dg15_cargada 28.36 vs 14.75 s; cra23_sola 12.89 vs 13.05 s; nocturno 14.67 vs 10.71 s; alternante 20.22 vs 16.38 s. Respaldo de v8 en SUMO: 2–5 % de sus decisiones.
+  - Lectura: en SUMO estos escenarios casi no llevan a v8 a estados desconocidos; el problema de la maqueta viene de que un brazo con exactamente 0 carros visibles es mucho más frecuente con pocos Hot Wheels. v9 se entrena para cubrir más esos estados; se comprobará con la cobertura de la tabla y con el guion de la maqueta.
+- Entrenamiento `aforo_v9` (`ENTRENAR_AFORO_V9.bat`): misma `config/agente.yaml` que v8 (verificado igual), 8 escenarios rotados (4 del aforo + 4 desbalanceados), 640 episodios (80 por escenario, igual que v8). Episodio 0 idéntico al de v8 (recompensa −29404): el entrenamiento es reproducible.
+- Regla de evaluación: v8 sigue siendo el resultado oficial de la simulación (evaluación final con semillas 1–30). v9 se valida con 101–110 y su evaluación final usará semillas NUEVAS (31–60).
+
+### Plano de la tabla de la maqueta (2026-11-05)
+- `hardware/maqueta/plano_tabla_maqueta.{svg,pdf,png}` (generado con `scripts/generar_plano_tabla.py`, escala 1:10, medidas en mm).
+- Tabla 1100 × 800; calles de 240 mm (4 carriles de 60 mm, 2 de llegada por brazo como la red SUMO), Cra 23 horizontal; tránsito por la derecha.
+- Líneas de pare 20 mm antes del cruce; zonas de conteo desde la línea de pare hasta el borde de la vista (Cra 23: 370 mm, Dg 15: 200 mm).
+- Semáforos en las aceras junto a la línea de pare a la derecha de cada acceso (S1 sur, S2 norte, S3 oeste, S4 este, según `hardware/esp32/conexiones.md`), con hueco Ø8 mm para cables; ESP32 y protoboard debajo de la tabla.
+- Poste de la cámara en la acera del borde inferior (dentro del margen de 60 mm, fuera de la vista), brazo en diagonal hasta el centro, lente a 1 m.
+
+### aforo_v9: entrenamiento terminado (2026-11-05)
+- 640 episodios en 215 min; estados visitados 110 de 150 (v8: 96).
+- Estados "críticos" para la maqueta (un eje vacío y el otro con cola media o más; 12 en total): sin visitar v8 = 6, **v9 = 2** (quedan: Cra 23 muy alta en verde con Dg 15 vacía; Dg 15 en verde vacía con Cra 23... ver `vacia/muy_alta/dg15`).
+- Guion SINTÉTICO de la maqueta (`config/guiones_prueba/decisiones_desbalance_aforo_v8.csv` y `_aforo_v9.csv`; no es un resultado):
+  - Dg 15 llena, Cra 23 vacía: v8 22/22 decisiones en respaldo (Cra 23 recibe 55 s); v9 0 en respaldo, corta la Cra 23 al mínimo (20 s) y da a la Dg 15 15 s (ciclos de ~61 s).
+  - Cra 23 llena, Dg 15 vacía: v8 21/23 en respaldo; v9 9/26.
+  - Ambas llenas: ambos adaptan (Cra 23 70 s).
+- Validación lanzada (`VALIDAR_AFORO_V9.bat`, semillas 101–110): v9 vs tiempos fijos en 9 escenarios (5 del aforo + 4 desbalanceados) y v8 en los 4 desbalanceados. Resultados en `results/comparacion/aforo_v9_validacion/` y `aforo_v8_validacion_desb/`.
+
+### Validación de aforo_v9 (2026-11-05, semillas 101–110)
+- `scripts/analizar_validacion_v9.py` (Wilcoxon exacto pareado, bilateral, sin scipy) → `results/comparacion/aforo_v9_validacion/resumen_validacion.md`. 220 corridas; 0 vehículos sin terminar, teleports ≤ 1; respaldo de v9 ≤ 0.6 % de sus decisiones en SUMO.
+
+| Escenario | Fijos | v9 | v9 vs fijos | p | v9 mejor en | v8 | v9 vs v8 | p | v9 mejor en |
+|---|---|---|---|---|---|---|---|---|---|
+| aforo_bajo | 15.51 | 13.82 | -10.9 % | 0.002 | 10/10 | 13.67 | +1.1 % | 0.193 | 4/10 |
+| aforo_valle_manana | 17.77 | 16.16 | -9.1 % | 0.002 | 10/10 | 15.97 | +1.2 % | 0.432 | 3/10 |
+| aforo_medio | 19.60 | 17.43 | -11.0 % | 0.002 | 10/10 | 17.26 | +1.0 % | 0.160 | 4/10 |
+| aforo_alto | 55.01 | 28.22 | -48.7 % | 0.002 | 10/10 | 29.51 | -4.4 % | 0.322 | 7/10 |
+| aforo_pico_jueves | 22.77 | 22.39 | -1.7 % | 0.131 | 6/10 | 21.05 | +6.3 % | 0.049 | 1/10 |
+| desb_dg15_cargada | 31.36 | 16.66 | -46.9 % | 0.002 | 10/10 | 16.40 | +1.6 % | 0.625 | 4/10 |
+| desb_cra23_sola | 14.09 | 10.64 | -24.5 % | 0.002 | 10/10 | 12.83 | -17.1 % | 0.002 | 10/10 |
+| desb_nocturno | 14.71 | 9.81 | -33.3 % | 0.002 | 10/10 | 10.56 | -7.0 % | 0.002 | 10/10 |
+| desb_alternante | 20.30 | 15.39 | -24.2 % | 0.002 | 10/10 | 15.55 | -1.0 % | 0.695 | 5/10 |
+
+- Lectura: v9 gana a tiempos fijos en 8 de 9 escenarios (p = 0.002); en el pico del jueves −1.7 %, no significativo (p = 0.131). Frente a v8: mejor en Cra 23 sola (−17.1 %) y nocturno (−7.0 %), igual en los demás, y **peor en el pico del jueves (+6.3 %, p = 0.049)**: cubrir más estados le costó algo de afinación en ese pico.
+- Cautelas: validación con 10 semillas; las semillas 101–110 ya se usaron en iteraciones anteriores (v2–v8), así que no es el resultado final. Varias comparaciones a la vez (sin corrección de Holm aquí).
+- Propuesta: v8 sigue como resultado oficial de la simulación; v9 como agente de la maqueta (no cae al respaldo con brazos vacíos). Su evaluación final, si se decide usarlo, con semillas nuevas 31–60.
+- **Decisión de los autores (2026-11-05):** aforo_v9 es SOLO para la maqueta: es la adaptación de v8 a lo que ve la cámara (brazos vacíos frecuentes). No reemplaza a v8 ni se le hace evaluación final en simulación; el resultado oficial de la parte simulada sigue siendo la evaluación final de aforo_v8 (semillas 1–30). La validación de v9 (arriba) se reporta como evidencia de que la adaptación no degrada el control (salvo el pico del jueves, +6.3 % frente a v8). `scripts/decidir_desde_conteo.py` usa ahora aforo_v9 por defecto.
+
+## 2026-11-05 — Fase 9.4: lazo en vivo de la maqueta (programado y probado sin ESP32)
+- Nuevo `src/maqueta/lazo_camara.py`: cámara (o video) → YOLO hotwheels_v2 + NMS + ByteTrack → `ContadorZonas` → `EscaladorMaqueta` → controlador (`aforo_v9` por defecto, o `tiempos_fijos` para el baseline) → `SafetyGuard` → ESP32 (`LUZ`, confirmación OK y latido cada segundo; reutiliza las funciones de `src/simulation/lazo_hardware.py`). Con cámara usa el reloj real; con un archivo, el tiempo del video. Si el procesamiento se atrasa, da un paso del SafetyGuard por cada segundo cumplido. Si la cámara falla, se detiene y el ESP32 pasa a intermitente por su watchdog (5 s). Salida: `results/maqueta/lazo/<fecha>_<controlador>/` (por_segundo.csv, cambios.csv, resumen.json, lazo.mp4).
+- Prueba (`PROBAR_LAZO_CAMARA.bat`): video de 1 m en bucle, 120 s de video, sin ESP32. Sin errores; 10.7 cuadros/s procesados (94 ms/cuadro con YOLO + tracking + anotación del video).
+  - Secuencia: verde Dg 15 → a los 15 s (mínimo) el agente ve ambas colas vacías y cambia → amarillo 3 s → todo rojo 20 s → verde Cra 23 desde t = 38 s; el agente ve "Cra 23 media, Dg 15 vacía" y MANTIENE en cada decisión; el SafetyGuard corta a los 70 s (verde máximo, t = 108 s) → verde Dg 15. 12 decisiones, 0 en respaldo.
+  - Es una prueba de integración (lazo abierto: el video no reacciona a las luces), no un resultado.

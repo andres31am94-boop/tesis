@@ -1,0 +1,88 @@
+{
+  "escenario": "desb_dg15_cargada",
+  "controlador": "qlearning_aforo_v8",
+  "semilla": 1,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 1767,
+    "espera_total_promedio_s": 14.749858517260893,
+    "espera_en_red_promedio_s": 14.73740803621958,
+    "retraso_entrada_promedio_s": 0.01245048104131296,
+    "tiempo_viaje_promedio_s": 94.60950764006792,
+    "tiempo_perdido_promedio_s": 22.078307866440294,
+    "velocidad_promedio_kmh": 38.89554846218811,
+    "throughput_veh_h": 1906.909090909091,
+    "cola_promedio_norte": 0.6324242424242424,
+    "cola_maxima_norte": 7,
+    "cola_promedio_sur": 0.7818181818181819,
+    "cola_maxima_sur": 6,
+    "cola_promedio_este": 4.100606060606061,
+    "cola_maxima_este": 17,
+    "cola_promedio_oeste": 2.4078787878787877,
+    "cola_maxima_oeste": 14,
+    "detenidos_promedio_total": 7.922727272727273,
+    "verde_promedio_cra23_s": 20.0,
+    "verdes_cra23": 53,
+    "verde_promedio_dg15_s": 16.69811320754717,
+    "verdes_dg15": 53,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 3,
+    "decisiones_agente": 141,
+    "decisiones_respaldo": 3,
+    "pedidos_de_cambio": 112
+  },
+  "cierre": {
+    "tiempo_final_s": 3690.0,
+    "vehiculos_sin_terminar": 0,
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": null,
+    "teletransportes": 0,
+    "desatascos_calle18": 0,
+    "eventos_desatasco": [],
+    "diagnostico_desatasco": []
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": {
+          "cra23": 20,
+          "dg15": 15
+        },
+        "verde_max_s": {
+          "cra23": 70,
+          "dg15": 25
+        },
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-11-05T07:20:18"
+  }
+}

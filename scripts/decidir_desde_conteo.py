@@ -97,7 +97,7 @@ def main():
     parser = argparse.ArgumentParser(description="El agente decide con conteos de la camara (lazo abierto)")
     parser.add_argument("--conteo", required=True)
     parser.add_argument("--zonas", required=True)
-    parser.add_argument("--modelo", default="aforo_v8")
+    parser.add_argument("--modelo", default="aforo_v9", help="agente de la maqueta: aforo_v9 (adaptacion de v8)")
     parser.add_argument("--comparar", action="store_true", help="tambien tiempos fijos (55/20 s)")
     argumentos = parser.parse_args()
 

@@ -1,0 +1,26 @@
+{
+  "fuente": "data\\raw\\hotwheels\\prueba_alturas\\un_metro.MOV",
+  "zonas": "config\\zonas_prueba_1m.yaml",
+  "pesos": "C:\\Users\\andre\\Documents\\tesis\\results\\vision\\entrenamiento\\hotwheels_v2\\weights\\best.pt",
+  "controlador": "qlearning",
+  "modelo": "aforo_v9",
+  "conf": 0.4,
+  "puerto": null,
+  "segundos": 120,
+  "cuadros": 7196,
+  "ms_por_cuadro_mediana": 93.7,
+  "cuadros_por_segundo": 10.67,
+  "verdes": [
+    [
+      "dg15",
+      15
+    ],
+    [
+      "cra23",
+      70
+    ]
+  ],
+  "decisiones": 12,
+  "decisiones_respaldo": 0,
+  "latencias_esp32_ms": []
+}

@@ -1,0 +1,252 @@
+Escenario: desb_dg15_cargada | controlador: tiempos_fijos | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_dg15_cargada\tiempos_fijos\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3751 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                      1767
+   espera_total_promedio_s               28.36
+   espera_en_red_promedio_s              28.34
+   retraso_entrada_promedio_s             0.01
+   tiempo_viaje_promedio_s              109.20
+   tiempo_perdido_promedio_s             36.68
+   velocidad_promedio_kmh                35.10
+   throughput_veh_h                    1928.73
+   cola_promedio_norte                    0.45
+   cola_maxima_norte                         6
+   cola_promedio_sur                      0.52
+   cola_maxima_sur                           6
+   cola_promedio_este                     9.03
+   cola_maxima_este                         29
+   cola_promedio_oeste                    5.09
+   cola_maxima_oeste                        22
+   detenidos_promedio_total              15.10
+   verde_promedio_cra23_s                55.00
+   verdes_cra23                             33
+   verde_promedio_dg15_s                 20.00
+   verdes_dg15                              33
+   cambios_rechazados                        0
+   cambios_forzados                          0
+Escenario: desb_dg15_cargada | controlador: qlearning | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_dg15_cargada\qlearning_aforo_v8\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3690 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                      1767
+   espera_total_promedio_s               14.75
+   espera_en_red_promedio_s              14.74
+   retraso_entrada_promedio_s             0.01
+   tiempo_viaje_promedio_s               94.61
+   tiempo_perdido_promedio_s             22.08
+   velocidad_promedio_kmh                38.90
+   throughput_veh_h                    1906.91
+   cola_promedio_norte                    0.63
+   cola_maxima_norte                         7
+   cola_promedio_sur                      0.78
+   cola_maxima_sur                           6
+   cola_promedio_este                     4.10
+   cola_maxima_este                         17
+   cola_promedio_oeste                    2.41
+   cola_maxima_oeste                        14
+   detenidos_promedio_total               7.92
+   verde_promedio_cra23_s                20.00
+   verdes_cra23                             53
+   verde_promedio_dg15_s                 16.70
+   verdes_dg15                              53
+   cambios_rechazados                        0
+   cambios_forzados                          3
+   decisiones_agente                       141
+   decisiones_respaldo                       3
+   pedidos_de_cambio                       112
+Warning: Vehicle 'sur_recto_carro_t0.36' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=404.00.
+Warning: Vehicle 'sur_recto_carro_t0.272' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=3008.00.
+Escenario: desb_cra23_sola | controlador: tiempos_fijos | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_cra23_sola\tiempos_fijos\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3713 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                      2243
+   espera_total_promedio_s               12.89
+   espera_en_red_promedio_s              12.37
+   retraso_entrada_promedio_s             0.52
+   tiempo_viaje_promedio_s               82.89
+   tiempo_perdido_promedio_s             23.80
+   velocidad_promedio_kmh                36.44
+   throughput_veh_h                    2424.00
+   cola_promedio_norte                    4.19
+   cola_maxima_norte                        24
+   cola_promedio_sur                      3.18
+   cola_maxima_sur                          18
+   cola_promedio_este                     0.60
+   cola_maxima_este                          6
+   cola_promedio_oeste                    0.35
+   cola_maxima_oeste                         3
+   detenidos_promedio_total               8.33
+   verde_promedio_cra23_s                55.00
+   verdes_cra23                             33
+   verde_promedio_dg15_s                 20.00
+   verdes_dg15                              33
+   cambios_rechazados                        0
+   cambios_forzados                          0
+Warning: Vehicle 'sur_recto_carro_t0.15' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=194.00.
+Warning: Vehicle 'sur_recto_carro_t0.187' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2037.00.
+Warning: Vehicle 'sur_recto_carro_t0.213' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=2290.00.
+Escenario: desb_cra23_sola | controlador: qlearning | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_cra23_sola\qlearning_aforo_v8\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3685 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                      2243
+   espera_total_promedio_s               13.05
+   espera_en_red_promedio_s              12.54
+   retraso_entrada_promedio_s             0.51
+   tiempo_viaje_promedio_s               83.01
+   tiempo_perdido_promedio_s             23.91
+   velocidad_promedio_kmh                36.34
+   throughput_veh_h                    2431.64
+   cola_promedio_norte                    4.13
+   cola_maxima_norte                        25
+   cola_promedio_sur                      2.95
+   cola_maxima_sur                          21
+   cola_promedio_este                     0.76
+   cola_maxima_este                          4
+   cola_promedio_oeste                    0.37
+   cola_maxima_oeste                         3
+   detenidos_promedio_total               8.21
+   verde_promedio_cra23_s                52.29
+   verdes_cra23                             35
+   verde_promedio_dg15_s                 15.00
+   verdes_dg15                              36
+   cambios_rechazados                        0
+   cambios_forzados                          9
+   decisiones_agente                       336
+   decisiones_respaldo                      12
+   pedidos_de_cambio                        64
+Escenario: desb_nocturno | controlador: tiempos_fijos | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_nocturno\tiempos_fijos\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3697 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                       487
+   espera_total_promedio_s               14.67
+   espera_en_red_promedio_s              14.67
+   retraso_entrada_promedio_s             0.01
+   tiempo_viaje_promedio_s               82.73
+   tiempo_perdido_promedio_s             20.21
+   velocidad_promedio_kmh                39.69
+   throughput_veh_h                     532.36
+   cola_promedio_norte                    0.50
+   cola_maxima_norte                         7
+   cola_promedio_sur                      0.51
+   cola_maxima_sur                           6
+   cola_promedio_este                     0.63
+   cola_maxima_este                          5
+   cola_promedio_oeste                    0.48
+   cola_maxima_oeste                         4
+   detenidos_promedio_total               2.12
+   verde_promedio_cra23_s                55.00
+   verdes_cra23                             33
+   verde_promedio_dg15_s                 20.00
+   verdes_dg15                              33
+   cambios_rechazados                        0
+   cambios_forzados                          0
+Escenario: desb_nocturno | controlador: qlearning | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_nocturno\qlearning_aforo_v8\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3701 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                       487
+   espera_total_promedio_s               10.71
+   espera_en_red_promedio_s              10.70
+   retraso_entrada_promedio_s             0.01
+   tiempo_viaje_promedio_s               78.85
+   tiempo_perdido_promedio_s             16.33
+   velocidad_promedio_kmh                40.76
+   throughput_veh_h                     532.36
+   cola_promedio_norte                    0.45
+   cola_maxima_norte                         6
+   cola_promedio_sur                      0.48
+   cola_maxima_sur                           5
+   cola_promedio_este                     0.43
+   cola_maxima_este                          4
+   cola_promedio_oeste                    0.21
+   cola_maxima_oeste                         2
+   detenidos_promedio_total               1.57
+   verde_promedio_cra23_s                34.76
+   verdes_cra23                             42
+   verde_promedio_dg15_s                 17.98
+   verdes_dg15                              42
+   cambios_rechazados                        0
+   cambios_forzados                          2
+   decisiones_agente                       258
+   decisiones_respaldo                      12
+   pedidos_de_cambio                        87
+Warning: Vehicle 'sur_recto_carro_t0.36' performs emergency braking on lane ':inicio_puente_0_1' with decel=9.00, wished=4.50, severity=1.00, time=404.00.
+Escenario: desb_alternante | controlador: tiempos_fijos | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_alternante\tiempos_fijos\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3761 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                      2359
+   espera_total_promedio_s               20.22
+   espera_en_red_promedio_s              19.89
+   retraso_entrada_promedio_s             0.33
+   tiempo_viaje_promedio_s               95.19
+   tiempo_perdido_promedio_s             30.10
+   velocidad_promedio_kmh                35.51
+   throughput_veh_h                    2518.91
+   cola_promedio_norte                    3.04
+   cola_maxima_norte                        28
+   cola_promedio_sur                      2.10
+   cola_maxima_sur                          17
+   cola_promedio_este                     5.65
+   cola_maxima_este                         26
+   cola_promedio_oeste                    3.06
+   cola_maxima_oeste                        18
+   detenidos_promedio_total              13.85
+   verde_promedio_cra23_s                55.00
+   verdes_cra23                             33
+   verde_promedio_dg15_s                 20.00
+   verdes_dg15                              33
+   cambios_rechazados                        0
+   cambios_forzados                          0
+Warning: Vehicle 'sur_recto_carro_t0.15' performs emergency braking on lane ':inicio_puente_0_0' with decel=9.00, wished=4.50, severity=1.00, time=194.00.
+Escenario: desb_alternante | controlador: qlearning | semilla: 1
+
+Resultados guardados en: C:\Users\andre\Documents\tesis\results\desb_alternante\qlearning_aforo_v8\semilla_1
+Ventana de medicion: 300-3600 s | fin de simulacion: 3733 s | vehiculos sin terminar: 0 | teleports: 0 | desatascos Calle 18: 0
+
+Metricas:
+   vehiculos_medidos                      2359
+   espera_total_promedio_s               16.38
+   espera_en_red_promedio_s              16.09
+   retraso_entrada_promedio_s             0.29
+   tiempo_viaje_promedio_s               91.10
+   tiempo_perdido_promedio_s             26.01
+   velocidad_promedio_kmh                36.41
+   throughput_veh_h                    2530.91
+   cola_promedio_norte                    3.10
+   cola_maxima_norte                        22
+   cola_promedio_sur                      2.35
+   cola_maxima_sur                          17
+   cola_promedio_este                     3.68
+   cola_maxima_este                         19
+   cola_promedio_oeste                    1.95
+   cola_maxima_oeste                        15
+   detenidos_promedio_total              11.08
+   verde_promedio_cra23_s                32.61
+   verdes_cra23                             44
+   verde_promedio_dg15_s                 15.56
+   verdes_dg15                              45
+   cambios_rechazados                        0
+   cambios_forzados                          4
+   decisiones_agente                       244
+   decisiones_respaldo                       5
+   pedidos_de_cambio                        93
+FIN_VERIFICACION 

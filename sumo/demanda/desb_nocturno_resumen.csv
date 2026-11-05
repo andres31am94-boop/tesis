@@ -1,0 +1,5 @@
+tramo,desde_s,hasta_s,brazo,eje,factor,vehiculos_hora
+0,0,3600,norte,cra23,0.3,215
+0,0,3600,sur,cra23,0.3,209
+0,0,3600,este,dg15,0.3,84
+0,0,3600,oeste,dg15,0.3,46

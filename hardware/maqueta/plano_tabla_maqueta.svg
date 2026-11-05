@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-100 -130 1740 1040" width="1640" height="1040">
+<rect x="-100" y="-130" width="1640" height="1040" fill="white"/>
+<text x="550.0" y="-95" font-size="24" text-anchor="middle" fill="#111" font-family="Arial" font-weight="bold">Plano de la tabla de la maqueta — escala 1:10 (medidas en mm)</text>
+<rect x="0" y="0" width="1100" height="800" fill="#e9e4d8" stroke="#000" stroke-width="3"/>
+<rect x="0" y="280" width="1100" height="240" fill="#5a5a5a"/>
+<rect x="430" y="0" width="240" height="800" fill="#5a5a5a"/>
+<line x1="0" y1="340" x2="430" y2="340" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="670" y1="340" x2="1100" y2="340" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="0" y1="460" x2="430" y2="460" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="670" y1="460" x2="1100" y2="460" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="490" y1="0" x2="490" y2="280" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="490" y1="520" x2="490" y2="800" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="610" y1="0" x2="610" y2="280" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="610" y1="520" x2="610" y2="800" stroke="white" stroke-width="3" stroke-dasharray="25,20"/>
+<line x1="0" y1="396" x2="430" y2="396" stroke="#f2c200" stroke-width="3"/>
+<line x1="670" y1="396" x2="1100" y2="396" stroke="#f2c200" stroke-width="3"/>
+<line x1="546" y1="0" x2="546" y2="280" stroke="#f2c200" stroke-width="3"/>
+<line x1="546" y1="520" x2="546" y2="800" stroke="#f2c200" stroke-width="3"/>
+<line x1="0" y1="404" x2="430" y2="404" stroke="#f2c200" stroke-width="3"/>
+<line x1="670" y1="404" x2="1100" y2="404" stroke="#f2c200" stroke-width="3"/>
+<line x1="554" y1="0" x2="554" y2="280" stroke="#f2c200" stroke-width="3"/>
+<line x1="554" y1="520" x2="554" y2="800" stroke="#f2c200" stroke-width="3"/>
+<line x1="690" y1="280" x2="690" y2="400" stroke="white" stroke-width="8"/>
+<line x1="410" y1="400" x2="410" y2="520" stroke="white" stroke-width="8"/>
+<line x1="430" y1="260" x2="550" y2="260" stroke="white" stroke-width="8"/>
+<line x1="550" y1="540" x2="670" y2="540" stroke="white" stroke-width="8"/>
+<rect x="690" y="280" width="370" height="120" fill="#1f77b4" fill-opacity="0.18" stroke="#1f77b4" stroke-width="3" stroke-dasharray="10,6"/>
+<rect x="40" y="400" width="370" height="120" fill="#ff9f00" fill-opacity="0.18" stroke="#ff9f00" stroke-width="3" stroke-dasharray="10,6"/>
+<rect x="430" y="60" width="120" height="200" fill="#2ca02c" fill-opacity="0.18" stroke="#2ca02c" stroke-width="3" stroke-dasharray="10,6"/>
+<rect x="550" y="540" width="120" height="200" fill="#d62ad6" fill-opacity="0.18" stroke="#d62ad6" stroke-width="3" stroke-dasharray="10,6"/>
+<polygon points="960,310 974,301 974,319" fill="white"/><line x1="1000" y1="310" x2="970" y2="310" stroke="white" stroke-width="4"/>
+<polygon points="80,310 94,301 94,319" fill="white"/><line x1="120" y1="310" x2="90" y2="310" stroke="white" stroke-width="4"/>
+<polygon points="960,370 974,361 974,379" fill="white"/><line x1="1000" y1="370" x2="970" y2="370" stroke="white" stroke-width="4"/>
+<polygon points="80,370 94,361 94,379" fill="white"/><line x1="120" y1="370" x2="90" y2="370" stroke="white" stroke-width="4"/>
+<polygon points="120,430 106,439 106,421" fill="white"/><line x1="80" y1="430" x2="110" y2="430" stroke="white" stroke-width="4"/>
+<polygon points="1000,430 986,439 986,421" fill="white"/><line x1="960" y1="430" x2="990" y2="430" stroke="white" stroke-width="4"/>
+<polygon points="120,490 106,499 106,481" fill="white"/><line x1="80" y1="490" x2="110" y2="490" stroke="white" stroke-width="4"/>
+<polygon points="1000,490 986,499 986,481" fill="white"/><line x1="960" y1="490" x2="990" y2="490" stroke="white" stroke-width="4"/>
+<polygon points="460,150 451,136 469,136" fill="white"/><line x1="460" y1="110" x2="460" y2="140" stroke="white" stroke-width="4"/>
+<polygon points="460,680 451,666 469,666" fill="white"/><line x1="460" y1="640" x2="460" y2="670" stroke="white" stroke-width="4"/>
+<polygon points="520,150 511,136 529,136" fill="white"/><line x1="520" y1="110" x2="520" y2="140" stroke="white" stroke-width="4"/>
+<polygon points="520,680 511,666 529,666" fill="white"/><line x1="520" y1="640" x2="520" y2="670" stroke="white" stroke-width="4"/>
+<polygon points="580,660 589,674 571,674" fill="white"/><line x1="580" y1="700" x2="580" y2="670" stroke="white" stroke-width="4"/>
+<polygon points="580,110 589,124 571,124" fill="white"/><line x1="580" y1="150" x2="580" y2="120" stroke="white" stroke-width="4"/>
+<polygon points="640,660 649,674 631,674" fill="white"/><line x1="640" y1="700" x2="640" y2="670" stroke="white" stroke-width="4"/>
+<polygon points="640,110 649,124 631,124" fill="white"/><line x1="640" y1="150" x2="640" y2="120" stroke="white" stroke-width="4"/>
+<rect x="40" y="60" width="1020" height="680" fill="none" stroke="#c00000" stroke-width="3" stroke-dasharray="18,8"/>
+<rect x="691" y="241" width="28" height="28" fill="#111" rx="4"/>
+<circle cx="705" cy="255" r="6" fill="#3c3"/>
+<circle cx="727" cy="255" r="5" fill="none" stroke="#000" stroke_width="2"/>
+<text x="705" y="233" font-size="18" text-anchor="middle" fill="#111" font-family="Arial" font-weight="bold">S2</text>
+<rect x="391" y="241" width="28" height="28" fill="#111" rx="4"/>
+<circle cx="405" cy="255" r="6" fill="#3c3"/>
+<circle cx="427" cy="255" r="5" fill="none" stroke="#000" stroke_width="2"/>
+<text x="405" y="233" font-size="18" text-anchor="middle" fill="#111" font-family="Arial" font-weight="bold">S4</text>
+<rect x="391" y="531" width="28" height="28" fill="#111" rx="4"/>
+<circle cx="405" cy="545" r="6" fill="#3c3"/>
+<circle cx="427" cy="545" r="5" fill="none" stroke="#000" stroke_width="2"/>
+<text x="405" y="583" font-size="18" text-anchor="middle" fill="#111" font-family="Arial" font-weight="bold">S1</text>
+<rect x="681" y="531" width="28" height="28" fill="#111" rx="4"/>
+<circle cx="695" cy="545" r="6" fill="#3c3"/>
+<circle cx="717" cy="545" r="5" fill="none" stroke="#000" stroke_width="2"/>
+<text x="695" y="583" font-size="18" text-anchor="middle" fill="#111" font-family="Arial" font-weight="bold">S3</text>
+<circle cx="550" cy="400" r="18" fill="none" stroke="#c00000" stroke-width="3"/><line x1="535" y1="385" x2="565" y2="415" stroke="#c00000" stroke-width="3"/><line x1="565" y1="385" x2="535" y2="415" stroke="#c00000" stroke-width="3"/>
+<rect x="835" y="765" width="30" height="30" fill="#7a4a1a"/>
+<line x1="850" y1="765" x2="563" y2="413" stroke="#7a4a1a" stroke-width="6" stroke-dasharray="4,6"/>
+<text x="850" y="758" font-size="14" text-anchor="middle" fill="#7a4a1a" font-family="Arial" font-weight="bold">poste</text>
+<rect x="900" y="680" width="110" height="60" fill="none" stroke="#004a99" stroke-width="3" stroke-dasharray="8,5"/>
+<text x="955" y="715" font-size="16" text-anchor="middle" fill="#004a99" font-family="Arial" font-weight="bold">ESP32</text>
+<line x1="0" y1="-20" x2="1100" y2="-20" stroke="#000" stroke-width="1.5"/><line x1="0" y1="-28" x2="0" y2="-12" stroke="#000"/><line x1="1100" y1="-28" x2="1100" y2="-12" stroke="#000"/><text x="550.0" y="-26" font-size="15" text-anchor="middle" fill="#111" font-family="Arial" font-weight="normal">1100</text>
+<line x1="430" y1="-45" x2="670" y2="-45" stroke="#000" stroke-width="1.5"/><line x1="430" y1="-53" x2="430" y2="-37" stroke="#000"/><line x1="670" y1="-53" x2="670" y2="-37" stroke="#000"/><text x="550.0" y="-51" font-size="15" text-anchor="middle" fill="#111" font-family="Arial" font-weight="normal">240 (Dg 15)</text>
+<line x1="40" y1="830" x2="1060" y2="830" stroke="#000" stroke-width="1.5"/><line x1="40" y1="822" x2="40" y2="838" stroke="#000"/><line x1="1060" y1="822" x2="1060" y2="838" stroke="#000"/><text x="550.0" y="824" font-size="15" text-anchor="middle" fill="#111" font-family="Arial" font-weight="normal">1020 vista de la cámara a 1 m</text>
+<line x1="-20" y1="0" x2="-20" y2="800" stroke="#000" stroke-width="1.5"/><line x1="-28" y1="0" x2="-12" y2="0" stroke="#000"/><line x1="-28" y1="800" x2="-12" y2="800" stroke="#000"/><text x="-28" y="400.0" font-size="15" font-family="Arial" text-anchor="middle" transform="rotate(-90 -28 400.0)">800</text>
+<line x1="-45" y1="280" x2="-45" y2="520" stroke="#000" stroke-width="1.5"/><line x1="-53" y1="280" x2="-37" y2="280" stroke="#000"/><line x1="-53" y1="520" x2="-37" y2="520" stroke="#000"/><text x="-53" y="400.0" font-size="15" font-family="Arial" text-anchor="middle" transform="rotate(-90 -53 400.0)">240 (Cra 23)</text>
+<line x1="1125" y1="60" x2="1125" y2="740" stroke="#000" stroke-width="1.5"/><line x1="1117" y1="60" x2="1133" y2="60" stroke="#000"/><line x1="1117" y1="740" x2="1133" y2="740" stroke="#000"/><text x="1117" y="400.0" font-size="15" font-family="Arial" text-anchor="middle" transform="rotate(-90 1117 400.0)">680 vista</text>
+<line x1="690" y1="262" x2="1060" y2="262" stroke="#000" stroke-width="1.5"/><line x1="690" y1="254" x2="690" y2="270" stroke="#000"/><line x1="1060" y1="254" x2="1060" y2="270" stroke="#000"/><text x="875.0" y="256" font-size="15" text-anchor="middle" fill="#111" font-family="Arial" font-weight="normal">370 zona</text>
+<line x1="420" y1="60" x2="420" y2="260" stroke="#000" stroke-width="1.5"/><line x1="412" y1="60" x2="428" y2="60" stroke="#000"/><line x1="412" y1="260" x2="428" y2="260" stroke="#000"/><text x="412" y="160.0" font-size="15" font-family="Arial" text-anchor="middle" transform="rotate(-90 412 160.0)">200 zona</text>
+<text x="1170" y="10" font-size="20" text-anchor="start" fill="#111" font-family="Arial" font-weight="bold">Convenciones</text>
+<rect x="1170" y="26" width="40" height="18" fill="#5a5a5a"/>
+<text x="1222" y="40" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Calzada: pintura gris oscuro MATE</text>
+<rect x="1170" y="56" width="40" height="18" fill="#5a5a5a"/>
+<line x1="1174" y1="65" x2="1206" y2="65" stroke="white" stroke-width="4"/>
+<text x="1222" y="70" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Carril 60 mm (4 por calle), discontinua blanca</text>
+<rect x="1170" y="86" width="40" height="18" fill="#5a5a5a"/>
+<line x1="1174" y1="95" x2="1206" y2="95" stroke="#f2c200" stroke-width="4"/>
+<text x="1222" y="100" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Línea central doble amarilla</text>
+<rect x="1170" y="116" width="40" height="18" fill="#5a5a5a"/>
+<line x1="1174" y1="125" x2="1206" y2="125" stroke="white" stroke-width="4"/>
+<text x="1222" y="130" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Línea de pare: 20 mm antes del cruce</text>
+<rect x="1170" y="146" width="40" height="18" fill="none" stroke="#c00000" stroke-width="3" stroke-dasharray="8,4"/>
+<text x="1222" y="160" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Lo que ve la cámara a 1 m (102 × 68 cm medido)</text>
+<rect x="1170" y="176" width="40" height="18" fill="#1f77b4" fill-opacity="0.25" stroke="#1f77b4" stroke-dasharray="6,4"/>
+<text x="1222" y="190" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Zonas de conteo por brazo (solo software, NO se pintan)</text>
+<rect x="1180" y="206" width="18" height="18" fill="#111" rx="3"/>
+<text x="1222" y="220" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Semáforo (módulo LED) + hueco Ø8 mm para cables</text>
+<rect x="1170" y="236" width="40" height="18" fill="none" stroke="#004a99" stroke-dasharray="6,4" stroke-width="2"/>
+<text x="1222" y="250" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">ESP32 + protoboard DEBAJO de la tabla</text>
+<rect x="1180" y="266" width="18" height="18" fill="#7a4a1a"/>
+<text x="1222" y="280" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Poste de la cámara en la acera (borde inferior, fuera de la vista);</text>
+<text x="1222" y="310" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">   brazo en diagonal hasta el centro, lente a 1 m sobre la tabla</text>
+<text x="1170" y="350" font-size="18" text-anchor="start" fill="#111" font-family="Arial" font-weight="bold">Semáforos (hardware/esp32/conexiones.md)</text>
+<text x="1170" y="376" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">S1 Cra 23 sur: D32 / D33 / D25</text>
+<text x="1170" y="398" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">S2 Cra 23 norte: D26 / D27 / D13</text>
+<text x="1170" y="420" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">S3 Dg 15 oeste: D23 / D22 / D21</text>
+<text x="1170" y="442" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">S4 Dg 15 este: D19 / D18 / D17</text>
+<text x="1170" y="476" font-size="18" text-anchor="start" fill="#111" font-family="Arial" font-weight="bold">Notas</text>
+<text x="1170" y="502" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Tránsito por la derecha (Colombia).</text>
+<text x="1170" y="523" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">2 carriles de llegada por brazo, como la red SUMO.</text>
+<text x="1170" y="544" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Capacidad estimada por brazo: Cra 23 ≈ 8 carros,</text>
+<text x="1170" y="565" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">   Dg 15 ≈ 4 (Hot Wheels de 7 cm + 1,5 cm).</text>
+<text x="1170" y="586" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">SIN texto ni dibujos en la tabla (falsos positivos).</text>
+<text x="1170" y="607" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Acabado mate (sin barniz brillante).</text>
+<text x="1170" y="628" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Semáforos en las aceras, fuera de las zonas.</text>
+<text x="1170" y="649" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Poste: 60 mm de margen inferior, fuera de la vista.</text>
+<text x="1170" y="670" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">Las calles llegan al borde: los carros entran</text>
+<text x="1170" y="691" font-size="14" text-anchor="start" fill="#111" font-family="Arial" font-weight="normal">   desde fuera de la vista.</text>
+</svg>

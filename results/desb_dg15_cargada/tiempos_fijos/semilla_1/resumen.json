@@ -1,0 +1,85 @@
+{
+  "escenario": "desb_dg15_cargada",
+  "controlador": "tiempos_fijos",
+  "semilla": 1,
+  "ventana_medicion_s": [
+    300,
+    3600
+  ],
+  "metricas": {
+    "vehiculos_medidos": 1767,
+    "espera_total_promedio_s": 28.355970571590266,
+    "espera_en_red_promedio_s": 28.34295415959253,
+    "retraso_entrada_promedio_s": 0.013016411997736276,
+    "tiempo_viaje_promedio_s": 109.20373514431239,
+    "tiempo_perdido_promedio_s": 36.676661007357104,
+    "velocidad_promedio_kmh": 35.10263667634704,
+    "throughput_veh_h": 1928.7272727272727,
+    "cola_promedio_norte": 0.45454545454545453,
+    "cola_maxima_norte": 6,
+    "cola_promedio_sur": 0.5181818181818182,
+    "cola_maxima_sur": 6,
+    "cola_promedio_este": 9.032727272727273,
+    "cola_maxima_este": 29,
+    "cola_promedio_oeste": 5.092121212121212,
+    "cola_maxima_oeste": 22,
+    "detenidos_promedio_total": 15.097575757575758,
+    "verde_promedio_cra23_s": 55.0,
+    "verdes_cra23": 33,
+    "verde_promedio_dg15_s": 20.0,
+    "verdes_dg15": 33,
+    "cambios_rechazados": 0,
+    "cambios_forzados": 0
+  },
+  "cierre": {
+    "tiempo_final_s": 3751.0,
+    "vehiculos_sin_terminar": 0,
+    "version_sumo": "SUMO 1.27.1",
+    "desfase_calle18_s": null,
+    "teletransportes": 0,
+    "desatascos_calle18": 0,
+    "eventos_desatasco": [],
+    "diagnostico_desatasco": []
+  },
+  "parametros": {
+    "controlador": {
+      "seguridad": {
+        "verde_min_s": {
+          "cra23": 20,
+          "dg15": 15
+        },
+        "verde_max_s": {
+          "cra23": 70,
+          "dg15": 25
+        },
+        "amarillo_s": 3,
+        "todo_rojo_s": {
+          "cra23": 0,
+          "dg15": 20
+        },
+        "eje_inicial": "dg15"
+      },
+      "seguridad_norma": {
+        "todo_rojo_s": {
+          "cra23": 2,
+          "dg15": 20
+        }
+      },
+      "tiempos_fijos": {
+        "verde_s": {
+          "cra23": 55,
+          "dg15": 20
+        }
+      }
+    },
+    "experimento": {
+      "calentamiento_s": 300,
+      "duracion_demanda_s": 3600,
+      "margen_vaciado_s": 1800
+    }
+  },
+  "entorno": {
+    "python": "3.11.5",
+    "fecha": "2026-11-05T07:19:58"
+  }
+}
