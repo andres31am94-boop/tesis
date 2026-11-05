@@ -23,6 +23,10 @@ from datetime import datetime
 from pathlib import Path
 
 from ultralytics import YOLO, __version__ as version_ultralytics
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 CARPETA_PESOS = CARPETA_TESIS / "models" / "yolo"
@@ -31,6 +35,7 @@ SEMILLA = 0   # reproducibilidad (Ultralytics fija las semillas de Python, NumPy
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Ajuste fino de YOLO26n con carros de juguete")
     parser.add_argument("--datos", required=True, help="ruta al data.yaml del dataset")
     parser.add_argument("--modelo", default="yolo26n.pt",

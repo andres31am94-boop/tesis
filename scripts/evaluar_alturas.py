@@ -19,6 +19,10 @@ from pathlib import Path
 import cv2
 from torchvision.ops import nms
 from ultralytics import YOLO
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 CARPETA_VIDEOS = CARPETA_TESIS / "data" / "raw" / "hotwheels" / "prueba_alturas"
@@ -26,6 +30,7 @@ ALTURAS_CM = {"60_centimetros": 60, "80_centimetros": 80, "un_metro": 100}
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Deteccion de Hot Wheels a distintas alturas de camara")
     parser.add_argument("--pesos", required=True)
     parser.add_argument("--conf", type=float, default=0.25)

@@ -32,6 +32,7 @@ import yaml
 from src.agent.entorno_sumo import EntornoSumo
 from src.agent.qlearning import CAMBIAR, TablaQ, epsilon_lineal
 from src.common.configuracion import CARPETA_TESIS, cargar_interseccion
+from src.common.registro_computo import registrar_ejecucion
 
 CARPETA_CONFIG = CARPETA_TESIS / "config"
 CARPETA_MODELOS = CARPETA_TESIS / "models"
@@ -71,6 +72,7 @@ def preparar_continuacion(carpeta, metadatos, ruta_curva, ampliar=False):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Entrena el agente Q-Learning (de seguido o por paquetes).")
     parser.add_argument("--escenarios", nargs="+", required=True, help="uno o varios .sumocfg de sumo/configs (se rotan)")
     parser.add_argument("--episodios", type=int, required=True, help="total de episodios del entrenamiento")

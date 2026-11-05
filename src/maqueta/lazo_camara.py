@@ -46,6 +46,7 @@ from src.vision.zonas import ContadorZonas, VehiculoSeguido
 
 sys.path.insert(0, str(CARPETA_TESIS / "scripts"))
 from ver_zonas import cargar_zonas, dibujar_zonas  # noqa: E402
+from src.common.registro_computo import registrar_ejecucion
 
 PESOS_POR_DEFECTO = CARPETA_TESIS / "results" / "vision" / "entrenamiento" / "hotwheels_v2" / "weights" / "best.pt"
 COLOR_LUZ = {"verde": (0, 200, 0), "amarillo": (0, 210, 255), "todo_rojo": (0, 0, 230)}
@@ -93,6 +94,7 @@ def dibujar_estado(imagen, fase, segundo, texto_decision):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Lazo en vivo de la maqueta: camara -> agente -> ESP32")
     parser.add_argument("--fuente", required=True, help="indice de camara (0, 1, ...) o ruta a un video")
     parser.add_argument("--zonas", required=True, help="yaml con zonas y capacidad_carros")

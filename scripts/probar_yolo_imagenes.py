@@ -24,6 +24,9 @@ from pathlib import Path
 import cv2
 from ultralytics import YOLO, __version__ as version_ultralytics
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 CARPETA_ENTRADA = CARPETA_TESIS / "data" / "raw" / "hotwheels"
 CARPETA_SALIDA = CARPETA_TESIS / "results" / "vision" / "prueba_hotwheels"
@@ -56,6 +59,7 @@ def leer_imagenes(carpeta):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Prueba de YOLO preentrenado con fotos de Hot Wheels")
     parser.add_argument("--modelo", default="yolo26n.pt", help="pesos de Ultralytics (n = nano, s = small, ...)")
     parser.add_argument("--conf", type=float, default=0.10, help="umbral de confianza (bajo a proposito)")

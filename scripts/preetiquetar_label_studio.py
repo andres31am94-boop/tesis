@@ -16,6 +16,10 @@ from pathlib import Path
 import cv2
 from torchvision.ops import nms
 from ultralytics import YOLO
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 RAIZ_ARCHIVOS = CARPETA_TESIS / "data" / "raw" / "hotwheels"
@@ -24,6 +28,7 @@ ETIQUETA = "Car"
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Genera tareas de Label Studio con cajas propuestas por el modelo")
     parser.add_argument("--pesos", default=str(CARPETA_TESIS / "results" / "vision" / "entrenamiento" /
                                                "hotwheels_v1" / "weights" / "best.pt"))

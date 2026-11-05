@@ -15,6 +15,10 @@ import argparse
 import json
 import shutil
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 CARPETA_IMAGENES = CARPETA_TESIS / "data" / "raw" / "hotwheels" / "cuadros_entrenamiento"
@@ -33,6 +37,7 @@ def caja_a_yolo(valor):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Label Studio JSON -> dataset YOLO")
     parser.add_argument("--exportacion", required=True)
     parser.add_argument("--video_val", default="v0580", help="prefijo de los cuadros que van a validacion")

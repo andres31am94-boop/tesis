@@ -29,8 +29,12 @@ from ultralytics import YOLO  # noqa: E402
 from src.vision.zonas import ContadorZonas, VehiculoSeguido  # noqa: E402
 from ver_zonas import cargar_zonas, dibujar_zonas  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Conteo de vehiculos por brazo en un video de la maqueta")
     parser.add_argument("--pesos", required=True)
     parser.add_argument("--video", required=True)

@@ -10,6 +10,10 @@ import csv
 import itertools
 import statistics
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA = Path(__file__).resolve().parents[1] / "results" / "comparacion"
 METRICA = "espera_total_promedio_s"
@@ -63,6 +67,7 @@ def comparar(base, nuevo, escenario):
 
 
 def main():
+    registrar_ejecucion()
     fijos = leer("aforo_v9_validacion", "tiempos_fijos")
     v9 = leer("aforo_v9_validacion", "qlearning")
     v8 = {**leer("aforo_v8_validacion", "qlearning"), **leer("aforo_v8_validacion_desb", "qlearning")}

@@ -14,6 +14,10 @@ import re
 from pathlib import Path
 
 import yaml
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 CARPETA_SUMO = CARPETA_TESIS / "sumo"
@@ -77,6 +81,7 @@ def generar(nombre, datos):
 
 
 def main():
+    registrar_ejecucion()
     config = yaml.safe_load((CARPETA_TESIS / "config" / "escenarios_desbalanceados.yaml").read_text(encoding="utf-8"))
     for nombre, datos in config["escenarios"].items():
         resumen = generar(nombre, datos)

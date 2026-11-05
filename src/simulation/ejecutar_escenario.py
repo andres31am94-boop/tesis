@@ -33,6 +33,7 @@ from src.simulation import semaforo_calle18
 from src.simulation.sesion_sumo import sesion_sumo
 from src.simulation.sumo_actuator import SumoActuator
 from src.simulation.sumo_source import SumoSource
+from src.common.registro_computo import registrar_ejecucion
 
 CARPETA_CONFIG = CARPETA_TESIS / "config"
 CARPETA_ESCENARIOS = CARPETA_TESIS / "sumo" / "configs"
@@ -164,6 +165,7 @@ def simular(archivo_escenario, semilla, usar_gui, nombre_controlador, configs, r
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Ejecuta un escenario y guarda sus metricas.")
     parser.add_argument("--escenario", required=True, help="nombre del .sumocfg en sumo/configs (sin extension)")
     parser.add_argument("--controlador", default="tiempos_fijos", choices=CONTROLADORES)

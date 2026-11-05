@@ -19,6 +19,10 @@ import json
 import random
 import shutil
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 RUTA_WINDOWS_TESIS = "C:/Users/andre/Documents/tesis"   # el entrenamiento corre en Windows: las listas usan esa ruta
@@ -33,6 +37,7 @@ def ruta_windows(ruta):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Dataset combinado propio + publico")
     parser.add_argument("--repeticiones", type=int, default=5)
     parser.add_argument("--n_publicas", type=int, default=1000)

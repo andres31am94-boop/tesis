@@ -9,11 +9,16 @@ import time
 from pathlib import Path
 
 import cv2
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA = Path(__file__).resolve().parents[1] / "results" / "maqueta" / "camaras"
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Lista las camaras disponibles y guarda un cuadro de cada una")
     parser.add_argument("--max", type=int, default=5)
     parser.add_argument("--ancho", type=int, default=1920, help="resolucion pedida (la camara puede dar otra)")

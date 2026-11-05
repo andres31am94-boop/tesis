@@ -46,6 +46,7 @@ from src.simulation.ejecutar_escenario import (CARPETA_ESCENARIOS, CARPETA_RESUL
 from src.simulation.sesion_sumo import sesion_sumo
 from src.simulation.sumo_actuator import SumoActuator
 from src.simulation.sumo_source import SumoSource
+from src.common.registro_computo import registrar_ejecucion
 
 ESPERA_CONFIRMACION_S = 0.5   # tiempo maximo para que el ESP32 confirme un cambio de luz
 ESPERA_LISTO_S = 4.0
@@ -191,6 +192,7 @@ def guardar_csv(ruta, filas):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Hardware en el lazo: el ESP32 controla el cruce simulado en SUMO.")
     parser.add_argument("--escenario", required=True, help="nombre del .sumocfg en sumo/configs, p. ej. aforo_alto")
     parser.add_argument("--semilla", type=int, required=True)

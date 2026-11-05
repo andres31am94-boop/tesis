@@ -28,6 +28,10 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from scipy.stats import rankdata, wilcoxon  # noqa: E402
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
 
 CARPETA_TESIS = Path(__file__).resolve().parents[1]
 ALFA = 0.05
@@ -77,6 +81,7 @@ def holm(valores_p):
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Analiza la comparacion final con Wilcoxon.")
     parser.add_argument("--modelo", required=True, help="carpeta en results/comparacion/ (modelo o carpeta de validacion)")
     args = parser.parse_args()

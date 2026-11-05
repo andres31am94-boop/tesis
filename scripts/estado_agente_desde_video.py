@@ -28,11 +28,15 @@ from src.agent.codificador_estado import nivel  # noqa: E402
 from src.common.estado import EstadoBrazo, EstadoTrafico  # noqa: E402
 from src.vision.escala_maqueta import EscaladorMaqueta, capacidades_zona_sumo  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
 NOMBRES_NIVEL = ["vacia", "baja", "media", "alta", "muy_alta"]
 EJES = {"cra23": ["norte", "sur"], "dg15": ["este", "oeste"]}
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Conteo de la camara -> niveles de estado del agente")
     parser.add_argument("--conteo", required=True, help="conteo_por_segundo.csv de contar_zonas_video.py")
     parser.add_argument("--zonas", required=True, help="yaml de zonas con capacidad_carros")

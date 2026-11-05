@@ -27,6 +27,9 @@ from src.common.configuracion import cargar_interseccion  # noqa: E402
 from src.metrics.metricas import leer_tripinfo, resumir_colas, resumir_verdes, resumir_viajes  # noqa: E402
 from src.simulation.ejecutar_escenario import CARPETA_ESCENARIOS, leer_yaml, simular  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
 ESCENARIOS = ["aforo_bajo", "aforo_valle_manana", "aforo_medio", "aforo_alto", "aforo_pico_jueves"]
 CONTROLADORES = ["tiempos_fijos", "tiempos_fijos_norma", "tiempos_fijos_webster", "tiempos_fijos_optimo", "qlearning"]
 CICLO_RECOMENDADO_MAX_S = 120  # Manual de Senalizacion Vial 2024, 4.8.6
@@ -75,6 +78,7 @@ def una_corrida(escenario, semilla, controlador, modelo, configs, ruta_log=None,
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Corre la comparacion final (corridas pareadas por semilla).")
     parser.add_argument("--modelo", required=True, help="carpeta del agente en models/")
     parser.add_argument("--escenarios", nargs="+", default=ESCENARIOS)

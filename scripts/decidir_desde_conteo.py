@@ -35,6 +35,9 @@ from src.controller.safety_guard import SafetyGuard  # noqa: E402
 from src.controller.tiempos_fijos import ControladorTiemposFijos  # noqa: E402
 from src.vision.escala_maqueta import EscaladorMaqueta, capacidades_zona_sumo  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
 BRAZOS = ("norte", "sur", "este", "oeste")
 
 
@@ -94,6 +97,7 @@ def correr(nombre, estados, escalador, config_controlador, tabla, codificador, c
 
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="El agente decide con conteos de la camara (lazo abierto)")
     parser.add_argument("--conteo", required=True)
     parser.add_argument("--zonas", required=True)

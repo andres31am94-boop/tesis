@@ -34,8 +34,12 @@ from ultralytics import YOLO  # noqa: E402
 
 from probar_yolo_imagenes import CARPETA_ENTRADA, leer_imagenes  # noqa: E402
 
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))  # carpeta tesis (para src.common.registro_computo)
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
 
 def main():
+    registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Evalua el conteo de un modelo YOLO con las fotos propias")
     parser.add_argument("--pesos", required=True, help="ruta a best.pt")
     parser.add_argument("--conf", type=float, default=0.25)
