@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>*{box-sizing:border-box}</style>
+<title>Maqueta 3D Acacías</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: visor 3D arriba, controles de etapa y ficha de medidas debajo (una columna en celular, dos en escritorio) */
+:root {
+  --bg: #f3f5f2;
+  --panel: #ffffff;
+  --fg: #1d2420;
+  --muted: #5c6862;
+  --line: #d6ddd8;
+  --accent: #2f7d4f;
+  --accent-ink: #ffffff;
+  --wood: #b98c52;
+  --scene: #e9ede9;
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141917; --panel: #1c2320; --fg: #e6ece8; --muted: #9aa8a0; --line: #2e3833;
+    --accent: #5fbf86; --accent-ink: #0f1512; --wood: #c99b62; --scene: #1a201d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141917; --panel: #1c2320; --fg: #e6ece8; --muted: #9aa8a0; --line: #2e3833;
+  --accent: #5fbf86; --accent-ink: #0f1512; --wood: #c99b62; --scene: #1a201d; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header h1 { font-family: var(--font-display); font-size: clamp(1.4rem, 3vw, 1.9rem); margin: 0; text-wrap: balance; }
+header p { margin: 4px 0 0; color: var(--muted); max-width: 65ch; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; margin-top: 16px; }
+@media (min-width: 900px) { .grid { grid-template-columns: minmax(0, 1fr) 340px; } }
+.viewer { position: relative; background: var(--scene); border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+  height: min(68vh, 640px); min-height: 360px; }
+#c { width: 100%; height: 100%; display: block; touch-action: none; }
+.hint { position: absolute; left: 10px; bottom: 8px; font-size: 12px; color: var(--muted); pointer-events: none; }
+.views { position: absolute; right: 8px; top: 8px; display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+.views button, .toggles label { font: inherit; font-size: 12.5px; }
+.views button { background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 9px; cursor: pointer; }
+.views button:hover { border-color: var(--accent); }
+aside { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; }
+.card h2 { font-family: var(--font-display); font-size: 1rem; margin: 0 0 8px; }
+.steps { display: grid; gap: 6px; }
+.steps button { text-align: left; font: inherit; background: transparent; color: var(--fg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 8px 10px; cursor: pointer; display: flex; gap: 10px; align-items: baseline; }
+.steps button .n { font-family: var(--font-display); font-weight: 700; color: var(--muted); min-width: 1.2em; }
+.steps button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.steps button[aria-pressed="true"] .n { color: var(--accent-ink); }
+.steps button .st { margin-left: auto; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; opacity: .8; }
+.steps button:focus-visible, .views button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#info p { margin: 0 0 8px; color: var(--muted); }
+#info ul { margin: 0; padding-left: 18px; }
+#info li { margin: 2px 0; font-variant-numeric: tabular-nums; }
+.toggles { display: flex; flex-wrap: wrap; gap: 8px 14px; }
+.toggles label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 4px 6px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-weight: 500; font-size: 11.5px; letter-spacing: .04em; text-transform: uppercase; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.note { font-size: 12.5px; color: var(--muted); margin-top: 8px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header>
+    <h1>Maqueta Cra 23 × Dg 15 en 3D</h1>
+    <p>Base de listón 4,5 × 4,5 cm, tabla de 80 × 110 cm, semáforos, ESP32 y brazo de la cámara. Elige una etapa para ver cómo va quedando; gira con un dedo o el mouse y acerca con dos dedos o la rueda.</p>
+  </header>
+
+  <div class="grid">
+    <div class="viewer">
+      <canvas id="c" aria-label="Modelo 3D de la maqueta"></canvas>
+      <div class="views">
+        <button id="v-iso" type="button">Perspectiva</button>
+        <button id="v-top" type="button">Lo que ve la cámara</button>
+        <button id="v-under" type="button">Por debajo</button>
+        <button id="v-pa" type="button">Poste: arriba</button>
+        <button id="v-pb" type="button">Poste: abajo</button>
+      </div>
+      <div class="hint">Medidas en mm · puente arriba</div>
+    </div>
+
+    <aside>
+      <div class="card">
+        <h2>Etapas del montaje</h2>
+        <div class="steps" id="steps">
+          <button type="button" data-s="1"><span class="n">1</span><span>Base armada</span><span class="st">hecho</span></button>
+          <button type="button" data-s="2"><span class="n">2</span><span>Muesca, hueco y base sobre la tabla</span><span class="st">sigue</span></button>
+          <button type="button" data-s="3"><span class="n">3</span><span>Semáforos y ESP32</span></button>
+          <button type="button" data-s="4"><span class="n">4</span><span>Poste</span><span class="st">sigue</span></button>
+          <button type="button" data-s="5"><span class="n">5</span><span>Brazo, refuerzo y celular</span></button>
+        </div>
+      </div>
+      <div class="card" id="info"></div>
+      <div class="card">
+        <h2>Ver</h2>
+        <div class="toggles">
+          <label><input type="checkbox" id="t-trans"> Tabla transparente</label>
+          <label><input type="checkbox" id="t-labels" checked> Nombres</label>
+          <label><input type="checkbox" id="t-fov"> Campo de la cámara</label>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Piezas de madera</h2>
+        <table>
+          <thead><tr><th>Pieza</th><th>Cant.</th><th>Largo</th></tr></thead>
+          <tbody>
+            <tr><td><span class="sw" style="background:#c9a26b"></span>A larguero</td><td>2</td><td>930</td></tr>
+            <tr><td><span class="sw" style="background:#b07f45"></span>B cabezal</td><td>2</td><td>630</td></tr>
+            <tr><td><span class="sw" style="background:#dcb98a"></span>F travesaño</td><td>1</td><td>630</td></tr>
+            <tr><td><span class="sw" style="background:#8b5a2b"></span>C poste</td><td>1</td><td>1300</td></tr>
+            <tr><td><span class="sw" style="background:#8b5a2b"></span>D brazo</td><td>1</td><td>550</td></tr>
+            <tr><td><span class="sw" style="background:#a8743c"></span>E refuerzo</td><td>1</td><td>300 (45°)</td></tr>
+            <tr><td><span class="sw" style="background:#e3a35a"></span>Taco separador</td><td>1</td><td>≈ 100</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Todas de listón 4,5 × 4,5 cm. Así quedó armada: base centrada, travesaño en el centro y un taco separador para el poste.</p>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+(function () {
+  // ---- medidas (mm). Plano: x a la derecha, y hacia abajo (puente en y=0). Three: X=x-400, Z=y-550, Y=altura.
+  const W = 800, L = 1100, T = 15, S = 45, TACO = 10;
+  const BASE_TOP = TACO + S;            // cara de arriba de la base
+  const BOARD_TOP = BASE_TOP + T;       // superficie de la tabla
+  const LENS = BOARD_TOP + 1000;        // lente a 1 m de la tabla
+  const P = (x, y) => [x - 400, y - 550];
+
+  const canvas = document.getElementById('c');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(40, 1, 5, 20000);
+  const controls = new THREE.OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+
+  function sceneColor() {
+    const v = getComputedStyle(document.documentElement).getPropertyValue('--scene').trim() || '#e9ede9';
+    scene.background = new THREE.Color(v);
+  }
+  sceneColor();
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', sceneColor);
+  new MutationObserver(sceneColor).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x8a8f8a, 0.75));
+  const sun = new THREE.DirectionalLight(0xffffff, 0.7); sun.position.set(-900, 1800, 1200); scene.add(sun);
+
+  const mat = c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.85, metalness: 0.0 });
+  function box(x0, x1, y0, y1, z0, z1, m) {
+    const g = new THREE.BoxGeometry(x1 - x0, z1 - z0, y1 - y0);
+    const mesh = new THREE.Mesh(g, m);
+    const [cx, cz] = P((x0 + x1) / 2, (y0 + y1) / 2);
+    mesh.position.set(cx, (z0 + z1) / 2, cz);
+    return mesh;
+  }
+  function label(text, x, y, z, color) {
+    const cv = document.createElement('canvas'); const ctx = cv.getContext('2d');
+    const fs = 44; ctx.font = `600 ${fs}px Inter, sans-serif`;
+    const w = Math.ceil(ctx.measureText(text).width) + 28; cv.width = w; cv.height = fs + 22;
+    ctx.font = `600 ${fs}px Inter, sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.92)'; ctx.strokeStyle = color || '#1d2420'; ctx.lineWidth = 4;
+    const r = 14; ctx.beginPath(); ctx.moveTo(r, 2); ctx.arcTo(w - 2, 2, w - 2, cv.height - 2, r); ctx.arcTo(w - 2, cv.height - 2, 2, cv.height - 2, r);
+    ctx.arcTo(2, cv.height - 2, 2, 2, r); ctx.arcTo(2, 2, w - 2, 2, r); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#1d2420'; ctx.textBaseline = 'middle'; ctx.fillText(text, 14, cv.height / 2 + 2);
+    const tex = new THREE.CanvasTexture(cv); tex.minFilter = THREE.LinearFilter;
+    const sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
+    const k = 0.62; sp.scale.set(w * k, cv.height * k, 1);
+    const [cx, cz] = P(x, y); sp.position.set(cx, z, cz); sp.renderOrder = 10;
+    labels.push(sp); return sp;
+  }
+  const labels = [];
+  const groups = { base: new THREE.Group(), board: new THREE.Group(), sem: new THREE.Group(), cam: new THREE.Group(), post: new THREE.Group(), detail: new THREE.Group(), marks: new THREE.Group(), fov: new THREE.Group() };
+  Object.values(groups).forEach(g => scene.add(g));
+
+  // ---- mesa
+  const table = new THREE.Mesh(new THREE.BoxGeometry(2000, 20, 1700), mat(0x9aa29c));
+  table.position.set(150, -10, 0); scene.add(table);
+
+  // ---- base (etapa 1)
+  const A = mat(0xc9a26b), B = mat(0xb07f45), F = mat(0xdcb98a), TAC = mat(0x333333);
+  const GAP = 40, xL0 = GAP, xR0 = W - GAP - S, y0 = 85, y1 = 1015;   // base centrada: 4 cm libres a cada lado
+  groups.base.add(box(xR0, xR0 + S, y0, y1, TACO, BASE_TOP, A));          // larguero lado Dg 15 derecha
+  groups.base.add(box(xL0, xL0 + S, y0, y1, TACO, BASE_TOP, A));           // larguero USB
+  groups.base.add(box(xL0 + S, xR0, y0, y0 + S, TACO, BASE_TOP, B));      // cabezal puente
+  groups.base.add(box(xL0 + S, xR0, y1 - S, y1, TACO, BASE_TOP, B));      // cabezal opuesto
+  groups.base.add(box(xL0 + S, xR0, 550 - S / 2, 550 + S / 2, TACO, BASE_TOP, F)); // travesaño centrado
+  [[xL0, y0], [xR0, y0], [xL0, y1 - S], [xR0, y1 - S]].forEach(([x, y]) => groups.base.add(box(x + 5, x + 40, y + 5, y + 40, 0, TACO, TAC)));
+  groups.base.add(label('A · larguero', xR0 + 22, 300, BASE_TOP + 60));
+  groups.base.add(label('A · larguero', xL0 + 22, 300, BASE_TOP + 60));
+  groups.base.add(label('B · cabezal (lado puente)', 400, 107, BASE_TOP + 60));
+  groups.base.add(label('F · travesaño', 400, 550, BASE_TOP + 60));
+  groups.base.add(label('PUENTE', 400, -40, BASE_TOP + 20, '#2f7d4f'));
+
+  // ---- pendientes de la etapa 2: muesca USB y hueco del travesaño
+  const red = mat(0xd64545);
+  const notchY = 550 + S / 2 + 60;
+  groups.marks.add(box(xL0 - 1, xL0 + S + 1, notchY - 12.5, notchY + 12.5, BASE_TOP - 25, BASE_TOP + 0.5, red));
+  groups.marks.add(label('salida USB (por debajo o ranura)', xL0 + 60, notchY + 60, BASE_TOP + 30, '#d64545'));
+  const hole = new THREE.Mesh(new THREE.CylinderGeometry(6, 6, S + 4, 20), red);
+  hole.rotation.x = Math.PI / 2; { const [cx, cz] = P(400, 550); hole.position.set(cx, TACO + S / 2, cz); }
+  groups.marks.add(hole);
+  groups.marks.add(label('hueco Ø10 para cables', 470, 520, TACO + S / 2 + 70, '#d64545'));
+
+  // ---- tabla pintada (etapa 2)
+  function boardTexture() {
+    const cv = document.createElement('canvas'); cv.width = W * 2; cv.height = L * 2; const g = cv.getContext('2d'); g.scale(2, 2);
+    g.fillStyle = '#5a9e5a'; g.fillRect(0, 0, W, L);
+    g.fillStyle = '#c4c6c4';
+    g.beginPath(); g.moveTo(340, 0); g.lineTo(460, 0); g.lineTo(460, 218); g.lineTo(520, 258); g.lineTo(520, L); g.lineTo(280, L); g.lineTo(280, 258); g.lineTo(340, 218); g.closePath(); g.fill();
+    g.fillRect(0, 430, W, 240);
+    g.fillStyle = '#e8c21f';
+    [[0, 430], [670, L]].forEach(([a, b]) => { g.fillRect(395, a, 2.5, b - a); g.fillRect(402.5, a, 2.5, b - a); });
+    [[0, 280], [520, W]].forEach(([a, b]) => { g.fillRect(a, 545, b - a, 2.5); g.fillRect(a, 552.5, b - a, 2.5); });
+    g.fillStyle = '#f5f5f5';
+    const dashV = (x, a, b) => { for (let y = a; y < b; y += 45) g.fillRect(x - 1.5, y, 3, Math.min(25, b - y)); };
+    const dashH = (y, a, b) => { for (let x = a; x < b; x += 45) g.fillRect(x, y - 1.5, Math.min(25, b - x), 3); };
+    dashV(340, 270, 408); dashV(460, 270, 408); dashV(340, 695, L); dashV(460, 695, L);
+    dashH(490, 0, 255); dashH(610, 0, 255); dashH(490, 545, W); dashH(610, 545, W);
+    g.fillRect(280, 405, 120, 5); g.fillRect(400, 690, 120, 5); g.fillRect(255, 550, 5, 120); g.fillRect(540, 430, 5, 120);
+    g.fillStyle = '#4a3523';
+    [[255, 405], [545, 405], [255, 695], [545, 695]].forEach(([x, y]) => { g.beginPath(); g.arc(x, y, 4, 0, Math.PI * 2); g.fill(); });
+    const tex = new THREE.CanvasTexture(cv); tex.anisotropy = 4; return tex;
+  }
+  const boardTopMat = new THREE.MeshStandardMaterial({ map: boardTexture(), roughness: 0.9, transparent: true });
+  const boardSideMat = new THREE.MeshStandardMaterial({ color: 0x8f7a5c, roughness: 0.9, transparent: true });
+  const boardMesh = new THREE.Mesh(new THREE.BoxGeometry(W, T, L), [boardSideMat, boardSideMat, boardTopMat, boardSideMat, boardSideMat, boardSideMat]);
+  boardMesh.position.set(0, BASE_TOP + T / 2, 0); groups.board.add(boardMesh);
+  // taco separador de 50 cm entre el larguero y el borde (lado Dg 15 derecha), centrado en el poste
+  const SEP = mat(0xe3a35a);
+  groups.board.add(box(xR0 + S, W + 5, 595 - 50, 595 + 50, TACO, BASE_TOP, SEP));
+  groups.board.add(label('taco separador 10 cm', W - 10, 470, BASE_TOP + 40, '#b5651d'));
+
+  // ---- semáforos y ESP32 (etapa 3)
+  const black = mat(0x151515);
+  const leds = [[0xd62828, 0.86], [0xf2c200, 0.64], [0x2ca02c, 0.42]];
+  const sems = [['S2', 255, 405, 'up'], ['S3', 545, 405, 'right'], ['S4', 255, 695, 'left'], ['S1', 545, 695, 'down']];
+  sems.forEach(([n, x, y, dir]) => {
+    const grp = new THREE.Group();
+    const pole = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, 32, 12), black); pole.position.y = 16; grp.add(pole);
+    const head = new THREE.Mesh(new THREE.BoxGeometry(20, 58, 3), black); head.position.y = 32 + 29; grp.add(head);
+    leds.forEach(([c, f]) => {
+      const s = new THREE.Mesh(new THREE.SphereGeometry(4.3, 16, 12), new THREE.MeshStandardMaterial({ color: c, emissive: c, emissiveIntensity: 0.35 }));
+      s.position.set(0, 32 + 58 * f, 3); grp.add(s);
+    });
+    const rot = { up: Math.PI, down: 0, left: -Math.PI / 2, right: Math.PI / 2 }[dir];
+    grp.rotation.y = rot;
+    const [cx, cz] = P(x, y); grp.position.set(cx, BOARD_TOP, cz);
+    groups.sem.add(grp);
+    groups.sem.add(label(n, x, y, BOARD_TOP + 115));
+  });
+  const proto = box(318, 483, 580, 635, BASE_TOP - 9, BASE_TOP, mat(0xf0f0ee));
+  const esp = box(372, 428, 584, 631, BASE_TOP - 24, BASE_TOP - 9, mat(0x1f4e79));
+  groups.sem.add(proto, esp, label('ESP32 (debajo de la tabla)', 400, 700, BASE_TOP - 30, '#1f4e79'));
+  const cable = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.5, 330, 8), black);
+  cable.rotation.z = Math.PI / 2; { const [cx, cz] = P(150, notchY); cable.position.set(cx, BASE_TOP - 12, cz); }
+  groups.sem.add(cable);
+
+  // ---- poste, brazo, refuerzo y celular (etapa 4)
+  const C = mat(0x8b5a2b), E = mat(0xa8743c);
+  const postY = 550 + S;                                   // 595
+  const armZ0 = LENS + 45, armZ1 = armZ0 + S;
+  groups.post.add(box(W + 5, W + 5 + S, postY - S / 2, postY + S / 2, 0, 1300, C));
+  // 9 agujeros Ø7 en la cara BRAZO (mira al puente), cada 25 mm de 1050 a 1250 mm
+  const holeMat = mat(0x101010);
+  for (let i = 0; i < 9; i++) {
+    const h = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, S + 2, 12), holeMat);
+    h.rotation.x = Math.PI / 2; const [hx, hz] = P(W + 5 + S / 2, postY); h.position.set(hx, 1050 + 25 * i, hz);
+    groups.post.add(h);
+  }
+  // 2 pernos 1/4" x 6" que atraviesan poste + taco G + larguero, con tuerca mariposa por dentro de la base (desmontable)
+  const screwMat = mat(0x4a6fa5), nutMat = mat(0x9aa3ab);
+  function wingNut(grp, x, y, z, axis) {            // tuerca mariposa simple: cuerpo + 2 alas
+    const body = new THREE.Mesh(new THREE.CylinderGeometry(6, 6, 8, 12), nutMat);
+    const wings = new THREE.Mesh(new THREE.BoxGeometry(34, 14, 2.5), nutMat);
+    const g = new THREE.Group(); g.add(body, wings);
+    if (axis === 'x') g.rotation.z = Math.PI / 2; else g.rotation.x = Math.PI / 2;
+    const [a, b] = P(x, y); g.position.set(a, z, b); grp.add(g);
+  }
+  [[23, -20], [40, 20]].forEach(([z, d]) => {
+    const L6 = 152, x0 = W + 5 + S + 1;                // cabeza afuera del poste
+    const sc = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.2, L6, 10), screwMat);
+    sc.rotation.z = Math.PI / 2; const [sx, sz] = P(x0 - L6 / 2, postY + d); sc.position.set(sx, z, sz);
+    const head = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 4, 16), screwMat);
+    head.rotation.z = Math.PI / 2; const [qx, qz] = P(x0 + 2, postY + d); head.position.set(qx, z, qz);
+    groups.post.add(sc, head);
+    wingNut(groups.post, xR0 - 6, postY + d, z, 'x');
+  });
+  groups.post.add(label('cara BRAZO: 9 agujeros Ø7 cada 25 mm (105–125 cm)', W - 40, postY - 60, 1300));
+  groups.post.add(label('2 pernos 1/4"×6" (poste + taco + larguero)', W + 140, postY + 90, 150));
+  groups.post.add(label('tuercas mariposa por dentro de la base', xR0 - 160, postY + 120, -10));
+
+  // ---- poste suelto con medidas (guía para marcar y perforar)
+  {
+    const DX = 1230, D = groups.detail, dimMat = new THREE.LineBasicMaterial({ color: 0xc0392b });
+    const v3 = (x, y, z) => { const [a, b] = P(x, y); return new THREE.Vector3(a, z, b); };
+    const line = (a, b) => D.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a, b]), dimMat));
+    function dimV(x, y, z0, z1, txt, lx, ly) {          // cota vertical con topes
+      line(v3(x, y, z0), v3(x, y, z1));
+      line(v3(x - 12, y, z0), v3(x + 12, y, z0)); line(v3(x - 12, y, z1), v3(x + 12, y, z1));
+      D.add(label(txt, lx ?? x, ly ?? y, (z0 + z1) / 2, '#c0392b'));
+    }
+    D.add(box(DX, DX + S, postY - S / 2, postY + S / 2, 0, 1300, C));
+    // caras marcadas
+    D.add(box(DX - 1.5, DX, postY - S / 2 + 4, postY + S / 2 - 4, 200, 1000, mat(0xe3a35a)));
+    D.add(box(DX + 4, DX + S - 4, postY - S / 2 - 1.5, postY - S / 2, 200, 1000, mat(0x7fb3d5)));
+    D.add(label('cara TACO (contra el taco G)', DX - 140, postY, 600, '#b5651d'));
+    D.add(label('cara BRAZO (mira al puente)', DX + 20, postY - 170, 900, '#2e6da4'));
+    // 9 agujeros Ø7 en la cara BRAZO
+    for (let i = 0; i < 9; i++) {
+      const h = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, S + 3, 12), holeMat);
+      h.rotation.x = Math.PI / 2; const [hx, hz] = P(DX + S / 2, postY); h.position.set(hx, 1050 + 25 * i, hz); D.add(h);
+    }
+    line(v3(DX + S / 2, postY - S / 2 - 2, 1030), v3(DX + S / 2, postY - S / 2 - 2, 1270));
+    D.add(label('9 agujeros Ø7 mm, cada 25 mm, en la línea del centro', DX + 30, postY - 260, 1170, '#2e6da4'));
+    // 2 agujeros Ø7 para los pernos de abajo (atraviesan el poste)
+    [[23, -20], [40, 20]].forEach(([z, d]) => {
+      const g = new THREE.Mesh(new THREE.CylinderGeometry(3.5, 3.5, S + 3, 10), holeMat);
+      g.rotation.z = Math.PI / 2; const [gx, gz] = P(DX + S / 2, postY + d); g.position.set(gx, z, gz); D.add(g);
+    });
+    D.add(label('cara de AFUERA: 2 agujeros Ø7 mm', DX + 170, postY + 120, 120, '#2e6da4'));
+    // cotas
+    dimV(DX + S + 90, postY, 0, 1300, '1300 total', DX + S + 170, postY);
+    dimV(DX - 60, postY - S / 2, 0, 1050, '1050 (1.er agujero)', DX - 160, postY - S / 2);
+    dimV(DX - 120, postY - S / 2, 0, 1250, '1250 (último)', DX - 230, postY - S / 2);
+    dimV(DX + S + 25, postY - 20, 0, 23, '23', DX + S + 60, postY - 40);
+    dimV(DX + S + 45, postY + 20, 0, 40, '40', DX + S + 80, postY + 40);
+    line(v3(DX + S + 2, postY - 20, -6), v3(DX + S + 2, postY + 20, -6));
+    D.add(label('20 + 20 a los lados del centro', DX + S + 120, postY + 60, -30, '#c0392b'));
+    D.add(label('45 × 45', DX + S / 2, postY, 1360, '#c0392b'));
+    D.add(label('POSTE SUELTO (guía de medidas)', DX + S / 2, postY, 1460));
+  }
+  groups.cam.add(box(300, W + 5 + S, 550 - S / 2, 550 + S / 2, armZ0, armZ1, C));
+  const brace = new THREE.Mesh(new THREE.BoxGeometry(300, S, S), E);
+  { const [cx, cz] = P(W + 5 - 106, 550); brace.position.set(cx, armZ0 - 106, cz); brace.rotation.z = -Math.PI / 4; }
+  groups.cam.add(brace);
+  groups.cam.add(box(380, 420, 530, 570, LENS + 10, armZ0, mat(0x555555)));
+  groups.cam.add(box(325, 475, 515, 585, LENS, LENS + 10, mat(0x2a2a2a)));
+  groups.post.add(label('C · poste 1300', W + 28, postY, 650));
+  groups.cam.add(label('D · brazo 550', 560, 550, armZ1 + 60));
+  groups.cam.add(label('E · refuerzo 45°', W - 140, 550, armZ0 - 170));
+  groups.cam.add(label('celular · lente a 1 m', 400, 550, LENS - 60));
+
+  // ---- uniones del brazo y medidas (etapa 5)
+  {
+    const G = groups.cam, red = new THREE.LineBasicMaterial({ color: 0xc0392b });
+    const v3 = (x, y, z) => { const [a, b] = P(x, y); return new THREE.Vector3(a, z, b); };
+    const ln = (a, b) => G.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([a, b]), red));
+    // 2 pernos 1/4" x 5" brazo ↔ poste: uno encima del otro (25 mm), a 22,5 mm de la punta del brazo
+    const px = W + 5 + S / 2, y0b = 550 - S / 2 - 3, y1b = postY + S / 2 + 3;
+    [armZ0 + 10, armZ0 + 35].forEach(z => {
+      const b = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.2, y1b - y0b + 10, 10), screwMat);
+      b.rotation.x = Math.PI / 2; const [bx, bz] = P(px, (y0b + y1b) / 2 + 5); b.position.set(bx, z, bz); G.add(b);
+      const h = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 4, 16), screwMat);
+      h.rotation.x = Math.PI / 2; const [hx, hz] = P(px, y0b); h.position.set(hx, z, hz); G.add(h);
+      wingNut(G, px, y1b + 8, z, 'y');
+    });
+    G.add(label('2 pernos 1/4"×5" + mariposa (a 1 y 3,5 cm del borde de abajo del brazo)', W + 90, 430, armZ1 + 150, '#2e6da4'));
+    // tornillos del refuerzo
+    [[W + 5 - 20, armZ0 - 190], [W + 5 - 190, armZ0 - 20]].forEach(([x, z]) => {
+      const s = new THREE.Mesh(new THREE.SphereGeometry(5, 10, 8), screwMat); const [a, b] = P(x, 550 - S / 2 - 2); s.position.set(a, z, b); G.add(s);
+    });
+    G.add(label('refuerzo: 1 tornillo 3½" al poste + 1 al brazo', W - 300, 470, armZ0 - 260, '#2e6da4'));
+    // cotas
+    ln(v3(300, 550 - 60, armZ1 + 40), v3(W + 5 + S, 550 - 60, armZ1 + 40));
+    G.add(label('550', 575, 550 - 60, armZ1 + 75, '#c0392b'));
+    ln(v3(W + 5, 550 - 60, armZ0 - 212), v3(W + 5 - 212, 550 - 60, armZ0));
+    G.add(label('300 · cortes a 45°', W - 230, 550 - 60, armZ0 - 120, '#c0392b'));
+    ln(v3(260, 550, BOARD_TOP), v3(260, 550, LENS));
+    G.add(label('1000 (lente → tabla)', 200, 550, (BOARD_TOP + LENS) / 2, '#c0392b'));
+    ln(v3(W + 5, 550 - 30, armZ0 - 212), v3(W + 5, 550 - 30, armZ0));
+    G.add(label('212', W + 60, 550 - 40, armZ0 - 106, '#c0392b'));
+  }
+
+  // ---- campo de la cámara (68 × 102 cm a 1 m)
+  {
+    const [lx, lz] = P(400, 550);
+    const pts = [[60, 40], [740, 40], [740, 1060], [60, 1060]].map(([x, y]) => { const [a, b] = P(x, y); return new THREE.Vector3(a, BOARD_TOP + 1, b); });
+    const lm = new THREE.LineBasicMaterial({ color: 0xd64545 });
+    const top = new THREE.Vector3(lx, LENS, lz);
+    pts.forEach(p => groups.fov.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([top, p]), lm)));
+    groups.fov.add(new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(pts), lm));
+  }
+
+  // ---- etapas
+  const INFO = {
+    1: { h: 'Base armada', p: 'Así está ahora: rectángulo de 72 × 93 cm con el travesaño en el centro, sobre 4 tacos de 1 cm.', li: [
+      'Largueros A: 930 mm · cabezales B y travesaño F: 630 mm',
+      'Travesaño F centrado: ≈ 40 cm libres a cada lado',
+      'Diagonales: deben medir casi igual (≈ 117–118 cm)',
+      'Marca "PUENTE" en una punta y "POSTE" en el larguero más limpio'] },
+    2: { h: 'Muesca, hueco y base sobre la tabla', p: 'Lo que sigue. En rojo, los dos cortes pendientes; después la base se fija a la tabla.', li: [
+      'Hueco Ø 10 mm atravesando el travesaño, a media altura, cerca del centro',
+      'Muesca 25 × 25 mm en el larguero USB, a ≈ 6 cm del travesaño',
+      'Base centrada como quedó: ≈ 4 cm libres en cada lado largo, 85 mm en las puntas',
+      'Taco separador de 10 cm (sobrante del listón) entre el larguero y el borde, en el lado donde termina la Dg 15 a la derecha (puente lejos de ti)',
+      'Taco centrado a 595 mm del borde del puente; 2 tornillos de 3" al larguero + cola',
+      'Tabla a la base: 4 tornillos de 1½" desde arriba, en zonas verdes, cabeza hundida y retocada'] },
+    3: { h: 'Semáforos y ESP32', p: 'Pitillos de ≈ 5,5 cm pintados de negro, pegados con silicona; el módulo mira a los carros que llegan.', li: [
+      'Semáforo completo ≈ 9 cm sobre la tabla',
+      'S2 mira al puente · S3 a la derecha · S4 a la izquierda · S1 hacia abajo',
+      'ESP32 + protoboard bajo la tabla, al lado del travesaño (lado de S4 y S1)',
+      'Cables de S2 y S3 cruzan por el hueco del travesaño',
+      'USB sale por la muesca hacia el PC'] },
+    4: { h: 'Poste paso a paso', p: 'Listones de 4,5 × 4,5 cm; el poste mide 130 cm y se apoya en la mesa.', li: [
+      '1. Marca dos caras: TACO (la que toca el taco G) y BRAZO (la que mira al puente)',
+      '2. Cara BRAZO: línea al centro y 9 marcas cada 25 mm entre 105 y 125 cm desde la punta de abajo; broca de 7 mm atravesando derecho',
+      '3. Presenta el poste contra el taco (maqueta de lado) y perfora con broca de 7 mm atravesando poste + taco + larguero: un agujero a 2,3 cm de la punta de abajo, 2 cm a un lado del centro; el otro a 4 cm, 2 cm al otro lado',
+      '4. Presenta el poste: parado en la mesa, cara TACO contra el taco G, centrado en él, cara BRAZO mirando al puente',
+      '5. Vertical en las dos caras con nivel o plomada',
+      '6. Mete los 2 pernos 1/4" × 6" desde afuera y aprieta las tuercas mariposa por dentro de la base; revisa que siga vertical (se desmonta a mano para transportar)',
+      '7. Empuja suave desde arriba: si se tambalea, se agrega un refuerzo abajo'] },
+    5: { h: 'Brazo, refuerzo y celular', p: 'El brazo se atornilla a la cara BRAZO del poste y llega recto al centro del cruce.', li: [
+      'Poste C apoyado en la mesa, centro a 595 mm del borde del puente',
+      'Poste ↔ taco ↔ larguero: 2 pernos 1/4" × 6" con mariposa por dentro (desmontable)',
+      'Brazo D (550) contra la cara BRAZO del poste, su punta al ras de la cara de afuera del poste',
+      'Brazo ↔ poste: 2 pernos 1/4" × 5" con mariposa, uno encima del otro (a 1 y 3,5 cm del borde de abajo del brazo, 2,25 cm de su punta) en 2 agujeros seguidos del poste',
+      'Refuerzo E (300, cortes a 45°): sus puntas a 212 mm de la esquina en el poste y en el brazo; 1 tornillo 3½" en cada punta',
+      'Para transportar: suelta las 2 mariposas de abajo y sale la L (poste + brazo + refuerzo) completa',
+      'Celular con la pantalla arriba; plomada del lente al centro del cruce (400, 550)'] },
+  };
+  let stage = 2;
+  function setStage(s) {
+    stage = s;
+    groups.base.visible = true;
+    groups.marks.visible = s === 2;
+    groups.board.visible = s >= 2;
+    groups.sem.visible = s >= 3;
+    groups.post.visible = s >= 4;
+    groups.detail.visible = s === 4;
+    groups.cam.visible = s >= 5;
+    groups.fov.visible = s >= 5 && document.getElementById('t-fov').checked;
+    document.querySelectorAll('#steps button').forEach(b => b.setAttribute('aria-pressed', String(+b.dataset.s === s)));
+    const d = INFO[s];
+    document.getElementById('info').innerHTML = `<h2>${d.h}</h2><p>${d.p}</p><ul>${d.li.map(t => `<li>${t}</li>`).join('')}</ul>`;
+    applyTrans();
+    if (s === 5) view('iso4'); else if (s === 4) view('poste'); else view(s === 1 ? 'base' : 'iso');
+  }
+  function applyTrans() {
+    const on = document.getElementById('t-trans').checked || stage === 2;
+    [boardTopMat, boardSideMat].forEach(m => { m.opacity = on ? 0.45 : 1; m.depthWrite = !on; });
+  }
+  function view(v) {
+    const set = (px, py, pz, ty) => { camera.position.set(px, py, pz); controls.target.set(0, ty, 0); controls.update(); };
+    if (v === 'base') set(-900, 900, 1300, 0);
+    else if (v === 'iso') set(-1000, 1100, 1450, 40);
+    else if (v === 'iso4') set(-1500, 1500, 2100, 450);
+    else if (v === 'poste') { camera.position.set(2300, 1000, -1700); controls.target.set(700, 620, 45); controls.update(); }
+    else if (v === 'pa') { camera.position.set(1350, 1300, -650); controls.target.set(852, 1150, 45); controls.update(); }
+    else if (v === 'pb') { camera.position.set(1200, 230, -380); controls.target.set(852, 30, 45); controls.update(); }
+    else if (v === 'top') set(0.01, LENS, 0.01, 0);
+    else if (v === 'under') set(-700, -350, 1100, 40);
+  }
+  document.querySelectorAll('#steps button').forEach(b => b.addEventListener('click', () => setStage(+b.dataset.s)));
+  document.getElementById('v-iso').addEventListener('click', () => view(stage === 5 ? 'iso4' : stage === 4 ? 'poste' : 'iso'));
+  document.getElementById('v-top').addEventListener('click', () => view('top'));
+  document.getElementById('v-under').addEventListener('click', () => { document.getElementById('t-trans').checked = true; applyTrans(); view('under'); });
+  document.getElementById('v-pa').addEventListener('click', () => { if (stage !== 4) setStage(4); view('pa'); });
+  document.getElementById('v-pb').addEventListener('click', () => { if (stage !== 4) setStage(4); view('pb'); });
+  document.getElementById('t-trans').addEventListener('change', applyTrans);
+  document.getElementById('t-labels').addEventListener('change', e => labels.forEach(l => (l.visible = e.target.checked)));
+  document.getElementById('t-fov').addEventListener('change', e => { groups.fov.visible = e.target.checked && stage >= 5; });
+
+  function resize() {
+    const r = canvas.parentElement.getBoundingClientRect();
+    renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix();
+  }
+  new ResizeObserver(resize).observe(canvas.parentElement);
+  resize();
+  setStage(2);
+  (function loop() { controls.update(); renderer.render(scene, camera); requestAnimationFrame(loop); })();
+})();
+</script>
+
+</body>
+</html>

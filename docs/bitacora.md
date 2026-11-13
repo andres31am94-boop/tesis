@@ -1944,3 +1944,33 @@ Conteo real hecho a mano por el tutor revisando cada cuadro (`results/vision/pru
 - **Medición de todo el tiempo de cómputo desde 2026-11-05:** nuevo `src/common/registro_computo.py` (`registrar_ejecucion()`, una línea al inicio de `main()`): cada ejecución agrega a `results/registro_computo.csv` inicio, fin, segundos, script, argumentos, equipo y estado (ok/error), también si termina con error. Agregado a 20 scripts (evaluaciones y entrenamientos YOLO, conteo, decisiones, Label Studio, datasets, entrenamiento y comparación del agente, ejecutar_escenario, lazo_hardware, lazo_camara, listar_camaras, análisis).
 - `resumen_computo.py`: para las 1373 corridas de simulación sin registro, **estimado** = corridas × promedio medido por corrida en su grupo (calibración 93 s, comparación 26 s, entrenamiento 32 s) → ~13.3 h estimadas, además de las 35.2 h medidas; tabla aparte con el registro central. Lo no registrado de visión antes del 2026-11-05 se aproxima en ~1 h.
 - Nuevo `docs/registro_tiempo_dedicado.md` para el tiempo de las PERSONAS (declarado desde hoy; aproximado antes, a completar por los autores).
+
+
+## 2026-11-09 — Diseño del soporte de la cámara
+- Plano `hardware/maqueta/soporte_camara.{pdf,png,svg}` (script `scripts/generar_soporte_camara.py`), en la orientación
+  real de la maqueta pintada (Cra 23 vertical, puente abajo). Guía de montaje, sección 7, actualizada.
+- Poste 4×4 cm en dos piezas con ajuste de altura cada 25 mm, sujeto al canto derecho de la tabla (y = 250 mm) con
+  2 prensas; brazo de 60 cm (516 mm entre ejes) hasta el centro del cruce; lente a 1000 mm de la tabla.
+- La altura de 1 m y el campo ≈ 68 × 102 cm vienen de la medición con el iPhone grabando video; con DroidCam deben
+  verificarse con la prueba de encuadre (pendiente).
+- Copia de lectura del anteproyecto actualizado en `docs/anteproyecto/Anteproyecto_copia_de_lectura.pdf` (solo texto).
+
+## 2026-11-09 — Base de la maqueta (bastidor) para el ESP32
+- Plano `hardware/maqueta/base_maqueta.{pdf,png,svg}` (script `scripts/generar_base_maqueta.py`): bastidor de listón
+  45×70 mm, 80 mm adentro del borde, 7 cm libres bajo la tabla; ESP32 + protoboard bajo el centro del cruce; USB por
+  una muesca en el larguero izquierdo. Guía de montaje: sección 6b.
+- Como la base sube la tabla 7 cm, el poste inferior de la cámara pasa de 60 a 70 cm (plano del soporte actualizado).
+- Decisión de los autores: el poste de la cámara se **atornilla a la base** (pieza de unión 4×4 × 8 cm + 2 escuadras,
+  bajo la tabla) en lugar de prensas en C. Planos actualizados y unidos en `hardware/maqueta/planos_maqueta_completos.pdf`
+  (vista 3D y lista de cortes: `esquema_completo_maqueta.pdf`, script `scripts/generar_esquema_completo.py`).
+
+## 2026-11-13 — Maqueta armada: base, poste y brazo de la cámara
+- Construida la base de madera (listón 4,5 × 4,5 cm) con travesaño centrado, fijada a la tabla; taco separador y poste
+  desmontable (pernos 1/4" × 6" con mariposa); brazo con refuerzo a 45°; semáforos perforados; decoración pegada.
+- Planos vigentes: `hardware/maqueta/montaje_madera.pdf` (script `scripts/generar_montaje_madera.py`) y
+  `hardware/maqueta/puntos_semaforos.pdf` (script `scripts/generar_puntos_semaforos.py`). Modelo 3D interactivo:
+  `hardware/maqueta/maqueta_3d.html`. Los planos anteriores quedan marcados como versión previa en la guía de montaje.
+- Corrección: en `base_maqueta.pdf` los nombres S1–S4 estaban cruzados; ya coinciden con los pines del ESP32.
+- Foto de prueba a 1 m (modo foto del iPhone): la tabla completa entra en la imagen. Falta verificar el encuadre en
+  video con DroidCam y dibujar las zonas reales.
+- Anteproyecto actualizado reconstruido en Word (`docs/anteproyecto/`), con 30 referencias en formato APA 7 de Mendeley.

@@ -1,5 +1,12 @@
 # Guía de montaje de la maqueta (tabla 110 × 80 cm)
 
+> **Versión vigente (como quedó armada, 2026-11):** `hardware/maqueta/montaje_madera.pdf` (base + brazo de la cámara,
+> listón 4,5 × 4,5 cm, puente ARRIBA), `hardware/maqueta/puntos_semaforos.pdf` (huecos de los semáforos) y el modelo
+> interactivo `hardware/maqueta/maqueta_3d.html` (abrir en el navegador; etapas 1–5 del montaje).
+> `base_maqueta.pdf`, `soporte_camara.pdf`, `esquema_completo_maqueta.pdf` y `planos_maqueta_completos.pdf` quedan
+> como versiones anteriores del diseño (con prensas / poste en dos piezas) y no se deben usar para construir.
+
+
 Para trazar: **`hardware/maqueta/esquema_trazado_maqueta.pdf`** (todas las coordenadas). Plano general: **`hardware/maqueta/plano_tabla_maqueta_puente.pdf`** (versión vigente, con el puente; la versión sin puente `plano_tabla_maqueta.pdf` queda solo como referencia) (escala 1:10, medidas en mm). Origen de las medidas:
 **esquina superior izquierda de la tabla**, con el lado de 110 cm horizontal (x hacia la derecha, y hacia abajo).
 
@@ -24,7 +31,8 @@ En ambos casos, el paso 8 (verificación con la cámara fija) lo confirma.
 - Taladro y broca de **8 mm** (huecos para los cables de los semáforos).
 - Silicona caliente o tornillos pequeños (fijar los semáforos).
 - Cables Dupont macho-hembra **largos** o extensiones (~50 cm) para llegar del semáforo al ESP32 bajo la tabla.
-- Soporte de cámara: listón de madera o tubo PVC (~115 cm de poste + ~55 cm de brazo), escuadra metálica o abrazaderas,
+- Base (bastidor): ver `hardware/maqueta/base_maqueta.pdf` (listón 45×70 mm de canto, 2 × 940 mm + 4 × 550 mm, 8 escuadras).
+- Soporte de cámara: listón 4×4 cm (poste 70 + 70 cm, brazo 60 cm), escuadra metálica o abrazaderas,
   y un soporte/pinza para el celular o la cámara.
 - Cinta doble faz o abrazaderas plásticas para fijar el ESP32 y la protoboard debajo de la tabla.
 
@@ -81,12 +89,32 @@ Altura ~80 mm: a la escala de un Hot Wheels (1:64) equivale a un semáforo real 
    **GND común**). Rotular cada cable con cinta (S1-R, S1-Y, ...).
 3. Sujetar los cables con cinta o abrazaderas para que no cuelguen.
 
+
+## 6b. Base de la maqueta (bastidor) y ESP32
+Plano: **`hardware/maqueta/base_maqueta.pdf`** (script `scripts/generar_base_maqueta.py`). Todo junto (vista 3D + lista
+de cortes + base + soporte): **`hardware/maqueta/planos_maqueta_completos.pdf`**.
+- Bastidor de listón 45×70 mm de canto, **80 mm adentro del borde** por los 4 lados (no se ve desde los lados y por ahí
+  pasa la pieza que une el poste de la cámara con la base), con 2 travesaños en y = 300 y y = 800 mm.
+- Deja **7 cm libres** bajo la tabla. La protoboard con el ESP32 va pegada debajo del **centro del cruce**: los
+  4 semáforos quedan a ≈ 20 cm (cables Dupont cortos), por huecos de Ø 8 mm en la base de cada poste.
+- El cable USB sale por una muesca de 25×25 mm en el larguero izquierdo, a la altura del cruce.
+- La tabla se fija con escuadras y tornillos cortos que **no atraviesan** la superficie pintada.
+
 ## 7. Soporte de la cámara
-1. Poste vertical en el borde inferior de la tabla, en **x ≈ 850 mm** (acera derecha de la Dg 15), atornillado firme.
-2. Brazo desde el poste hasta el **centro del cruce (550, 400)**.
-3. Cámara apuntando **hacia abajo**, **horizontal**, con el lado largo de la imagen paralelo a la Cra 23, y el lente a
-   **1 m** sobre la tabla. Usar nivel (la app del celular sirve) para que quede paralela a la tabla.
-4. Debe quedar **rígida**: si se mueve, hay que redefinir las zonas.
+Plano: **`hardware/maqueta/soporte_camara.pdf`** (generado con `scripts/generar_soporte_camara.py`). Está dibujado en la
+orientación de la maqueta pintada: tabla vertical 80 × 110 cm, Cra 23 vertical, **puente abajo**, origen arriba-izquierda.
+1. Poste de listón 4×4 cm en dos piezas (70 cm + 70 cm; la base sube la tabla 7 cm) solapadas ~25 cm con 2 pernos 1/4" y mariposa; el poste superior
+   lleva agujeros cada 25 mm para ajustar la altura.
+2. El poste va pegado al **canto derecho**, frente al lote verde de arriba (**y = 250 mm**), apoyado en la mesa, y se
+   **atornilla a la base**: una pieza de listón 4×4 cm de 8 cm pasa por debajo de la tabla (en la franja libre entre el
+   borde y el larguero derecho) y se fija con 2 escuadras al poste y al larguero. Así la cámara se mueve junto con la
+   maqueta y no se pierden las zonas. (Se descartaron las prensas en C.)
+3. Brazo de 60 cm encima del poste (1 perno, gira para apuntar). El lente queda a **516 mm** del eje del poste, sobre el
+   **centro del cruce (400, 550)**; se centra con una plomada colgada del lente y luego se fija con el refuerzo a 45°.
+4. Celular con la **pantalla hacia arriba** y la **cámara trasera mirando a la tabla**, en una pinza con rosca 1/4", lado largo de la imagen a lo largo de la Cra 23, lente a
+   **1000 mm** de la superficie de la tabla, nivelado.
+5. Cable USB por el brazo y el poste con bridas. Debe quedar **rígido**: si se mueve, hay que redefinir las zonas.
+6. Iluminación de los lados (no una lámpara justo encima: el brazo y el celular darían sombra sobre el cruce).
 
 ## 8. Verificación (en este orden)
 1. **LEDs:** `scripts\windows\probar_esp32_obediente.bat` → los 4 semáforos encienden y cambian como en la prueba 10.5a.
@@ -97,3 +125,20 @@ Altura ~80 mm: a la escala de un Hot Wheels (1:64) equivale a un semáforo real 
 4. **Detección:** foto con 8–12 carros repartidos → contar a mano vs detectados.
 5. **Lazo en vivo con ESP32:** `python -m src.maqueta.lazo_camara --fuente <cámara> --zonas config\zonas_camara.yaml --puerto COM4 --mostrar`.
 6. Después: grabar los videos para reentrenar YOLO con la maqueta (dos sesiones separadas: entrenamiento y prueba).
+
+
+## 9. Cómo quedó armada (registro real)
+- **Base:** 2 largueros de 930 mm + 2 cabezales de 630 mm + travesaño F de 630 mm **centrado**, listón 4,5 × 4,5 cm,
+  sobre 4 tacos de 1 cm. Base **centrada** bajo la tabla (≈ 4 cm libres en cada lado largo, 85 mm en las puntas).
+- **Tabla ↔ base:** 4 tornillos de 1½" desde arriba, en zonas verdes, sobre los largueros (a 6,2 y 73,8 cm del borde
+  izquierdo; 15 y 95 cm del borde del puente), cabeza hundida y retocada con verde.
+- **Taco G (10 cm)** atornillado al larguero del lado donde termina la Dg 15 a la derecha (puente lejos), centrado a
+  595 mm del borde del puente; sobresale ≈ 1 mm del borde.
+- **Poste C (1300 mm):** apoyado en la mesa, unido a taco + larguero con 2 pernos 1/4" × 6" y tuerca mariposa por dentro
+  de la base (desmontable para transportar). 9 agujeros Ø7 cada 25 mm entre 1050 y 1250 mm en la cara que mira al puente.
+- **Brazo D (550 mm)** con 2 pernos 1/4" × 5" y mariposa (uno encima del otro, 25 mm) y **refuerzo E** (300 mm, 45°).
+  Para transportar se sueltan las 2 mariposas de abajo y sale la L completa.
+- **Semáforos:** huecos Ø8 a 2,5 cm de una calle y 3 cm de la otra (los cuatro con el mismo patrón); pitillo ≈ 5,5 cm
+  pintado de negro + módulo LED (altura total ≈ 9 cm). Decoración (casas y árboles) en las zonas verdes, pegada.
+- **Prueba a 1 m (foto del iPhone, 4:3):** se ve toda la tabla con margen y el cruce cae casi en el centro. Pendiente:
+  confirmar el encuadre del **video** con DroidCam.
