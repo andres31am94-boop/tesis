@@ -1974,3 +1974,17 @@ Conteo real hecho a mano por el tutor revisando cada cuadro (`results/vision/pru
 - Foto de prueba a 1 m (modo foto del iPhone): la tabla completa entra en la imagen. Falta verificar el encuadre en
   video con DroidCam y dibujar las zonas reales.
 - Anteproyecto actualizado reconstruido en Word (`docs/anteproyecto/`), con 30 referencias en formato APA 7 de Mendeley.
+
+## 2026-11-17 — Semáforos montados, cableado y prueba visual
+- Los 4 semáforos se montaron en pitillos (≈10 cm de alto) y se cablearon al ESP32. Colores de cada cable registrados
+  en `hardware/esp32/conexiones.md` (no siguen un patrón; cada cable va etiquetado "S1-R", "S1-Y"...).
+- `probar_esp32_obediente.bat`: PRUEBA SUPERADA, 13/13 (latencia orden→OK media 3,0 ms, máx. 5,2 ms; freno SIN_PC
+  a 4,93 s; amarillo de emergencia 3,0 s). Resultado en `results/hardware/prueba_10_5a_obediente.txt`.
+- Nueva **prueba visual repetible** `scripts/probar_semaforos_visual.py` (lanzador `scripts/windows/probar_semaforos_visual.bat`):
+  el PC mantiene cada luz y la persona confirma cada LED. Reporte por prueba en
+  `results/hardware/prueba_visual_semaforos_<fecha>.txt` e historial en `results/hardware/registro_pruebas_semaforos.csv`.
+  Debe repetirse cada vez que se arme o desarme la maqueta.
+- Prueba 17:32: 11/12 LEDs OK; falla el amarillo del S3. Programa de taller `hardware/esp32/prueba_todos_iguales`
+  (todos rojo/amarillo/verde a la vez) confirmó la falla. Al intercambiar los cables de D22 y D23 la falla siguió a
+  la posición de D22; la causa real fue un cable Dupont con la cabeza despegada. Se cambió el cable (sigue en D22).
+- Prueba 18:31 tras la reparación: **12/12 LEDs OK**. Se recargó `semaforo_obediente` en el ESP32.

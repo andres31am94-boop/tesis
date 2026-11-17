@@ -16,6 +16,24 @@
 GND de los 4 módulos → riel GND de la protoboard → pin GND del ESP32.
 Pines de reserva: D4, D16 (RX2).
 
+**Falla del 2026-11-17 (resuelta):** el amarillo del S3 no prendía. Al intercambiar los cables de D22 y D23 la falla siguió a la posición del D22, lo que hizo pensar en el pin; la causa real fue un cable Dupont con la cabeza (conector) despegada. Se cambió el cable y el amarillo quedó en D22. Lección: antes de culpar un pin, revisar que la cabeza de cada cable esté firme. Diagnóstico con `scripts/probar_semaforos_visual.py` y el programa de taller `prueba_todos_iguales`.
+
+## Colores de los cables de cada módulo (registro real, 2026-11-17)
+
+Los colores no siguen un patrón: cada cable lleva una etiqueta de cinta cerca de la punta del ESP32 ("S1-R", "S1-Y", …).
+
+| Semáforo | R → pin | Y → pin | G → pin | GND |
+|---|---|---|---|---|
+| S1 | Rojo → D32 | Rosa → D33 | Amarillo → D25 | Café |
+| S2 | Gris → D26 | Blanco → D27 | Negro → D13 | Morado |
+| S3 | Amarillo → D23 | Verde → D22 | Azul → D21 | Rosa |
+| S4 | Gris → D19 | Blanco → D18 | Negro → D17 | Morado |
+
+Cuidado:
+- En S2 y S4 el cable **negro** es el verde (G), no GND.
+- S2 y S4 usan los mismos colores: si se mezclan sus cables, se cruzan los dos accesos.
+- El rosa es Y en S1 y GND en S3.
+
 ## Pines que NO se usan y por qué
 | Pin | Motivo |
 |---|---|

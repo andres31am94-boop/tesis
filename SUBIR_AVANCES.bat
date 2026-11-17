@@ -4,7 +4,7 @@ cd /d "%~dp0"
 (
 git add -A
 git status --short
-git commit -m "Maqueta armada: planos vigentes (montaje_madera, puntos_semaforos), modelo 3D interactivo, guia y bitacora actualizadas, anteproyecto actualizado" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01NSfkFfRDfUTDbj3sqLx43G"
+git commit -m "Semaforos montados y cableados: prueba visual repetible de los 12 LEDs, programa de taller, colores de cables, metodologia de desarrollo" -m "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>" -m "Claude-Session: https://claude.ai/code/session_01NSfkFfRDfUTDbj3sqLx43G"
 git push
 git log --oneline -1
 ) > results\subir_avances_log.txt 2>&1

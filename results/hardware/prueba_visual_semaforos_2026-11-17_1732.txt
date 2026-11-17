@@ -1,0 +1,44 @@
+Prueba visual de los 4 semaforos (scripts/probar_semaforos_visual.py)
+Fecha: 2026-11-17 17:32
+Puerto: COM4 | Firmware: hardware/esp32/semaforo_obediente
+Nota: -
+
+Semaforo  Acceso          ROJO      AMARILLO  VERDE
+S1        Cra 23 sur      OK        OK        OK        
+S2        Cra 23 norte    OK        OK        OK        
+S3        Dg 15 oeste     OK        FALLA     OK        
+S4        Dg 15 este      OK        OK        OK        
+
+RESULTADO: 1 LED(s) con falla
+  S3 AMARILLO: AMARILLO_DG15: apagado
+Revise el cable de ese LED en hardware/esp32/conexiones.md (colores de cada modulo).
+
+Respuestas una por una:
+  TODO_ROJO       S1 ROJO      OK 
+  TODO_ROJO       S2 ROJO      OK 
+  TODO_ROJO       S3 ROJO      OK 
+  TODO_ROJO       S4 ROJO      OK 
+  VERDE_CRA23     S1 VERDE     OK 
+  VERDE_CRA23     S2 VERDE     OK 
+  VERDE_CRA23     S3 ROJO      OK 
+  VERDE_CRA23     S4 ROJO      OK 
+  AMARILLO_CRA23  S1 AMARILLO  OK 
+  AMARILLO_CRA23  S2 AMARILLO  OK 
+  AMARILLO_CRA23  S3 ROJO      OK 
+  AMARILLO_CRA23  S4 ROJO      OK 
+  VERDE_DG15      S1 ROJO      OK 
+  VERDE_DG15      S2 ROJO      OK 
+  VERDE_DG15      S3 VERDE     OK 
+  VERDE_DG15      S4 VERDE     OK 
+  AMARILLO_DG15   S1 ROJO      OK 
+  AMARILLO_DG15   S2 ROJO      OK 
+  AMARILLO_DG15   S3 AMARILLO  FALLA apagado
+  AMARILLO_DG15   S4 AMARILLO  OK 
+
+Mensajes del ESP32:
+  [37.33 s] OK 37833 VERDE_CRA23
+  [60.01 s] OK 60510 AMARILLO_CRA23
+  [82.15 s] OK 82652 TODO_ROJO
+  [83.2 s] OK 83704 VERDE_DG15
+  [99.79 s] OK 100297 AMARILLO_DG15
+  [155.3 s] OK 155821 TODO_ROJO
