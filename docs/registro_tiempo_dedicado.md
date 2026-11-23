@@ -20,6 +20,13 @@ Este archivo es para el **tiempo de las personas**, que ninguna máquina mide. R
 | Medición del área de la cámara (60/80/100 cm) y videos de prueba | 2026-11-04 | | |
 
 ## B. Desde el 2026-11-05 (anotar cada sesión)
-| Fecha | Actividad | Personas | Horas |
-|---|---|---|---|
-| | | | |
+Filas creadas desde la bitácora el 2026-11-23. **Personas y Horas las completan los autores** (si es de memoria, escribir "aprox.").
+La columna "Evidencia" es lo único que se sabe con certeza por registros.
+
+| Fecha | Actividad | Personas | Horas | Evidencia |
+|---|---|---|---|---|
+| 2026-11-05 | aforo_v9 (escenarios desbalanceados) y lazo en vivo de la maqueta sin ESP32 | | | bitácora 05-11 |
+| 2026-11-09 | Diseño del soporte de la cámara y de la base | | | bitácora 09-11 |
+| 2026-11-10 a 11-13 | Compra y corte de listones; armado de la base, poste, brazo y refuerzo; decoración | | | bitácora 13-11, fotos |
+| 2026-11-13 a 11-16 | Anteproyecto actualizado (Word, referencias APA) y metodología de desarrollo | | | bitácora 13-11, docs/ |
+| 2026-11-17 | Semáforos en pitillos, cableado, pruebas del ESP32 y prueba visual; arreglo del cable del S3 | | | actividad en el PC 17:26–18:36 (parcial: no cuenta el trabajo manual) |

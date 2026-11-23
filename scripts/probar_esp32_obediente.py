@@ -24,6 +24,9 @@ CARPETA_TESIS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(CARPETA_TESIS))  # para importar src.*
 
 from src.communication.esp32_serial import ConexionESP32  # noqa: E402
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
+registrar_ejecucion()   # agrega una fila a results/registro_computo.csv al terminar
 
 SECUENCIA_NORMAL = [("VERDE_DG15", 5), ("AMARILLO_DG15", 3), ("TODO_ROJO", 3),
                     ("VERDE_CRA23", 5), ("AMARILLO_CRA23", 3), ("VERDE_DG15", 3)]

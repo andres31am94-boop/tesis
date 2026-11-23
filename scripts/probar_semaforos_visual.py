@@ -28,6 +28,9 @@ CARPETA_TESIS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(CARPETA_TESIS))  # para importar src.*
 
 from src.communication.esp32_serial import ConexionESP32  # noqa: E402
+from src.common.registro_computo import registrar_ejecucion  # noqa: E402
+
+registrar_ejecucion()   # agrega una fila a results/registro_computo.csv al terminar
 
 CARPETA_RESULTADOS = CARPETA_TESIS / "results" / "hardware"
 REGISTRO_CSV = CARPETA_RESULTADOS / "registro_pruebas_semaforos.csv"

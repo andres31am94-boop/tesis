@@ -1,21 +1,33 @@
-# Zonas de camara de la maqueta (Fase 8): un poligono por brazo, en coordenadas NORMALIZADAS de la imagen
+# Zonas de camara de la MAQUETA (Fase 8), version 2026-11-23: un poligono por brazo, en coordenadas NORMALIZADAS
 # (x = fraccion del ancho, y = fraccion del alto; 0,0 = esquina superior izquierda).
-# Cada zona cubre SOLO el carril que llega al cruce, desde la linea de pare hacia atras (igual que la zona de
-# camara de SUMO). PROVISIONAL: se define sobre la foto del cruce de prueba con la camara fija; si la camara se
-# mueve, hay que volver a definirlas. Verificar dibujandolas: scripts/ver_zonas.py
-imagen_referencia: data/raw/hotwheels/cruce_prueba_8carros_b.jpg   # cruce provisional en el piso (2026-11-02), 1512x2016
-# Orientacion (definida por los autores, 2026-11-02): la calle HORIZONTAL de la foto es la Cra 23 -> brazo
-# derecho (donde estan los carros) = norte, brazo izquierdo = sur. La calle VERTICAL es la Dg 15 -> arriba = este,
-# abajo = oeste (asignacion arbitraria: el agente decide por EJE, asi que da igual cual sea cual).
-# Cada zona cubre los DOS carriles del brazo, desde la linea de pare hasta el borde de la calle (en la maqueta los
-# carros que llegan pueden usar ambos carriles; los que salen del cruce atraviesan la zona del brazo opuesto en
-# movimiento y no cuentan como detenidos).
+# Camara: iPhone con DroidCam, camara virtual por Media Foundation (indice 1, backend msmf), 1920x1080, ~30 cuadros/s,
+# lente a ~1 m, celular sujeto al brazo. Si la camara se mueve, hay que volver a dibujar las zonas.
+# Imagen de referencia (tomada con scripts/listar_camaras.py, tabla vacia). Coordenadas en pixeles medidas sobre ella:
+imagen_referencia: data/raw/maqueta/referencia_camara_2026-11-23.jpg
+# Orientacion (autores, 2026-11-23): calle HORIZONTAL = Cra 23 (derecha = norte, donde la calle se angosta hacia el
+# puente; izquierda = sur). Calle VERTICAL = Dg 15 (arriba = este, abajo = oeste, convencion anterior).
+# Cada zona cubre SOLO los carriles que LLEGAN al cruce (lado de la linea de pare), desde la linea de pare hasta el
+# borde visible: igual que la zona de camara de SUMO (2 carriles de llegada por brazo). Los carros que salen del cruce
+# no se cuentan. (Cambio frente a la version provisional del piso, que cubria la calle completa.)
+#   norte: x 1157 (pare) -> 1730 (borde de la tabla); y 395-560 cerca del cruce; despues del angostamiento (x>1430)
+#          solo 1 carril de llegada, y 485-582 (puente).
+#   sur:   x 180 (borde) -> 767 (pare); y de la linea amarilla (545-560) a 712.
+#   este:  y 0 (borde de la imagen) -> 360 (pare); x 800 -> linea amarilla (978-966).
+#   oeste: y 748 (pare) -> 1080 (borde de la imagen); x linea amarilla (957-945) -> 1124.
 zonas:
-  norte: [[0.583, 0.512], [0.967, 0.512], [0.967, 0.603], [0.583, 0.603]]   # Cra 23, derecha de la imagen
-  sur:   [[0.000, 0.511], [0.380, 0.511], [0.380, 0.600], [0.000, 0.600]]   # Cra 23, izquierda
-  este:  [[0.423, 0.207], [0.537, 0.207], [0.537, 0.481], [0.423, 0.481]]   # Dg 15, arriba
-  oeste: [[0.417, 0.634], [0.537, 0.634], [0.537, 0.975], [0.417, 0.975]]   # Dg 15, abajo
+  norte: [[0.603, 0.366], [0.719, 0.366], [0.745, 0.449], [0.901, 0.449], [0.901, 0.539], [0.603, 0.519]]
+  sur:   [[0.094, 0.505], [0.399, 0.519], [0.399, 0.659], [0.094, 0.657]]
+  este:  [[0.417, 0.000], [0.509, 0.000], [0.503, 0.333], [0.417, 0.333]]
+  oeste: [[0.498, 0.693], [0.585, 0.693], [0.585, 1.000], [0.492, 1.000]]
 deteccion_detenido:
   ventana_s: 1.0               # debe estar quieto al menos este tiempo
   umbral_movimiento: 0.01      # desplazamiento maximo en la ventana (fraccion del lado mayor de la imagen)
 punto_referencia: centro       # "centro" de la caja (camara cenital) o "base" (camara inclinada)
+# CAPACIDAD de cada brazo = carros que caben en fila en los carriles que llegan, DENTRO de la imagen.
+# Medida con Hot Wheels en la maqueta (2026-11-23, data/raw/maqueta/carros_en_fila*.jpg), escala 14,1 px/cm:
+#   este:  3 por carril x 2 = 6 (medido; el 3.o queda pegado al borde de la imagen)
+#   oeste: 3 por carril x 2 = 6 (medido; el 3.o se ve cortado en el borde, pero su centro cae dentro de la zona)
+#   sur:   4 por carril x 2 = 8 (medido: carril de arriba con 3 y espacio para 1; abajo 2 y espacio para 2)
+#   norte: 4 en el carril exterior (medido, de la linea de pare al borde) + 2 en el interior cerca del cruce
+#          (estimado: despues del angostamiento llega un solo carril) = 6
+capacidad_carros: {norte: 6, sur: 8, este: 6, oeste: 6}

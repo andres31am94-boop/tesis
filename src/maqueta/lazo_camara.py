@@ -15,7 +15,7 @@ Uso (desde la carpeta tesis):
   .\\.venv\\Scripts\\python.exe -m src.maqueta.lazo_camara --fuente data\\raw\\hotwheels\\prueba_alturas\\un_metro.MOV ^
         --zonas config\\zonas_prueba_1m.yaml --duracion_s 120 --repetir
   # maqueta: camara 0 (o la que corresponda), ESP32 en COM4, mostrando la imagen
-  .\\.venv\\Scripts\\python.exe -m src.maqueta.lazo_camara --fuente 0 --zonas config\\zonas_camara.yaml --puerto COM4 --mostrar
+  .\\.venv\\Scripts\\python.exe -m src.maqueta.lazo_camara --fuente 1 --zonas config\\zonas_camara.yaml --puerto COM4 --mostrar
   opciones: --controlador qlearning|tiempos_fijos  --modelo aforo_v9  --conf 0.40  --grabar (guarda el video anotado)
 Salida: results/maqueta/lazo/<fecha_hora>_<controlador>/ (por_segundo.csv, cambios.csv, resumen.json, lazo.mp4)
 """
@@ -70,12 +70,16 @@ def crear_controlador(nombre, modelo, config_interseccion):
     return ControladorTiemposFijos.desde_config(config_controlador, guard), guard, None
 
 
-def abrir_fuente(fuente):
+BACKENDS = {"msmf": cv2.CAP_MSMF, "dshow": cv2.CAP_DSHOW}
+
+
+def abrir_fuente(fuente, backend="msmf"):
     es_camara = fuente.isdigit()
     if es_camara:
-        # DirectShow: backend que usan las camaras virtuales de Windows (iPhone como camara web). Se pide 1920x1080,
-        # la misma proporcion 16:9 del video con que se midio el area visible (102 x 68 cm a 1 m).
-        captura = cv2.VideoCapture(int(fuente), cv2.CAP_DSHOW)
+        # Motor de video de Windows: con DroidCam Client (2026-11-23) la imagen real solo llega por Media Foundation
+        # (msmf, indice 1); por DirectShow da un cuadro de "cargando". Ver scripts/listar_camaras.py.
+        # Se pide 1920x1080 (16:9), la resolucion con que se dibujaron las zonas (config/zonas_camara.yaml).
+        captura = cv2.VideoCapture(int(fuente), BACKENDS[backend])
         captura.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)
         captura.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080)
     else:
@@ -97,6 +101,8 @@ def main():
     registrar_ejecucion()
     parser = argparse.ArgumentParser(description="Lazo en vivo de la maqueta: camara -> agente -> ESP32")
     parser.add_argument("--fuente", required=True, help="indice de camara (0, 1, ...) o ruta a un video")
+    parser.add_argument("--backend", default="msmf", choices=list(BACKENDS),
+                        help="motor de video de Windows para camaras (msmf = Media Foundation, dshow = DirectShow)")
     parser.add_argument("--zonas", required=True, help="yaml con zonas y capacidad_carros")
     parser.add_argument("--pesos", default=str(PESOS_POR_DEFECTO))
     parser.add_argument("--controlador", default="qlearning", choices=["qlearning", "tiempos_fijos"])
@@ -126,7 +132,7 @@ def main():
                 predictor.results[i] = resultado[nms(resultado.boxes.xyxy, resultado.boxes.conf, argumentos.nms_iou)]
     modelo_yolo.add_callback("on_predict_postprocess_end", quitar_duplicados)
 
-    captura, es_camara = abrir_fuente(argumentos.fuente)
+    captura, es_camara = abrir_fuente(argumentos.fuente, argumentos.backend)
     fps_video = captura.get(cv2.CAP_PROP_FPS) or 30.0
     nombre_corrida = f"{datetime.now():%Y%m%d_%H%M%S}_{argumentos.controlador}"
     carpeta = CARPETA_TESIS / "results" / "maqueta" / "lazo" / nombre_corrida

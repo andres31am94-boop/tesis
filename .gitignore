@@ -62,3 +62,6 @@ results/vision/prueba_alturas/**/*.jpg
 
 # Copias que deja la app de Claude al entregar archivos (duplicados; los originales estan en hardware/ y scripts/)
 Claude outputs/
+
+# Cuadros de prueba de TODAS las camaras del PC (la camara 0 es la del portatil: sale la persona). Se quedan en el PC.
+results/maqueta/camaras/*.jpg

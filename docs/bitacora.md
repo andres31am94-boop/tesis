@@ -1988,3 +1988,45 @@ Conteo real hecho a mano por el tutor revisando cada cuadro (`results/vision/pru
   (todos rojo/amarillo/verde a la vez) confirmó la falla. Al intercambiar los cables de D22 y D23 la falla siguió a
   la posición de D22; la causa real fue un cable Dupont con la cabeza despegada. Se cambió el cable (sigue en D22).
 - Prueba 18:31 tras la reparación: **12/12 LEDs OK**. Se recargó `semaforo_obediente` en el ESP32.
+
+## 2026-11-23 — Cámara de la maqueta y zonas de conteo reales
+- Celular (iPhone con DroidCam) sujeto al brazo con cinta, a ~1 m; cruce centrado en la imagen (se corrió ~7 cm).
+  Pendiente: cambiar la cinta por el tornillo de 1/4" y marcar la posición en el brazo.
+- `scripts/listar_camaras.py` ahora prueba los dos motores de video de Windows. Resultado: la imagen de DroidCam solo
+  llega por **Media Foundation (msmf), índice 1, 1920×1080, ~30 cuadros/s**; por DirectShow da un cuadro de "cargando".
+  `src/maqueta/lazo_camara.py` tiene la opción `--backend` (por defecto msmf). Los cuadros de prueba de todas las
+  cámaras quedan fuera de GitHub (`.gitignore`: la cámara 0 es la del portátil).
+- Sombras de los semáforos en el cruce (luces del techo): decisión de los autores, entrenar y evaluar con esa luz porque
+  la sustentación tendrá luz desde arriba.
+- Zonas nuevas en `config/zonas_camara.yaml` sobre `data/raw/maqueta/referencia_camara_2026-11-23.jpg` (la versión del
+  piso se guardó como `zonas_camara_provisional_piso_2026-11-02.yaml`). Cra 23 horizontal (derecha = norte, puente),
+  Dg 15 vertical (arriba = este). Cada zona cubre solo los carriles que llegan, desde la línea de pare (igual que SUMO).
+  Escala medida: 14,1 px/cm. Capacidad medida con carros en fila: norte 6 (2 de ellos estimados), sur 8, este 6, oeste 6 (se habia estimado 4).
+  Verificación visual: `results/vision/zonas/zonas_maqueta_2026-11-23.jpg`.
+- **Prueba con la tabla vacía** (`PROBAR_TABLA_VACIA.bat`, 60 s, cámara 1 msmf, hotwheels_v2 conf 0,40, luz del techo con
+  sombras de los semáforos): **0 carros en las 4 zonas durante los 60 s** (`results/maqueta/lazo/20261123_163709_qlearning/`).
+  Rendimiento medido en el PC (CPU): 315 cuadros procesados, mediana 111 ms por cuadro (~9 cuadros/s procesados de 30).
+  El agente aforo_v9 vio colas vacías y alternó fases dentro de los límites de la capa de seguridad, sin usar respaldo.
+- **Primera prueba de conteo con carros quietos** (`PROBAR_CONTEO_ZONAS.bat`, 30 s, `results/maqueta/lazo/20261123_164240_qlearning/`).
+  Conteo manual de los autores: norte 3, sur 2, este 1, oeste 1, más 1 carro en el centro del cruce (fuera de zonas).
+  YOLO (segundos 2–30, estable): norte **2**, sur 2, este 1, oeste 1; el carro del centro no se contó (correcto).
+  Error: 1 de 7 carros en zonas (norte). Causa vista en el video anotado: un carro azul oscuro del norte no se detectó.
+  Además, YOLO marcó como "Car" (conf 0,51–0,80) varias **casas de la decoración**; caen fuera de las zonas y no
+  afectan el conteo, pero muestran que hotwheels_v2 no conoce la maqueta. Es una sola escena estática con 8 carros:
+  no basta para medir la precisión; se medirá con el protocolo después de reentrenar YOLO con imágenes de la maqueta
+  (casas como fondo, carros oscuros, sombras del techo). Cuadro anotado: `results/vision/zonas/conteo_zonas_2026-11-23.jpg`.
+- **Grabación para reentrenar YOLO, sesión A (entrenamiento)** con `GRABAR_MAQUETA.bat` (`scripts/grabar_maqueta.py`),
+  cámara 1 msmf 1920×1080. Videos en `data/raw/maqueta/videos/sesion_A/` (fuera de GitHub: salen manos y cabeza).
+  | Escena | Duración | Cuadros | Cuadros/s | Carros | Luz |
+  |---|---|---|---|---|---|
+  | vacia | 30 s | 893 | 29,77 | 0 | techo |
+  | cola_cra23 | 120 s | 3600 | 30,00 | 9 | techo |
+  | cola_dg15 | 120 s | 3590 | 29,91 | 9 | techo |
+  | mixto | 180 s | 5400 | 30,00 | 9 | techo |
+  | oscuros | 120 s | 3600 | 30,00 | 6 | techo |
+  | manos | 60 s | 1797 | 29,95 | 4 | techo |
+  | otra_luz | 120 s | 3513 | 29,27 | 9 | techo + lámpara izquierda |
+  Total: 750 s, 22 393 cuadros, 595 MB. Estabilidad de la cámara (correlación de fase contra la escena vacía):
+  desplazamiento máximo 2,1 px (≈0,15 cm) durante la sesión → las zonas siguen válidas. Muestras:
+  `results/vision/zonas/sesion_A_muestras.jpg` (fuera de GitHub).
+  Pendiente: sesión B (validación) otro día o con otra disposición; extraer cuadros, pre-etiquetar y corregir.

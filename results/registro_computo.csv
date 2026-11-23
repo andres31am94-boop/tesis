@@ -2,3 +2,20 @@ inicio,fin,segundos,script,argumentos,equipo,estado
 2026-11-05T22:26:44,2026-11-05T22:26:44,0.5,analizar_validacion_v9.py,,claude,ok
 2026-11-05T22:27:09,2026-11-05T22:27:10,1.8,resumen_computo.py,,claude,ok
 2026-11-05T22:27:33,2026-11-05T22:27:35,2.0,resumen_computo.py,,claude,ok
+2026-11-17T17:27:25,2026-11-17T17:28:25,60.0,probar_esp32_obediente.py,--puerto COM4 (fila agregada a mano desde el log),pc_autores,ok
+2026-11-17T17:32:00,2026-11-17T17:35:22,202.0,probar_semaforos_visual.py,--puerto COM4 (a mano; incluye el tiempo de respuesta de la persona; 11/12 LEDs),pc_autores,ok
+2026-11-17T18:31:00,2026-11-17T18:34:07,187.0,probar_semaforos_visual.py,--puerto COM4 (a mano; incluye el tiempo de respuesta de la persona; 12/12 LEDs),pc_autores,ok
+2026-11-23T16:08:49,2026-11-23T16:09:00,10.8,listar_camaras.py,,JAMB,ok
+2026-11-23T16:16:13,2026-11-23T16:16:25,12.3,listar_camaras.py,,JAMB,ok
+2026-11-23T16:19:20,2026-11-23T16:19:45,25.4,listar_camaras.py,,JAMB,ok
+2026-11-23T16:28:24,2026-11-23T16:28:48,24.6,listar_camaras.py,,JAMB,ok
+2026-11-23T16:33:01,2026-11-23T16:33:27,25.7,listar_camaras.py,,JAMB,ok
+2026-11-23T16:37:08,2026-11-23T16:38:09,61.3,lazo_camara.py,--fuente 1 --zonas config\zonas_camara.yaml --duracion_s 60 --grabar,JAMB,ok
+2026-11-23T16:42:39,2026-11-23T16:43:10,31.4,lazo_camara.py,--fuente 1 --zonas config\zonas_camara.yaml --duracion_s 30 --grabar,JAMB,ok
+2026-11-23T16:50:10,2026-11-23T16:53:11,180.1,grabar_maqueta.py,,JAMB,ok
+2026-11-23T16:54:42,2026-11-23T16:58:33,231.1,grabar_maqueta.py,,JAMB,ok
+2026-11-23T16:59:55,2026-11-23T17:02:40,165.6,grabar_maqueta.py,,JAMB,ok
+2026-11-23T17:03:49,2026-11-23T17:07:33,223.9,grabar_maqueta.py,,JAMB,ok
+2026-11-23T17:08:28,2026-11-23T17:11:22,173.6,grabar_maqueta.py,,JAMB,ok
+2026-11-23T17:15:21,2026-11-23T17:16:48,87.5,grabar_maqueta.py,,JAMB,ok
+2026-11-23T17:18:27,2026-11-23T17:21:36,188.3,grabar_maqueta.py,,JAMB,ok

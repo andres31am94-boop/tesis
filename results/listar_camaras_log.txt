@@ -1,0 +1,21 @@
+camara 0 (dshow): 1280x720, ~15 cuadros/s -> C:\Users\andre\Documents\tesis\results\maqueta\camaras\camara_dshow_0.jpg
+[ WARN:0@6.212] global cap.cpp:456 cv::VideoCapture::open VIDEOIO(DSHOW): raised unknown C++ exception!
+
+
+[ WARN:0@6.213] global cap.cpp:477 cv::VideoCapture::open VIDEOIO(DSHOW): backend is generally available but can't be used to capture by index
+camara 1 (dshow): no disponible
+camara 2 (dshow): 1280x720, ~31 cuadros/s -> C:\Users\andre\Documents\tesis\results\maqueta\camaras\camara_dshow_2.jpg
+camara 3 (dshow): 1920x1080, ~57 cuadros/s -> C:\Users\andre\Documents\tesis\results\maqueta\camaras\camara_dshow_3.jpg
+[ WARN:0@12.063] global cap.cpp:477 cv::VideoCapture::open VIDEOIO(DSHOW): backend is generally available but can't be used to capture by index
+camara 4 (dshow): no disponible
+[ WARN:0@12.103] global cap.cpp:477 cv::VideoCapture::open VIDEOIO(DSHOW): backend is generally available but can't be used to capture by index
+camara 5 (dshow): no disponible
+camara 0 (msmf): 1280x720, ~32 cuadros/s -> C:\Users\andre\Documents\tesis\results\maqueta\camaras\camara_msmf_0.jpg
+camara 1 (msmf): 1920x1080, ~30 cuadros/s -> C:\Users\andre\Documents\tesis\results\maqueta\camaras\camara_msmf_1.jpg
+camara 2 (msmf): 1280x720, ~30 cuadros/s -> C:\Users\andre\Documents\tesis\results\maqueta\camaras\camara_msmf_2.jpg
+[ WARN:0@25.547] global cap.cpp:477 cv::VideoCapture::open VIDEOIO(MSMF): backend is generally available but can't be used to capture by index
+camara 3 (msmf): no disponible
+[ WARN:0@25.642] global cap.cpp:477 cv::VideoCapture::open VIDEOIO(MSMF): backend is generally available but can't be used to capture by index
+camara 4 (msmf): no disponible
+[ WARN:0@25.722] global cap.cpp:477 cv::VideoCapture::open VIDEOIO(MSMF): backend is generally available but can't be used to capture by index
+camara 5 (msmf): no disponible
